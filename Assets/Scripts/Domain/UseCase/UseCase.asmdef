@@ -1,0 +1,18 @@
+{
+    "name": "UseCase",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0a371ff60b63170ea978f46c5d6f6efa",
+        "GUID:b3832c9385588f0b18fa27700937b34f",
+        "GUID:f1052dff81777ca1197906223025d0ca"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
