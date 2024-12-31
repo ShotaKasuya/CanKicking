@@ -1,8 +1,8 @@
-using Adapter.IView.Player;
+using Adapter.IView.InGame.Player;
 using Module.ImmutableClass;
 using UnityEngine;
 
-namespace Detail.View.Player
+namespace Detail.View.InGame.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerView : MonoBehaviour, IMutPlayerView

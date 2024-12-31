@@ -1,7 +1,7 @@
 using Module.ImmutableClass;
 using UnityEngine;
 
-namespace Adapter.IView.Player
+namespace Adapter.IView.InGame.Player
 {
     public interface IPlayerView
     {

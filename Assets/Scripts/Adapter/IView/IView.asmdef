@@ -2,7 +2,8 @@
     "name": "IView",
     "rootNamespace": "",
     "references": [
-        "Module"
+        "Module",
+        "DataUtil"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

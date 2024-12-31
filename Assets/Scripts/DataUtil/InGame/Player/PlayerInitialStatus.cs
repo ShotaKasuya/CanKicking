@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DataUtil.Player
+namespace DataUtil.InGame.Player
 {
     /// <summary>
     /// プレイヤーのベースとなる初期ステータスを定義する
