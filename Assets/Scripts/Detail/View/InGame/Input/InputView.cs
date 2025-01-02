@@ -1,5 +1,6 @@
 using Adapter.IView.Finger;
 using DataUtil.Util;
+using DataUtil.Util.Input;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -16,6 +17,7 @@ namespace Detail.View.InGame.Input
             ()
         {
             var inputActions = new InputSystem_Actions();
+            inputActions.Enable();
 
             PlayerInputActions = inputActions.Player;
         }

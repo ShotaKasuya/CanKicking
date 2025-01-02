@@ -37,6 +37,15 @@ namespace Detail.View.InGame.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Touch"",
+                    ""type"": ""Value"",
+                    ""id"": ""7bc7f0e9-cdd2-4391-b1df-f8546cd821df"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -46,8 +55,19 @@ namespace Detail.View.InGame.Input
                     ""path"": ""<Touchscreen>/primaryTouch"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
                     ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""137bb83f-24b6-4743-91e0-e491ec581dbb"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Touch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -636,6 +656,7 @@ namespace Detail.View.InGame.Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
+            m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -716,11 +737,13 @@ namespace Detail.View.InGame.Input
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Click;
+        private readonly InputAction m_Player_Touch;
         public struct PlayerActions
         {
             private @InputSystem_Actions m_Wrapper;
             public PlayerActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Click => m_Wrapper.m_Player_Click;
+            public InputAction @Touch => m_Wrapper.m_Player_Touch;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -733,6 +756,9 @@ namespace Detail.View.InGame.Input
                 @Click.started += instance.OnClick;
                 @Click.performed += instance.OnClick;
                 @Click.canceled += instance.OnClick;
+                @Touch.started += instance.OnTouch;
+                @Touch.performed += instance.OnTouch;
+                @Touch.canceled += instance.OnTouch;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -740,6 +766,9 @@ namespace Detail.View.InGame.Input
                 @Click.started -= instance.OnClick;
                 @Click.performed -= instance.OnClick;
                 @Click.canceled -= instance.OnClick;
+                @Touch.started -= instance.OnTouch;
+                @Touch.performed -= instance.OnTouch;
+                @Touch.canceled -= instance.OnTouch;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -923,6 +952,7 @@ namespace Detail.View.InGame.Input
         public interface IPlayerActions
         {
             void OnClick(InputAction.CallbackContext context);
+            void OnTouch(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

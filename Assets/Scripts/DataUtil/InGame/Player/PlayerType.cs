@@ -5,10 +5,4 @@ namespace DataUtil.InGame.Player
         CanMove,
         Frying,
     }
-
-    public enum ClickType
-    {
-        OnClick,
-        OnRelease,
-    }
 }

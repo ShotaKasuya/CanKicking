@@ -1,11 +1,16 @@
-namespace DataUtil.Util
+namespace DataUtil.Util.Input
 {
     /// <summary>
     /// 存在する意味はあまりないが、
-    /// InputSystemのasmdefをいろいろなところに置きたくない
+    /// InputSystemのasmdefへの参照をいろいろなところに置きたくない
     /// </summary>
     public enum InputPhaseType
     {
+        /// <summary>
+        /// 初期レコード
+        /// まだ入力がされていない状態
+        /// </summary>
+        None,
         /// <summary>
         /// タッチが検出されたとき
         /// </summary>

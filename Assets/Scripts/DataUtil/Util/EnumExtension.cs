@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using DataUtil.Util.Input;
 using UnityEngine.InputSystem;
 
 namespace DataUtil.Util
@@ -11,6 +12,7 @@ namespace DataUtil.Util
         {
             return type switch
             {
+                TouchPhase.None => InputPhaseType.None,
                 TouchPhase.Began => InputPhaseType.OnTouch,
                 TouchPhase.Moved => InputPhaseType.Moving,
                 TouchPhase.Stationary => InputPhaseType.Staying,
