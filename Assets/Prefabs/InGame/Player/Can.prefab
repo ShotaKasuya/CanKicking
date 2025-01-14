@@ -176,9 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f83628e50fdd48d791225c930521aab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInitialStatus:
-    kickPower: 0
-    kickableUpperLimit: 0
+  playerStatusDataObject: {fileID: 11400000, guid: 5549b9f98213d69328ce457f601a1e56, type: 2}
 --- !u!114 &2155718183296470311
 MonoBehaviour:
   m_ObjectHideFlags: 0

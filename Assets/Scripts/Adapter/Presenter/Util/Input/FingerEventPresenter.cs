@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Adapter.Presenter.Util.Input
 {
-    public class FingerEventPresenter: IFingerReleaseEventPresenter, ITickable
+    public class FingerEventPresenter: IFingerReleaseEventPresenter, IFingerTouchEventPresenter, IFingerTouchingEventPresenter, ITickable
     {
         public FingerEventPresenter
         (
@@ -17,21 +17,25 @@ namespace Adapter.Presenter.Util.Input
         {
             FingerView = fingerView;
         }
+        private InputPhaseType _currentPhase  = InputPhaseType.None;
         
+        public Action<FingerTouchEventArg> TouchEvent { get; set; }
+        public Action<FingerTouchingEventArg> TouchingEvent { get; set; }
         public Action<FingerReleaseEventArg> ReleaseEvent { get; set; }
         public void Tick(float deltaTime)
         {
-            var phase = FingerView.CursorPhaseType;
+            var newPhase = FingerView.CursorPhaseType;
 
-            if (phase == _prevPhase)
+            if (newPhase == _currentPhase)
             {
                 return;
             }
-            switch (phase)
+            switch (newPhase)
             {
                 case InputPhaseType.OnTouch:
                 {
                     _onTouchPosition = FingerView.CursorPosition;
+                    TouchEvent.Invoke(BuildTouchEventArg());
                     break;
                 }
                 case InputPhaseType.OnRelease:
@@ -39,11 +43,29 @@ namespace Adapter.Presenter.Util.Input
                     ReleaseEvent.Invoke(BuildReleaseEventArg());
                     break;
                 }
+                case InputPhaseType.Moving or InputPhaseType.Staying:
+                {
+                    TouchingEvent.Invoke(BuildTouchingEventArg());
+                    break;
+                }
             }
 
-            _prevPhase = phase;
+            _currentPhase = newPhase;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private FingerTouchEventArg BuildTouchEventArg()
+        {
+            var touchPosition = _onTouchPosition;
+            return new FingerTouchEventArg(touchPosition);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private FingerTouchingEventArg BuildTouchingEventArg()
+        {
+            var cursorPosition = FingerView.CursorPosition;
+            return new FingerTouchingEventArg(cursorPosition);
+        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private FingerReleaseEventArg BuildReleaseEventArg()
         {
@@ -53,7 +75,6 @@ namespace Adapter.Presenter.Util.Input
         }
 
         private Vector2 _onTouchPosition;
-        private InputPhaseType _prevPhase = InputPhaseType.None;
         private IFingerView FingerView { get; }
     }
 }

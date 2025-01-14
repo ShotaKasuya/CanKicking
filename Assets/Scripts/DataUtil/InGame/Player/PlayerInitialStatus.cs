@@ -15,4 +15,31 @@ namespace DataUtil.InGame.Player
         [SerializeField] private float kickPower;
         [SerializeField] private float kickableUpperLimit;
     }
+
+    [Serializable]
+    public class KickPowerData
+    {
+        [SerializeField] private KickPower[] kickPowers;
+
+        public int MaxLevel()
+        {
+            return kickPowers.Length;
+        }
+        public KickPower GetPower(int level)
+        {
+            if (kickPowers.Length <= level)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            return kickPowers[level];
+        }
+    }
+
+    [Serializable]
+    public struct KickPower
+    {
+        public float MaxPower => maxPower;
+
+        [SerializeField] private float maxPower;
+    }
 }

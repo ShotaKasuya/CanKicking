@@ -1,3 +1,4 @@
+using System;
 using Adapter.IView.Finger;
 using DataUtil.Util;
 using DataUtil.Util.Input;
@@ -11,7 +12,7 @@ namespace Detail.View.InGame.Input
     /// インプットシステムのラッパ
     /// 生成コードにインターフェースをつけれないので
     /// </summary>
-    public class InputView : IFingerView
+    public class InputView : IFingerView, IDisposable
     {
         public InputView
             ()
@@ -20,6 +21,7 @@ namespace Detail.View.InGame.Input
             inputActions.Enable();
 
             PlayerInputActions = inputActions.Player;
+            UIActions = inputActions.UI;
         }
 
         public InputPhaseType CursorPhaseType => ReadTouchState.phase.Conversion();
@@ -31,5 +33,12 @@ namespace Detail.View.InGame.Input
         // todo: キャッシュしたほうがいいかも?
         private TouchState ReadTouchState => PlayerInputActions.Click.ReadValue<TouchState>();
         private InputSystem_Actions.PlayerActions PlayerInputActions { get; }
+        private InputSystem_Actions.UIActions UIActions { get; }
+
+        public void Dispose()
+        {
+            PlayerInputActions.Disable();
+            UIActions.Disable();
+        }
     }
 }

@@ -4,6 +4,8 @@ namespace Domain.IRepository.InGame.Player
     
     public interface IMutKickPowerRepository: IKickPowerRepository
     {
+        const float Min = 0;
+        const float Max = 1;
         public void SetPower(float power);
     }
     

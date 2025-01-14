@@ -1,3 +1,4 @@
+using Adapter.IDataStore.InGame.Player;
 using Domain.IRepository.InGame.Player;
 
 namespace Adapter.Repository.InGame.Player
@@ -6,9 +7,13 @@ namespace Adapter.Repository.InGame.Player
     {
         public PlayerStatusRepository
         (
-            
+            IPlayerKickStatusDataStore kickStatusDataStore
         )
         {
+            var status = kickStatusDataStore.LoadKickStatus(0);
+
+            _kickBasePower = status.KickBasePower;
+            _kickMaxPower = status.KickMaxPower;
         }
 
         public float KickBasePower => _kickBasePower;
@@ -23,7 +28,7 @@ namespace Adapter.Repository.InGame.Player
             _kickMaxPower = power;
         }
 
-        private float _kickBasePower = 5;
-        private float _kickMaxPower = 10;
+        private float _kickBasePower;
+        private float _kickMaxPower;
     }
 }
