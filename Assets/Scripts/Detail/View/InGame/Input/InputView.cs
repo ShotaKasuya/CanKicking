@@ -2,8 +2,9 @@ using System;
 using Adapter.IView.Finger;
 using DataUtil.Util;
 using DataUtil.Util.Input;
+using DataUtil.Util.Installer;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
+using TouchState = UnityEngine.InputSystem.LowLevel.TouchState;
 
 namespace Detail.View.InGame.Input
 {
@@ -12,7 +13,7 @@ namespace Detail.View.InGame.Input
     /// インプットシステムのラッパ
     /// 生成コードにインターフェースをつけれないので
     /// </summary>
-    public class InputView : IFingerView, IDisposable
+    public class InputView : IFingerView, ITickable, IDisposable
     {
         public InputView
             ()
@@ -23,14 +24,19 @@ namespace Detail.View.InGame.Input
             PlayerInputActions = inputActions.Player;
             UIActions = inputActions.UI;
         }
+        
+        public void Tick(float deltaTime)
+        {
+            var input = ReadTouchState;
+            TouchState = new DataUtil.Util.Input.TouchState(input);
+        }
 
+        public DataUtil.Util.Input.TouchState TouchState { get; private set; }
         public InputPhaseType CursorPhaseType => ReadTouchState.phase.Conversion();
         public Vector2 CursorPosition => ReadTouchState.position;
         public Vector2 CurrentDelta => ReadTouchState.delta;
         public int TapCount => ReadTouchState.tapCount;
 
-        
-        // todo: キャッシュしたほうがいいかも?
         private TouchState ReadTouchState => PlayerInputActions.Click.ReadValue<TouchState>();
         private InputSystem_Actions.PlayerActions PlayerInputActions { get; }
         private InputSystem_Actions.UIActions UIActions { get; }

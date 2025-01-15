@@ -1,6 +1,4 @@
 using System;
-using DataUtil.InGame.Player;
-using DataUtil.Util.Input;
 using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.Util.Input;
 using Domain.IRepository.InGame.Player;
@@ -25,19 +23,20 @@ namespace Domain.UseCase.InGame.Player
             ReleaseEventPresenter.ReleaseEvent += OnKick;
         }
 
+        private const float BaseKickPower = 1;
+
         private void OnKick(FingerReleaseEventArg eventArg)
         {
             // todo filter event
 
             // todo calc power
-            var currentPower = KickPowerRepository.CurrentPower;
+            var currentPower = KickPowerRepository.CurrentPower + BaseKickPower;
             var kickVector = -eventArg.FingerDelta.normalized;  // 引っ張って飛ばすため、向きを反転させる
 
             var power = KickStatusRepository.KickBasePower + KickStatusRepository.KickMaxPower * currentPower;
-            var kickPower = kickVector * power;
             var torque = kickVector.x;
 
-            var kickArg = new KickArg(kickPower, torque);
+            var kickArg = new KickArg(power, kickVector, torque);
             KickPresenter.Kick(kickArg);
         }
 

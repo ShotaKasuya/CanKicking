@@ -177,6 +177,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatusDataObject: {fileID: 11400000, guid: 5549b9f98213d69328ce457f601a1e56, type: 2}
+  kickRandomConfig:
+    speed: 1
 --- !u!114 &2155718183296470311
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,4 +32,12 @@ namespace DataUtil.Util.Input
         /// </summary>
         SystemCanceled,
     }
+
+    public static class InputExtension
+    {
+        public static bool IsEvent(this InputPhaseType inputPhase)
+        {
+            return inputPhase is InputPhaseType.OnTouch or InputPhaseType.OnRelease;
+        }
+    }
 }

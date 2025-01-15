@@ -13,12 +13,15 @@ namespace Domain.IPresenter.Util.Input
     {
         public FingerTouchingEventArg
         (
-            Vector2 touchPosition
+            Vector2 startPosition,
+            Vector2 currentTouchPosition
         )
         {
-            TouchPosition = touchPosition;
+            StartPosition = startPosition;
+            CurrentTouchPosition = currentTouchPosition;
         }
 
-        public Vector2 TouchPosition { get; }
+        public Vector2 StartPosition { get; }
+        public Vector2 CurrentTouchPosition { get; }
     }
 }

@@ -25,8 +25,7 @@ namespace Domain.UseCase.InGame.Player
                 _currentTarget = Random.Range(IMutKickPowerRepository.Min, IMutKickPowerRepository.Max);
             }
 
-            var sign = Mathf.Abs(_currentTarget - currentPower);
-            var delta = sign * RandomConfig.Speed;
+            var delta = RandomConfig.Speed * deltaTime;
             var power = Mathf.MoveTowards(currentPower, _currentTarget, delta);
             KickPowerRepository.SetPower(power);
         }
