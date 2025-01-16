@@ -23,6 +23,7 @@ namespace Domain.UseCase.InGame.Player
             ReleaseEventPresenter.ReleaseEvent += OnKick;
         }
 
+        // FIXME?
         private const float BaseKickPower = 1;
 
         private void OnKick(FingerReleaseEventArg eventArg)
