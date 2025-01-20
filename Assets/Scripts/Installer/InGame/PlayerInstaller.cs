@@ -5,6 +5,7 @@ using DataUtil.InGame.Player;
 using Detail.DataStore.InGame.Player;
 using Detail.View.InGame.Input;
 using Detail.View.InGame.Player;
+using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.Util.Input;
 using Domain.IRepository.InGame.Player;
 using Domain.UseCase.InGame.Player;
@@ -29,6 +30,8 @@ namespace Installer.InGame
 
             // Presenter
             var kickPresenter = new PlayerKickPresenter(playerView);
+            var playerPresenter = new PlayerPresenter(playerView);
+            RegisterInstance<IPlayerPresenter, PlayerPresenter>(playerPresenter);
             var fingerEventPresenter = new FingerEventPresenter(inputAction);
             RegisterInstance<IFingerTouchEventPresenter, FingerEventPresenter>(fingerEventPresenter);
             RegisterInstance<IFingerTouchingEventPresenter, FingerEventPresenter>(fingerEventPresenter);

@@ -6,9 +6,9 @@ using Time = UnityEngine.Time;
 
 namespace Installer
 {
-    public abstract class InstallerBase: MonoBehaviour, IDisposable
+    public abstract class InstallerBase : MonoBehaviour, IDisposable
     {
-        private InstallerStateType _stateType  = InstallerStateType.NotConfigured;
+        private InstallerStateType _stateType = InstallerStateType.NotConfigured;
 
         private void Awake()
         {
@@ -21,6 +21,7 @@ namespace Installer
             {
                 return;
             }
+
             _stateType = InstallerStateType.AlreadyConfigured;
             CustomConfigure();
         }
@@ -30,7 +31,7 @@ namespace Installer
         }
 
         private HashSet<IDisposable> Disposables { get; } = new HashSet<IDisposable>();
-        private HashSet<ITickable> Tickables{ get; } = new HashSet<ITickable>();
+        private HashSet<ITickable> Tickables { get; } = new HashSet<ITickable>();
         private Dictionary<Type, object> InstanceDictionary { get; } = new Dictionary<Type, object>();
 
         /// <summary>
@@ -45,17 +46,18 @@ namespace Installer
             {
                 Configure();
             }
-            
-            var instance = InstanceDictionary[typeof(T)];
 
-            if (instance is null)
+            if (InstanceDictionary.TryGetValue(typeof(T), out var instance))
             {
-                throw new KeyNotFoundException($"Instance {typeof(T)} not found");
+                return (T)instance;
             }
+
+            Debug.LogError($"Instance {typeof(T)} not found");
             
-            return InstanceDictionary[typeof(T)] as T;
+            // 関数が死ぬとインスタンス登録漏れが1つしか出ないので実行を続ける
+            return null;
         }
-        
+
         /// <summary>
         /// 公開インスタンスを登録する
         /// </summary>
@@ -66,14 +68,14 @@ namespace Installer
         {
             InstanceDictionary[typeof(TContract)] = instance;
         }
-        
+
         protected void RegisterEntryPoints(object instance)
         {
             if (instance is null)
             {
                 throw new ArgumentNullException(nameof(instance));
             }
-            
+
             RegisterTickable(instance);
             RegisterDisposable(instance);
         }
@@ -93,8 +95,8 @@ namespace Installer
                 Disposables.Add(disposable);
             }
         }
-        
-        
+
+
         private void Update()
         {
             var dt = Time.deltaTime;

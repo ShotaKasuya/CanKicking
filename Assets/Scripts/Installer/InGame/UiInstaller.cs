@@ -1,5 +1,7 @@
 using Adapter.Presenter.InGame.UI;
 using Detail.View.InGame.UI;
+using Domain.IPresenter.InGame.Player;
+using Domain.IPresenter.InGame.Stage;
 using Domain.IPresenter.Util.Input;
 using Domain.IRepository.InGame.Player;
 using Domain.UseCase.InGame.UI;
@@ -10,16 +12,21 @@ namespace Installer.InGame
     public class UiInstaller: InstallerBase
     {
         [SerializeField] private InstallerBase playerInstaller;
+        [SerializeField] private InstallerBase stageInstaller;
 
         [SerializeField] private PowerImageView powerView;
+        [SerializeField] private HeightView heightView;
 
         protected override void CustomConfigure()
         {
             // Presenter
             var kickPowerPresenter = new KickPowerPresenter(powerView);
+            var heightPresenter = new HeightPresenter(heightView);
             var touchEventPresenter = playerInstaller.GetInstance<IFingerTouchEventPresenter>();
             var touchingEventPresenter = playerInstaller.GetInstance<IFingerTouchingEventPresenter>();
             var releaseEventPresenter = playerInstaller.GetInstance<IFingerReleaseEventPresenter>();
+            var playerPresenter = playerInstaller.GetInstance<IPlayerPresenter>();
+            var spawnPointPresenter = stageInstaller.GetInstance<ISpawnPositionPresenter>();
 
             // Repository
             var kickPowerRepository = playerInstaller.GetInstance<IKickPowerRepository>();
@@ -27,6 +34,8 @@ namespace Installer.InGame
             var showPowerCase = new ShowPowerCase(kickPowerPresenter, touchEventPresenter, touchingEventPresenter,
                 releaseEventPresenter, kickPowerRepository);
             RegisterEntryPoints(showPowerCase);
+            var showHeightCase = new ShowHeightCase(heightPresenter, playerPresenter, spawnPointPresenter);
+            RegisterEntryPoints(showHeightCase);
         }
     }
 }
