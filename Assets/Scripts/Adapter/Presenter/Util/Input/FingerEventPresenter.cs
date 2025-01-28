@@ -23,7 +23,8 @@ namespace Adapter.Presenter.Util.Input
         public Action<FingerReleaseEventArg> ReleaseEvent { get; set; }
         public void Tick(float deltaTime)
         {
-            var newPhase = FingerView.TouchState.PhaseType;
+            var touchState = FingerView.TouchState;
+            var newPhase = touchState.PhaseType;
 
             if (newPhase == _currentPhase && newPhase.IsEvent())
             {
@@ -33,17 +34,17 @@ namespace Adapter.Presenter.Util.Input
             {
                 case InputPhaseType.OnTouch:
                 {
-                    TouchEvent.Invoke(BuildTouchEventArg());
+                    TouchEvent.Invoke(BuildTouchEventArg(touchState));
                     break;
                 }
                 case InputPhaseType.OnRelease:
                 {
-                    ReleaseEvent.Invoke(BuildReleaseEventArg());
+                    ReleaseEvent.Invoke(BuildReleaseEventArg(touchState));
                     break;
                 }
                 case InputPhaseType.Moving or InputPhaseType.Staying:
                 {
-                    TouchingEvent?.Invoke(BuildTouchingEventArg());
+                    TouchingEvent?.Invoke(BuildTouchingEventArg(touchState));
                     break;
                 }
             }
@@ -52,24 +53,23 @@ namespace Adapter.Presenter.Util.Input
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private FingerTouchEventArg BuildTouchEventArg()
+        private static FingerTouchEventArg BuildTouchEventArg(TouchState touchState)
         {
-            var touchPosition = FingerView.TouchState.StartPosition;
+            var touchPosition = touchState.StartPosition;
             return new FingerTouchEventArg(touchPosition);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private FingerTouchingEventArg BuildTouchingEventArg()
+        private static FingerTouchingEventArg BuildTouchingEventArg(TouchState touchState)
         {
-            var touchState = FingerView.TouchState;
             var startPosition = touchState.StartPosition;
             var cursorPosition = touchState.Position;
-            return new FingerTouchingEventArg(cursorPosition, startPosition);
+            var delta = touchState.Delta;
+            return new FingerTouchingEventArg(cursorPosition, startPosition, delta);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private FingerReleaseEventArg BuildReleaseEventArg()
+        private static FingerReleaseEventArg BuildReleaseEventArg(TouchState touchState)
         {
-            var touchState = FingerView.TouchState;
             var cursorPosition = touchState.Position;
             var delta = cursorPosition - touchState.StartPosition;
             return new FingerReleaseEventArg(cursorPosition, delta);
