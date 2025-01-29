@@ -25,9 +25,9 @@ namespace Installer.InGame
             var kickPowerPresenter = new KickPowerPresenter(powerView);
             var heightPresenter = new HeightPresenter(heightView);
             var goalMessagePresenter = new GoalPresenter(goalMessageView);
-            var touchEventPresenter = playerInstaller.GetInstance<IFingerTouchEventPresenter>();
-            var touchingEventPresenter = playerInstaller.GetInstance<IFingerTouchingEventPresenter>();
-            var releaseEventPresenter = playerInstaller.GetInstance<IFingerReleaseEventPresenter>();
+            var touchEventPresenter = GlobalLocator.Resolve<IFingerTouchEventPresenter>();
+            var touchingEventPresenter = GlobalLocator.Resolve<IFingerTouchingEventPresenter>();
+            var releaseEventPresenter = GlobalLocator.Resolve<IFingerReleaseEventPresenter>();
             var playerPresenter = playerInstaller.GetInstance<IPlayerPresenter>();
             var spawnPointPresenter = stageInstaller.GetInstance<ISpawnPositionPresenter>();
             var goalEventPresenter = stageInstaller.GetInstance<IGoalEventPresenter>();

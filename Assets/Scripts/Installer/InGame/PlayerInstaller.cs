@@ -1,9 +1,7 @@
 using Adapter.Presenter.InGame.Player;
-using Adapter.Presenter.Util.Input;
 using Adapter.Repository.InGame.Player;
 using DataUtil.InGame.Player;
 using Detail.DataStore.InGame.Player;
-using Detail.View.InGame.Input;
 using Detail.View.InGame.Player;
 using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.Util.Input;
@@ -22,21 +20,15 @@ namespace Installer.InGame
         {
             // view
             var playerView = GetComponent<PlayerView>();
-            var inputAction = new InputView();
-            RegisterEntryPoints(inputAction);
             
             // DataStore
             var playerStatusData = new PlayerStatusData(playerStatusDataObject);
 
             // Presenter
+            var fingerEventPresenter = GlobalLocator.Resolve<IFingerReleaseEventPresenter>();
             var kickPresenter = new PlayerKickPresenter(playerView);
             var playerPresenter = new PlayerPresenter(playerView);
             RegisterInstance<IPlayerPresenter, PlayerPresenter>(playerPresenter);
-            var fingerEventPresenter = new FingerEventPresenter(inputAction);
-            RegisterInstance<IFingerTouchEventPresenter, FingerEventPresenter>(fingerEventPresenter);
-            RegisterInstance<IFingerTouchingEventPresenter, FingerEventPresenter>(fingerEventPresenter);
-            RegisterInstance<IFingerReleaseEventPresenter, FingerEventPresenter>(fingerEventPresenter);
-            RegisterEntryPoints(fingerEventPresenter);
 
             // Repository
             var kickPowerRepository = new PowerRepository();
