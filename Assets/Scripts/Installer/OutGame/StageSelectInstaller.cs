@@ -2,6 +2,7 @@ using Adapter.Presenter.Util;
 using Detail.View.View;
 using Domain.IPresenter.Util.Input;
 using Domain.UseCase.Util;
+using Module.Installer;
 using UnityEngine;
 
 namespace Installer.OutGame
@@ -13,7 +14,7 @@ namespace Installer.OutGame
         protected override void CustomConfigure()
         {
             // Presenter
-            var fingerTouchingEventPresenter = GlobalLocator.Resolve<IFingerTouchingEventPresenter>();
+            var fingerTouchingEventPresenter = GlobalLocator.Instance.GetInstance<IFingerTouchingEventPresenter>();
             var scrollPresenter = new ScrollPresenter(movableView);
             RegisterEntryPoints(scrollPresenter);
             

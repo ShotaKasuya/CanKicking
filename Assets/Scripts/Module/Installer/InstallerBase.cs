@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using DataUtil.Util.Installer;
 using UnityEngine;
-using Time = UnityEngine.Time;
 
-namespace Installer
+namespace Module.Installer
 {
     public abstract class InstallerBase : MonoBehaviour, IDisposable
     {
@@ -26,9 +24,7 @@ namespace Installer
             CustomConfigure();
         }
 
-        protected virtual void CustomConfigure()
-        {
-        }
+        protected abstract void CustomConfigure();
 
         private HashSet<IDisposable> Disposables { get; } = new HashSet<IDisposable>();
         private HashSet<ITickable> Tickables { get; } = new HashSet<ITickable>();

@@ -1,4 +1,4 @@
-namespace DataUtil.Util.Installer
+namespace Module.Installer
 {
     public enum InstallerStateType
     {

@@ -1,6 +1,6 @@
 using DataUtil.InGame.Player;
-using DataUtil.Util.Installer;
 using Domain.IRepository.InGame.Player;
+using Module.Installer;
 using UnityEngine;
 
 namespace Domain.UseCase.InGame.Player

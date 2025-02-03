@@ -1,7 +1,7 @@
-using DataUtil.Util.Installer;
 using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.InGame.Stage;
 using Domain.IPresenter.InGame.UI;
+using Module.Installer;
 
 namespace Domain.UseCase.InGame.UI
 {

@@ -2,7 +2,7 @@ using System;
 using Adapter.IView.Finger;
 using DataUtil.Util;
 using DataUtil.Util.Input;
-using DataUtil.Util.Installer;
+using Module.Installer;
 using UnityEngine;
 using TouchState = UnityEngine.InputSystem.LowLevel.TouchState;
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace DataUtil.Util.Installer
+namespace Module.Installer
 {
     // `vcontainer`と一緒
     public interface ITickable

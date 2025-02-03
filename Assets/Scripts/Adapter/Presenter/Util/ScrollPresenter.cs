@@ -1,6 +1,6 @@
 using Adapter.IView.Util;
-using DataUtil.Util.Installer;
 using Domain.IPresenter.Util;
+using Module.Installer;
 using UnityEngine;
 
 namespace Adapter.Presenter.Util

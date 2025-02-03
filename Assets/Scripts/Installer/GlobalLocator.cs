@@ -1,66 +1,71 @@
-using System;
-using System.Collections.Generic;
 using Adapter.Presenter.Scene;
 using Adapter.Presenter.Util.Input;
-using DataUtil.Util.Installer;
 using Detail.View.InGame.Input;
 using Detail.View.Scene;
 using Domain.IPresenter.Scene;
 using Domain.IPresenter.Util.Input;
-using Module.Singleton;
+using Module.Installer;
 using UnityEngine;
 
 namespace Installer
 {
-    public class GlobalLocator: SingletonMonoBehaviour<GlobalLocator>
+    public class GlobalLocator : InstallerBase
     {
-        protected override void Awake()
+        public static GlobalLocator Instance
         {
-            base.Awake();
+            get
+            {
+                if (_instance is null)
+                {
+                    var instance = FindFirstObjectByType<GlobalLocator>();
+                    if (instance is null)
+                    {
+                        Debug.LogError($"find object failed! : {nameof(GlobalLocator)}");
+                    }
+
+                    _instance = instance;
+                }
+
+                return _instance;
+            }
+        }
+
+        private static GlobalLocator _instance;
+
+        protected override void CustomConfigure()
+        {
+            if (_instance is null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (_instance != this)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+            }
             // View
             var inputView = new InputView();
+            RegisterEntryPoints(inputView);
             var sceneLoadView = new SceneLoadView();
 
             // Presenter
             var sceneLoadPresenter = new SceneLoadPresenter(sceneLoadView);
             var fingerEventPresenter = new FingerEventPresenter(inputView);
-            Register<IScenePresenter>(sceneLoadPresenter);
-            Register<IFingerTouchEventPresenter>(fingerEventPresenter);
-            Register<IFingerTouchingEventPresenter>(fingerEventPresenter);
-            Register<IFingerReleaseEventPresenter>(fingerEventPresenter);
-
-            _tickables = new[]
-            {
-                (ITickable)inputView, fingerEventPresenter
-            };
+            RegisterEntryPoints(fingerEventPresenter);
+            RegisterInstance<IScenePresenter, SceneLoadPresenter>(sceneLoadPresenter);
+            RegisterInstance<IFingerTouchEventPresenter, FingerEventPresenter>(fingerEventPresenter);
+            RegisterInstance<IFingerTouchingEventPresenter, FingerEventPresenter>(fingerEventPresenter);
+            RegisterInstance<IFingerReleaseEventPresenter, FingerEventPresenter>(fingerEventPresenter);
         }
 
-        private static Dictionary<Type, object> InstanceDictionary { get; } = new Dictionary<Type, object>();
-        private static ITickable[] _tickables;
-
-        private void Update()
+        private void OnApplicationQuit()
         {
-            var deltaTime = Time.deltaTime;
-            for (int i = 0; i < _tickables.Length; i++)
-            {
-                _tickables[i].Tick(deltaTime);
-            }
-        }
-
-        private static void Register<T>(T instance) where T : class
-        {
-            InstanceDictionary[typeof(T)] = instance;
-        }
-
-        public static T Resolve<T>() where T : class
-        {
-            if (InstanceDictionary.TryGetValue(typeof(T), out var instance))
-            {
-                return instance as T;
-            }
-
-            Debug.LogWarning($"Locator: {typeof(T).Name} not found");
-            return null;
+            _instance.Dispose();
+            _instance = null;
         }
     }
 }

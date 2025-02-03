@@ -6,6 +6,7 @@ using Domain.IPresenter.Util.Input;
 using Domain.IRepository.InGame.Player;
 using Domain.UseCase.InGame.Stage;
 using Domain.UseCase.InGame.UI;
+using Module.Installer;
 using UnityEngine;
 
 namespace Installer.InGame
@@ -25,9 +26,9 @@ namespace Installer.InGame
             var kickPowerPresenter = new KickPowerPresenter(powerView);
             var heightPresenter = new HeightPresenter(heightView);
             var goalMessagePresenter = new GoalPresenter(goalMessageView);
-            var touchEventPresenter = GlobalLocator.Resolve<IFingerTouchEventPresenter>();
-            var touchingEventPresenter = GlobalLocator.Resolve<IFingerTouchingEventPresenter>();
-            var releaseEventPresenter = GlobalLocator.Resolve<IFingerReleaseEventPresenter>();
+            var touchEventPresenter = GlobalLocator.Instance.GetInstance<IFingerTouchEventPresenter>();
+            var touchingEventPresenter = GlobalLocator.Instance.GetInstance<IFingerTouchingEventPresenter>();
+            var releaseEventPresenter = GlobalLocator.Instance.GetInstance<IFingerReleaseEventPresenter>();
             var playerPresenter = playerInstaller.GetInstance<IPlayerPresenter>();
             var spawnPointPresenter = stageInstaller.GetInstance<ISpawnPositionPresenter>();
             var goalEventPresenter = stageInstaller.GetInstance<IGoalEventPresenter>();

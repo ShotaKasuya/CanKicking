@@ -2,8 +2,9 @@ using System;
 using System.Runtime.CompilerServices;
 using Adapter.IView.Finger;
 using DataUtil.Util.Input;
-using DataUtil.Util.Installer;
 using Domain.IPresenter.Util.Input;
+using Module.Installer;
+using UnityEngine;
 
 namespace Adapter.Presenter.Util.Input
 {

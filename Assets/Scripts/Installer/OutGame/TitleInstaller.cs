@@ -2,6 +2,7 @@ using Adapter.Presenter.OutGame.Title;
 using Detail.View.OutGame.Title;
 using Domain.IPresenter.Scene;
 using Domain.UseCase.OutGame.Title;
+using Module.Installer;
 using UnityEngine;
 
 namespace Installer.OutGame
@@ -13,7 +14,7 @@ namespace Installer.OutGame
         protected override void CustomConfigure()
         {
             // Presenter
-            var scenePresenter = GlobalLocator.Resolve<IScenePresenter>();
+            var scenePresenter = GlobalLocator.Instance.GetInstance<IScenePresenter>();
             var titleEventPresenter = new TitleEventPresenter(startButtonView);
             
             // UseCase

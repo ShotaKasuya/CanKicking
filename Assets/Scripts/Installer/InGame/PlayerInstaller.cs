@@ -7,6 +7,7 @@ using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.Util.Input;
 using Domain.IRepository.InGame.Player;
 using Domain.UseCase.InGame.Player;
+using Module.Installer;
 using UnityEngine;
 
 namespace Installer.InGame
@@ -25,7 +26,7 @@ namespace Installer.InGame
             var playerStatusData = new PlayerStatusData(playerStatusDataObject);
 
             // Presenter
-            var fingerEventPresenter = GlobalLocator.Resolve<IFingerReleaseEventPresenter>();
+            var fingerEventPresenter = GlobalLocator.Instance.GetInstance<IFingerReleaseEventPresenter>();
             var kickPresenter = new PlayerKickPresenter(playerView);
             var playerPresenter = new PlayerPresenter(playerView);
             RegisterInstance<IPlayerPresenter, PlayerPresenter>(playerPresenter);

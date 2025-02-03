@@ -1,6 +1,7 @@
 using Adapter.Presenter.InGame.Stage;
 using Detail.View.InGame.Stage;
 using Domain.IPresenter.InGame.Stage;
+using Module.Installer;
 using UnityEngine;
 
 namespace Installer.InGame
