@@ -45,3 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPositionView: {fileID: 0}
+  goalView: {fileID: 0}
+  screenDataStore: {fileID: 11400000, guid: fb784933d62715e87b89d03013a69ce0, type: 2}
+  playerFollowCamera: {fileID: 0}

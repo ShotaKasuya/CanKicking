@@ -1,6 +1,6 @@
 namespace Domain.IRepository.InGame.Player
 {
-    // リアルタイムに変化するような保存しない値に関連のインターフェースを定義する
+    // リアルタイムに変化するような保存しない値関連のインターフェースを定義する
     
     public interface IMutKickPowerRepository: IKickPowerRepository
     {

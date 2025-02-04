@@ -119,6 +119,158 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &42390052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 42390054}
+  - component: {fileID: 42390053}
+  m_Layer: 0
+  m_Name: Spline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &42390053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42390052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Spline:
+    m_EditModeType: 1
+    m_Knots: []
+    m_MetaData: []
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Splines:
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: 0
+        y: -3.98
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -1.5424407
+      TangentOut:
+        x: 0
+        y: 0
+        z: 1.5424407
+      Rotation:
+        value:
+          x: -0.70710677
+          y: 0
+          z: -0
+          w: 0.70710677
+    - Position:
+        x: 0
+        y: 11.4444065
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -4.1429677
+      TangentOut:
+        x: 0
+        y: 0
+        z: 2.7954943
+      Rotation:
+        value:
+          x: -0.70710635
+          y: -0.0007734085
+          z: 0.0007734085
+          w: 0.70710635
+    - Position:
+        x: -0.030724525
+        y: 18.467014
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -2.7450488
+      TangentOut:
+        x: 0
+        y: 0
+        z: 3.890735
+      Rotation:
+        value:
+          x: -0.7071062
+          y: -0.0009076909
+          z: 0.00090769073
+          w: 0.7071062
+    - Position:
+        x: -0.041441202
+        y: 32.57502
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -1.4108009
+      TangentOut:
+        x: 0
+        y: 0
+        z: 1.4108009
+      Rotation:
+        value:
+          x: -0.7071067
+          y: -0.000268565
+          z: 0.00026856497
+          w: 0.7071067
+    m_MetaData:
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Knots:
+    m_KnotsLink: []
+--- !u!4 &42390054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42390052}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.019245505, y: -1.6207495, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &148496795
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,8 +513,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527923399}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15212339, y: 0, z: 0, w: 0.98836154}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.024404062, y: 4.8642645, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -607,17 +759,21 @@ PrefabInstance:
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 2336145013953009519}
+    - target: {fileID: 5432999435215064892, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
+      propertyPath: m_SplineSettings.Spline
+      value: 
+      objectReference: {fileID: 42390053}
     - target: {fileID: 6854018258826295615, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_Name
-      value: CinemachineCamera
+      value: StageCamera
       objectReference: {fileID: 0}
     - target: {fileID: 8963053758510981043, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.024404062
       objectReference: {fileID: 0}
     - target: {fileID: 8963053758510981043, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.8642645
       objectReference: {fileID: 0}
     - target: {fileID: 8963053758510981043, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -625,11 +781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8963053758510981043, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98836154
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8963053758510981043, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.15212339
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8963053758510981043, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1054,6 +1210,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1852655120 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7494647427817049004, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
+  m_PrefabInstance: {fileID: 954203606}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 409fc8fe2eb44ee0bc38b666a06c5974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2068362343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,14 +1424,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Can
       objectReference: {fileID: 0}
-    - target: {fileID: 6625593241714386353, guid: acfe0647c66c1f876b954b246f8127f9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6625593241714386353, guid: acfe0647c66c1f876b954b246f8127f9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
     - target: {fileID: 9144494174247077610, guid: acfe0647c66c1f876b954b246f8127f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1342,6 +1501,10 @@ PrefabInstance:
       propertyPath: spawnPositionView
       value: 
       objectReference: {fileID: 484857958}
+    - target: {fileID: 6407414128539428169, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: playerFollowCamera
+      value: 
+      objectReference: {fileID: 1852655120}
     - target: {fileID: 6533693738869769776, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1525,3 +1688,4 @@ SceneRoots:
   - {fileID: 827029668}
   - {fileID: 1042989627}
   - {fileID: 860273899427994724}
+  - {fileID: 42390054}
