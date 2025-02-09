@@ -6,4 +6,10 @@ namespace Domain.IPresenter.InGame.Player
     {
         public Vector3 Position { get; }
     }
+
+    public interface IPlayerSpeedPresenter
+    {
+        public float SqrSpeed();
+        public float AnglerVelocity();
+    }
 }

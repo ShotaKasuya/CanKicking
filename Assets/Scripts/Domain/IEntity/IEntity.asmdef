@@ -1,3 +1,17 @@
 {
-	"name": "IEntity"
+    "name": "IEntity",
+    "rootNamespace": "",
+    "references": [
+        "GUID:99ef53381a734e098bf8fe0290b50cc0",
+        "GUID:f1052dff81777ca1197906223025d0ca"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

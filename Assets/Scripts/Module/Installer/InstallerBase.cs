@@ -109,5 +109,10 @@ namespace Module.Installer
                 disposable.Dispose();
             }
         }
+
+        private void OnDestroy()
+        {
+            Dispose();
+        }
     }
 }

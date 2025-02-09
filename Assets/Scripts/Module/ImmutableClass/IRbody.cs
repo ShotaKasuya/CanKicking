@@ -11,5 +11,6 @@ namespace Module.ImmutableClass
         
         private Rigidbody2D Instance { get; }
         public Vector2 Velocity => Instance.linearVelocity;
+        public float AnglerVelocity => Instance.angularVelocity;
     }
 }

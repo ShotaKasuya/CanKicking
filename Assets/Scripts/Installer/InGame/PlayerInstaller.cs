@@ -3,6 +3,7 @@ using Adapter.Repository.InGame.Player;
 using DataUtil.InGame.Player;
 using Detail.DataStore.InGame.Player;
 using Detail.View.InGame.Player;
+using Domain.Entity.InGame.Player;
 using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.Util.Input;
 using Domain.IRepository.InGame.Player;
@@ -35,9 +36,12 @@ namespace Installer.InGame
             var kickPowerRepository = new PowerRepository();
             RegisterInstance<IKickPowerRepository, PowerRepository>(kickPowerRepository);
             var playerStatusRepository = new PlayerStatusRepository(playerStatusData);
+            
+            // Entity
+            var playerStateEntity = new PlayerStateEntity();
 
             // UseCase
-            var kickCase = new KickCase(kickPresenter, fingerEventPresenter, kickPowerRepository, playerStatusRepository);
+            var kickCase = new KickCase(PlayerStateType.Stay, playerStateEntity, kickPresenter, fingerEventPresenter, kickPowerRepository, playerStatusRepository);
             RegisterEntryPoints(kickCase);
             var powerRandomizer = new KickPowerRandomizationCase(kickPowerRepository, kickRandomConfig);
             RegisterEntryPoints(powerRandomizer);

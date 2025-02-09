@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Adapter.Presenter.InGame.Player
 {
-    public class PlayerPresenter: IPlayerPresenter
+    public class PlayerPresenter: IPlayerPresenter, IPlayerSpeedPresenter
     {
         public PlayerPresenter
         (
@@ -15,6 +15,15 @@ namespace Adapter.Presenter.InGame.Player
         }
 
         public Vector3 Position => PlayerView.PlayerPose.position;
+        public float SqrSpeed()
+        {
+            return PlayerView.Rbody.Velocity.sqrMagnitude;
+        }
+
+        public float AnglerVelocity()
+        {
+            return PlayerView.Rbody.AnglerVelocity;
+        }
         
         private IPlayerView PlayerView { get; }
     }
