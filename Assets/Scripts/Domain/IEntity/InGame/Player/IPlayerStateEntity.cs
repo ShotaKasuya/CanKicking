@@ -3,7 +3,7 @@ using Module.StateMachine;
 
 namespace Domain.IEntity.InGame.Player
 {
-    public interface IPlayerStateEntity: IStateEntity<PlayerStateType>
+    public interface IPlayerStateEntity: IMutStateEntity<PlayerStateType>
     {
     }
 }

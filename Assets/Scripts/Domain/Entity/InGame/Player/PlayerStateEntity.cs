@@ -1,5 +1,7 @@
+using System;
 using DataUtil.InGame.Player;
 using Domain.IEntity.InGame.Player;
+using Module.StateMachine;
 
 namespace Domain.Entity.InGame.Player
 {
@@ -12,8 +14,11 @@ namespace Domain.Entity.InGame.Player
             return State == state;
         }
 
+        public Action<StatePair<PlayerStateType>> OnChangeState { get; set; }
+
         public void ChangeState(PlayerStateType state)
         {
+            OnChangeState?.Invoke(new StatePair<PlayerStateType>(State, state));
             State = state;
         }
     }
