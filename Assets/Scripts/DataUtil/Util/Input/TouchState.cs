@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace DataUtil.Util.Input
@@ -17,6 +18,7 @@ namespace DataUtil.Util.Input
         public double StartTime { get; }
         public Vector2 StartPosition { get; }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TouchState(
             UnityEngine.InputSystem.LowLevel.TouchState touchState
         )

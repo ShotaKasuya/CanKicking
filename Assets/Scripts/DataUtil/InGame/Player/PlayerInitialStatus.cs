@@ -27,10 +27,6 @@ namespace DataUtil.InGame.Player
         }
         public KickPower GetPower(int level)
         {
-            if (kickPowers.Length <= level)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
             return kickPowers[level];
         }
     }
@@ -38,8 +34,8 @@ namespace DataUtil.InGame.Player
     [Serializable]
     public struct KickPower
     {
-        public float MaxPower => maxPower;
+        public float BasePower => basePower;
 
-        [SerializeField] private float maxPower;
+        [SerializeField] private float basePower;
     }
 }

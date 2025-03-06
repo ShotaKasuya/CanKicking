@@ -1,9 +1,8 @@
 {
-    "name": "IEntity",
+    "name": "Structure",
     "rootNamespace": "",
     "references": [
-        "GUID:99ef53381a734e098bf8fe0290b50cc0",
-        "GUID:f1052dff81777ca1197906223025d0ca"
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

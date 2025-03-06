@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1378
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 122
+  controlID: 137
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -248,14 +248,14 @@ MonoBehaviour:
     y: 0
     width: 562
     height: 1322
-  m_MinSize: {x: 232, y: 276}
-  m_MaxSize: {x: 10002, y: 10026}
-  m_ActualView: {fileID: 17}
+  m_MinSize: {x: 102, y: 126}
+  m_MaxSize: {x: 4002, y: 4026}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 17}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1130,7 +1130,10 @@ MonoBehaviour:
   m_ReplacementString: 
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
-  m_LastDebugDrawMode: 35
+  m_LastDebugDrawMode:
+    drawMode: 35
+    name: 
+    section: 
   m_ViewIsLockedToObject: 0
 --- !u!114 &16
 MonoBehaviour:
@@ -1171,9 +1174,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c6a00000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: f6faffff
+      m_ExpandedIDs: 80faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1245,7 +1248,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Domain/UseCase/InGame/Player
+    - Assets/Scripts/Domain/UseCase
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1263,7 +1266,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 31}
     m_SelectedIDs: ec910000
     m_LastClickedID: 37356
-    m_ExpandedIDs: 0000000068b600006ab600006cb600006eb6000070b6000072b6000074b6000076b6000078b600007ab600007cb600007eb6000080b6000082b6000084b6000086b6000088b600008ab600008cb600008eb6000090b6000092b6000094b6000096b6000098b600009ab600009cb600009eb60000a0b60000a2b60000a4b60000a6b60000a8b60000aab60000acb60000aeb60000b0b60000b2b60000b4b60000b6b60000b8b60000bab60000bcb60000
+    m_ExpandedIDs: 000000007cb700007eb7000080b7000082b7000084b7000086b7000088b700008ab700008cb700008eb7000090b7000092b7000094b7000096b7000098b700009ab700009cb700009eb70000a0b70000a2b70000a4b70000a6b70000a8b70000aab70000acb70000aeb70000b0b70000b2b70000b4b70000b6b70000b8b70000bab70000bcb70000beb70000c0b70000c2b70000c4b70000c6b70000c8b70000cab70000ccb70000ceb70000d0b70000d2b70000d4b70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1292,7 +1295,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff0000000068b600006ab600006cb600006eb6000070b6000072b6000074b6000076b6000078b600007ab600007cb600007eb6000080b6000082b6000084b6000086b6000088b600008ab600008cb600008eb6000090b6000092b6000094b6000096b6000098b600009ab600009cb600009eb60000a0b60000a2b60000a4b60000a6b60000a8b60000aab60000acb60000aeb60000b0b60000b2b60000b4b60000b6b60000b8b60000bab60000bcb60000
+    m_ExpandedIDs: ffffffff000000007cb700007eb7000080b7000082b7000084b7000086b7000088b700008ab700008cb700008eb7000090b7000092b7000094b7000096b7000098b700009ab700009cb700009eb70000a0b70000a2b70000a4b70000a6b70000a8b70000aab70000acb70000aeb70000b0b70000b2b70000b4b70000b6b70000b8b70000bab70000bcb70000beb70000c0b70000c2b70000c4b70000c6b70000c8b70000cab70000ccb70000ceb70000d0b70000d2b70000d4b70000e6ba000006bc0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

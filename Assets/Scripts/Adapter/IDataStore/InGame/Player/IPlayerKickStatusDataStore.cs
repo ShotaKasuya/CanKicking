@@ -1,19 +1,13 @@
+using DataUtil.InGame.Player;
+
 namespace Adapter.IDataStore.InGame.Player
 {
     public interface IPlayerKickStatusDataStore
     {
-        public KickStatus LoadKickStatus(int level);
+        public KickPower LoadKickStatus(int level);
     }
-
-    public struct KickStatus
+    public interface IKickableSpeedDataStore
     {
-        public KickStatus(float basePower, float maxPower)
-        {
-            KickBasePower = basePower;
-            KickMaxPower = maxPower;
-        }
-        
-        public float KickBasePower { get; }
-        public float KickMaxPower { get; }
+        public float KickableSpeed { get; }
     }
 }

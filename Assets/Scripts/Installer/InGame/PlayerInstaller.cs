@@ -1,30 +1,27 @@
+using System.Collections.Generic;
 using Adapter.Presenter.InGame.Player;
 using Adapter.Repository.InGame.Player;
 using DataUtil.InGame.Player;
 using Detail.DataStore.InGame.Player;
 using Detail.View.InGame.Player;
-using Domain.Entity.InGame.Player;
 using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.Util.Input;
 using Domain.IRepository.InGame.Player;
 using Domain.UseCase.InGame.Player;
 using Module.Installer;
+using Module.StateMachine;
 using UnityEngine;
 
 namespace Installer.InGame
 {
-    public class PlayerInstaller: InstallerBase
+    public class PlayerInstaller : InstallerBase
     {
-        [SerializeField] private PlayerStatusDataObject playerStatusDataObject;
-        [SerializeField] private KickRandomConfig kickRandomConfig;
-        
+        [SerializeField] private PlayerKickStatusDataStore playerStatusDataObject;
+
         protected override void CustomConfigure()
         {
             // view
             var playerView = GetComponent<PlayerView>();
-            
-            // DataStore
-            var playerStatusData = new PlayerStatusData(playerStatusDataObject);
 
             // Presenter
             var fingerEventPresenter = GlobalLocator.Instance.GetInstance<IFingerReleaseEventPresenter>();
@@ -35,16 +32,19 @@ namespace Installer.InGame
             // Repository
             var kickPowerRepository = new PowerRepository();
             RegisterInstance<IKickPowerRepository, PowerRepository>(kickPowerRepository);
-            var playerStatusRepository = new PlayerStatusRepository(playerStatusData);
-            
+            var playerStatusRepository = new PlayerStatusRepository(playerStatusDataObject, playerStatusDataObject);
+
             // Entity
-            var playerStateEntity = new PlayerStateEntity();
 
             // UseCase
-            var kickCase = new KickCase(PlayerStateType.Stay, playerStateEntity, kickPresenter, fingerEventPresenter, kickPowerRepository, playerStatusRepository);
+            var kickCase = new KickCase(PlayerStateType.Idle, kickPresenter, fingerEventPresenter, kickPowerRepository,
+                playerStatusRepository);
             RegisterEntryPoints(kickCase);
-            var powerRandomizer = new KickPowerRandomizationCase(kickPowerRepository, kickRandomConfig);
-            RegisterEntryPoints(powerRandomizer);
+
+            // StateMachine
+            // var stateMachine = new PlayerStateMachine(
+            //     playerStateEntity, new List<IStateBehaviour<PlayerStateType>>() { kickCase });
+            // RegisterEntryPoints(stateMachine);
         }
     }
 }

@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d228e5d76c6457398787e0d8c351418, type: 3}
-  m_Name: PlayerStatusDataObject
+  m_Script: {fileID: 11500000, guid: fe5a6d1a933f4942af11af84661be4e5, type: 3}
+  m_Name: PlayerKickStatusDataStore
   m_EditorClassIdentifier: 
   kickPowerData:
     kickPowers:
-    - maxPower: 10
-    - maxPower: 0
+    - basePower: 10
+    - basePower: 0
+  kickableSpeed: 1

@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Module",
-        "DataUtil"
+        "DataUtil",
+        "Structure"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

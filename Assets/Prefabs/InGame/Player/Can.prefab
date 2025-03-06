@@ -176,9 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f83628e50fdd48d791225c930521aab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatusDataObject: {fileID: 11400000, guid: 5549b9f98213d69328ce457f601a1e56, type: 2}
-  kickRandomConfig:
-    speed: 1
+  playerStatusDataObject: {fileID: 11400000, guid: fc5e10a27ae287be2a73e2d00d2fa8a0, type: 2}
 --- !u!114 &2155718183296470311
 MonoBehaviour:
   m_ObjectHideFlags: 0

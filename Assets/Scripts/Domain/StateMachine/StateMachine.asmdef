@@ -1,8 +1,7 @@
 {
-    "name": "Entity",
+    "name": "StateMachine",
     "rootNamespace": "",
     "references": [
-        "GUID:0b66f6f985923e6e8be8ce7f712223b9",
         "GUID:99ef53381a734e098bf8fe0290b50cc0",
         "GUID:f1052dff81777ca1197906223025d0ca"
     ],
