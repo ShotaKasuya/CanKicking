@@ -1,11 +1,10 @@
 using Adapter.IView.Util;
 using Domain.IPresenter.Util;
-using Module.Installer;
 using UnityEngine;
 
 namespace Adapter.Presenter.Util
 {
-    public class ScrollPresenter : IScrollPresenter, ITickable
+    public class ScrollPresenter : IScrollPresenter
     {
         public ScrollPresenter
         (

@@ -2,7 +2,8 @@
     "name": "IPresenter",
     "rootNamespace": "",
     "references": [
-        "GUID:f1052dff81777ca1197906223025d0ca"
+        "GUID:f1052dff81777ca1197906223025d0ca",
+        "GUID:99ef53381a734e098bf8fe0290b50cc0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

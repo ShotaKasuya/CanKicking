@@ -1,25 +1,21 @@
 using Adapter.Presenter.OutGame.Title;
 using Detail.View.OutGame.Title;
-using Domain.IPresenter.Scene;
 using Domain.UseCase.OutGame.Title;
-using Module.Installer;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace Installer.OutGame
 {
-    public class TitleInstaller: InstallerBase
+    public class TitleInstaller: LifetimeScope
     {
         [SerializeField] private StartButtonView startButtonView;
-        
-        protected override void CustomConfigure()
+
+        protected override void Configure(IContainerBuilder builder)
         {
-            // Presenter
-            var scenePresenter = GlobalLocator.Instance.GetInstance<IScenePresenter>();
-            var titleEventPresenter = new TitleEventPresenter(startButtonView);
-            
-            // UseCase
-            var titleCase = new TitleCase(titleEventPresenter, scenePresenter);
-            RegisterEntryPoints(titleCase);
+            builder.Register<TitleEventPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            builder.Register<TitleCase>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

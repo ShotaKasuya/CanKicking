@@ -1,30 +1,48 @@
-using System;
+using System.Collections.Generic;
 using DataUtil.InGame.Player;
 using Module.StateMachine;
+using UnityEngine;
+using VContainer.Unity;
 
 namespace Domain.IUseCase.InGame
 {
     /// <summary>
-    /// ステートフルなプレイヤーのユースケースへの型エイリアス
+    /// ステートフルなロジックへの型エイリアス
     /// </summary>
+    public class PlayerStateMachine : AbstractStateMachine<PlayerStateType>, ITickable
+    {
+        public PlayerStateMachine
+        (
+            IStateEntity<PlayerStateType> stateEntity,
+            IReadOnlyList<IStateBehaviour<PlayerStateType>> behaviourEntities
+        ) : base(stateEntity, behaviourEntities)
+        {
+        }
+
+        public void Tick()
+        {
+            OnTick(Time.deltaTime);
+        }
+    }
+
     public abstract class PlayerStateBehaviourBase : StateBehaviour<PlayerStateType>
     {
-        protected PlayerStateBehaviourBase(IMutStateEntity<PlayerStateType> stateEntity) : base(stateEntity)
+        protected PlayerStateBehaviourBase
+        (
+            PlayerStateType playerStateType,
+            IMutStateEntity<PlayerStateType> stateEntity
+        ) : base(playerStateType, stateEntity)
         {
         }
     }
-    public class PlayerStateEntity: IMutStateEntity<PlayerStateType>
-    {
-        public PlayerStateType State { get; private set; }
-        public bool IsInState(PlayerStateType state)
-        {
-            return State.HasFlag(state);
-        }
 
-        public Action<StatePair<PlayerStateType>> OnChangeState { get; set; }
-        public void ChangeState(PlayerStateType next)
+    public class PlayerStateEntity : AbstractStateType<PlayerStateType>
+    {
+        public PlayerStateEntity
+        (
+            PlayerStateType entryState
+        ) : base(entryState)
         {
-            State = next;
         }
     }
 }

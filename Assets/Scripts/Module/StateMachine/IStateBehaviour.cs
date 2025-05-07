@@ -32,13 +32,14 @@ namespace Module.StateMachine
 
     public abstract class StateBehaviour<TState> : IStateBehaviour<TState> where TState : struct, Enum
     {
-        protected StateBehaviour(IMutStateEntity<TState> stateEntity)
+        protected StateBehaviour(TState stateMask, IMutStateEntity<TState> stateEntity)
         {
+            TargetStateMask = stateMask;
             StateEntity = stateEntity;
         }
         
+        public TState TargetStateMask { get; }
         protected IMutStateEntity<TState> StateEntity { get; }
-        public abstract TState TargetStateMask { get; }
         public virtual void OnEnter()
         {
         }

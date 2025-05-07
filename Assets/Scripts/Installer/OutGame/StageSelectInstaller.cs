@@ -1,26 +1,26 @@
 using Adapter.Presenter.Util;
 using Detail.View.View;
-using Domain.IPresenter.Util.Input;
 using Domain.UseCase.Util;
-using Module.Installer;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace Installer.OutGame
 {
-    public class StageSelectInstaller: InstallerBase
+    public class StageSelectInstaller: LifetimeScope
     {
         [SerializeField] private MovableView movableView;
-        
-        protected override void CustomConfigure()
+
+        protected override void Configure(IContainerBuilder builder)
         {
+            // View
+            builder.RegisterComponent(movableView).AsImplementedInterfaces();
+            
             // Presenter
-            var fingerTouchingEventPresenter = GlobalLocator.Instance.GetInstance<IFingerTouchingEventPresenter>();
-            var scrollPresenter = new ScrollPresenter(movableView);
-            RegisterEntryPoints(scrollPresenter);
+            builder.Register<ScrollPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // UseCase
-            var scrollCase = new ScrollCase(fingerTouchingEventPresenter, scrollPresenter);
-            RegisterEntryPoints(scrollCase);
+            builder.Register<ScrollCase>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

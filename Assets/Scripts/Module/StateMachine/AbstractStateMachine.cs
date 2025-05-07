@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Module.Installer;
 
 namespace Module.StateMachine
 {
-    public abstract class AbstractStateMachine<TState>: ITickable, IDisposable where TState: struct, Enum
+    public abstract class AbstractStateMachine<TState> : IDisposable where TState : struct, Enum
     {
-        protected AbstractStateMachine(IStateEntity<TState> stateEntity, List<IStateBehaviour<TState>> behaviourEntities)
+        protected AbstractStateMachine(IStateEntity<TState> stateEntity,
+            IReadOnlyList<IStateBehaviour<TState>> behaviourEntities)
         {
             StateEntity = stateEntity;
             StateBehaviourEntities = behaviourEntities;
@@ -15,15 +14,15 @@ namespace Module.StateMachine
             StateEntity.OnChangeState += OnChangeState;
             CallOnEnter(default);
         }
-        
-        public void Tick(float deltaTime)
+
+        protected void OnTick(float deltaTime)
         {
             var currentState = StateEntity.State;
             for (int i = 0; i < StateBehaviourEntities.Count; i++)
             {
                 var behaviour = StateBehaviourEntities[i];
 
-                if (IsEqual(behaviour.TargetStateMask, currentState))
+                if (currentState.Equals(behaviour.TargetStateMask))
                 {
                     behaviour.StateUpdate(deltaTime);
                 }
@@ -37,25 +36,26 @@ namespace Module.StateMachine
         }
 
         private IStateEntity<TState> StateEntity { get; }
-        private List<IStateBehaviour<TState>> StateBehaviourEntities { get; }
+        private IReadOnlyList<IStateBehaviour<TState>> StateBehaviourEntities { get; }
 
         private void CallOnEnter(TState prev)
         {
             for (int i = 0; i < StateBehaviourEntities.Count; i++)
             {
                 var behaviour = StateBehaviourEntities[i];
-                if (IsEqual(behaviour.TargetStateMask, prev))
+                if (prev.Equals(behaviour.TargetStateMask))
                 {
                     behaviour.OnEnter();
                 }
             }
         }
+
         private void CallOnExit(TState next)
         {
             for (int i = 0; i < StateBehaviourEntities.Count; i++)
             {
                 var behaviour = StateBehaviourEntities[i];
-                if (IsEqual(behaviour.TargetStateMask, next))
+                if (next.Equals(behaviour.TargetStateMask))
                 {
                     behaviour.OnExit();
                 }
@@ -65,12 +65,6 @@ namespace Module.StateMachine
         public void Dispose()
         {
             StateEntity.OnChangeState -= OnChangeState;
-        }
-        
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsEqual(TState lhs, TState rhs)
-        {
-            return Convert.ToInt32(lhs) == Convert.ToInt32(rhs);
         }
     }
 }

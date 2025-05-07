@@ -4,37 +4,32 @@ using Adapter.Repository.Setting;
 using Detail.DataStore.Setting;
 using Detail.View.InGame.Stage;
 using Detail.View.Util;
-using Domain.IPresenter.InGame.Stage;
 using Domain.UseCase.InGame.Stage;
-using Module.Installer;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace Installer.InGame
 {
-    public class StageInstaller : InstallerBase
+    public class StageInstaller : LifetimeScope
     {
         [SerializeField] private SpawnPositionView spawnPositionView;
         [SerializeField] private GoalView goalView;
         [SerializeField] private ScreenDataStore screenDataStore;
         [SerializeField] private CameraView playerFollowCamera;
 
-        protected override void CustomConfigure()
+        protected override void Configure(IContainerBuilder builder)
         {
-            // DataStore
-
             // Presenter
-            var spawnPositionPresenter = new SpawnPositionPresenter(spawnPositionView);
-            RegisterInstance<ISpawnPositionPresenter, SpawnPositionPresenter>(spawnPositionPresenter);
-            var goalEventPresenter = new GoalEventPresenter(goalView);
-            RegisterInstance<IGoalEventPresenter, GoalEventPresenter>(goalEventPresenter);
-            var cameraPresenter = new CameraPresenter(playerFollowCamera);
-
+            builder.Register<SpawnPositionPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GoalEventPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CameraPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            
             // Repository
-            var screenRepository = new ScreenRepository(screenDataStore);
-
+            builder.Register<ScreenRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            
             // UseCase
-            var cameraFitScreenCase = new CameraFitScreenCase(screenRepository, screenRepository, cameraPresenter);
-            RegisterEntryPoints(cameraFitScreenCase);
+            builder.Register<CameraFitScreenCase>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

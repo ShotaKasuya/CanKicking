@@ -1,9 +1,9 @@
 {
-    "name": "IRepository",
+    "name": "Entity",
     "rootNamespace": "",
     "references": [
-        "GUID:f1052dff81777ca1197906223025d0ca",
-        "GUID:99ef53381a734e098bf8fe0290b50cc0"
+        "GUID:2665a8d13d1b3f18800f46e256720795",
+        "GUID:9ee1f853207b62cc39e2cda34e6258b4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

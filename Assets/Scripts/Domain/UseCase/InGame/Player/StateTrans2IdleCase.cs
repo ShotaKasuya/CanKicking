@@ -12,7 +12,7 @@ namespace Domain.UseCase.InGame.Player
             PlayerStateEntity playerStateEntity,
             IPlayerSpeedPresenter playerSpeedPresenter,
             IKickableSpeedRepository kickableSpeedRepository
-        ) : base(playerStateEntity)
+        ) : base(PlayerStateType.Frying, playerStateEntity)
         {
             SpeedPresenter = playerSpeedPresenter;
             KickableSpeedRepository = kickableSpeedRepository;
@@ -28,7 +28,6 @@ namespace Domain.UseCase.InGame.Player
             }
         }
 
-        public override PlayerStateType TargetStateMask => PlayerStateType.Frying;
         private IPlayerSpeedPresenter SpeedPresenter { get; }
         private IKickableSpeedRepository KickableSpeedRepository { get; }
     }
