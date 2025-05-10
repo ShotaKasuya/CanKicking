@@ -9,15 +9,13 @@ namespace Domain.IPresenter.InGame.Player
     
     public struct KickArg
     {
-        public KickArg(float power, Vector2 vector, float torque)
+        public KickArg(Vector2 kickPower, float torque)
         {
-            Power = power;
-            Vector = vector;
+            KickPower = kickPower;
             Torque = torque;
         }
 
-        public float Power { get; }
-        public Vector2 Vector { get; }
+        public Vector2 KickPower { get; }
         public float Torque { get; }
     }
 }

@@ -17,9 +17,8 @@ namespace Adapter.Presenter.InGame.Player
         public void Kick(KickArg kickArg)
         {
             var rbody = PlayerView.MutRbody;
-            var power = kickArg.Power;
-            rbody.AddForce(kickArg.Vector * power, ForceMode2D.Impulse);
-            rbody.AddTorque(kickArg.Torque * power, ForceMode2D.Impulse);
+            rbody.AddForce(kickArg.KickPower, ForceMode2D.Impulse);
+            rbody.AddTorque(kickArg.Torque, ForceMode2D.Impulse);
         }
 
         private IMutPlayerView PlayerView { get; }

@@ -2,7 +2,7 @@ using System;
 using Adapter.IView.InGame.Stage;
 using UnityEngine;
 
-namespace Detail.View.InGame.Stage
+namespace Adapter.View.InGame.Stage
 {
     public class GoalView: MonoBehaviour, IGoalView
     {

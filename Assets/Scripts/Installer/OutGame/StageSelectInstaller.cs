@@ -1,5 +1,5 @@
 using Adapter.Presenter.Util;
-using Detail.View.View;
+using Adapter.View.View;
 using Domain.UseCase.Util;
 using UnityEngine;
 using VContainer;

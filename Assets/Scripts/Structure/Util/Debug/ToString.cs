@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace DataUtil.Util.Debug
+namespace Structure.Util.Debug
 {
     public static class ToString
     {

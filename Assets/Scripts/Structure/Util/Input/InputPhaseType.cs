@@ -1,4 +1,4 @@
-namespace DataUtil.Util.Input
+namespace Structure.Util.Input
 {
     /// <summary>
     /// 存在する意味はあまりないが、

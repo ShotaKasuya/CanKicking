@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DataUtil.InGame.Player
+namespace Structure.InGame.Player
 {
     /// <summary>
     /// プレイヤーのベースとなる初期ステータスを定義する
@@ -14,21 +14,6 @@ namespace DataUtil.InGame.Player
 
         [SerializeField] private float kickPower;
         [SerializeField] private float kickableUpperLimit;
-    }
-
-    [Serializable]
-    public class KickPowerData
-    {
-        [SerializeField] private KickPower[] kickPowers;
-
-        public int MaxLevel()
-        {
-            return kickPowers.Length;
-        }
-        public KickPower GetPower(int level)
-        {
-            return kickPowers[level];
-        }
     }
 
     [Serializable]

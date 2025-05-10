@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Domain.IEntity.InGame.Player
@@ -12,12 +14,15 @@ namespace Domain.IEntity.InGame.Player
 
     public readonly struct CalcPowerArg
     {
-        public Vector2 Difference { get; }
+        public float2 EndPoint { get; }
+        public float2 StartPoint { get; }
         public float Power { get; }
 
-        public CalcPowerArg(Vector2 difference, float power)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public CalcPowerArg(Vector2 startPoint, Vector2 endPoint, float power)
         {
-            Difference = difference;
+            StartPoint = startPoint;
+            EndPoint = endPoint;
             Power = power;
         }
     }

@@ -1,7 +1,7 @@
 using Adapter.IView.Util;
 using UnityEngine;
 
-namespace Detail.View.View
+namespace Adapter.View.View
 {
     public class MovableView: MonoBehaviour, IMovableView
     {

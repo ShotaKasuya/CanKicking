@@ -1,12 +1,12 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace DataUtil.Util.Input
+namespace Structure.Util.Input
 {
     /// <summary>
     /// Unityへの依存を吸収する構造体
     /// </summary>
-    public struct TouchState
+    public struct TouchInformation
     {
         public InputPhaseType PhaseType { get; }
         public Vector2 Position { get; }
@@ -19,7 +19,7 @@ namespace DataUtil.Util.Input
         public Vector2 StartPosition { get; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public TouchState(
+        public TouchInformation(
             UnityEngine.InputSystem.LowLevel.TouchState touchState
         )
         {

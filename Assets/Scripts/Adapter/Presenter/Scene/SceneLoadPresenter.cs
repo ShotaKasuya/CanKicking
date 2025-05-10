@@ -1,6 +1,6 @@
 using Adapter.IView.Scene;
-using DataUtil.Scene;
 using Domain.IPresenter.Scene;
+using Structure.Scene;
 
 namespace Adapter.Presenter.Scene
 {

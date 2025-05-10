@@ -1,9 +1,9 @@
+using Adapter.DataStore.Setting;
 using Adapter.Presenter.InGame.Stage;
 using Adapter.Presenter.Util.Camera;
 using Adapter.Repository.Setting;
-using Detail.DataStore.Setting;
-using Detail.View.InGame.Stage;
-using Detail.View.Util;
+using Adapter.View.InGame.Stage;
+using Adapter.View.Util;
 using Domain.UseCase.InGame.Stage;
 using UnityEngine;
 using VContainer;

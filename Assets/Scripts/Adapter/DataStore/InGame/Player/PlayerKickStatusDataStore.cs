@@ -1,20 +1,16 @@
 using Adapter.IDataStore.InGame.Player;
-using DataUtil.InGame.Player;
 using UnityEngine;
 
-namespace Detail.DataStore.InGame.Player
+namespace Adapter.DataStore.InGame.Player
 {
     [CreateAssetMenu(fileName = nameof(PlayerKickStatusDataStore), menuName = "ScriptableObject/PlayerKickStatusDataStore", order = 0)]
-    public class PlayerKickStatusDataStore : ScriptableObject, IPlayerKickStatusDataStore, IKickableSpeedDataStore
+    public class PlayerKickStatusDataStore : ScriptableObject, IPlayerKickStatusDataStore
     {
-        [SerializeField] private KickPowerData kickPowerData;
-        [SerializeField] private float kickableSpeed;
+        [SerializeField] private float[] kickPower;
         
-        public KickPower LoadKickStatus(int level)
+        public float LoadKickStatus(int level)
         {
-            return kickPowerData.GetPower(level);
+            return kickPower[level];
         }
-
-        public float KickableSpeed => kickableSpeed;
     }
 }

@@ -16,6 +16,9 @@
 * Installer
     * DIコンテナの役割を背負う
     * クラス名は最後にInstallerをつける
+
+以降のクラス間ではインターフェースを利用して直接依存しないようにする
+
 * Domain
     * UseCase
       * 主なゲームの動作を記述する
@@ -25,7 +28,8 @@
         * Repository
     * Entity
       * UseCaseからのみ参照される
-      * 状態(一時的なデータ)や振る舞いをもつ
+      * 参照透過な関数を持つ
+      * BurstCompileを利用し処理を高速化する
       * クラス名は最後にEntityをつける
       * 関心
         * なし
@@ -42,7 +46,6 @@
     * クラス名は最後にRepositoryをつける
     * 関心
       * DataStore
-* Detail
   * View
     * UnityのMonoBehaviourのコンポーネントを持ち、表示を司る
     * クラス名は最後にViewをつける

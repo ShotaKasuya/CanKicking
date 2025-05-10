@@ -1,7 +1,7 @@
 using Adapter.IView.Scene;
 using UnityEngine.SceneManagement;
 
-namespace Detail.View.Scene
+namespace Adapter.View.Scene
 {
     public class SceneLoadView: ISceneLoadView
     {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DataUtil.InGame.Player
+namespace Structure.InGame.Player
 {
     /// <summary>
     /// キックのパワーがランダムに上下する際の定数データ

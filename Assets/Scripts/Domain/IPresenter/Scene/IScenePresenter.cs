@@ -1,4 +1,4 @@
-using DataUtil.Scene;
+using Structure.Scene;
 
 namespace Domain.IPresenter.Scene
 {

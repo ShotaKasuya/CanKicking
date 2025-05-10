@@ -1,6 +1,4 @@
-using System;
-
-namespace DataUtil.InGame.Player
+namespace Structure.InGame.Player
 {
     /// <summary>
     /// プレイヤーの状態を示す
@@ -15,7 +13,7 @@ namespace DataUtil.InGame.Player
         /// <summary>
         /// 引っ張っている状態
         /// </summary>
-        Charging,
+        Aiming,
 
         /// <summary>
         /// 動いている状態

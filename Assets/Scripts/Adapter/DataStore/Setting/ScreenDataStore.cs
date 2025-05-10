@@ -1,7 +1,7 @@
 using Adapter.IDataStore.Util;
 using UnityEngine;
 
-namespace Detail.DataStore.Setting
+namespace Adapter.DataStore.Setting
 {
     [CreateAssetMenu(fileName = "ScreenDataStore", menuName = "ScreenDataStore", order = 0)]
     public class ScreenDataStore : ScriptableObject, IScreenDataStore

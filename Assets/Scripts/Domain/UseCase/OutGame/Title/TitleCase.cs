@@ -1,7 +1,7 @@
 using System;
-using DataUtil.Scene;
 using Domain.IPresenter.OutGame.Title;
 using Domain.IPresenter.Scene;
+using Structure.Scene;
 
 namespace Domain.UseCase.OutGame.Title
 {

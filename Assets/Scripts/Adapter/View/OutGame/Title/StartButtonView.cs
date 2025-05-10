@@ -3,7 +3,7 @@ using Adapter.IView.OutGame.Title;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Detail.View.OutGame.Title
+namespace Adapter.View.OutGame.Title
 {
     [RequireComponent(typeof(Button))]
     public class StartButtonView: MonoBehaviour, IStartGameView, IDisposable

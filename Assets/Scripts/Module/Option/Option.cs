@@ -6,14 +6,14 @@ namespace Module.Option
     [Serializable]
     public struct Option<T>
     {
-        public Option<T> Some(T value)
+        public static Option<T> Some(T value)
         {
             return new Option<T>(true, value);
         }
 
-        public Option<T> None()
+        public static Option<T> None()
         {
-            return new Option<T>(true, value);
+            return new Option<T>(true, default);
         }
 
         public bool TryGetValue(out T outValue)
@@ -21,6 +21,14 @@ namespace Module.Option
             outValue = isSome ? value : default;
             return isSome;
         }
+
+        public T Unwrap()
+        {
+            return value!;
+        }
+
+        public bool IsSome => isSome;
+        public bool IsNone => !isSome;
 
         [SerializeField] private bool isSome;
         [SerializeField] private T value;

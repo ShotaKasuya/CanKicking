@@ -1,5 +1,5 @@
 using Adapter.Presenter.OutGame.Title;
-using Detail.View.OutGame.Title;
+using Adapter.View.OutGame.Title;
 using Domain.UseCase.OutGame.Title;
 using UnityEngine;
 using VContainer;

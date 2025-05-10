@@ -2,7 +2,7 @@ using Adapter.IView.InGame.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Detail.View.InGame.UI
+namespace Adapter.View.InGame.UI
 {
     public class GoalMessageView: MonoBehaviour, IGoalMessageView
     {

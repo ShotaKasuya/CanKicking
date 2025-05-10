@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using DataUtil.InGame.Player;
 using Module.StateMachine;
+using Structure.InGame.Player;
 using UnityEngine;
 using VContainer.Unity;
 

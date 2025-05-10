@@ -1,5 +1,6 @@
 using Domain.IEntity.InGame.Player;
 using Unity.Burst;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Domain.Entity.InGame.Player
@@ -9,7 +10,9 @@ namespace Domain.Entity.InGame.Player
     {
         public Vector2 CalcPower(in CalcPowerArg calcPowerArg)
         {
-            return calcPowerArg.Difference * -calcPowerArg.Power;
+            var delta = calcPowerArg.EndPoint-calcPowerArg.StartPoint;
+            var result = delta * -calcPowerArg.Power;
+            return result;
         }
     }
 }

@@ -1,7 +1,7 @@
-using DataUtil.InGame.Player;
 using Domain.IPresenter.Util;
 using Domain.IUseCase.InGame;
 using Module.StateMachine;
+using Structure.InGame.Player;
 
 namespace Domain.UseCase.InGame.Player
 {
@@ -9,21 +9,29 @@ namespace Domain.UseCase.InGame.Player
     {
         public PlayerIdleCase
         (
-            ITouchEndPresenter touchEndPresenter,
-            PlayerStateType playerStateType,
+            ITouchPresenter touchPresenter,
             IMutStateEntity<PlayerStateType> stateEntity
-        ) : base(playerStateType, stateEntity)
+        ) : base(PlayerStateType.Idle, stateEntity)
         {
-            TouchEndPresenter = touchEndPresenter;
+            TouchPresenter = touchPresenter;
         }
 
-        public override void StateUpdate(float deltaTime)
+        public override void OnEnter()
         {
-            if (!TouchEndPresenter.Pool().TryGetValue(out var touchEnd)) return;
-            
-            
+            TouchPresenter.OnTouch += _ => ToCharge();
         }
-        
-        private ITouchEndPresenter TouchEndPresenter { get; }
+
+        public override void OnExit()
+        {
+            TouchPresenter.OnTouch -= _ => ToCharge();
+        }
+
+        private void ToCharge()
+        {
+            StateEntity.ChangeState(PlayerStateType.Aiming);
+        }
+
+
+        private ITouchPresenter TouchPresenter { get; }
     }
 }

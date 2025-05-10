@@ -1,27 +1,21 @@
+using System;
 using Module.Option;
-using UnityEngine;
+using Structure.Util.Input;
 
 namespace Domain.IPresenter.Util
 {
-    public interface ITouchEndPresenter
+    public interface ITouchPresenter
     {
-        public Option<TouchEnd> Pool();
-        public Option<TouchEnd> Peek();
+        public Action<FingerTouchInfo> OnTouch { get; set; }
     }
 
-    public readonly struct TouchEnd
+    public interface IDragFingerPresenter
     {
-        public Vector2 StartPoint { get; }
-        public Vector2 EndPoint { get; }
+        public Option<FingerDraggingInfo> DragInfo { get; }
+    }
 
-        public TouchEnd
-        (
-            Vector2 startPoint,
-            Vector2 endPoint
-        )
-        {
-            StartPoint = startPoint;
-            EndPoint = endPoint;
-        }
+    public interface IFingerReleasePresenter
+    {
+        public Action<FingerReleaseInfo> OnRelease { get; set; }
     }
 }

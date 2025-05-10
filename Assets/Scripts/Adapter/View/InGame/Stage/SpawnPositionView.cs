@@ -1,7 +1,7 @@
 using Adapter.IView.InGame.Stage;
 using UnityEngine;
 
-namespace Detail.View.InGame.Stage
+namespace Adapter.View.InGame.Stage
 {
     public class SpawnPositionView: MonoBehaviour, IPositionView
     {

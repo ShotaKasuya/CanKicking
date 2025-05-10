@@ -1,4 +1,4 @@
-namespace DataUtil.Scene
+namespace Structure.Scene
 {
     public enum SceneType
     {

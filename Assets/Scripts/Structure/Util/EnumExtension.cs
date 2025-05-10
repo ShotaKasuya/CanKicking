@@ -1,9 +1,9 @@
 using System;
 using System.Runtime.CompilerServices;
-using DataUtil.Util.Input;
+using Structure.Util.Input;
 using UnityEngine.InputSystem;
 
-namespace DataUtil.Util
+namespace Structure.Util
 {
     public static class EnumExtension
     {

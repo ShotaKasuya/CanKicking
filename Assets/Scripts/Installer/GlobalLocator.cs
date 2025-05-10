@@ -1,6 +1,6 @@
 using Adapter.Presenter.Scene;
-using Detail.View.InGame.Input;
-using Detail.View.Scene;
+using Adapter.View.InGame.Input;
+using Adapter.View.Scene;
 using VContainer;
 using VContainer.Unity;
 

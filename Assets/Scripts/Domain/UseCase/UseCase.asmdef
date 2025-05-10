@@ -2,6 +2,7 @@
     "name": "UseCase",
     "rootNamespace": "",
     "references": [
+        "GUID:9ee1f853207b62cc39e2cda34e6258b4",
         "GUID:6c85dd7026834e21b1486fba87712a73",
         "GUID:0a371ff60b63170ea978f46c5d6f6efa",
         "GUID:b3832c9385588f0b18fa27700937b34f",

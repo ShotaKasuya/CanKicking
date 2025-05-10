@@ -1,28 +1,19 @@
 using Adapter.IDataStore.InGame.Player;
-using DataUtil.InGame.Player;
 using Domain.IRepository.InGame.Player;
 
 namespace Adapter.Repository.InGame.Player
 {
-    public class PlayerStatusRepository : IPlayerKickStatusRepository, IKickableSpeedRepository
+    public class BasePowerRepository : IKickBasePowerRepository
     {
-        public PlayerStatusRepository
+        public BasePowerRepository
         (
-            IPlayerKickStatusDataStore kickStatusDataStore,
-            IKickableSpeedDataStore kickableSpeedDataStore
+            IPlayerKickStatusDataStore kickStatusDataStore
         )
         {
             KickStatusDataStore = kickStatusDataStore;
-            KickableSpeedDataStore = kickableSpeedDataStore;
-            
-            KickBasePower = kickStatusDataStore.LoadKickStatus(0);
-            SqrKickableVelocity = kickableSpeedDataStore.KickableSpeed * kickableSpeedDataStore.KickableSpeed;
         }
 
-        public KickPower KickBasePower { get; }
-        public float SqrKickableVelocity { get; }
-        
+        public float KickBasePower => KickStatusDataStore.LoadKickStatus(0);
         private IPlayerKickStatusDataStore KickStatusDataStore { get; }
-        private IKickableSpeedDataStore KickableSpeedDataStore { get; }
     }
 }

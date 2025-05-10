@@ -2,7 +2,7 @@ using Adapter.IView.Util.Camera;
 using Unity.Cinemachine;
 using UnityEngine;
 
-namespace Detail.View.Util
+namespace Adapter.View.Util
 {
     [RequireComponent(typeof(CinemachineCamera))]
     public class CameraView : MonoBehaviour, ICameraView

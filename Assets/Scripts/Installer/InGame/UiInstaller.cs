@@ -1,5 +1,5 @@
 using Adapter.Presenter.InGame.UI;
-using Detail.View.InGame.UI;
+using Adapter.View.InGame.UI;
 using Domain.UseCase.InGame.Stage;
 using Domain.UseCase.InGame.UI;
 using UnityEngine;
