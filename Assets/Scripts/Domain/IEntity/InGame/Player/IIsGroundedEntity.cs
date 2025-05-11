@@ -12,19 +12,19 @@ namespace Domain.IEntity.InGame.Player
 
     public readonly struct CheckGroundParams
     {
-        public NativeArray<RaycastHit2D> RaycastHits { get; }
+        public float2 Normal { get; }
         public float SlopeLimit { get; }
         public float2 CurrentVelocity { get; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CheckGroundParams
         (
-            RaycastHit2D[] raycastHits,
+            Vector2 normal,
             float slopeLimit,
             Vector2 currentVelocity
         )
         {
-            RaycastHits = new NativeArray<RaycastHit2D>(raycastHits, Allocator.Temp);
+            Normal = normal;
             SlopeLimit = slopeLimit;
             CurrentVelocity = currentVelocity;
         }
