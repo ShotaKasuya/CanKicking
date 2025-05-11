@@ -51,7 +51,7 @@ namespace Domain.UseCase.InGame.Player
         private void Jump(FingerReleaseInfo fingerReleaseInfo)
         {
             var basePower = KickBasePowerRepository.KickBasePower;
-            var power = CalcPowerEntity.CalcPower(new CalcPowerArg(
+            var power = CalcPowerEntity.CalcPower(new CalcPowerParams(
                 fingerReleaseInfo.TouchStartPosition,
                 fingerReleaseInfo.TouchEndPosition, basePower
             ));

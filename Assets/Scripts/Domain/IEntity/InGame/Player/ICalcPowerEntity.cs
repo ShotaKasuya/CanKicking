@@ -9,17 +9,17 @@ namespace Domain.IEntity.InGame.Player
     /// </summary>
     public interface ICalcPowerEntity
     {
-        public Vector2 CalcPower(in CalcPowerArg calcPowerArg);
+        public Vector2 CalcPower(in CalcPowerParams calcPowerParams);
     }
 
-    public readonly struct CalcPowerArg
+    public readonly struct CalcPowerParams
     {
         public float2 EndPoint { get; }
         public float2 StartPoint { get; }
         public float Power { get; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public CalcPowerArg(Vector2 startPoint, Vector2 endPoint, float power)
+        public CalcPowerParams(Vector2 startPoint, Vector2 endPoint, float power)
         {
             StartPoint = startPoint;
             EndPoint = endPoint;

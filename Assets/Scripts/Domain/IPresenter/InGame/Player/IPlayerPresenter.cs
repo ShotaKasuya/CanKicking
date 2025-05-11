@@ -7,9 +7,14 @@ namespace Domain.IPresenter.InGame.Player
         public Vector3 Position { get; }
     }
 
-    public interface IPlayerSpeedPresenter
+    public interface IPlayerVelocityPresenter
     {
-        public float SqrSpeed();
+        public Vector2 LinearVelocity();
         public float AnglerVelocity();
+    }
+
+    public interface IPlayerGroundPresenter
+    {
+        public RaycastHit2D[] PoolGround();
     }
 }

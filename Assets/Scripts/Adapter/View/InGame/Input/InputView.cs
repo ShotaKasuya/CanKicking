@@ -29,7 +29,7 @@ namespace Adapter.View.InGame.Input
 
             if (DragInfo.IsNone & touchInfo.PhaseType == InputPhaseType.OnTouch)
             {
-                OnTouch.Invoke(new FingerTouchInfo(touchInfo.Position));
+                OnTouch?.Invoke(new FingerTouchInfo(touchInfo.Position));
                 DragInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
                     touchInfo.StartPosition,
                     touchInfo.StartPosition
@@ -42,7 +42,7 @@ namespace Adapter.View.InGame.Input
                 if (touchInfo.PhaseType == InputPhaseType.OnRelease)
                 {
                     DragInfo = Option<FingerDraggingInfo>.None();
-                    OnRelease.Invoke(new FingerReleaseInfo(info.TouchStartPosition, touchInfo.Position));
+                    OnRelease?.Invoke(new FingerReleaseInfo(info.TouchStartPosition, touchInfo.Position));
                     return;
                 }
 

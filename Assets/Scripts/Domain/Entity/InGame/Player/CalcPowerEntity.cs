@@ -8,10 +8,10 @@ namespace Domain.Entity.InGame.Player
     [BurstCompile]
     public struct CalcPowerEntity : ICalcPowerEntity
     {
-        public Vector2 CalcPower(in CalcPowerArg calcPowerArg)
+        public Vector2 CalcPower(in CalcPowerParams calcPowerParams)
         {
-            var delta = calcPowerArg.EndPoint-calcPowerArg.StartPoint;
-            var result = delta * -calcPowerArg.Power;
+            var delta = calcPowerParams.EndPoint-calcPowerParams.StartPoint;
+            var result = delta * -calcPowerParams.Power;
             return result;
         }
     }
