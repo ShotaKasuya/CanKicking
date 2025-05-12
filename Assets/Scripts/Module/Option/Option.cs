@@ -13,7 +13,7 @@ namespace Module.Option
 
         public static Option<T> None()
         {
-            return new Option<T>(true, default);
+            return new Option<T>(false, default);
         }
 
         public bool TryGetValue(out T outValue)

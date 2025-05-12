@@ -4,9 +4,9 @@ using Unity.Mathematics;
 
 namespace Domain.Entity.InGame.Player
 {
-    [BurstCompile]
-    public struct IsGroundEntity : IIsGroundedEntity
+    public class IsGroundEntity : IIsGroundedEntity
     {
+        [BurstCompile]
         public bool IsGround(CheckGroundParams checkGroundParams)
         {
             var up = new float2(0f, 1f); // 上方向ベクトル

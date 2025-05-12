@@ -1,7 +1,12 @@
 using Adapter.DataStore.InGame.Player;
 using Adapter.Presenter.InGame.Player;
+using Adapter.Presenter.Input;
 using Adapter.Repository.InGame.Player;
+using Adapter.View.InGame.Input;
 using Adapter.View.InGame.Player;
+using Domain.Entity.InGame.Player;
+using Domain.IUseCase.InGame;
+using Domain.UseCase.InGame.Player;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -10,22 +15,45 @@ namespace Installer.InGame
 {
     public class PlayerInstaller : LifetimeScope
     {
-        [SerializeField] private PlayerKickStatusDataStore playerStatusDataObject;
-
+        [SerializeField] private AimView aimView;
+        [SerializeField] private PlayerKickStatusDataStore kickStatusDataStore;
         protected override void Configure(IContainerBuilder builder)
         {
-            // view
+            // View
             var playerView = GetComponent<PlayerView>();
-            builder.RegisterComponent(playerView);
+            builder.UseComponents(componentsBuilder =>
+            {
+                componentsBuilder.AddInstance(playerView).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(aimView).AsImplementedInterfaces();
+            });
+            builder.Register<InputView>(Lifetime.Singleton).AsImplementedInterfaces();
+            
+            // DataStore
+            builder.RegisterInstance(kickStatusDataStore).AsImplementedInterfaces();
+            builder.Register<PlayerConstantDataStore>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Presenter
             builder.Register<PlayerKickPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GroundPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<TouchPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<AimPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerContactPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Repository
             builder.Register<BasePowerRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GroundingInfoRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            // Entity
+            builder.Register<IsGroundEntity>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CalcPowerEntity>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // UseCase
+            builder.Register<PlayerState>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterEntryPoint<PlayerStateMachine>();
+            builder.Register<PlayerIdleCase>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerAimingCase>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerFryingCase>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

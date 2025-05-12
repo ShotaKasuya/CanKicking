@@ -6,6 +6,7 @@ using Domain.IUseCase.InGame;
 using Module.StateMachine;
 using Structure.InGame.Player;
 using Structure.Util.Input;
+using UnityEngine;
 
 namespace Domain.UseCase.InGame.Player
 {
@@ -34,8 +35,29 @@ namespace Domain.UseCase.InGame.Player
         {
             var dragInfo = DragFingerPresenter.DragInfo.Unwrap();
             var aimVector = dragInfo.TouchCurrentPosition - dragInfo.TouchStartPosition;
-            
-            AimPresenter.PresentAim(new AimInfo(aimVector.normalized));
+            var width = Screen.width;
+            var height = Screen.height;
+            var startPosition = new Vector2(aimVector.x / width, aimVector.y / height);
+
+            AimPresenter.PresentAim(new AimInfo(startPosition));
+        }
+
+        private void Jump(FingerReleaseInfo fingerReleaseInfo)
+        {
+            var width = Screen.width;
+            var height = Screen.height;
+            var startPosition = fingerReleaseInfo.TouchStartPosition;
+            var endPosition = fingerReleaseInfo.TouchEndPosition;
+            var basePower = KickBasePowerRepository.KickBasePower;
+
+            var power = CalcPowerEntity.CalcPower(new CalcPowerParams(
+                new Vector2(startPosition.x / width, startPosition.y / height),
+                new Vector2(endPosition.x / width, endPosition.y / height), basePower
+            ));
+
+            var arg = new KickArg(power, Mathf.Sign(power.x));
+            KickPresenter.Kick(arg);
+            StateEntity.ChangeState(PlayerStateType.Frying);
         }
 
         public override void OnEnter()
@@ -46,18 +68,6 @@ namespace Domain.UseCase.InGame.Player
         public override void OnExit()
         {
             FingerReleasePresenter.OnRelease -= Jump;
-        }
-
-        private void Jump(FingerReleaseInfo fingerReleaseInfo)
-        {
-            var basePower = KickBasePowerRepository.KickBasePower;
-            var power = CalcPowerEntity.CalcPower(new CalcPowerParams(
-                fingerReleaseInfo.TouchStartPosition,
-                fingerReleaseInfo.TouchEndPosition, basePower
-            ));
-
-            var arg = new KickArg(power, 1);
-            KickPresenter.Kick(arg);
         }
 
         private IDragFingerPresenter DragFingerPresenter { get; }

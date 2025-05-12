@@ -12,8 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe5a6d1a933f4942af11af84661be4e5, type: 3}
   m_Name: PlayerKickStatusDataStore
   m_EditorClassIdentifier: 
-  kickPowerData:
-    kickPowers:
-    - basePower: 10
-    - basePower: 0
-  kickableSpeed: 1
+  kickPower:
+  - 25

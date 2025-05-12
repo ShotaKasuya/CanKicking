@@ -5,19 +5,19 @@ namespace Module.StateMachine
 {
     public abstract class AbstractStateMachine<TState> : IDisposable where TState : struct, Enum
     {
-        protected AbstractStateMachine(IStateEntity<TState> stateEntity,
+        protected AbstractStateMachine(IState<TState> state,
             IReadOnlyList<IStateBehaviour<TState>> behaviourEntities)
         {
-            StateEntity = stateEntity;
+            State = state;
             StateBehaviourEntities = behaviourEntities;
 
-            StateEntity.OnChangeState += OnChangeState;
+            State.OnChangeState += OnChangeState;
             CallOnEnter(default);
         }
 
         protected void OnTick(float deltaTime)
         {
-            var currentState = StateEntity.State;
+            var currentState = State.State;
             for (int i = 0; i < StateBehaviourEntities.Count; i++)
             {
                 var behaviour = StateBehaviourEntities[i];
@@ -35,7 +35,7 @@ namespace Module.StateMachine
             CallOnEnter(statePair.NextState);
         }
 
-        private IStateEntity<TState> StateEntity { get; }
+        private IState<TState> State { get; }
         private IReadOnlyList<IStateBehaviour<TState>> StateBehaviourEntities { get; }
 
         private void CallOnEnter(TState prev)
@@ -64,7 +64,7 @@ namespace Module.StateMachine
 
         public void Dispose()
         {
-            StateEntity.OnChangeState -= OnChangeState;
+            State.OnChangeState -= OnChangeState;
         }
     }
 }

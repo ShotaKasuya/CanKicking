@@ -21,7 +21,7 @@ namespace Adapter.IView.InGame.Player
         public int CastFromPlayer(RayCastInfo rayCastInfo, RaycastHit2D[] result);
     }
 
-    public interface IContactPresenter
+    public interface IContactView
     {
         public Action<Collision2D> ContactEvent { get; set; } 
     }

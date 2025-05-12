@@ -13,14 +13,12 @@ namespace Domain.UseCase.InGame.Player
         public PlayerFryingCase
         (
             IPlayerContactPresenter playerContactPresenter,
-            IPlayerVelocityPresenter velocityPresenter,
             IGroundingInfoRepository groundingInfoRepository,
             IIsGroundedEntity isGroundedEntity,
             IMutStateEntity<PlayerStateType> stateEntity
         ) : base(PlayerStateType.Frying, stateEntity)
         {
             PlayerContactPresenter = playerContactPresenter;
-            VelocityPresenter = velocityPresenter;
             GroundingInfoRepository = groundingInfoRepository;
             IsGroundedEntity = isGroundedEntity;
         }
@@ -40,12 +38,10 @@ namespace Domain.UseCase.InGame.Player
             for (int i = 0; i < collision.contactCount; i++)
             {
                 var normal = collision.contacts[i].normal;
-                var velocity = VelocityPresenter.LinearVelocity();
 
                 var isGround = IsGroundedEntity.IsGround(new CheckGroundParams(
                     normal,
-                    GroundingInfoRepository.MaxSlope,
-                    velocity
+                    GroundingInfoRepository.MaxSlope
                 ));
                 if (isGround)
                 {
@@ -56,7 +52,6 @@ namespace Domain.UseCase.InGame.Player
         }
 
         private IPlayerContactPresenter PlayerContactPresenter { get; }
-        private IPlayerVelocityPresenter VelocityPresenter { get; }
         private IGroundingInfoRepository GroundingInfoRepository { get; }
         private IIsGroundedEntity IsGroundedEntity { get; }
     }

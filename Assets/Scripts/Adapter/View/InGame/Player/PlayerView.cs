@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Adapter.View.InGame.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerView : MonoBehaviour, IMutPlayerView, IPlayerCastView, IContactPresenter
+    public class PlayerView : MonoBehaviour, IMutPlayerView, IPlayerCastView, IContactView
     {
         public Transform ModelTransform => _modelTransform;
         public Rigidbody2D MutRbody => _rbody;

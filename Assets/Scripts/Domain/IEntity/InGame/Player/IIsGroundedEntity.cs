@@ -1,5 +1,4 @@
 using System.Runtime.CompilerServices;
-using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -14,19 +13,16 @@ namespace Domain.IEntity.InGame.Player
     {
         public float2 Normal { get; }
         public float SlopeLimit { get; }
-        public float2 CurrentVelocity { get; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CheckGroundParams
         (
             Vector2 normal,
-            float slopeLimit,
-            Vector2 currentVelocity
+            float slopeLimit
         )
         {
             Normal = normal;
             SlopeLimit = slopeLimit;
-            CurrentVelocity = currentVelocity;
         }
     }
 }

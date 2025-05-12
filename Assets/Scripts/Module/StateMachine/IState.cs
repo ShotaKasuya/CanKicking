@@ -2,7 +2,7 @@ using System;
 
 namespace Module.StateMachine
 {
-    public abstract class AbstractStateType<TState> : IMutStateEntity<TState>, IStateEntity<TState>
+    public abstract class AbstractStateType<TState> : IMutStateEntity<TState>
         where TState : struct, Enum
     {
         protected AbstractStateType
@@ -13,7 +13,7 @@ namespace Module.StateMachine
             State = entryState;
         }
 
-        public TState State { get; }
+        public TState State { get; private set; }
         public Action<StatePair<TState>> OnChangeState { get; set; }
 
         public bool IsInState(TState state)
@@ -21,13 +21,14 @@ namespace Module.StateMachine
             return State.Equals(state);
         }
 
-        public void ChangeState(TState next)
+        public virtual void ChangeState(TState next)
         {
             OnChangeState.Invoke(new StatePair<TState>(State, next));
+            State = next;
         }
     }
 
-    public interface IStateEntity<TState> where TState : struct, Enum
+    public interface IState<TState> where TState : struct, Enum
     {
         /// <summary>
         /// 現在のステート
@@ -45,7 +46,7 @@ namespace Module.StateMachine
         public Action<StatePair<TState>> OnChangeState { get; set; }
     }
 
-    public interface IMutStateEntity<TState> where TState : struct, Enum
+    public interface IMutStateEntity<TState> : IState<TState> where TState : struct, Enum
     {
         /// <summary>
         /// ステートを変化させる

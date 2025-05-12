@@ -13,9 +13,9 @@ namespace Domain.IUseCase.InGame
     {
         public PlayerStateMachine
         (
-            IStateEntity<PlayerStateType> stateEntity,
+            IState<PlayerStateType> state,
             IReadOnlyList<IStateBehaviour<PlayerStateType>> behaviourEntities
-        ) : base(stateEntity, behaviourEntities)
+        ) : base(state, behaviourEntities)
         {
         }
 
@@ -36,13 +36,16 @@ namespace Domain.IUseCase.InGame
         }
     }
 
-    public class PlayerStateEntity : AbstractStateType<PlayerStateType>
+    public class PlayerState : AbstractStateType<PlayerStateType>
     {
-        public PlayerStateEntity
-        (
-            PlayerStateType entryState
-        ) : base(entryState)
+        public PlayerState() : base(PlayerStateType.Idle)
         {
+        }
+
+        public override void ChangeState(PlayerStateType next)
+        {
+            Debug.Log($"(current, next) => ({State}, {next})");
+            base.ChangeState(next);
         }
     }
 }
