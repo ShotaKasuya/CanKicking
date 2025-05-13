@@ -6,24 +6,23 @@ namespace Adapter.View.InGame.Player
     [RequireComponent(typeof(SpriteRenderer))]
     public class AimView : MonoBehaviour, IAimView
     {
-        private SpriteRenderer _spriteRenderer;
-        private Transform _modelTransform;
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Vector2 baseScale;
+        private Transform _modelTransform;
 
         private void Awake()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
             _modelTransform = transform;
         }
 
         public void ShowAim()
         {
-            _spriteRenderer.enabled = true;
+            spriteRenderer.enabled = true;
         }
 
         public void HideAim()
         {
-            _spriteRenderer.enabled = false;
+            spriteRenderer.enabled = false;
         }
 
         public void UpdateAim(Vector2 direction)

@@ -100,4 +100,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f00935f78694792a7080151acc54f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2717279330998932041}
   baseScale: {x: 10, y: 0.5}

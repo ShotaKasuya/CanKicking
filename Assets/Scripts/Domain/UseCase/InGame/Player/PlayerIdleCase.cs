@@ -5,6 +5,7 @@ using Domain.IRepository.InGame.Player;
 using Domain.IUseCase.InGame;
 using Module.StateMachine;
 using Structure.InGame.Player;
+using Structure.Util.Input;
 
 namespace Domain.UseCase.InGame.Player
 {
@@ -41,20 +42,21 @@ namespace Domain.UseCase.InGame.Player
                     return;
                 }
             }
+
             StateEntity.ChangeState(PlayerStateType.Frying);
         }
 
         public override void OnEnter()
         {
-            TouchPresenter.OnTouch += _ => ToCharge();
+            TouchPresenter.OnTouch += ToCharge;
         }
 
         public override void OnExit()
         {
-            TouchPresenter.OnTouch -= _ => ToCharge();
+            TouchPresenter.OnTouch -= ToCharge;
         }
 
-        private void ToCharge()
+        private void ToCharge(FingerTouchInfo touchInfo)
         {
             StateEntity.ChangeState(PlayerStateType.Aiming);
         }

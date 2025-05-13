@@ -57,6 +57,7 @@ namespace Domain.UseCase.InGame.Player
 
             var arg = new KickArg(power, Mathf.Sign(power.x));
             KickPresenter.Kick(arg);
+            AimPresenter.PresentAim(new AimInfo(Vector2.zero));
             StateEntity.ChangeState(PlayerStateType.Frying);
         }
 

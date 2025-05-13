@@ -10,7 +10,7 @@ namespace Installer
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<InputView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<InputView>(Lifetime.Transient).AsImplementedInterfaces();
             builder.Register<SceneLoadView>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<SceneLoadPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
