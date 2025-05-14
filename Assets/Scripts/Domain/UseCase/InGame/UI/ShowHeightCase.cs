@@ -1,4 +1,3 @@
-using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.InGame.Stage;
 using Domain.IPresenter.InGame.UI;
 using VContainer.Unity;
@@ -13,23 +12,20 @@ namespace Domain.UseCase.InGame.UI
         public ShowHeightCase
         (
             IHeightUiPresenter heightUiPresenter,
-            IPlayerPresenter playerPresenter,
-            ISpawnPositionPresenter spawnPositionPresenter
+            IPlayerHeightPresenter playerHeightPresenter
         )
         {
             HeightUiPresenter = heightUiPresenter;
-            PlayerPresenter = playerPresenter;
-            SpawnPositionPresenter = spawnPositionPresenter;
+            PlayerHeightPresenter = playerHeightPresenter;
         }
 
         public void Tick()
         {
-            var height = PlayerPresenter.Position.y - SpawnPositionPresenter.SpawnPosition.y;
+            var height = PlayerHeightPresenter.GetHeight();
             HeightUiPresenter.SetHeight(height);
         }
 
         private IHeightUiPresenter HeightUiPresenter { get; }
-        private IPlayerPresenter PlayerPresenter { get; }
-        private ISpawnPositionPresenter SpawnPositionPresenter { get; }
+        private IPlayerHeightPresenter PlayerHeightPresenter { get; }
     }
 }

@@ -8,7 +8,7 @@ namespace Adapter.Presenter.InGame.Stage
     {
         public SpawnPositionPresenter
         (
-            IPositionView positionView
+            ISpawnPositionView positionView
         )
         {
             PositionView = positionView;
@@ -16,6 +16,6 @@ namespace Adapter.Presenter.InGame.Stage
         
         public Vector3 SpawnPosition => PositionView.Position.position;
         
-        private IPositionView PositionView { get; }
+        private ISpawnPositionView PositionView { get; }
     }
 }

@@ -20,14 +20,20 @@ namespace Installer.InGame
 
         protected override void Configure(IContainerBuilder builder)
         {
+            // View
+            builder.UseComponents(componentsBuilder =>
+            {
+                componentsBuilder.AddInstance(spawnPositionView).AsImplementedInterfaces();
+            });
+
             // Presenter
-            builder.Register<SpawnPositionPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerHeightPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GoalEventPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<CameraPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
-            
+
             // Repository
             builder.Register<ScreenRepository>(Lifetime.Singleton).AsImplementedInterfaces();
-            
+
             // UseCase
             builder.Register<CameraFitScreenCase>(Lifetime.Singleton).AsImplementedInterfaces();
         }

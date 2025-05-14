@@ -7,6 +7,8 @@ using Adapter.View.InGame.Player;
 using Domain.Entity.InGame.Player;
 using Domain.IUseCase.InGame;
 using Domain.UseCase.InGame.Player;
+using Module.StateMachine;
+using Structure.InGame.Player;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -46,6 +48,7 @@ namespace Installer.InGame
 
             // Entity
             builder.Register<IsGroundEntity>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<IsStopedEntity>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<CalcPowerEntity>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // UseCase
@@ -54,6 +57,16 @@ namespace Installer.InGame
             builder.Register<PlayerIdleCase>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerAimingCase>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerFryingCase>(Lifetime.Singleton).AsImplementedInterfaces();
+        }
+
+        private void OnGUI()
+        {
+            var state = Container.Resolve<IMutStateEntity<PlayerStateType>>();
+            var style = new GUIStyle()
+            {
+                fontSize = 130
+            };
+            GUI.Label(new Rect(10, 10, 100, 20), state.State.ToString(), style);
         }
     }
 }

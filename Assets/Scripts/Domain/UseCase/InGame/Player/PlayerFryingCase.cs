@@ -12,15 +12,19 @@ namespace Domain.UseCase.InGame.Player
     {
         public PlayerFryingCase
         (
+            IPlayerVelocityPresenter playerVelocityPresenter,
             IPlayerContactPresenter playerContactPresenter,
             IGroundingInfoRepository groundingInfoRepository,
             IIsGroundedEntity isGroundedEntity,
+            IIsStopedEntity isStopedEntity,
             IMutStateEntity<PlayerStateType> stateEntity
         ) : base(PlayerStateType.Frying, stateEntity)
         {
+            VelocityPresenter = playerVelocityPresenter;
             PlayerContactPresenter = playerContactPresenter;
             GroundingInfoRepository = groundingInfoRepository;
             IsGroundedEntity = isGroundedEntity;
+            IsStopedEntity = isStopedEntity;
         }
 
         public override void OnEnter()
@@ -51,8 +55,18 @@ namespace Domain.UseCase.InGame.Player
             }
         }
 
+        public override void StateUpdate(float deltaTime)
+        {
+            if (IsStopedEntity.IsStop(VelocityPresenter.LinearVelocity(), VelocityPresenter.AnglerVelocity()))
+            {
+                StateEntity.ChangeState(PlayerStateType.Idle);
+            }
+        }
+
+        private IPlayerVelocityPresenter VelocityPresenter { get; }
         private IPlayerContactPresenter PlayerContactPresenter { get; }
         private IGroundingInfoRepository GroundingInfoRepository { get; }
         private IIsGroundedEntity IsGroundedEntity { get; }
+        private IIsStopedEntity IsStopedEntity { get; }
     }
 }
