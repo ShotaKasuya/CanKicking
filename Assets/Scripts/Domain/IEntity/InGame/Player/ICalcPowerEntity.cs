@@ -14,15 +14,13 @@ namespace Domain.IEntity.InGame.Player
 
     public readonly struct CalcPowerParams
     {
-        public float2 EndPoint { get; }
-        public float2 StartPoint { get; }
+        public float2 DeltaPoint { get; }
         public float Power { get; }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public CalcPowerParams(Vector2 startPoint, Vector2 endPoint, float power)
+        public CalcPowerParams(Vector2 deltaPoint, float power)
         {
-            StartPoint = startPoint;
-            EndPoint = endPoint;
+            DeltaPoint = deltaPoint;
             Power = power;
         }
     }

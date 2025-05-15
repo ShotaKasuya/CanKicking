@@ -1,10 +1,11 @@
 using System;
 using Domain.IPresenter.Util.Camera;
 using Domain.IRepository.Util;
+using VContainer.Unity;
 
 namespace Domain.UseCase.InGame.Stage
 {
-    public class CameraFitScreenCase : IDisposable
+    public class CameraFitScreenCase : IStartable, IDisposable
     {
         public CameraFitScreenCase
         (
@@ -16,9 +17,12 @@ namespace Domain.UseCase.InGame.Stage
             ScreenScaleRepository = screenScaleRepository;
             ScreenWidthRepository = screenWidthRepository;
             CameraOrthographicSizePresenter = cameraOrthographicSizePresenter;
+        }
 
-            screenWidthRepository.OnWidthChange += FitCameraScale;
-            
+        public void Start()
+        {
+            ScreenWidthRepository.OnWidthChange += FitCameraScale;
+
             FitCameraScale();
         }
 

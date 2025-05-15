@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff7b350a1fde4fc9927f62be7329932c, type: 3}
   m_Name: ScreenDataStore
   m_EditorClassIdentifier: 
-  screenWidth: 14
+  screenWidth: 15

@@ -25,6 +25,8 @@ namespace Installer.InGame
             {
                 componentsBuilder.AddInstance(spawnPositionView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(goalView).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(screenDataStore).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(playerFollowCamera).AsImplementedInterfaces();
             });
 
             // Presenter
@@ -36,7 +38,7 @@ namespace Installer.InGame
             builder.Register<ScreenRepository>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // UseCase
-            builder.Register<CameraFitScreenCase>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterEntryPoint<CameraFitScreenCase>();
         }
     }
 }

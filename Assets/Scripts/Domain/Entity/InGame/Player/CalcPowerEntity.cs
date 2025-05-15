@@ -9,8 +9,7 @@ namespace Domain.Entity.InGame.Player
         [BurstCompile]
         public Vector2 CalcPower(in CalcPowerParams calcPowerParams)
         {
-            var delta = calcPowerParams.EndPoint - calcPowerParams.StartPoint;
-            var result = delta * -calcPowerParams.Power;
+            var result = calcPowerParams.DeltaPoint * calcPowerParams.Power;
             return result;
         }
     }

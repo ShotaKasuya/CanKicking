@@ -28,12 +28,13 @@ namespace Adapter.View.InGame.Player
         public void UpdateAim(Vector2 direction)
         {
             // 回転：ベクトルの角度をZ軸に反映
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             _modelTransform.rotation = Quaternion.Euler(0f, 0f, angle);
 
             // スケール変更：方向ベクトルの長さに応じて矢印を伸ばす
-            float length = direction.magnitude;
+            var length = direction.magnitude;
             _modelTransform.localScale = new Vector3(baseScale.x * length, baseScale.y);
+            spriteRenderer.color = Color.Lerp(Color.green, Color.red, length);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Domain.IEntity.InGame.Player;
 using Domain.IPresenter.InGame.Player;
 using Domain.IPresenter.Util;
@@ -35,30 +36,34 @@ namespace Domain.UseCase.InGame.Player
         {
             var dragInfo = DragFingerPresenter.DragInfo.Unwrap();
             var aimVector = dragInfo.TouchCurrentPosition - dragInfo.TouchStartPosition;
-            var width = Screen.width;
-            var height = Screen.height;
-            var startPosition = new Vector2(aimVector.x / width, aimVector.y / height);
+            var startPosition = ToScreenBaseVector(aimVector);
 
             AimPresenter.PresentAim(new AimInfo(startPosition));
         }
 
         private void Jump(FingerReleaseInfo fingerReleaseInfo)
         {
-            var width = Screen.width;
-            var height = Screen.height;
             var startPosition = fingerReleaseInfo.TouchStartPosition;
             var endPosition = fingerReleaseInfo.TouchEndPosition;
+            var deltaPosition = ToScreenBaseVector(startPosition - endPosition);
             var basePower = KickBasePowerRepository.KickBasePower;
 
             var power = CalcPowerEntity.CalcPower(new CalcPowerParams(
-                new Vector2(startPosition.x / width, startPosition.y / height),
-                new Vector2(endPosition.x / width, endPosition.y / height), basePower
+                deltaPosition, basePower
             ));
 
             var arg = new KickArg(power, Mathf.Sign(power.x));
             KickPresenter.Kick(arg);
             AimPresenter.PresentAim(new AimInfo(Vector2.zero));
             StateEntity.ChangeState(PlayerStateType.Frying);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Vector2 ToScreenBaseVector(Vector2 vector2)
+        {
+            const float ratio = 1.5f;
+            return new Vector2(Mathf.Clamp(vector2.x / Screen.width * ratio, -1, 1),
+            Mathf.Clamp(vector2.y / Screen.height * ratio, -1, 1));
         }
 
         public override void OnEnter()
