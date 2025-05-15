@@ -1,10 +1,11 @@
 using System;
 using Domain.IPresenter.InGame.Stage;
 using Domain.IPresenter.InGame.UI;
+using VContainer.Unity;
 
 namespace Domain.UseCase.InGame.Stage
 {
-    public class GoalCase: IDisposable
+    public class GoalCase: IStartable, IDisposable
     {
         public GoalCase
         (
@@ -14,7 +15,10 @@ namespace Domain.UseCase.InGame.Stage
         {
             GoalEventPresenter = goalEventPresenter;
             GoalPresenter = goalPresenter;
+        }
 
+        public void Start()
+        {
             GoalEventPresenter.GoalEvent += OnGoal;
         }
 

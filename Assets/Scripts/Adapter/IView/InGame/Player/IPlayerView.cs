@@ -26,6 +26,11 @@ namespace Adapter.IView.InGame.Player
         public Action<Collision2D> ContactEvent { get; set; } 
     }
 
+    public interface ITriggerEnterView
+    {
+        public Action<Collider2D> TriggerEnterEvent { get; set; } 
+    }
+
     public readonly ref struct RayCastInfo
     {
         public Vector2 Direction { get; }

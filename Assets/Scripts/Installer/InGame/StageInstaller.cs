@@ -24,6 +24,7 @@ namespace Installer.InGame
             builder.UseComponents(componentsBuilder =>
             {
                 componentsBuilder.AddInstance(spawnPositionView).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(goalView).AsImplementedInterfaces();
             });
 
             // Presenter

@@ -4,18 +4,12 @@ using UnityEngine;
 
 namespace Adapter.View.InGame.Stage
 {
-    public class GoalView: MonoBehaviour, IGoalView
+    public class GoalView: MonoBehaviour, IPlayerEnterEventView, IGoalView
     {
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            OnTouchGoal();
-        }
-
-        private void OnTouchGoal()
+        public Action TouchGoalEvent { get; set; }
+        public void OnPlayerEnter()
         {
             TouchGoalEvent?.Invoke();
         }
-        
-        public Action TouchGoalEvent { get; set; }
     }
 }
