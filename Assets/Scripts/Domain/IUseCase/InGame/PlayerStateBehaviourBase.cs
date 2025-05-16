@@ -41,11 +41,5 @@ namespace Domain.IUseCase.InGame
         public PlayerState() : base(PlayerStateType.Idle)
         {
         }
-        
-        // public override void ChangeState(PlayerStateType next)
-        // {
-        //     Debug.Log($"(current, next) => ({State}, {next})");
-        //     base.ChangeState(next);
-        // }
     }
 }
