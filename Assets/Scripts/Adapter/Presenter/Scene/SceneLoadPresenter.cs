@@ -14,9 +14,9 @@ namespace Adapter.Presenter.Scene
             SceneLoadView = sceneLoadView;
         }
         
-        public void Load(SceneType sceneType)
+        public void Load(string sceneName)
         {
-            SceneLoadView.Load(sceneType.ToSceneName());
+            SceneLoadView.Load(sceneName);
         }
         
         private ISceneLoadView SceneLoadView { get; }

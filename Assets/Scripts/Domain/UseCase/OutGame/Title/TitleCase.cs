@@ -25,7 +25,7 @@ namespace Domain.UseCase.OutGame.Title
 
         private void OnStart()
         {
-            ScenePresenter.Load(SceneType.StageSelect);
+            ScenePresenter.Load(SceneType.StageSelect.ToSceneName());
         }
 
         private ITitleEventPresenter TitleEventPresenter { get; }

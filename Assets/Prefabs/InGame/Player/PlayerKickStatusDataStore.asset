@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerKickStatusDataStore
   m_EditorClassIdentifier: 
   kickPower:
-  - 25
+  - 20

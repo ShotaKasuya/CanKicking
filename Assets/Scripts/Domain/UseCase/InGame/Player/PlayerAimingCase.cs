@@ -62,8 +62,13 @@ namespace Domain.UseCase.InGame.Player
         private static Vector2 ToScreenBaseVector(Vector2 vector2)
         {
             const float ratio = 1.5f;
-            return new Vector2(Mathf.Clamp(vector2.x / Screen.width * ratio, -1, 1),
-            Mathf.Clamp(vector2.y / Screen.height * ratio, -1, 1));
+            var shorter = Screen.width > Screen.height ? Screen.height : Screen.width;
+            var magnification = ratio / shorter;
+
+            var x = Mathf.Clamp(vector2.x * magnification, -1, 1);
+            var y = Mathf.Clamp(vector2.y * magnification, -1, 1);
+
+            return new Vector2(x, y);
         }
 
         public override void OnEnter()
