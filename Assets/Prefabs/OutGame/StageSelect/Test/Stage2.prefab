@@ -10,12 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 581734758743942337, guid: 253c6aa0bebe341b596d8a38818bb2ea, type: 3}
       propertyPath: sceneReference.sceneName
-      value: GameScene
+      value: Stage02
       objectReference: {fileID: 0}
     - target: {fileID: 581734758743942337, guid: 253c6aa0bebe341b596d8a38818bb2ea, type: 3}
       propertyPath: sceneReference.sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: f17dc4321b453e9d5887b79bd0dd6257, type: 3}
+      objectReference: {fileID: 102900000, guid: 538422ce9d179566c836ff3c556401b5, type: 3}
     - target: {fileID: 2247173989822502366, guid: 253c6aa0bebe341b596d8a38818bb2ea, type: 3}
       propertyPath: m_Name
       value: Stage2

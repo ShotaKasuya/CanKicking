@@ -1,6 +1,7 @@
 using Domain.IPresenter.OutGame.StageSelect;
 using Domain.IRepository.OutGame;
 using Domain.IUseCase.OutGame;
+using Module.Option;
 using Module.StateMachine;
 using Structure.OutGame;
 
@@ -29,9 +30,14 @@ namespace Domain.UseCase.OutGame.StageSelect
             SelectedStagePresenter.SelectEvent -= OnSelect;
         }
 
-        private void OnSelect(string selectedStage)
+        private void OnSelect(Option<string> selectedStage)
         {
-            SelectedStageRepository.SetSelectedStage(selectedStage);
+            if (!selectedStage.TryGetValue(out var stage))
+            {
+                return;
+            }
+            
+            SelectedStageRepository.SetSelectedStage(stage);
             
             StateEntity.ChangeState(StageSelectStateType.Some);
         }

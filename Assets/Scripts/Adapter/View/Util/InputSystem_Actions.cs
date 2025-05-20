@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace Adapter.View.InGame.Input
+namespace Adapter.View.Util
 {
     /// <summary>
     /// Provides programmatic access to <see cref="InputActionAsset" />, <see cref="InputActionMap" />, <see cref="InputAction" /> and <see cref="InputControlScheme" /> instances defined in asset "Assets/InputSystem_Actions.inputactions".
@@ -632,6 +632,45 @@ namespace Adapter.View.InGame.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""StageSelect"",
+            ""id"": ""e1a837d5-b585-4df0-9dcf-bf61efc05542"",
+            ""actions"": [
+                {
+                    ""name"": ""Touch"",
+                    ""type"": ""Value"",
+                    ""id"": ""ad473123-6db9-4a7c-80ed-d6e17a762830"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5a9e38d9-41cb-42f9-8ffa-788eca3cfd19"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1220c7c7-3131-4bf0-8330-66c6740924ff"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -712,12 +751,16 @@ namespace Adapter.View.InGame.Input
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            // StageSelect
+            m_StageSelect = asset.FindActionMap("StageSelect", throwIfNotFound: true);
+            m_StageSelect_Touch = m_StageSelect.FindAction("Touch", throwIfNotFound: true);
         }
 
         ~@InputSystem_Actions()
         {
             UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Player.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_StageSelect.enabled, "This will cause a leak and performance issues, InputSystem_Actions.StageSelect.Disable() has not been called.");
         }
 
         /// <summary>
@@ -1080,6 +1123,102 @@ namespace Adapter.View.InGame.Input
         /// Provides a new <see cref="UIActions" /> instance referencing this action map.
         /// </summary>
         public UIActions @UI => new UIActions(this);
+
+        // StageSelect
+        private readonly InputActionMap m_StageSelect;
+        private List<IStageSelectActions> m_StageSelectActionsCallbackInterfaces = new List<IStageSelectActions>();
+        private readonly InputAction m_StageSelect_Touch;
+        /// <summary>
+        /// Provides access to input actions defined in input action map "StageSelect".
+        /// </summary>
+        public struct StageSelectActions
+        {
+            private @InputSystem_Actions m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public StageSelectActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "StageSelect/Touch".
+            /// </summary>
+            public InputAction @Touch => m_Wrapper.m_StageSelect_Touch;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_StageSelect; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="StageSelectActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(StageSelectActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="StageSelectActions" />
+            public void AddCallbacks(IStageSelectActions instance)
+            {
+                if (instance == null || m_Wrapper.m_StageSelectActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_StageSelectActionsCallbackInterfaces.Add(instance);
+                @Touch.started += instance.OnTouch;
+                @Touch.performed += instance.OnTouch;
+                @Touch.canceled += instance.OnTouch;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="StageSelectActions" />
+            private void UnregisterCallbacks(IStageSelectActions instance)
+            {
+                @Touch.started -= instance.OnTouch;
+                @Touch.performed -= instance.OnTouch;
+                @Touch.canceled -= instance.OnTouch;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="StageSelectActions.UnregisterCallbacks(IStageSelectActions)" />.
+            /// </summary>
+            /// <seealso cref="StageSelectActions.UnregisterCallbacks(IStageSelectActions)" />
+            public void RemoveCallbacks(IStageSelectActions instance)
+            {
+                if (m_Wrapper.m_StageSelectActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="StageSelectActions.AddCallbacks(IStageSelectActions)" />
+            /// <seealso cref="StageSelectActions.RemoveCallbacks(IStageSelectActions)" />
+            /// <seealso cref="StageSelectActions.UnregisterCallbacks(IStageSelectActions)" />
+            public void SetCallbacks(IStageSelectActions instance)
+            {
+                foreach (var item in m_Wrapper.m_StageSelectActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_StageSelectActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="StageSelectActions" /> instance referencing this action map.
+        /// </summary>
+        public StageSelectActions @StageSelect => new StageSelectActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
@@ -1237,6 +1376,21 @@ namespace Adapter.View.InGame.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "StageSelect" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="StageSelectActions.AddCallbacks(IStageSelectActions)" />
+        /// <seealso cref="StageSelectActions.RemoveCallbacks(IStageSelectActions)" />
+        public interface IStageSelectActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "Touch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnTouch(InputAction.CallbackContext context);
         }
     }
 }

@@ -544,6 +544,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "StageSelect",
+            "id": "e1a837d5-b585-4df0-9dcf-bf61efc05542",
+            "actions": [
+                {
+                    "name": "Touch",
+                    "type": "Value",
+                    "id": "ad473123-6db9-4a7c-80ed-d6e17a762830",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5a9e38d9-41cb-42f9-8ffa-788eca3cfd19",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1220c7c7-3131-4bf0-8330-66c6740924ff",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

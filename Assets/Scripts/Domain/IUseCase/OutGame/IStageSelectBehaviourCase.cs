@@ -6,9 +6,9 @@ using VContainer.Unity;
 
 namespace Domain.IUseCase.OutGame
 {
-    public class StageStateMachine : AbstractStateMachine<StageSelectStateType>, ITickable
+    public class StageSelectStateMachine : AbstractStateMachine<StageSelectStateType>, ITickable
     {
-        public StageStateMachine
+        public StageSelectStateMachine
         (
             IState<StageSelectStateType> state,
             IReadOnlyList<IStateBehaviour<StageSelectStateType>> behaviourEntities
