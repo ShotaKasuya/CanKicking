@@ -597,6 +597,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ========== InGameUI ==========
       objectReference: {fileID: 0}
+    - target: {fileID: 5012677940617915280, guid: 89be4a86de7b3eef08833b62b2971a92, type: 3}
+      propertyPath: scene.sceneName
+      value: Stage01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012677940617915280, guid: 89be4a86de7b3eef08833b62b2971a92, type: 3}
+      propertyPath: scene.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: a186c62999353e23a9815afcef9abbb7, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

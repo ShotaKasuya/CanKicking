@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1378
   m_ShowMode: 4
-  m_Title: Simulator
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 25
+  controlID: 122
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -222,8 +222,8 @@ MonoBehaviour:
     y: 0
     width: 344
     height: 1322
-  m_MinSize: {x: 202, y: 226}
-  m_MaxSize: {x: 4002, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -248,14 +248,14 @@ MonoBehaviour:
     y: 0
     width: 414
     height: 1322
-  m_MinSize: {x: 232, y: 276}
-  m_MaxSize: {x: 10002, y: 10026}
-  m_ActualView: {fileID: 17}
+  m_MinSize: {x: 102, y: 126}
+  m_MaxSize: {x: 4002, y: 4026}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 17}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -275,8 +275,8 @@ MonoBehaviour:
     y: 0
     width: 737
     height: 1322
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -1138,26 +1138,26 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a2020000
-      m_LastClickedID: 0
-      m_ExpandedIDs: aa7dffff9a8efffffe91ffff929cffff9ed2ffffb4e3ffff24e5ffff8cfaffff
+      m_SelectedIDs: 52dcffff
+      m_LastClickedID: -9134
+      m_ExpandedIDs: 3adcffff54dcffff0cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: ========== InGameUI ==========
+        m_OriginalName: ========== InGameUI ==========
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -9134
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 0}
+        m_ClientGUIView: {fileID: 9}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1247,8 +1247,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets
+    m_Folders: []
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1266,7 +1265,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 31}
     m_SelectedIDs: ec910000
     m_LastClickedID: 37356
-    m_ExpandedIDs: 000000002ebc000030bc000032bc000034bc000036bc000038bc00003abc00003cbc00003ebc000040bc000042bc000044bc000046bc000048bc00004abc00004cbc00004ebc000050bc000052bc000054bc000056bc000058bc00005abc00005cbc00005ebc000060bc000062bc000064bc000066bc000068bc00006abc00006cbc00006ebc000070bc000072bc000074bc000076bc000078bc00007abc00007cbc00007ebc000080bc000082bc000084bc000086bc000088bc00008abc00008cbc00008ebc000090bc000092bc000094bc0000
+    m_ExpandedIDs: 000000008eb9000090b9000092b9000094b9000096b9000098b900009ab900009cb900009eb90000a0b90000a2b90000a4b90000a6b90000a8b90000aab90000acb90000aeb90000b0b90000b2b90000b4b90000b6b90000b8b90000bab90000bcb90000beb90000c0b90000c2b90000c4b90000c6b90000c8b90000cab90000ccb90000ceb90000d0b90000d2b90000d4b90000d6b90000d8b90000dab90000dcb90000deb90000e0b90000e2b90000e4b90000e6b90000e8b90000eab90000ecb90000eeb90000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1293,9 +1292,9 @@ MonoBehaviour:
       m_ResourceFile: 
   m_AssetTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs: 52dcffff
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000002ebc000030bc000032bc000034bc000036bc000038bc00003abc00003cbc00003ebc000040bc000042bc000044bc000046bc000048bc00004abc00004cbc00004ebc000050bc000052bc000054bc000056bc000058bc00005abc00005cbc00005ebc000060bc000062bc000064bc000066bc000068bc00006abc00006cbc00006ebc000070bc000072bc000074bc000078bc00007cbc000082bc000086bc000088bc00008abc00008cbc00008ebc000090bc000092bc000094bc0000cebd000062c10000
+    m_ExpandedIDs: ffffffff000000008eb9000090b9000092b9000094b9000096b9000098b900009ab900009cb900009eb90000a0b90000a2b90000a4b90000a6b90000a8b90000aab90000acb90000aeb90000b0b90000b2b90000b4b90000b6b90000b8b90000bab90000bcb90000beb90000c0b90000c2b90000c4b90000c6b90000c8b90000cab90000ccb90000ceb90000d0b90000d2b90000d4b90000d6b90000d8b90000dab90000dcb90000deb90000e0b90000e2b90000e4b90000e6b90000e8b90000eab90000ecb90000eeb90000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1321,8 +1320,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: 52dcffff
+    m_LastClickedInstanceID: -9134
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 02860000000000006420020056f70000
     m_RenameOverlay:
@@ -1441,7 +1440,7 @@ MonoBehaviour:
   m_SerializedViewNames:
   - UnityEditor.GameView
   m_SerializedViewValues:
-  - "/home/sairas/\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7/unity/CanKicking/Library/PlayModeViewStates/4bf8340dd3303f105a641fa8a83bcab3"
+  - "/home/sairas/\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7/unity/CanKicking/Library/PlayModeViewStates/8f0d2ee2050aa752fb486ca22b8422e2"
   m_PlayModeViewName: Device Simulator
   m_ShowGizmos: 0
   m_TargetDisplay: 0
