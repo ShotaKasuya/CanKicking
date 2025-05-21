@@ -638,13 +638,22 @@ namespace Adapter.View.Util
             ""id"": ""e1a837d5-b585-4df0-9dcf-bf61efc05542"",
             ""actions"": [
                 {
-                    ""name"": ""Touch"",
+                    ""name"": ""TouchPosition"",
                     ""type"": ""Value"",
                     ""id"": ""ad473123-6db9-4a7c-80ed-d6e17a762830"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Touch"",
+                    ""type"": ""Button"",
+                    ""id"": ""43003181-b65c-4cc8-b5d9-8a3d564773ae"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -655,7 +664,7 @@ namespace Adapter.View.Util
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Touch"",
+                    ""action"": ""TouchPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -663,6 +672,28 @@ namespace Adapter.View.Util
                     ""name"": """",
                     ""id"": ""1220c7c7-3131-4bf0-8330-66c6740924ff"",
                     ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec883da0-263c-4dd5-9183-05eb706d082a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63497a87-fc29-44d0-a563-b46ad63c9d4c"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -753,6 +784,7 @@ namespace Adapter.View.Util
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
             // StageSelect
             m_StageSelect = asset.FindActionMap("StageSelect", throwIfNotFound: true);
+            m_StageSelect_TouchPosition = m_StageSelect.FindAction("TouchPosition", throwIfNotFound: true);
             m_StageSelect_Touch = m_StageSelect.FindAction("Touch", throwIfNotFound: true);
         }
 
@@ -1127,6 +1159,7 @@ namespace Adapter.View.Util
         // StageSelect
         private readonly InputActionMap m_StageSelect;
         private List<IStageSelectActions> m_StageSelectActionsCallbackInterfaces = new List<IStageSelectActions>();
+        private readonly InputAction m_StageSelect_TouchPosition;
         private readonly InputAction m_StageSelect_Touch;
         /// <summary>
         /// Provides access to input actions defined in input action map "StageSelect".
@@ -1139,6 +1172,10 @@ namespace Adapter.View.Util
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
             public StageSelectActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "StageSelect/TouchPosition".
+            /// </summary>
+            public InputAction @TouchPosition => m_Wrapper.m_StageSelect_TouchPosition;
             /// <summary>
             /// Provides access to the underlying input action "StageSelect/Touch".
             /// </summary>
@@ -1169,6 +1206,9 @@ namespace Adapter.View.Util
             {
                 if (instance == null || m_Wrapper.m_StageSelectActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_StageSelectActionsCallbackInterfaces.Add(instance);
+                @TouchPosition.started += instance.OnTouchPosition;
+                @TouchPosition.performed += instance.OnTouchPosition;
+                @TouchPosition.canceled += instance.OnTouchPosition;
                 @Touch.started += instance.OnTouch;
                 @Touch.performed += instance.OnTouch;
                 @Touch.canceled += instance.OnTouch;
@@ -1183,6 +1223,9 @@ namespace Adapter.View.Util
             /// <seealso cref="StageSelectActions" />
             private void UnregisterCallbacks(IStageSelectActions instance)
             {
+                @TouchPosition.started -= instance.OnTouchPosition;
+                @TouchPosition.performed -= instance.OnTouchPosition;
+                @TouchPosition.canceled -= instance.OnTouchPosition;
                 @Touch.started -= instance.OnTouch;
                 @Touch.performed -= instance.OnTouch;
                 @Touch.canceled -= instance.OnTouch;
@@ -1384,6 +1427,13 @@ namespace Adapter.View.Util
         /// <seealso cref="StageSelectActions.RemoveCallbacks(IStageSelectActions)" />
         public interface IStageSelectActions
         {
+            /// <summary>
+            /// Method invoked when associated input action "TouchPosition" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnTouchPosition(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Touch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

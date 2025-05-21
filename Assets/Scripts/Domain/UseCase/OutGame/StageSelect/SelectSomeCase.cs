@@ -5,6 +5,7 @@ using Domain.IUseCase.OutGame;
 using Module.Option;
 using Module.StateMachine;
 using Structure.OutGame;
+using UnityEngine;
 
 namespace Domain.UseCase.OutGame.StageSelect
 {
@@ -13,37 +14,42 @@ namespace Domain.UseCase.OutGame.StageSelect
         public SelectSomeCase
         (
             IScenePresenter scenePresenter,
-            ISelectedStagePresenter selectedStagePresenter,
+            IPlayerStageSelectionPresenter playerStageSelectionPresenter,
+            IStageSelectPresenter stageSelectPresenter,
             ISelectedStageRepository selectedStageRepository,
             IMutStateEntity<StageSelectStateType> stateEntity
         ) : base(StageSelectStateType.Some, stateEntity)
         {
             ScenePresenter = scenePresenter;
-            SelectedStagePresenter = selectedStagePresenter;
+            PlayerStageSelectionPresenter = playerStageSelectionPresenter;
+            StageSelectPresenter = stageSelectPresenter;
             SelectedStageRepository = selectedStageRepository;
         }
 
         public override void OnEnter()
         {
-            SelectedStagePresenter.SelectEvent += OnSelect;
+            PlayerStageSelectionPresenter.SelectEvent += OnSelect;
         }
 
         public override void OnExit()
         {
-            SelectedStagePresenter.SelectEvent -= OnSelect;
+            PlayerStageSelectionPresenter.SelectEvent -= OnSelect;
         }
 
         private void OnSelect(Option<string> selectedStage)
         {
+            Debug.Log($"event: {selectedStage}");
             var prevSelect = SelectedStageRepository.SelectedStage;
-            if (selectedStage.TryGetValue(out var stage))
+            if (!selectedStage.TryGetValue(out var stage))
             {
+                StageSelectPresenter.PresentCancelSelection();
                 StateEntity.ChangeState(StageSelectStateType.None);
                 return;
             }
 
             if (stage != prevSelect)
             {
+                StageSelectPresenter.PresentCancelSelection();
                 SelectedStageRepository.SetSelectedStage(stage);
                 return;
             }
@@ -51,7 +57,8 @@ namespace Domain.UseCase.OutGame.StageSelect
             ScenePresenter.Load(prevSelect);
         }
 
-        private ISelectedStagePresenter SelectedStagePresenter { get; }
+        private IPlayerStageSelectionPresenter PlayerStageSelectionPresenter { get; }
+        private IStageSelectPresenter StageSelectPresenter { get; }
         private IScenePresenter ScenePresenter { get; }
         private ISelectedStageRepository SelectedStageRepository { get; }
     }

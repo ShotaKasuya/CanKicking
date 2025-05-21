@@ -13,8 +13,16 @@ namespace Installer.OutGame
 
         protected override void Configure(IContainerBuilder builder)
         {
+            // View
+            builder.UseComponents(componentsBuilder =>
+            {
+                componentsBuilder.AddInstance(startButtonView).AsImplementedInterfaces();
+            });
+            
+            // Presenter
             builder.Register<TitleEventPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
+            // UseCase
             builder.Register<TitleCase>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }

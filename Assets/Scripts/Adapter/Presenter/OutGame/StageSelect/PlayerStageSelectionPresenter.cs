@@ -5,16 +5,16 @@ using Module.Option;
 
 namespace Adapter.Presenter.OutGame.StageSelect
 {
-    public class SelectedStagePresenter : ISelectedStagePresenter, IDisposable
+    public class PlayerStageSelectionPresenter : IPlayerStageSelectionPresenter, IDisposable
     {
-        public SelectedStagePresenter
+        public PlayerStageSelectionPresenter
         (
             ISelectedStageView selectedStageView
         )
         {
             SelectedStageView = selectedStageView;
 
-            SelectedStageView.SelectStageEvent += OnSelect;
+            SelectedStageView.StageSelectEvent += OnSelect;
         }
 
         public Action<Option<string>> SelectEvent { get; set; }
@@ -28,7 +28,7 @@ namespace Adapter.Presenter.OutGame.StageSelect
 
         public void Dispose()
         {
-            SelectedStageView.SelectStageEvent -= OnSelect;
+            SelectedStageView.StageSelectEvent -= OnSelect;
         }
     }
 }

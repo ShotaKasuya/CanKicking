@@ -38,5 +38,15 @@ namespace Module.Option
             this.isSome = isSome;
             this.value = value;
         }
+
+        public override string ToString()
+        {
+            if (IsSome)
+            {
+                return $"Some({value.ToString()})";
+            }
+
+            return "None";
+        }
     }
 }

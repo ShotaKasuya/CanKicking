@@ -19,6 +19,7 @@ namespace Installer.InGame
     {
         [SerializeField] private AimView aimView;
         [SerializeField] private PlayerKickStatusDataStore kickStatusDataStore;
+
         protected override void Configure(IContainerBuilder builder)
         {
             // View
@@ -29,7 +30,7 @@ namespace Installer.InGame
                 componentsBuilder.AddInstance(aimView).AsImplementedInterfaces();
             });
             builder.Register<InputView>(Lifetime.Singleton).AsImplementedInterfaces();
-            
+
             // DataStore
             builder.RegisterInstance(kickStatusDataStore).AsImplementedInterfaces();
             builder.Register<PlayerConstantDataStore>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -59,6 +60,7 @@ namespace Installer.InGame
             builder.Register<PlayerFryingCase>(Lifetime.Singleton).AsImplementedInterfaces();
         }
 
+#if UNITY_EDITOR
         private void OnGUI()
         {
             var state = Container.Resolve<IMutStateEntity<PlayerStateType>>();
@@ -68,5 +70,6 @@ namespace Installer.InGame
             };
             GUI.Label(new Rect(10, 10, 100, 20), state.State.ToString(), style);
         }
+#endif
     }
 }

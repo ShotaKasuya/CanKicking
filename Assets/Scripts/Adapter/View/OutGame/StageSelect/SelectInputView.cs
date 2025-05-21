@@ -13,11 +13,10 @@ namespace Adapter.View.OutGame.StageSelect
     {
         public SelectInputView
         (
+            InputSystem_Actions inputSystemActions
         )
         {
-            var inputAction = new InputSystem_Actions();
-
-            StageSelectActions = inputAction.StageSelect;
+            StageSelectActions = inputSystemActions.StageSelect;
         }
 
         public void Start()
@@ -27,9 +26,9 @@ namespace Adapter.View.OutGame.StageSelect
             StageSelectActions.Touch.performed += OnSelect;
         }
 
-        private void OnSelect(InputAction.CallbackContext context)
+        private void OnSelect(InputAction.CallbackContext _)
         {
-            var screenPosition = context.ReadValue<Vector2>();
+            var screenPosition = StageSelectActions.TouchPosition.ReadValue<Vector2>();
             var worldPosition = _mainCamera.ScreenToWorldPoint(screenPosition);
 
             var castHit = Physics2D.Raycast(worldPosition, Vector2.zero);
@@ -41,21 +40,22 @@ namespace Adapter.View.OutGame.StageSelect
                 if (collider.TryGetComponent<ISceneGettableView>(out var sceneGettableView))
                 {
                     Debug.Log("Event");
-                    SelectStageEvent?.Invoke(Option<string>.Some(sceneGettableView.SceneName));
+                    StageSelectEvent?.Invoke(Option<string>.Some(sceneGettableView.SceneName));
                     return;
                 }
             }
 
-            SelectStageEvent?.Invoke(Option<string>.None());
+            StageSelectEvent?.Invoke(Option<string>.None());
         }
 
-        public Action<Option<string>> SelectStageEvent { get; set; }
+        public Action<Option<string>> StageSelectEvent { get; set; }
 
         private Camera _mainCamera;
         private InputSystem_Actions.StageSelectActions StageSelectActions { get; }
 
         public void Dispose()
         {
+            Debug.Log("on dispose");
             StageSelectActions.Touch.performed -= OnSelect;
             StageSelectActions.Disable();
         }

@@ -11,23 +11,25 @@ namespace Domain.UseCase.OutGame.StageSelect
     {
         public SelectNoneCase
         (
-            ISelectedStagePresenter selectedStagePresenter,
+            IPlayerStageSelectionPresenter playerStageSelectionPresenter,
+            IStageSelectPresenter stageSelectPresenter,
             ISelectedStageRepository selectedStageRepository,
             IMutStateEntity<StageSelectStateType> stateEntity
         ) : base(StageSelectStateType.None, stateEntity)
         {
-            SelectedStagePresenter = selectedStagePresenter;
+            PlayerStageSelectionPresenter = playerStageSelectionPresenter;
+            StageSelectPresenter = stageSelectPresenter;
             SelectedStageRepository = selectedStageRepository;
         }
 
         public override void OnEnter()
         {
-            SelectedStagePresenter.SelectEvent += OnSelect;
+            PlayerStageSelectionPresenter.SelectEvent += OnSelect;
         }
 
         public override void OnExit()
         {
-            SelectedStagePresenter.SelectEvent -= OnSelect;
+            PlayerStageSelectionPresenter.SelectEvent -= OnSelect;
         }
 
         private void OnSelect(Option<string> selectedStage)
@@ -38,11 +40,13 @@ namespace Domain.UseCase.OutGame.StageSelect
             }
             
             SelectedStageRepository.SetSelectedStage(stage);
+            StageSelectPresenter.PresentSelectedStage(stage);
             
             StateEntity.ChangeState(StageSelectStateType.Some);
         }
         
-        private ISelectedStagePresenter SelectedStagePresenter { get; }
+        private IPlayerStageSelectionPresenter PlayerStageSelectionPresenter { get; }
+        private IStageSelectPresenter StageSelectPresenter { get; }
         private ISelectedStageRepository SelectedStageRepository { get; }
     }
 }

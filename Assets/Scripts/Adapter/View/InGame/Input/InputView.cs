@@ -15,13 +15,10 @@ namespace Adapter.View.InGame.Input
     /// </summary>
     public class InputView : ITickable, IFingerView, IDisposable
     {
-        public InputView()
+        public InputView(InputSystem_Actions inputSystemActions)
         {
-            var inputActions = new InputSystem_Actions();
-            inputActions.Enable();
-
-            PlayerInputActions = inputActions.Player;
-            UIActions = inputActions.UI;
+            PlayerInputActions = inputSystemActions.Player;
+            PlayerInputActions.Enable();
         }
 
         public void Tick()
@@ -59,12 +56,10 @@ namespace Adapter.View.InGame.Input
         public Action<FingerReleaseInfo> OnRelease { get; set; }
 
         private InputSystem_Actions.PlayerActions PlayerInputActions { get; }
-        private InputSystem_Actions.UIActions UIActions { get; }
 
         public void Dispose()
         {
             PlayerInputActions.Disable();
-            UIActions.Disable();
         }
     }
 }
