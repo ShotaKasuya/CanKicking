@@ -6,26 +6,28 @@ using Structure.InGame.UserInterface;
 
 namespace Domain.UseCase.InGame.UI
 {
+    /// <summary>
+    /// ゴール到達後のUIを管理する
+    /// </summary>
     public class GoalStateCase : UserInterfaceBehaviourBase
     {
         public GoalStateCase
         (
+            IGoalUiPresenter goalUiPresenter,
             ISceneChangePresenter sceneChangePresenter,
-            IGoalPresenter goalPresenter,
             IScenePresenter scenePresenter,
             IMutStateEntity<UserInterfaceStateType> stateEntity
         ) : base(UserInterfaceStateType.Goal, stateEntity)
         {
+            GoalUiPresenter = goalUiPresenter;
             SceneChangePresenter = sceneChangePresenter;
-            GoalPresenter = goalPresenter;
             ScenePresenter = scenePresenter;
-
-            SceneChangePresenter.SceneChangeEvent += Load;
         }
 
         public override void OnEnter()
         {
-            GoalPresenter.Goal(new GoalArg());
+            SceneChangePresenter.SceneChangeEvent += Load;
+            GoalUiPresenter.ShowUi();
         }
 
         private void Load(string sceneName)
@@ -33,7 +35,7 @@ namespace Domain.UseCase.InGame.UI
             ScenePresenter.Load(sceneName);
         }
         
-        private IGoalPresenter GoalPresenter { get; }
+        private IGoalUiPresenter GoalUiPresenter { get; }
         private ISceneChangePresenter SceneChangePresenter { get; }
         private IScenePresenter ScenePresenter { get; }
     }

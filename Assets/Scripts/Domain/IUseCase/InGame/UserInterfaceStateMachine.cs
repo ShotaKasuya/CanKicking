@@ -8,7 +8,8 @@ namespace Domain.IUseCase.InGame
 {
     public class UserInterfaceStateMachine : AbstractStateMachine<UserInterfaceStateType>, ITickable
     {
-        public UserInterfaceStateMachine(
+        public UserInterfaceStateMachine
+        (
             IState<UserInterfaceStateType> state,
             IReadOnlyList<IStateBehaviour<UserInterfaceStateType>> behaviourEntities
         ) : base(state, behaviourEntities)

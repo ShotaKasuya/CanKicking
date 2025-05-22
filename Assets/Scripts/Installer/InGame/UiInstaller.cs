@@ -16,6 +16,10 @@ namespace Installer.InGame
         [SerializeField] private List<SceneChangeButton> sceneChangeButtons;
         [SerializeField] private HeightView heightView;
         [SerializeField] private GoalMessageView goalMessageView;
+        [SerializeField] private NormalUiView normalUiView;
+        [SerializeField] private StopButton stopButton;
+        [SerializeField] private StopUiView stopUiView;
+        [SerializeField] private PlayButtonView playButtonView;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -23,16 +27,25 @@ namespace Installer.InGame
             builder.RegisterInstance(sceneChangeButtons.Select(x => x as ISceneChangeEventView).ToList()).AsImplementedInterfaces();
             builder.RegisterInstance(heightView).AsImplementedInterfaces();
             builder.RegisterInstance(goalMessageView).AsImplementedInterfaces();
+            builder.RegisterInstance(normalUiView).AsImplementedInterfaces();
+            builder.RegisterInstance(stopButton).AsImplementedInterfaces();
+            builder.RegisterInstance(stopUiView).AsImplementedInterfaces();
+            builder.RegisterInstance(playButtonView).AsImplementedInterfaces();
 
             // Presenter
+            builder.Register<StopEventPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<PlayEventPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<HeightPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<SceneChangePresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<NormalUiPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<StopUiPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<GoalPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // UseCase
             builder.Register<UserInterfaceState>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<UserInterfaceStateMachine>();
             builder.Register<NormalStateCase>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<StopStateCase>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<GoalStateCase>(Lifetime.Scoped).AsImplementedInterfaces();
         }
     }

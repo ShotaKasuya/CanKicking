@@ -14,7 +14,7 @@ namespace Installer.OutGame
     public class StageSelectInstaller : LifetimeScope
     {
         [SerializeField] private SelectionTextView selectionTextView;
-        
+
         protected override void Configure(IContainerBuilder builder)
         {
             // View
@@ -25,19 +25,20 @@ namespace Installer.OutGame
             });
 
             // Presenter
-            builder.Register<PlayerStageSelectionPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<StageSelectPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PlayerStageSelectionPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<StageSelectPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // Repository
-            builder.Register<SelectedStageRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<SelectedStageRepository>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // UseCase
             builder.Register<StageSelectState>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<StageSelectStateMachine>();
-            builder.Register<SelectNoneCase>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<SelectSomeCase>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<SelectNoneCase>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<SelectSomeCase>(Lifetime.Scoped).AsImplementedInterfaces();
         }
 
+#if UNITY_EDITOR
         private void OnGUI()
         {
             var state = Container.Resolve<IMutStateEntity<StageSelectStateType>>();
@@ -47,5 +48,6 @@ namespace Installer.OutGame
             };
             GUI.Label(new Rect(10, 10, 100, 20), state.State.ToString(), style);
         }
+#endif
     }
 }

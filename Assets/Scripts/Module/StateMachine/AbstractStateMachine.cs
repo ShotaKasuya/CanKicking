@@ -12,7 +12,7 @@ namespace Module.StateMachine
             StateBehaviourEntities = behaviourEntities;
 
             State.OnChangeState += OnChangeState;
-            CallOnEnter(default);
+            CallOnEnter(state.State);
         }
 
         protected void OnTick(float deltaTime)

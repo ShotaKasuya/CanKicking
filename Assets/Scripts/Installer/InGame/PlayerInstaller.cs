@@ -1,4 +1,3 @@
-using Adapter.DataStore.InGame.Player;
 using Adapter.Presenter.InGame.Player;
 using Adapter.Presenter.Input;
 using Adapter.Repository.InGame.Player;
@@ -18,7 +17,6 @@ namespace Installer.InGame
     public class PlayerInstaller : LifetimeScope
     {
         [SerializeField] private AimView aimView;
-        [SerializeField] private PlayerKickStatusDataStore kickStatusDataStore;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -30,10 +28,6 @@ namespace Installer.InGame
                 componentsBuilder.AddInstance(aimView).AsImplementedInterfaces();
             });
             builder.Register<InputView>(Lifetime.Scoped).AsImplementedInterfaces();
-
-            // DataStore
-            builder.RegisterInstance(kickStatusDataStore).AsImplementedInterfaces();
-            builder.Register<PlayerConstantDataStore>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // Presenter
             builder.Register<PlayerKickPresenter>(Lifetime.Scoped).AsImplementedInterfaces();

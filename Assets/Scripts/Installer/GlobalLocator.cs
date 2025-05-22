@@ -1,7 +1,7 @@
+using Adapter.DataStore.InGame.Player;
 using Adapter.Presenter.Scene;
-using Adapter.View.InGame.Input;
 using Adapter.View.Scene;
-using Adapter.View.Util;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -9,11 +9,16 @@ namespace Installer
 {
     public class GlobalLocator : LifetimeScope
     {
+        [SerializeField] private PlayerConstantsDataStore playerConstantsDataStore;
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<InputSystem_Actions>(Lifetime.Singleton);
+            // DataStore
+            builder.RegisterInstance(playerConstantsDataStore).AsImplementedInterfaces();
+            
+            // View
             builder.Register<SceneLoadView>(Lifetime.Singleton).AsImplementedInterfaces();
 
+            // Presenter
             builder.Register<SceneLoadPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
