@@ -94,10 +94,19 @@ namespace Adapter.View.Util
             ""id"": ""df70fa95-8a34-4494-b137-73ab6b9c7d37"",
             ""actions"": [
                 {
-                    ""name"": ""Click"",
+                    ""name"": ""Touch"",
+                    ""type"": ""Button"",
+                    ""id"": ""02a88922-c42a-49ef-b788-79ad5220325d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Position"",
                     ""type"": ""Value"",
-                    ""id"": ""5216a60b-6aa4-4f52-b86b-e8446fc86fa7"",
-                    ""expectedControlType"": ""Touch"",
+                    ""id"": ""b9698b42-035a-4302-82e9-58313d02d327"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -106,12 +115,45 @@ namespace Adapter.View.Util
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""317ea62a-2237-4ca3-9601-2d4dd68b1b07"",
-                    ""path"": ""<Touchscreen>/primaryTouch"",
+                    ""id"": ""ad2aaced-848b-4ca0-b649-aff1ef75c56e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
-                    ""action"": ""Click"",
+                    ""groups"": "";Joystick"",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ccacc625-9c09-4e8f-aa41-667787df2366"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a28a65de-c760-4535-912a-5e5aaa8bb36a"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Position"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""989229be-d151-48b8-9295-aa4d07299d20"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -769,7 +811,8 @@ namespace Adapter.View.Util
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
+            m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
+            m_Player_Position = m_Player.FindAction("Position", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -868,7 +911,8 @@ namespace Adapter.View.Util
         // Player
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-        private readonly InputAction m_Player_Click;
+        private readonly InputAction m_Player_Touch;
+        private readonly InputAction m_Player_Position;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -881,9 +925,13 @@ namespace Adapter.View.Util
             /// </summary>
             public PlayerActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Player/Click".
+            /// Provides access to the underlying input action "Player/Touch".
             /// </summary>
-            public InputAction @Click => m_Wrapper.m_Player_Click;
+            public InputAction @Touch => m_Wrapper.m_Player_Touch;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Position".
+            /// </summary>
+            public InputAction @Position => m_Wrapper.m_Player_Position;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -910,9 +958,12 @@ namespace Adapter.View.Util
             {
                 if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-                @Click.started += instance.OnClick;
-                @Click.performed += instance.OnClick;
-                @Click.canceled += instance.OnClick;
+                @Touch.started += instance.OnTouch;
+                @Touch.performed += instance.OnTouch;
+                @Touch.canceled += instance.OnTouch;
+                @Position.started += instance.OnPosition;
+                @Position.performed += instance.OnPosition;
+                @Position.canceled += instance.OnPosition;
             }
 
             /// <summary>
@@ -924,9 +975,12 @@ namespace Adapter.View.Util
             /// <seealso cref="PlayerActions" />
             private void UnregisterCallbacks(IPlayerActions instance)
             {
-                @Click.started -= instance.OnClick;
-                @Click.performed -= instance.OnClick;
-                @Click.canceled -= instance.OnClick;
+                @Touch.started -= instance.OnTouch;
+                @Touch.performed -= instance.OnTouch;
+                @Touch.canceled -= instance.OnTouch;
+                @Position.started -= instance.OnPosition;
+                @Position.performed -= instance.OnPosition;
+                @Position.canceled -= instance.OnPosition;
             }
 
             /// <summary>
@@ -1335,12 +1389,19 @@ namespace Adapter.View.Util
         public interface IPlayerActions
         {
             /// <summary>
-            /// Method invoked when associated input action "Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Touch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnClick(InputAction.CallbackContext context);
+            void OnTouch(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Position" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPosition(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

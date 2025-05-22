@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using Adapter.IView.Finger;
 using Adapter.View.Util;
 using Module.Option;
 using Structure.Util.Input;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using VContainer;
 using VContainer.Unity;
-using TouchState = UnityEngine.InputSystem.LowLevel.TouchState;
 
 namespace Adapter.View.InGame.Input
 {
@@ -13,40 +15,52 @@ namespace Adapter.View.InGame.Input
     /// `InputSystem`が生成するクラスのラッパ
     /// 生成コードにインターフェースをつけれないので
     /// </summary>
-    public class InputView : ITickable, IFingerView, IDisposable
+    public class InputView : IStartable, ITickable, IFingerView, IDisposable
     {
-        public InputView(InputSystem_Actions inputSystemActions)
+        [Inject]
+        public InputView()
         {
+            var inputSystemActions = new InputSystem_Actions();
             PlayerInputActions = inputSystemActions.Player;
+        }
+
+        public void Start()
+        {
             PlayerInputActions.Enable();
+            PlayerInputActions.Touch.performed += OnStartClick;
+            PlayerInputActions.Touch.canceled += OnReleaseInput;
+        }
+
+        private void OnStartClick(InputAction.CallbackContext context)
+        {
+            if (DragInfo.IsSome) return;
+            
+            var touchPosition = PlayerInputActions.Position.ReadValue<Vector2>();
+
+            OnTouch?.Invoke(new FingerTouchInfo(touchPosition));
+            DragInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
+                touchPosition, touchPosition
+            ));
+        }
+
+        private void OnReleaseInput(InputAction.CallbackContext context)
+        {
+            if (DragInfo.IsNone) return;
+            var releasePosition = PlayerInputActions.Position.ReadValue<Vector2>();
+            var touchPosition = DragInfo.Unwrap();
+
+            OnRelease?.Invoke(new FingerReleaseInfo(touchPosition.TouchStartPosition, releasePosition));
+            DragInfo = Option<FingerDraggingInfo>.None();
         }
 
         public void Tick()
         {
-            var touchInfo = new TouchInformation(PlayerInputActions.Click.ReadValue<TouchState>());
-
-            if (DragInfo.IsNone & touchInfo.PhaseType == InputPhaseType.OnTouch)
+            if (DragInfo.TryGetValue(out var draggingInfo))
             {
-                OnTouch?.Invoke(new FingerTouchInfo(touchInfo.Position));
-                DragInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
-                    touchInfo.StartPosition,
-                    touchInfo.StartPosition
-                ));
-                return;
-            }
-
-            if (DragInfo.TryGetValue(out var info))
-            {
-                if (touchInfo.PhaseType == InputPhaseType.OnRelease)
-                {
-                    DragInfo = Option<FingerDraggingInfo>.None();
-                    OnRelease?.Invoke(new FingerReleaseInfo(info.TouchStartPosition, touchInfo.Position));
-                    return;
-                }
+                var currentPosition = PlayerInputActions.Position.ReadValue<Vector2>();
 
                 DragInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
-                    info.TouchStartPosition,
-                    touchInfo.Position
+                    draggingInfo.TouchStartPosition, currentPosition
                 ));
             }
         }
@@ -59,6 +73,8 @@ namespace Adapter.View.InGame.Input
 
         public void Dispose()
         {
+            PlayerInputActions.Touch.performed -= OnStartClick;
+            PlayerInputActions.Touch.canceled -= OnReleaseInput;
             PlayerInputActions.Disable();
         }
     }

@@ -1,8 +1,10 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace Module.SceneReference.Editor
 {
+#if UNITY_EDITOR
+    using UnityEditor;
+
     [CustomPropertyDrawer(typeof(SceneReference))]
     public class SceneReferenceDrawer : PropertyDrawer
     {
@@ -29,4 +31,6 @@ namespace Module.SceneReference.Editor
             EditorGUI.EndProperty();
         }
     }
+
+#endif
 }

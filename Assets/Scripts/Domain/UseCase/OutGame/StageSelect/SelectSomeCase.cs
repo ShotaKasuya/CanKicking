@@ -5,7 +5,6 @@ using Domain.IUseCase.OutGame;
 using Module.Option;
 using Module.StateMachine;
 using Structure.OutGame;
-using UnityEngine;
 
 namespace Domain.UseCase.OutGame.StageSelect
 {
@@ -38,7 +37,6 @@ namespace Domain.UseCase.OutGame.StageSelect
 
         private void OnSelect(Option<string> selectedStage)
         {
-            Debug.Log($"event: {selectedStage}");
             var prevSelect = SelectedStageRepository.SelectedStage;
             if (!selectedStage.TryGetValue(out var stage))
             {

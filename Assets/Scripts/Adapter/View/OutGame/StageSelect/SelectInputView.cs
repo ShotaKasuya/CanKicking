@@ -5,17 +5,19 @@ using Adapter.View.Util;
 using Module.Option;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 using VContainer.Unity;
 
 namespace Adapter.View.OutGame.StageSelect
 {
     public class SelectInputView : ISelectedStageView, IStartable, IDisposable
     {
+        [Inject]
         public SelectInputView
         (
-            InputSystem_Actions inputSystemActions
         )
         {
+            var inputSystemActions = new InputSystem_Actions();
             StageSelectActions = inputSystemActions.StageSelect;
         }
 
@@ -35,11 +37,9 @@ namespace Adapter.View.OutGame.StageSelect
 
             if (castHit.collider is not null)
             {
-                Debug.Log("Click");
                 var collider = castHit.collider;
                 if (collider.TryGetComponent<ISceneGettableView>(out var sceneGettableView))
                 {
-                    Debug.Log("Event");
                     StageSelectEvent?.Invoke(Option<string>.Some(sceneGettableView.SceneName));
                     return;
                 }
@@ -55,7 +55,6 @@ namespace Adapter.View.OutGame.StageSelect
 
         public void Dispose()
         {
-            Debug.Log("on dispose");
             StageSelectActions.Touch.performed -= OnSelect;
             StageSelectActions.Disable();
         }
