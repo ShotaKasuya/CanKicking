@@ -1,4 +1,4 @@
-﻿using Domain.IPresenter.InGame.UI;
+using Domain.IPresenter.InGame.UI;
 using Domain.IPresenter.Scene;
 using Domain.IUseCase.InGame;
 using Module.StateMachine;

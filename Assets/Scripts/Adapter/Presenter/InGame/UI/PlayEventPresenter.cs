@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Adapter.IView.InGame.UI;
 using Domain.IPresenter.InGame.UI;
 
