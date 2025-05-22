@@ -5,7 +5,7 @@ using Domain.IPresenter.InGame.UI;
 
 namespace Adapter.Presenter.InGame.UI
 {
-    public class SceneChangePresenter: ISceneChangePresenter
+    public class SceneChangePresenter: ISceneChangePresenter, IDisposable
     {
         public SceneChangePresenter(IReadOnlyList<ISceneChangeEventView> sceneChangeEventViews)
         {
@@ -24,5 +24,13 @@ namespace Adapter.Presenter.InGame.UI
         }
         
         private IReadOnlyList<ISceneChangeEventView> SceneChangeEventViews { get; }
+
+        public void Dispose()
+        {
+            foreach (var sceneChangeEventView in SceneChangeEventViews)
+            {
+                sceneChangeEventView.SceneChangeEvent -= InvokeSceneChangeEvent;
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using Domain.IPresenter.InGame.UI;
 
 namespace Adapter.Presenter.InGame.UI
 {
-    public class GoalPresenter: IGoalPresenter
+    public class GoalPresenter : IGoalUiPresenter
     {
         public GoalPresenter
         (
@@ -12,12 +12,18 @@ namespace Adapter.Presenter.InGame.UI
         {
             GoalMessageView = goalMessageView;
         }
-        
-        public void Goal(GoalArg arg)
+
+
+        public void ShowUi()
         {
             GoalMessageView.ShowGoal(new ShowGoalArg());
         }
-        
+
+        public void HideUi()
+        {
+            throw new System.NotImplementedException();
+        }
+
         private IGoalMessageView GoalMessageView { get; }
     }
 }
