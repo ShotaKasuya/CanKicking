@@ -33,9 +33,8 @@ namespace Adapter.View.InGame.Player
 
             // スケール変更：方向ベクトルの長さに応じて矢印を伸ばす
             var length = direction.magnitude;
-            var max = Mathf.Sqrt(2);
             _modelTransform.localScale = new Vector3(baseScale.x * length, baseScale.y);
-            spriteRenderer.color = Color.Lerp(Color.green, Color.red, length / max);
+            spriteRenderer.color = Color.Lerp(Color.green, Color.red, length);
         }
     }
 }

@@ -1,6 +1,8 @@
 using Domain.IPresenter.InGame.UI;
 using Domain.IPresenter.Scene;
+using Domain.IRepository.InGame.Player;
 using Module.StateMachine;
+using Structure.InGame.Player;
 using Structure.InGame.UserInterface;
 using VContainer.Unity;
 
@@ -13,6 +15,7 @@ namespace Domain.UseCase.InGame.UI
     {
         public StopStateCase
         (
+            IMutPlayerStateRepository playerStateRepository,
             IPlayEventPresenter playEventPresenter,
             IStopUiPresenter stopUiPresenter,
             ISceneChangePresenter sceneChangePresenter,
@@ -20,6 +23,7 @@ namespace Domain.UseCase.InGame.UI
             IMutStateEntity<UserInterfaceStateType> stateEntity
         ) : base(UserInterfaceStateType.Stop, stateEntity)
         {
+            PlayerStateRepository = playerStateRepository;
             PlayEventPresenter = playEventPresenter;
             StopUiPresenter = stopUiPresenter;
             SceneChangePresenter = sceneChangePresenter;
@@ -35,6 +39,7 @@ namespace Domain.UseCase.InGame.UI
         {
             PlayEventPresenter.PlayEvent += Play;
             SceneChangePresenter.SceneChangeEvent += Load;
+            PlayerStateRepository.ChangeState(PlayerStateType.Stopping);
             StopUiPresenter.ShowUi();
         }
 
@@ -42,6 +47,7 @@ namespace Domain.UseCase.InGame.UI
         {
             PlayEventPresenter.PlayEvent -= Play;
             SceneChangePresenter.SceneChangeEvent -= Load;
+            PlayerStateRepository.ChangeState(PlayerStateType.Idle);
             StopUiPresenter.HideUi();
         }
 
@@ -55,6 +61,7 @@ namespace Domain.UseCase.InGame.UI
             ScenePresenter.Load(sceneName);
         }
 
+        private IMutPlayerStateRepository PlayerStateRepository { get; }
         private IPlayEventPresenter PlayEventPresenter { get; }
         private IStopUiPresenter StopUiPresenter { get; }
         private ISceneChangePresenter SceneChangePresenter { get; }

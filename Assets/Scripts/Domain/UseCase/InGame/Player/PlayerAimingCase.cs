@@ -20,6 +20,7 @@ namespace Domain.UseCase.InGame.Player
             IKickPresenter kickPresenter,
             IKickBasePowerRepository kickBasePowerRepository,
             ICalcPowerEntity calcPowerEntity,
+            IConvertScreenBaseVectorEntity convertScreenBaseVectorEntity,
             IMutStateEntity<PlayerStateType> stateEntity
         ) : base(PlayerStateType.Aiming, stateEntity)
         {
@@ -29,6 +30,7 @@ namespace Domain.UseCase.InGame.Player
             KickPresenter = kickPresenter;
             KickBasePowerRepository = kickBasePowerRepository;
             CalcPowerEntity = calcPowerEntity;
+            ConvertScreenBaseVectorEntity = convertScreenBaseVectorEntity;
         }
 
         public override void StateUpdate(float deltaTime)
@@ -58,16 +60,13 @@ namespace Domain.UseCase.InGame.Player
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Vector2 ToScreenBaseVector(Vector2 vector2)
+        private Vector2 ToScreenBaseVector(Vector2 vector2)
         {
             const float ratio = 1.5f;
-            var shorter = Screen.width > Screen.height ? Screen.height : Screen.width;
-            var magnification = ratio / shorter;
+            var arg = new ScreenVectorParams(vector2, ratio, Screen.width, Screen.height);
+            var result = ConvertScreenBaseVectorEntity.Convert(arg);
 
-            var x = Mathf.Clamp(vector2.x * magnification, -1, 1);
-            var y = Mathf.Clamp(vector2.y * magnification, -1, 1);
-
-            return new Vector2(x, y);
+            return result;
         }
 
         public override void OnEnter()
@@ -86,5 +85,6 @@ namespace Domain.UseCase.InGame.Player
         private IAimPresenter AimPresenter { get; }
         private IKickBasePowerRepository KickBasePowerRepository { get; }
         private ICalcPowerEntity CalcPowerEntity { get; }
+        private IConvertScreenBaseVectorEntity ConvertScreenBaseVectorEntity { get; }
     }
 }

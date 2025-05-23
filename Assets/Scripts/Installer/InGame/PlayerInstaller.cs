@@ -42,6 +42,7 @@ namespace Installer.InGame
             builder.Register<GroundingInfoRepository>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // Entity
+            builder.Register<ConvertScreenBaseVectorEntity>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<IsGroundEntity>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<IsStopedEntity>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<CalcPowerEntity>(Lifetime.Scoped).AsImplementedInterfaces();
