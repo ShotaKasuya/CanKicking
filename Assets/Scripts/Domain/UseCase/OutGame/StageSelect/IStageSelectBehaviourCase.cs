@@ -4,7 +4,7 @@ using Structure.OutGame;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Domain.IUseCase.OutGame
+namespace Domain.UseCase.OutGame.StageSelect
 {
     public class StageSelectStateMachine : AbstractStateMachine<StageSelectStateType>, ITickable
     {

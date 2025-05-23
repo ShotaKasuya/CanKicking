@@ -1,6 +1,5 @@
 using Domain.IPresenter.InGame.UI;
 using Domain.IPresenter.Scene;
-using Domain.IUseCase.InGame;
 using Module.StateMachine;
 using Structure.InGame.UserInterface;
 using VContainer.Unity;

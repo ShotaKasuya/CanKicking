@@ -1,5 +1,4 @@
-﻿using System;
-using Adapter.IView.InGame.UI;
+﻿using Adapter.IView.InGame.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,10 +6,8 @@ using UnityEngine.UI;
 namespace Adapter.View.InGame.UI
 {
     [RequireComponent(typeof(Button))]
-    public class SceneReloadButton: MonoBehaviour, ISceneChangeEventView
+    public class SceneReloadButton: SceneChangeButtonViewBase
     {
-        public Action<string> SceneChangeEvent { get; set; }
-
         private void Awake()
         {
             GetComponent<Button>().onClick.AddListener(Invoke);

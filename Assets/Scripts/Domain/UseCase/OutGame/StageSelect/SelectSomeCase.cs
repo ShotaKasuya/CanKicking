@@ -1,7 +1,6 @@
 using Domain.IPresenter.OutGame.StageSelect;
 using Domain.IPresenter.Scene;
 using Domain.IRepository.OutGame;
-using Domain.IUseCase.OutGame;
 using Module.Option;
 using Module.StateMachine;
 using Structure.OutGame;

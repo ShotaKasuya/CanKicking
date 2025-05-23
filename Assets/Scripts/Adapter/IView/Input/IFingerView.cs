@@ -2,7 +2,7 @@ using System;
 using Module.Option;
 using Structure.Util.Input;
 
-namespace Adapter.IView.Finger
+namespace Adapter.IView.Input
 {
     public interface IFingerView
     {

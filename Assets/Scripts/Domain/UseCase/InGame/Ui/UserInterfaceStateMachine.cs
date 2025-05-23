@@ -4,7 +4,7 @@ using Structure.InGame.UserInterface;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Domain.IUseCase.InGame
+namespace Domain.UseCase.InGame.UI
 {
     public class UserInterfaceStateMachine : AbstractStateMachine<UserInterfaceStateType>, ITickable
     {
@@ -29,13 +29,6 @@ namespace Domain.IUseCase.InGame
             UserInterfaceStateType userInterfaceStateType,
             IMutStateEntity<UserInterfaceStateType> stateEntity
         ) : base(userInterfaceStateType, stateEntity)
-        {
-        }
-    }
-
-    public class UserInterfaceState : AbstractStateType<UserInterfaceStateType>
-    {
-        public UserInterfaceState() : base(UserInterfaceStateType.Normal)
         {
         }
     }

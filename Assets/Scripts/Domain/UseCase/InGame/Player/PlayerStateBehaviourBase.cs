@@ -4,7 +4,7 @@ using Structure.InGame.Player;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Domain.IUseCase.InGame
+namespace Domain.UseCase.InGame.Player
 {
     /// <summary>
     /// ステートフルなロジックへの型エイリアス
@@ -32,13 +32,6 @@ namespace Domain.IUseCase.InGame
             PlayerStateType playerStateType,
             IMutStateEntity<PlayerStateType> stateEntity
         ) : base(playerStateType, stateEntity)
-        {
-        }
-    }
-
-    public class PlayerState : AbstractStateType<PlayerStateType>
-    {
-        public PlayerState() : base(PlayerStateType.Idle)
         {
         }
     }

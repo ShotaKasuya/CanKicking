@@ -1,7 +1,6 @@
 using Adapter.Presenter.OutGame.StageSelect;
 using Adapter.Repository.OutGame;
 using Adapter.View.OutGame.StageSelect;
-using Domain.IUseCase.OutGame;
 using Domain.UseCase.OutGame.StageSelect;
 using Module.StateMachine;
 using Structure.OutGame;

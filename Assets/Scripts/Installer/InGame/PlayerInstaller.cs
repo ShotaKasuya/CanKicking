@@ -4,7 +4,6 @@ using Adapter.Repository.InGame.Player;
 using Adapter.View.InGame.Input;
 using Adapter.View.InGame.Player;
 using Domain.Entity.InGame.Player;
-using Domain.IUseCase.InGame;
 using Domain.UseCase.InGame.Player;
 using Module.StateMachine;
 using Structure.InGame.Player;
@@ -38,6 +37,7 @@ namespace Installer.InGame
             builder.Register<PlayerContactPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // Repository
+            builder.Register<PlayerStateRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<BasePowerRepository>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<GroundingInfoRepository>(Lifetime.Scoped).AsImplementedInterfaces();
 
@@ -47,7 +47,6 @@ namespace Installer.InGame
             builder.Register<CalcPowerEntity>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // UseCase
-            builder.Register<PlayerState>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<PlayerStateMachine>();
             builder.Register<PlayerIdleCase>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<PlayerAimingCase>(Lifetime.Scoped).AsImplementedInterfaces();

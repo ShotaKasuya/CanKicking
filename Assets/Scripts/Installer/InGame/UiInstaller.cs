@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Adapter.IView.InGame.UI;
 using Adapter.Presenter.InGame.UI;
+using Adapter.Repository.InGame.Ui;
 using Adapter.View.InGame.UI;
-using Domain.IUseCase.InGame;
 using Domain.UseCase.InGame.UI;
 using UnityEngine;
 using VContainer;
@@ -13,7 +13,7 @@ namespace Installer.InGame
 {
     public class UiInstaller : LifetimeScope
     {
-        [SerializeField] private List<SceneChangeButton> sceneChangeButtons;
+        [SerializeField] private List<SceneChangeButtonViewBase> sceneChangeButtons;
         [SerializeField] private HeightView heightView;
         [SerializeField] private GoalMessageView goalMessageView;
         [SerializeField] private NormalUiView normalUiView;
@@ -40,9 +40,11 @@ namespace Installer.InGame
             builder.Register<NormalUiPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<StopUiPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<GoalPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            
+            // Repository
+            builder.Register<UiState>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // UseCase
-            builder.Register<UserInterfaceState>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<UserInterfaceStateMachine>();
             builder.Register<NormalStateCase>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<StopStateCase>(Lifetime.Scoped).AsImplementedInterfaces();

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerConstants
   m_EditorClassIdentifier: 
   maxSlope: 30
-  kickPower: 25
+  kickPower: 20

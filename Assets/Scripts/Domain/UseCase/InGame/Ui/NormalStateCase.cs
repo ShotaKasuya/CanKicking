@@ -1,6 +1,5 @@
 using Domain.IPresenter.InGame.Stage;
 using Domain.IPresenter.InGame.UI;
-using Domain.IUseCase.InGame;
 using Module.StateMachine;
 using Structure.InGame.UserInterface;
 

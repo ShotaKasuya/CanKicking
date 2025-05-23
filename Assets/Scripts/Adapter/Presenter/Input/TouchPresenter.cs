@@ -1,5 +1,5 @@
 ﻿using System;
-using Adapter.IView.Finger;
+using Adapter.IView.Input;
 using Domain.IPresenter.Util;
 using Module.Option;
 using Structure.Util.Input;

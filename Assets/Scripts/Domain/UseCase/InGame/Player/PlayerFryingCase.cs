@@ -1,7 +1,6 @@
 using Domain.IEntity.InGame.Player;
 using Domain.IPresenter.InGame.Player;
 using Domain.IRepository.InGame.Player;
-using Domain.IUseCase.InGame;
 using Module.StateMachine;
 using Structure.InGame.Player;
 using UnityEngine;

@@ -513,6 +513,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 150777268571332678, guid: 89be4a86de7b3eef08833b62b2971a92, type: 3}
+      propertyPath: 'sceneChangeButtons.Array.data[4]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3590930459305257964, guid: 89be4a86de7b3eef08833b62b2971a92, type: 3}
       propertyPath: m_Pivot.x
       value: 0
