@@ -4,6 +4,7 @@ using Adapter.View.Util;
 using Module.Option;
 using Structure.Util.Input;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
@@ -33,14 +34,7 @@ namespace Adapter.View.InGame.Input
 
         private void OnStartClick(InputAction.CallbackContext context)
         {
-            if (DragInfo.IsSome) return;
-            
-            var touchPosition = PlayerInputActions.Position.ReadValue<Vector2>();
-
-            OnTouch?.Invoke(new FingerTouchInfo(touchPosition));
-            DragInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
-                touchPosition, touchPosition
-            ));
+            _pendingTouchStarted = true;
         }
 
         private void OnReleaseInput(InputAction.CallbackContext context)
@@ -63,12 +57,43 @@ namespace Adapter.View.InGame.Input
                     draggingInfo.TouchStartPosition, currentPosition
                 ));
             }
+
+            if (_pendingTouchStarted)
+            {
+                StartClick();
+                _pendingTouchStarted = false;
+            }
+        }
+
+        private void StartClick()
+        {
+            // UI上のタッチは無視する
+#if UNITY_EDITOR || UNITY_STANDALONE
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+#else
+    if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+    {
+        return;
+    }
+#endif
+            if (DragInfo.IsSome) return;
+
+            var touchPosition = PlayerInputActions.Position.ReadValue<Vector2>();
+
+            OnTouch?.Invoke(new FingerTouchInfo(touchPosition));
+            DragInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
+                touchPosition, touchPosition
+            ));
         }
 
         public Action<FingerTouchInfo> OnTouch { get; set; }
         public Option<FingerDraggingInfo> DragInfo { get; private set; }
         public Action<FingerReleaseInfo> OnRelease { get; set; }
 
+        private bool _pendingTouchStarted;
         private InputSystem_Actions.PlayerActions PlayerInputActions { get; }
 
         public void Dispose()

@@ -4,9 +4,8 @@ using Adapter.Repository.InGame.Player;
 using Adapter.View.InGame.Input;
 using Adapter.View.InGame.Player;
 using Domain.Entity.InGame.Player;
+using Domain.IRepository.InGame.Player;
 using Domain.UseCase.InGame.Player;
-using Module.StateMachine;
-using Structure.InGame.Player;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -55,14 +54,20 @@ namespace Installer.InGame
         }
 
 #if UNITY_EDITOR
+        private IMutPlayerStateRepository _state;
+
+        private void Start()
+        {
+            _state = Container.Resolve<IMutPlayerStateRepository>();
+        }
+
         private void OnGUI()
         {
-            var state = Container.Resolve<IMutStateEntity<PlayerStateType>>();
             var style = new GUIStyle()
             {
                 fontSize = 130
             };
-            GUI.Label(new Rect(10, 10, 100, 20), state.State.ToString(), style);
+            GUI.Label(new Rect(10, 10, 100, 20), _state.State.ToString(), style);
         }
 #endif
     }

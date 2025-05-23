@@ -28,11 +28,13 @@ namespace Domain.UseCase.InGame.Player
 
         public override void OnEnter()
         {
+            Time.timeScale = 2;
             PlayerContactPresenter.OnCollision += CheckGrounded;
         }
 
         public override void OnExit()
         {
+            Time.timeScale = 1;
             PlayerContactPresenter.OnCollision -= CheckGrounded;
         }
 
