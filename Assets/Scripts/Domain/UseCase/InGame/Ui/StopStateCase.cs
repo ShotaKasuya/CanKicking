@@ -4,6 +4,7 @@ using Domain.IRepository.InGame.Player;
 using Module.StateMachine;
 using Structure.InGame.Player;
 using Structure.InGame.UserInterface;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace Domain.UseCase.InGame.UI
@@ -37,6 +38,7 @@ namespace Domain.UseCase.InGame.UI
 
         public override void OnEnter()
         {
+            Time.timeScale = 0;
             PlayEventPresenter.PlayEvent += Play;
             SceneChangePresenter.SceneChangeEvent += Load;
             PlayerStateRepository.ChangeState(PlayerStateType.Stopping);
@@ -45,6 +47,7 @@ namespace Domain.UseCase.InGame.UI
 
         public override void OnExit()
         {
+            Time.timeScale = 1;
             PlayEventPresenter.PlayEvent -= Play;
             SceneChangePresenter.SceneChangeEvent -= Load;
             PlayerStateRepository.ChangeState(PlayerStateType.Idle);

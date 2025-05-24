@@ -36,7 +36,7 @@ namespace Domain.UseCase.InGame.UI
 
         public override void StateUpdate(float deltaTime)
         {
-            float height = PlayerHeightPresenter.GetHeight();
+            var height = PlayerHeightPresenter.GetHeight();
             HeightUiPresenter.SetHeight(height);
         }
 
