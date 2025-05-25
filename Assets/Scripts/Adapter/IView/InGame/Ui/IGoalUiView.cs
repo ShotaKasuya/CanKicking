@@ -1,0 +1,18 @@
+using Cysharp.Threading.Tasks;
+
+namespace Adapter.IView.InGame.UI
+{
+    public interface IGoalUiView
+    {
+        public UniTask Show();
+        public UniTask Hide();
+    }
+
+    public interface IGoalStateStageSelectButtonView: IStageSelectButtonView
+    {
+    }
+
+    public interface IGoalStateReStartButtonView: IReStartButtonView
+    {
+    }
+}

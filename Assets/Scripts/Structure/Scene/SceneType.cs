@@ -4,7 +4,8 @@ namespace Structure.Scene
     {
         Title,
         StageSelect,
-        Stage1,
+        Stage01,
+        Stage02,
     }
 
     public static class SceneTypeExtension

@@ -3,8 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Module",
-        "DataUtil",
-        "Structure"
+        "Structure",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

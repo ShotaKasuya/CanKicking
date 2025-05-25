@@ -1,5 +1,6 @@
 using System;
 using Adapter.IView.InGame.UI;
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,5 +33,7 @@ namespace Adapter.View.InGame.UI
         {
             _gameObject.SetActive(false);
         }
+
+        public Observable<Unit> Performed { get; }
     }
 }

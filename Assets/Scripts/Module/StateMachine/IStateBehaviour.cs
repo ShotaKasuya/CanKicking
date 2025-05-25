@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Module.StateMachine
 {
@@ -40,6 +41,11 @@ namespace Module.StateMachine
         
         public TState TargetStateMask { get; }
         protected IMutStateEntity<TState> StateEntity { get; }
+
+        protected bool IsInState()
+        {
+            return EqualityComparer<TState>.Default.Equals(TargetStateMask, StateEntity.State);
+        }
         public virtual void OnEnter()
         {
         }

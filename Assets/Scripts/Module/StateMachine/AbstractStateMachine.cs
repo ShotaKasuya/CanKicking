@@ -22,7 +22,7 @@ namespace Module.StateMachine
             {
                 var behaviour = StateBehaviourEntities[i];
 
-                if (currentState.Equals(behaviour.TargetStateMask))
+                if (EqualityComparer<TState>.Default.Equals(currentState, behaviour.TargetStateMask))
                 {
                     behaviour.StateUpdate(deltaTime);
                 }
@@ -43,7 +43,7 @@ namespace Module.StateMachine
             for (int i = 0; i < StateBehaviourEntities.Count; i++)
             {
                 var behaviour = StateBehaviourEntities[i];
-                if (prev.Equals(behaviour.TargetStateMask))
+                if (EqualityComparer<TState>.Default.Equals(prev, behaviour.TargetStateMask))
                 {
                     behaviour.OnEnter();
                 }
@@ -55,7 +55,7 @@ namespace Module.StateMachine
             for (int i = 0; i < StateBehaviourEntities.Count; i++)
             {
                 var behaviour = StateBehaviourEntities[i];
-                if (next.Equals(behaviour.TargetStateMask))
+                if (EqualityComparer<TState>.Default.Equals(next, behaviour.TargetStateMask))
                 {
                     behaviour.OnExit();
                 }
