@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using R3;
-using Structure.Scene;
 
 namespace Adapter.IView.InGame.UI
 {
