@@ -1,11 +1,11 @@
-using System;
 using Module.Option;
+using R3;
 
 namespace Adapter.IView.OutGame.StageSelect
 {
     public interface ISelectedStageView
     {
-        public Action<Option<string>> StageSelectEvent { get; set; }
+        public Observable<Option<string>> SelectEvent { get; set; }
     }
 
     public interface ISelectedStageTextView

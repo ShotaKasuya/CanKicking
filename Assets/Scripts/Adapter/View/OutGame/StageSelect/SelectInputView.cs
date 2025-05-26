@@ -3,6 +3,7 @@ using Adapter.IView.OutGame.StageSelect;
 using Adapter.IView.Util.UI;
 using Adapter.View.Util;
 using Module.Option;
+using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -24,6 +25,7 @@ namespace Adapter.View.OutGame.StageSelect
         public void Start()
         {
             _mainCamera = Camera.main;
+            _subject = new Subject<Option<string>>();
             StageSelectActions.Enable();
             StageSelectActions.Touch.performed += OnSelect;
         }
@@ -40,21 +42,23 @@ namespace Adapter.View.OutGame.StageSelect
                 var collider = castHit.collider;
                 if (collider.TryGetComponent<ISceneGettableView>(out var sceneGettableView))
                 {
-                    StageSelectEvent?.Invoke(Option<string>.Some(sceneGettableView.SceneName));
+                    _subject.OnNext(Option<string>.Some(sceneGettableView.SceneName));
                     return;
                 }
             }
 
-            StageSelectEvent?.Invoke(Option<string>.None());
+            _subject.OnNext(Option<string>.None());
         }
 
-        public Action<Option<string>> StageSelectEvent { get; set; }
+        public Observable<Option<string>> SelectEvent { get; set; }
 
         private Camera _mainCamera;
+        private Subject<Option<string>> _subject;
         private InputSystem_Actions.StageSelectActions StageSelectActions { get; }
 
         public void Dispose()
         {
+            _subject.Dispose();
             StageSelectActions.Touch.performed -= OnSelect;
             StageSelectActions.Disable();
         }

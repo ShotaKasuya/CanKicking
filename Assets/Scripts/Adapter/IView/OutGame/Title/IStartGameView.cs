@@ -1,9 +1,9 @@
-using System;
+using R3;
 
 namespace Adapter.IView.OutGame.Title
 {
     public interface IStartGameView
     {
-        public Action StartEvent { get; set; }
+        public Observable<Unit> StartEvent { get; }
     }
 }

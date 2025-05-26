@@ -74,10 +74,10 @@ namespace Adapter.View.InGame.Input
                 return;
             }
 #else
-    if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-    {
-        return;
-    }
+            if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            {
+                return;
+            }
 #endif
             if (DragInfo.IsSome) return;
 

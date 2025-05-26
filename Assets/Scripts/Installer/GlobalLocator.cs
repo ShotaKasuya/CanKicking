@@ -1,5 +1,4 @@
 using Adapter.DataStore.InGame.Player;
-using Adapter.Presenter.Scene;
 using Adapter.View.Scene;
 using UnityEngine;
 using VContainer;
@@ -17,9 +16,6 @@ namespace Installer
             
             // View
             builder.Register<SceneLoadView>(Lifetime.Singleton).AsImplementedInterfaces();
-
-            // Presenter
-            builder.Register<SceneLoadPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }

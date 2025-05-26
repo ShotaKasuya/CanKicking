@@ -33,8 +33,8 @@ namespace Installer.OutGame
             // UseCase
             builder.Register<StageSelectState>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<StageSelectStateMachine>();
-            builder.Register<SelectNoneCase>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<SelectSomeCase>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<NoneStateController>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<SomeStateController>(Lifetime.Scoped).AsImplementedInterfaces();
         }
 
 #if UNITY_EDITOR

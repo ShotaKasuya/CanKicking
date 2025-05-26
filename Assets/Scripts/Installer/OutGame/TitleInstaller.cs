@@ -1,6 +1,5 @@
-using Adapter.Presenter.OutGame.Title;
 using Adapter.View.OutGame.Title;
-using Domain.UseCase.OutGame.Title;
+using Domain.Controller.OutGame;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -18,12 +17,9 @@ namespace Installer.OutGame
             {
                 componentsBuilder.AddInstance(startButtonView).AsImplementedInterfaces();
             });
-            
-            // Presenter
-            builder.Register<TitleEventPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            // UseCase
-            builder.Register<TitleCase>(Lifetime.Singleton).AsImplementedInterfaces();
+            // Controller
+            builder.RegisterEntryPoint<TitleController>();
         }
     }
 }

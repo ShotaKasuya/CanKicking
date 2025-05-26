@@ -1,5 +1,6 @@
 using System;
 using Adapter.IView.OutGame.Title;
+using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +11,14 @@ namespace Adapter.View.OutGame.Title
     {
         private void Awake()
         {
+            _subject = new Subject<Unit>();
             _startButton = GetComponent<Button>();
-            _startButton.onClick.AddListener(() => StartEvent.Invoke());
+            _startButton.onClick.AddListener(() => _subject.OnNext(Unit.Default));
         }
 
-        public Action StartEvent { get; set; }
+        public Observable<Unit> StartEvent => _subject;
 
+        private Subject<Unit> _subject;
         private Button _startButton;
 
         public void Dispose()

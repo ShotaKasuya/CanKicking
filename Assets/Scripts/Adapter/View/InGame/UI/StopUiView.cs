@@ -1,4 +1,5 @@
 ﻿using Adapter.IView.InGame.UI;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Adapter.View.InGame.UI
@@ -12,14 +13,16 @@ namespace Adapter.View.InGame.UI
             _gameObject = gameObject;
         }
 
-        public void Show()
+        public UniTask Show()
         {
             _gameObject.SetActive(true);
+            return UniTask.CompletedTask;
         }
 
-        public void Hide()
+        public UniTask Hide()
         {
             _gameObject.SetActive(false);
+            return UniTask.CompletedTask;
         }
     }
 }

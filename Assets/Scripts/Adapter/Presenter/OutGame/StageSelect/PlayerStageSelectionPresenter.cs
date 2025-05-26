@@ -14,7 +14,7 @@ namespace Adapter.Presenter.OutGame.StageSelect
         {
             SelectedStageView = selectedStageView;
 
-            SelectedStageView.StageSelectEvent += OnSelect;
+            SelectedStageView.SelectEvent += OnSelect;
         }
 
         public Action<Option<string>> SelectEvent { get; set; }
@@ -28,7 +28,7 @@ namespace Adapter.Presenter.OutGame.StageSelect
 
         public void Dispose()
         {
-            SelectedStageView.StageSelectEvent -= OnSelect;
+            SelectedStageView.SelectEvent -= OnSelect;
         }
     }
 }

@@ -1,5 +1,5 @@
-using Domain.IPresenter.OutGame.StageSelect;
-using Domain.IPresenter.Scene;
+using Adapter.IView.OutGame.StageSelect;
+using Adapter.IView.Scene;
 using Domain.IRepository.OutGame;
 using Module.Option;
 using Module.StateMachine;
@@ -7,31 +7,31 @@ using Structure.OutGame;
 
 namespace Domain.UseCase.OutGame.StageSelect
 {
-    public class SelectSomeCase : StageSelectStateBehaviourBase
+    public class SomeStateController : StageSelectStateBehaviourBase
     {
-        public SelectSomeCase
+        public SomeStateController
         (
-            IScenePresenter scenePresenter,
-            IPlayerStageSelectionPresenter playerStageSelectionPresenter,
-            IStageSelectPresenter stageSelectPresenter,
+            ISceneLoadView sceneLoadView,
+            ISelectedStageView selectedStageView,
+            ISelectedStageTextView selectedStageTextView,
             ISelectedStageRepository selectedStageRepository,
             IMutStateEntity<StageSelectStateType> stateEntity
         ) : base(StageSelectStateType.Some, stateEntity)
         {
-            ScenePresenter = scenePresenter;
-            PlayerStageSelectionPresenter = playerStageSelectionPresenter;
-            StageSelectPresenter = stageSelectPresenter;
+            SceneLoadView = sceneLoadView;
+            SelectedStageView = selectedStageView;
+            SelectedStageTextView = selectedStageTextView;
             SelectedStageRepository = selectedStageRepository;
         }
 
         public override void OnEnter()
         {
-            PlayerStageSelectionPresenter.SelectEvent += OnSelect;
+            SelectedStageView.SelectEvent += OnSelect;
         }
 
         public override void OnExit()
         {
-            PlayerStageSelectionPresenter.SelectEvent -= OnSelect;
+            SelectedStageView.SelectEvent -= OnSelect;
         }
 
         private void OnSelect(Option<string> selectedStage)
@@ -39,24 +39,24 @@ namespace Domain.UseCase.OutGame.StageSelect
             var prevSelect = SelectedStageRepository.SelectedStage;
             if (!selectedStage.TryGetValue(out var stage))
             {
-                StageSelectPresenter.PresentCancelSelection();
+                SelectedStageTextView.ResetStage();
                 StateEntity.ChangeState(StageSelectStateType.None);
                 return;
             }
 
             if (stage != prevSelect)
             {
-                StageSelectPresenter.PresentCancelSelection();
+                SelectedStageTextView.SetStage(stage);
                 SelectedStageRepository.SetSelectedStage(stage);
                 return;
             }
 
-            ScenePresenter.Load(prevSelect);
+            SceneLoadView.Load(prevSelect);
         }
 
-        private IPlayerStageSelectionPresenter PlayerStageSelectionPresenter { get; }
-        private IStageSelectPresenter StageSelectPresenter { get; }
-        private IScenePresenter ScenePresenter { get; }
+        private ISelectedStageView SelectedStageView { get; }
+        private ISelectedStageTextView SelectedStageTextView { get; }
+        private ISceneLoadView SceneLoadView { get; }
         private ISelectedStageRepository SelectedStageRepository { get; }
     }
 }
