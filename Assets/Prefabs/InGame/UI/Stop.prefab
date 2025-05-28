@@ -146,7 +146,10 @@ GameObject:
   - component: {fileID: 6631210251272884351}
   - component: {fileID: 1340047822492089253}
   - component: {fileID: 7139641876327227648}
+<<<<<<< HEAD
   - component: {fileID: 3346068291316137660}
+=======
+>>>>>>> origin/main
   m_Layer: 5
   m_Name: StageSelect
   m_TagString: Untagged
@@ -256,6 +259,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
 --- !u!114 &3346068291316137660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a32cff73def48baa433f793b7ea7794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+>>>>>>> origin/main
 --- !u!1 &3866818859770862127
 GameObject:
   m_ObjectHideFlags: 0
