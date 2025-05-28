@@ -5,10 +5,11 @@ using Module.Option;
 using Module.StateMachine;
 using R3;
 using Structure.OutGame;
+using VContainer.Unity;
 
 namespace Domain.UseCase.OutGame.StageSelect
 {
-    public class NoneStateController : StageSelectStateBehaviourBase, IDisposable
+    public class NoneStateController : StageSelectStateBehaviourBase, IStartable, IDisposable
     {
         public NoneStateController
         (
@@ -23,7 +24,10 @@ namespace Domain.UseCase.OutGame.StageSelect
             SelectedStageRepository = selectedStageRepository;
 
             CompositeDisposable = new CompositeDisposable();
+        }
 
+        public void Start()
+        {
             SelectedStageView.SelectEvent
                 .Where(_ => IsInState())
                 .Subscribe(x => OnSelect(x))

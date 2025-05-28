@@ -1,24 +1,27 @@
 using Adapter.IView.InGame.UI;
-using Module.SceneReference;
+using R3;
+using Structure.Scene;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Adapter.View.InGame.UI
 {
     [RequireComponent(typeof(Button))]
-    public class SceneChangeButton : SceneChangeButtonViewBase
+    public abstract class SceneChangeButton : MonoBehaviour, ISceneChangeEventView
     {
-        [SerializeField]
-        private SceneReference scene;
-
         private void Awake()
         {
             GetComponent<Button>().onClick.AddListener(Invoke);
+            Subject = new Subject<SceneType>();
         }
 
-        private void Invoke()
+        protected virtual void OnAwake()
         {
-            SceneChangeEvent.Invoke(scene.SceneName);
         }
+
+        protected abstract void Invoke();
+
+        protected Subject<SceneType> Subject;
+        public Observable<SceneType> Performed => Subject;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Adapter.View.InGame.UI
 {
-    public class HeightView: MonoBehaviour, IHeightView
+    public class HeightView: MonoBehaviour, IHeightUiView
     {
         [SerializeField] private Text heightText;
         

@@ -1,15 +1,10 @@
-using R3;
-using Structure.Scene;
-
 namespace Adapter.IView.InGame.UI
 {
-    public interface IStageSelectButtonView
+    public interface IStageSelectButtonView : ISceneChangeEventView
     {
-        public Observable<SceneType> Performed { get; }
     }
 
-    public interface IReStartButtonView
+    public interface IReStartButtonView : ISceneChangeEventView
     {
-        public Observable<SceneType> Performed { get; }
     }
 }

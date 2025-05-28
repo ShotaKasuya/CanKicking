@@ -146,7 +146,6 @@ GameObject:
   - component: {fileID: 6631210251272884351}
   - component: {fileID: 1340047822492089253}
   - component: {fileID: 7139641876327227648}
-  - component: {fileID: 1233500733631842984}
   m_Layer: 5
   m_Name: StageSelect
   m_TagString: Untagged
@@ -256,21 +255,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1233500733631842984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804612783895707133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed7329cf9bb4693b091ee46f4425b1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scene:
-    sceneName: StageSelect
-    sceneAsset: {fileID: 102900000, guid: 2d25e4c23acd2ddb4907d76bb174b201, type: 3}
 --- !u!1 &3866818859770862127
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,21 +1,15 @@
-﻿using Adapter.IView.InGame.UI;
-using UnityEngine;
+﻿using System;
+using Structure.Scene;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Adapter.View.InGame.UI
 {
-    [RequireComponent(typeof(Button))]
-    public class SceneReloadButton: SceneChangeButtonViewBase
+    public abstract class SceneReloadButton: SceneChangeButton
     {
-        private void Awake()
+        protected override void Invoke()
         {
-            GetComponent<Button>().onClick.AddListener(Invoke);
-        }
-
-        private void Invoke()
-        {
-            SceneChangeEvent.Invoke(SceneManager.GetActiveScene().name);
+            var currentScene = SceneManager.GetActiveScene().name;
+            Subject.OnNext((SceneType)Enum.Parse(typeof(SceneType), currentScene));
         }
     }
 }

@@ -8,17 +8,17 @@ namespace Adapter.IView.InGame.UI
         public UniTask Hide();
         public UniTask Show();
     }
-    
+
     public interface IPlayButtonView
     {
         public Observable<Unit> Performed { get; }
     }
 
-    public interface IStopStateStageSelectButtonView: IStageSelectButtonView
+    public interface IStopStateStageSelectButtonView : IStageSelectButtonView
     {
     }
 
-    public interface IStopStateReStartButtonView: IReStartButtonView
+    public interface IStopStateReStartButtonView : IReStartButtonView
     {
     }
 }

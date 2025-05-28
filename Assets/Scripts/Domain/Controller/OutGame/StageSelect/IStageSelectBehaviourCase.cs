@@ -33,13 +33,4 @@ namespace Domain.UseCase.OutGame.StageSelect
         {
         }
     }
-
-    public class StageSelectState : AbstractStateType<StageSelectStateType>
-    {
-        public StageSelectState
-        (
-        ) : base(StageSelectStateType.None)
-        {
-        }
-    }
 }
