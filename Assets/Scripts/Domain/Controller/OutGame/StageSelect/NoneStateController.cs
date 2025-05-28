@@ -1,5 +1,6 @@
 using System;
 using Adapter.IView.OutGame.StageSelect;
+using Cysharp.Threading.Tasks;
 using Domain.IRepository.OutGame;
 using Module.Option;
 using Module.StateMachine;
@@ -30,23 +31,28 @@ namespace Domain.Controller.OutGame.StageSelect
         {
             SelectedStageView.SelectEvent
                 .Where(_ => IsInState())
-                .Subscribe(x => OnSelect(x))
+                .Subscribe(x => OnSelect(x).Forget())
                 .AddTo(CompositeDisposable);
         }
 
-        private void OnSelect(Option<string> selectedStage)
+        public override void OnEnter()
+        {
+            SelectedStageTextView.ResetStage();
+        }
+
+        private async UniTask OnSelect(Option<string> selectedStage)
         {
             if (!selectedStage.TryGetValue(out var stage))
             {
                 return;
             }
-            
+
             SelectedStageRepository.SetSelectedStage(stage);
-            SelectedStageTextView.SetStage(stage);
-            
+
+            await UniTask.DelayFrame(1);
             StateEntity.ChangeState(StageSelectStateType.Some);
         }
-        
+
         private CompositeDisposable CompositeDisposable { get; }
         private ISelectedStageView SelectedStageView { get; }
         private ISelectedStageTextView SelectedStageTextView { get; }

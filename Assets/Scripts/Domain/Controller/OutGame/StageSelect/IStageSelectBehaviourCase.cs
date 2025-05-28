@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using Module.StateMachine;
 using Structure.OutGame;
-using UnityEngine;
-using VContainer.Unity;
+using Structure.Util;
 
 namespace Domain.Controller.OutGame.StageSelect
 {
-    public class StageSelectStateMachine : AbstractStateMachine<StageSelectStateType>, ITickable
+    public class StageSelectStateMachine : StateMachineBase<StageSelectStateType>
     {
         public StageSelectStateMachine
         (
@@ -14,12 +13,6 @@ namespace Domain.Controller.OutGame.StageSelect
             IReadOnlyList<IStateBehaviour<StageSelectStateType>> behaviourEntities
         ) : base(state, behaviourEntities)
         {
-        }
-
-
-        public void Tick()
-        {
-            OnTick(Time.deltaTime);
         }
     }
 

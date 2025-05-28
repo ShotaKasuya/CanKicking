@@ -23,7 +23,7 @@ namespace Module.StateMachine
 
         public virtual void ChangeState(TState next)
         {
-            OnChangeState.Invoke(new StatePair<TState>(State, next));
+            OnChangeState?.Invoke(new StatePair<TState>(State, next));
             State = next;
         }
     }

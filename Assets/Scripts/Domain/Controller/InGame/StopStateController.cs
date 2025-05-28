@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Adapter.IView.InGame.Ui;
 using Adapter.IView.Scene;
 using Cysharp.Threading.Tasks;
+using Domain.IRepository.InGame;
 using Domain.IRepository.InGame.Player;
 using Module.StateMachine;
 using R3;
@@ -58,8 +59,7 @@ namespace Domain.Controller.InGame
 
         public override void OnEnter()
         {
-            Time.timeScale = 0;
-            
+            Time.timeScale = ITimeScaleRepository.Stop;
             PlayerStateRepository.ChangeState(PlayerStateType.Stopping);
             foreach (var stopUiView in StopUiView)
             {
@@ -69,7 +69,7 @@ namespace Domain.Controller.InGame
 
         public override void OnExit()
         {
-            Time.timeScale = 1;
+            Time.timeScale = ITimeScaleRepository.Normal;
             PlayerStateRepository.ChangeState(PlayerStateType.Idle);
             foreach (var stopUiView in StopUiView)
             {

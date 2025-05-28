@@ -10,9 +10,12 @@ namespace Module.StateMachine
         {
             State = state;
             StateBehaviourEntities = behaviourEntities;
+        }
 
+        protected void Init()
+        {
             State.OnChangeState += OnChangeState;
-            CallOnEnter(state.State);
+            CallOnEnter(State.State);
         }
 
         protected void OnTick(float deltaTime)

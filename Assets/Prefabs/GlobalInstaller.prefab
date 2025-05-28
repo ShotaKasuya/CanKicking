@@ -49,3 +49,4 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   playerConstantsDataStore: {fileID: 11400000, guid: 3e192efa4da699940b53073c02a35caa, type: 2}
+  timeScaleDataStore: {fileID: 11400000, guid: 075772a21a8fdce409cc03961d29de70, type: 2}

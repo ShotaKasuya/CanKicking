@@ -16,9 +16,9 @@ namespace Adapter.View.OutGame.StageSelect
         [Inject]
         public SelectInputView
         (
+            InputSystem_Actions inputSystemActions
         )
         {
-            var inputSystemActions = new InputSystem_Actions();
             StageSelectActions = inputSystemActions.StageSelect;
         }
 

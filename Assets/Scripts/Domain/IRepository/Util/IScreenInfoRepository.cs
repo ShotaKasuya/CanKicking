@@ -1,4 +1,4 @@
-using System;
+using R3;
 using UnityEngine;
 
 namespace Domain.IRepository.Util
@@ -10,7 +10,7 @@ namespace Domain.IRepository.Util
 
     public interface IScreenWidthRepository
     {
-        public float Width { get; }
-        public Action OnWidthChange { get; set; }
+        public float Width => ReactiveWidth.CurrentValue;
+        public ReadOnlyReactiveProperty<float> ReactiveWidth { get; } 
     }
 }

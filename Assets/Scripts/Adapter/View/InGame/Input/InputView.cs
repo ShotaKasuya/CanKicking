@@ -19,9 +19,8 @@ namespace Adapter.View.InGame.Input
     public class InputView : IStartable, ITickable, IFingerView, IDisposable
     {
         [Inject]
-        public InputView()
+        public InputView(InputSystem_Actions inputSystemActions)
         {
-            var inputSystemActions = new InputSystem_Actions();
             PlayerInputActions = inputSystemActions.Player;
         }
 
@@ -67,19 +66,9 @@ namespace Adapter.View.InGame.Input
 
         private void StartClick()
         {
-            // UI上のタッチは無視する
-#if UNITY_EDITOR || UNITY_STANDALONE
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
-#else
-            if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-            {
-                return;
-            }
-#endif
             if (DragInfo.IsSome) return;
+            // UI上のタッチは無視する
+            if (EventSystem.current.IsPointerOverGameObject()) return;
 
             var touchPosition = PlayerInputActions.Position.ReadValue<Vector2>();
 

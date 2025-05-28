@@ -1,3 +1,4 @@
+using System;
 using Adapter.IView.OutGame.StageSelect;
 using Adapter.IView.Scene;
 using Domain.IRepository.OutGame;
@@ -9,7 +10,7 @@ using VContainer.Unity;
 
 namespace Domain.Controller.OutGame.StageSelect
 {
-    public class SomeStateController : StageSelectStateBehaviourBase, IStartable
+    public class SomeStateController : StageSelectStateBehaviourBase, IStartable, IDisposable
     {
         public SomeStateController
         (
@@ -27,7 +28,7 @@ namespace Domain.Controller.OutGame.StageSelect
 
             CompositeDisposable = new CompositeDisposable();
         }
-        
+
         public void Start()
         {
             SelectedStageView.SelectEvent
@@ -35,22 +36,26 @@ namespace Domain.Controller.OutGame.StageSelect
                 .Subscribe(x => OnSelect(x))
                 .AddTo(CompositeDisposable);
         }
-        
+
+        public override void OnEnter()
+        {
+            var stage = SelectedStageRepository.SelectedStage;
+            SelectedStageTextView.SetStage(stage);
+        }
 
         private void OnSelect(Option<string> selectedStage)
         {
             var prevSelect = SelectedStageRepository.SelectedStage;
             if (!selectedStage.TryGetValue(out var stage))
             {
-                SelectedStageTextView.ResetStage();
                 StateEntity.ChangeState(StageSelectStateType.None);
                 return;
             }
 
             if (stage != prevSelect)
             {
-                SelectedStageTextView.SetStage(stage);
                 SelectedStageRepository.SetSelectedStage(stage);
+                OnEnter();
                 return;
             }
 
@@ -62,5 +67,10 @@ namespace Domain.Controller.OutGame.StageSelect
         private ISelectedStageTextView SelectedStageTextView { get; }
         private ISceneLoadView SceneLoadView { get; }
         private ISelectedStageRepository SelectedStageRepository { get; }
+
+        public void Dispose()
+        {
+            CompositeDisposable?.Dispose();
+        }
     }
 }

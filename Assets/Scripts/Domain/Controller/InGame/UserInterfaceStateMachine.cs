@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using Module.StateMachine;
 using Structure.InGame.UserInterface;
-using UnityEngine;
-using VContainer.Unity;
+using Structure.Util;
 
 namespace Domain.Controller.InGame
 {
-    public class UserInterfaceStateMachine : AbstractStateMachine<UserInterfaceStateType>, ITickable
+    public class UserInterfaceStateMachine : StateMachineBase<UserInterfaceStateType>
     {
         public UserInterfaceStateMachine
         (
@@ -14,11 +13,6 @@ namespace Domain.Controller.InGame
             IReadOnlyList<IStateBehaviour<UserInterfaceStateType>> behaviourEntities
         ) : base(state, behaviourEntities)
         {
-        }
-
-        public void Tick()
-        {
-            OnTick(Time.deltaTime);
         }
     }
 

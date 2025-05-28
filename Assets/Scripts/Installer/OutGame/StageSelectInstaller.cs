@@ -37,14 +37,20 @@ namespace Installer.OutGame
         }
 
 #if UNITY_EDITOR
+        private IMutStateEntity<StageSelectStateType> _state;
+
+        private void Start()
+        {
+            _state = Container.Resolve<IMutStateEntity<StageSelectStateType>>();
+        }
+
         private void OnGUI()
         {
-            var state = Container.Resolve<IMutStateEntity<StageSelectStateType>>();
             var style = new GUIStyle()
             {
                 fontSize = 130
             };
-            GUI.Label(new Rect(10, 10, 100, 20), state.State.ToString(), style);
+            GUI.Label(new Rect(10, 10, 100, 20), _state.State.ToString(), style);
         }
 #endif
     }
