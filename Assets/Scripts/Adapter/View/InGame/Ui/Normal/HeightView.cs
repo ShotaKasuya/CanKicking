@@ -1,10 +1,10 @@
-using Adapter.IView.InGame.UI;
+using Adapter.IView.InGame.Ui;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Adapter.View.InGame.UI
+namespace Adapter.View.InGame.Ui.Normal
 {
-    public class HeightView: MonoBehaviour, IHeightView
+    public class HeightView: MonoBehaviour, IHeightUiView
     {
         [SerializeField] private Text heightText;
         

@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
 
-namespace Adapter.IView.InGame.UI
+namespace Adapter.IView.InGame.Ui
 {
     public interface IGoalUiView
     {

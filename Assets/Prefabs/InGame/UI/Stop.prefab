@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6631210251272884351}
   - component: {fileID: 1340047822492089253}
   - component: {fileID: 7139641876327227648}
-  - component: {fileID: 1233500733631842984}
+  - component: {fileID: 3346068291316137660}
   m_Layer: 5
   m_Name: StageSelect
   m_TagString: Untagged
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1233500733631842984
+--- !u!114 &3346068291316137660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,12 +265,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1804612783895707133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed7329cf9bb4693b091ee46f4425b1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a32cff73def48baa433f793b7ea7794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene:
-    sceneName: StageSelect
-    sceneAsset: {fileID: 102900000, guid: 2d25e4c23acd2ddb4907d76bb174b201, type: 3}
 --- !u!1 &3866818859770862127
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +279,7 @@ GameObject:
   - component: {fileID: 1504245096320784771}
   - component: {fileID: 9019533820939441894}
   - component: {fileID: 1281068386971999717}
-  - component: {fileID: 5218294117311874024}
+  - component: {fileID: 7601872797927162117}
   m_Layer: 5
   m_Name: Stop
   m_TagString: Untagged
@@ -351,7 +348,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5218294117311874024
+--- !u!114 &7601872797927162117
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -360,9 +357,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3866818859770862127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3de2ce248441b1ae8afed300d828b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 92aa48eda947419493dc4b1ffed8b41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playButtonView: {fileID: 3257282203091958840}
+  stageSelectButtonView: {fileID: 3346068291316137660}
+  reStartButtonView: {fileID: 6823896369938391506}
 --- !u!1 &4781417056297841232
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 4319272546468665768}
   - component: {fileID: 1394433667306975536}
   - component: {fileID: 8679924952253337278}
-  - component: {fileID: 228721512973824759}
+  - component: {fileID: 6823896369938391506}
   m_Layer: 5
   m_Name: ReStart
   m_TagString: Untagged
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &228721512973824759
+--- !u!114 &6823896369938391506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1042,6 +1042,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6851448435480123150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02a68dc2f94844649cf114914d6f08cc, type: 3}
+  m_Script: {fileID: 11500000, guid: a2fa4c6690eb4ea7bc4920f5750a982b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

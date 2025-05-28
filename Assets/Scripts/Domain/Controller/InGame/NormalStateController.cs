@@ -1,13 +1,13 @@
 using System;
 using Adapter.IView.InGame.Player;
-using Adapter.IView.InGame.UI;
+using Adapter.IView.InGame.Ui;
 using Cysharp.Threading.Tasks;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.UserInterface;
 using VContainer.Unity;
 
-namespace Domain.UseCase.InGame.UI
+namespace Domain.Controller.InGame
 {
     /// <summary>
     /// 通常のUIを管理する

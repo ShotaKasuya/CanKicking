@@ -50,7 +50,7 @@ namespace Adapter.View.OutGame.StageSelect
             _subject.OnNext(Option<string>.None());
         }
 
-        public Observable<Option<string>> SelectEvent { get; set; }
+        public Observable<Option<string>> SelectEvent => _subject;
 
         private Camera _mainCamera;
         private Subject<Option<string>> _subject;

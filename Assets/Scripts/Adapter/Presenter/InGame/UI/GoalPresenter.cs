@@ -1,4 +1,4 @@
-using Adapter.IView.InGame.UI;
+using Adapter.IView.InGame.Ui;
 using Domain.IPresenter.InGame.UI;
 
 namespace Adapter.Presenter.InGame.UI

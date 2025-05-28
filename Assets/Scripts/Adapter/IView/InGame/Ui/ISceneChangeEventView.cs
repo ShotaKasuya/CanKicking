@@ -1,15 +1,10 @@
-using System;
-using UnityEngine;
+using R3;
+using Structure.Scene;
 
-namespace Adapter.IView.InGame.UI
+namespace Adapter.IView.InGame.Ui
 {
     public interface ISceneChangeEventView
     {
-        public Action<string> SceneChangeEvent { get; set; }
-    }
-    
-    public abstract class SceneChangeButtonViewBase: MonoBehaviour, ISceneChangeEventView
-    {
-        public Action<string> SceneChangeEvent { get; set; }
+        public Observable<SceneType> Performed { get; }
     }
 }

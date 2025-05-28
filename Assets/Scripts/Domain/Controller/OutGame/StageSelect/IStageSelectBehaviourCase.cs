@@ -4,7 +4,7 @@ using Structure.OutGame;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Domain.UseCase.OutGame.StageSelect
+namespace Domain.Controller.OutGame.StageSelect
 {
     public class StageSelectStateMachine : AbstractStateMachine<StageSelectStateType>, ITickable
     {
@@ -30,15 +30,6 @@ namespace Domain.UseCase.OutGame.StageSelect
             StageSelectStateType stateMask,
             IMutStateEntity<StageSelectStateType> stateEntity
         ) : base(stateMask, stateEntity)
-        {
-        }
-    }
-
-    public class StageSelectState : AbstractStateType<StageSelectStateType>
-    {
-        public StageSelectState
-        (
-        ) : base(StageSelectStateType.None)
         {
         }
     }

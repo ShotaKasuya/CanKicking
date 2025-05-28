@@ -4,7 +4,7 @@ using Structure.InGame.UserInterface;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Domain.UseCase.InGame.UI
+namespace Domain.Controller.InGame
 {
     public class UserInterfaceStateMachine : AbstractStateMachine<UserInterfaceStateType>, ITickable
     {

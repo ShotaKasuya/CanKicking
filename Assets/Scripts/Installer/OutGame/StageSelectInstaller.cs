@@ -1,7 +1,7 @@
 using Adapter.Presenter.OutGame.StageSelect;
 using Adapter.Repository.OutGame;
 using Adapter.View.OutGame.StageSelect;
-using Domain.UseCase.OutGame.StageSelect;
+using Domain.Controller.OutGame.StageSelect;
 using Module.StateMachine;
 using Structure.OutGame;
 using UnityEngine;
@@ -24,14 +24,13 @@ namespace Installer.OutGame
             });
 
             // Presenter
-            builder.Register<PlayerStageSelectionPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<StageSelectPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // Repository
+            builder.Register<StageSelectStateRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SelectedStageRepository>(Lifetime.Scoped).AsImplementedInterfaces();
 
-            // UseCase
-            builder.Register<StageSelectState>(Lifetime.Singleton).AsImplementedInterfaces();
+            // Controller
             builder.RegisterEntryPoint<StageSelectStateMachine>();
             builder.Register<NoneStateController>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<SomeStateController>(Lifetime.Scoped).AsImplementedInterfaces();

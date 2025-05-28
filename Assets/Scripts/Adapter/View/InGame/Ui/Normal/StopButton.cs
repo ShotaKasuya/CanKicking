@@ -1,22 +1,20 @@
-﻿using Adapter.IView.InGame.UI;
+﻿using Adapter.IView.InGame.Ui;
 using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Adapter.View.InGame.UI
+namespace Adapter.View.InGame.Ui.Normal
 {
     [RequireComponent(typeof(Button))]
-    public class StopButton : MonoBehaviour, INormalUiView, IStopEventView
+    public class StopButton : MonoBehaviour, IStopEventView
     {
-        private GameObject _gameObject;
         private Subject<Unit> _subject;
 
         public Observable<Unit> OnPerformed => _subject;
 
         private void Awake()
         {
-            _gameObject = gameObject;
             _subject = new Subject<Unit>();
             GetComponent<Button>().onClick.AddListener(Invoke);
         }
@@ -28,13 +26,13 @@ namespace Adapter.View.InGame.UI
 
         public UniTask Show()
         {
-            _gameObject.SetActive(true);
+            gameObject.SetActive(true);
             return UniTask.CompletedTask;
         }
 
         public UniTask Hide()
         {
-            _gameObject.SetActive(false);
+            gameObject.SetActive(false);
             return UniTask.CompletedTask;
         }
     }

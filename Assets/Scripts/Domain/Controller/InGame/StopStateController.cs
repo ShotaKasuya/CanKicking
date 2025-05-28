@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Adapter.IView.InGame.UI;
+using Adapter.IView.InGame.Ui;
 using Adapter.IView.Scene;
 using Cysharp.Threading.Tasks;
 using Domain.IRepository.InGame.Player;
@@ -12,7 +12,7 @@ using Structure.Scene;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Domain.UseCase.InGame.UI
+namespace Domain.Controller.InGame
 {
     /// <summary>
     /// 一時停止状態のUIを管理する

@@ -3,11 +3,13 @@ using Adapter.IView.Scene;
 using Domain.IRepository.OutGame;
 using Module.Option;
 using Module.StateMachine;
+using R3;
 using Structure.OutGame;
+using VContainer.Unity;
 
-namespace Domain.UseCase.OutGame.StageSelect
+namespace Domain.Controller.OutGame.StageSelect
 {
-    public class SomeStateController : StageSelectStateBehaviourBase
+    public class SomeStateController : StageSelectStateBehaviourBase, IStartable
     {
         public SomeStateController
         (
@@ -22,17 +24,18 @@ namespace Domain.UseCase.OutGame.StageSelect
             SelectedStageView = selectedStageView;
             SelectedStageTextView = selectedStageTextView;
             SelectedStageRepository = selectedStageRepository;
-        }
 
-        public override void OnEnter()
-        {
-            SelectedStageView.SelectEvent += OnSelect;
+            CompositeDisposable = new CompositeDisposable();
         }
-
-        public override void OnExit()
+        
+        public void Start()
         {
-            SelectedStageView.SelectEvent -= OnSelect;
+            SelectedStageView.SelectEvent
+                .Where(_ => IsInState())
+                .Subscribe(x => OnSelect(x))
+                .AddTo(CompositeDisposable);
         }
+        
 
         private void OnSelect(Option<string> selectedStage)
         {
@@ -54,6 +57,7 @@ namespace Domain.UseCase.OutGame.StageSelect
             SceneLoadView.Load(prevSelect);
         }
 
+        private CompositeDisposable CompositeDisposable { get; }
         private ISelectedStageView SelectedStageView { get; }
         private ISelectedStageTextView SelectedStageTextView { get; }
         private ISceneLoadView SceneLoadView { get; }

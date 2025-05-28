@@ -10,5 +10,10 @@ namespace Adapter.View.Scene
         {
             SceneManager.LoadScene(sceneType.ToSceneName());
         }
+
+        public void Load(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }

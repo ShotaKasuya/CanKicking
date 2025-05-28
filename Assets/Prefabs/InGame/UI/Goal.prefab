@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 970698089016874262}
   - component: {fileID: 6450722709081635803}
   - component: {fileID: 3065849399180156266}
-  - component: {fileID: 7139204867612628185}
+  - component: {fileID: 41451032785733740}
   m_Layer: 5
   m_Name: ReStart
   m_TagString: Untagged
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7139204867612628185
+--- !u!114 &41451032785733740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1514470891619455372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02a68dc2f94844649cf114914d6f08cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 88948a944f904adbb0309ba2c6cef877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4179138623379850126
@@ -416,6 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3151975540346573554}
   - component: {fileID: 4319810676690581970}
+  - component: {fileID: 4924745817539557387}
   m_Layer: 5
   m_Name: Goal
   m_TagString: Untagged
@@ -457,6 +458,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c08fd9925424311aa72bb322f994dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4924745817539557387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572367630234449508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a8b69700bb44b18a07f87eb1844c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reStartButtonView: {fileID: 41451032785733740}
+  toStageSelectButtonView: {fileID: 5336893879160313127}
 --- !u!1 &6168264515994882637
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +592,7 @@ GameObject:
   - component: {fileID: 5445083468538610436}
   - component: {fileID: 5561310585438685350}
   - component: {fileID: 7455739087249876090}
-  - component: {fileID: 3032277893984926340}
+  - component: {fileID: 5336893879160313127}
   m_Layer: 5
   m_Name: ToStageSelect
   m_TagString: Untagged
@@ -687,7 +702,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3032277893984926340
+--- !u!114 &5336893879160313127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -696,9 +711,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7188553697917638983}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed7329cf9bb4693b091ee46f4425b1c, type: 3}
+  m_Script: {fileID: 11500000, guid: d642abd64c284f2b9d2bb72b69053fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene:
-    sceneName: StageSelect
-    sceneAsset: {fileID: 102900000, guid: 2d25e4c23acd2ddb4907d76bb174b201, type: 3}

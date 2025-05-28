@@ -1,39 +1,36 @@
-using System;
-using Adapter.IView.InGame.UI;
+using Adapter.IView.InGame.Ui;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Adapter.View.InGame.UI
+namespace Adapter.View.InGame.Ui.Stop
 {
     [RequireComponent(typeof(Button))]
     public class PlayButtonView : MonoBehaviour, IPlayButtonView
     {
-        public Action PlayEvent { get; set; }
-
-        private GameObject _gameObject;
+        private Subject<Unit> _subject;
+        public Observable<Unit> Performed => _subject;
 
         private void Awake()
         {
-            _gameObject = gameObject;
+            _subject = new Subject<Unit>();
             GetComponent<Button>().onClick.AddListener(Invoke);
         }
 
         private void Invoke()
         {
-            PlayEvent?.Invoke();
+            _subject.OnNext(Unit.Default);
         }
 
         public void Show()
         {
-            _gameObject.SetActive(true);
+            gameObject.SetActive(true);
         }
 
         public void Hide()
         {
-            _gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
-        public Observable<Unit> Performed { get; }
     }
 }

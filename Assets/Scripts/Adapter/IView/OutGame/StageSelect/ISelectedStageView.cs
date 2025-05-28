@@ -5,7 +5,7 @@ namespace Adapter.IView.OutGame.StageSelect
 {
     public interface ISelectedStageView
     {
-        public Observable<Option<string>> SelectEvent { get; set; }
+        public Observable<Option<string>> SelectEvent { get; }
     }
 
     public interface ISelectedStageTextView

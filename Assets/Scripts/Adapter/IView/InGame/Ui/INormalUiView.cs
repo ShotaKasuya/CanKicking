@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using R3;
 
-namespace Adapter.IView.InGame.UI
+namespace Adapter.IView.InGame.Ui
 {
     public interface INormalUiView
     {

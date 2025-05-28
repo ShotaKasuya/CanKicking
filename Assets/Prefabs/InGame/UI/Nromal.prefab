@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2613399406309987238}
   - component: {fileID: 4971570655573507249}
-  - component: {fileID: 1265976214233483697}
+  - component: {fileID: 6241410926138086658}
   m_Layer: 5
   m_Name: Nromal
   m_TagString: Untagged
@@ -317,7 +317,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6941614759117050398}
   m_CullTransparentMesh: 1
---- !u!114 &1265976214233483697
+--- !u!114 &6241410926138086658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,9 +326,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6941614759117050398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42789cbc84004a5592ca0bcfa109afbd, type: 3}
+  m_Script: {fileID: 11500000, guid: e6352e2dc66f479e9df3fda6c19d875a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightView: {fileID: 999889851703900101}
+  stopButton: {fileID: 393058132249216405}
 --- !u!1 &7055980337359769799
 GameObject:
   m_ObjectHideFlags: 0

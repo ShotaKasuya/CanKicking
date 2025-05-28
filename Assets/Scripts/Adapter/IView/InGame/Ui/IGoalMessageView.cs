@@ -1,4 +1,4 @@
-namespace Adapter.IView.InGame.UI
+namespace Adapter.IView.InGame.Ui
 {
     public interface IGoalMessageView
     {

@@ -1,5 +1,5 @@
 using System;
-using Adapter.IView.InGame.UI;
+using Adapter.IView.InGame.Ui;
 using Adapter.IView.Scene;
 using Cysharp.Threading.Tasks;
 using Module.StateMachine;
@@ -7,7 +7,7 @@ using R3;
 using Structure.InGame.UserInterface;
 using VContainer.Unity;
 
-namespace Domain.UseCase.InGame.UI
+namespace Domain.Controller.InGame
 {
     /// <summary>
     /// ゴール到達後のUIを管理する
