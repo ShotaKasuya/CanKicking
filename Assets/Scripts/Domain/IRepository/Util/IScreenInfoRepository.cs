@@ -10,7 +10,9 @@ namespace Domain.IRepository.Util
 
     public interface IScreenWidthRepository
     {
-        public float Width => ReactiveWidth.CurrentValue;
-        public ReadOnlyReactiveProperty<float> ReactiveWidth { get; } 
+        public float WidthWeight => ReactiveWidthWeight.CurrentValue;
+        public ReadOnlyReactiveProperty<float> ReactiveWidthWeight { get; }
+        public void SetWeight(float weight);
+        public float GetScreenWidth(float weight);
     }
 }

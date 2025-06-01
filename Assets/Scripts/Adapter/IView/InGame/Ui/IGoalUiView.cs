@@ -1,4 +1,6 @@
 using Cysharp.Threading.Tasks;
+using R3;
+using Structure.Scene;
 
 namespace Adapter.IView.InGame.Ui
 {
@@ -8,11 +10,13 @@ namespace Adapter.IView.InGame.Ui
         public UniTask Hide();
     }
 
-    public interface IGoalStateStageSelectButtonView: IStageSelectButtonView
+    public interface IGoalStateStageSelectButtonView
     {
+        public Observable<SceneType> Performed { get; }
     }
 
-    public interface IGoalStateReStartButtonView: IReStartButtonView
+    public interface IGoalStateReStartButtonView
     {
+        public Observable<SceneType> Performed { get; }
     }
 }

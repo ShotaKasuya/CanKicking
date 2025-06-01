@@ -1,8 +1,10 @@
+
 namespace Adapter.IDataStore.Util
 {
     public interface IScreenDataStore
     {
-        public float ScreenWidth { get; }
-        public void ScreenWidthStore(float width);
+        public float MinWidth { get; }
+        public float MaxWidth { get; }
+        public void StoreWeight(float weight);
     }
 }

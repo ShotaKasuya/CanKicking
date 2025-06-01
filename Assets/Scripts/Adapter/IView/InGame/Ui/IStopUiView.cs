@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using R3;
+using Structure.Scene;
 
 namespace Adapter.IView.InGame.Ui
 {
@@ -14,11 +15,18 @@ namespace Adapter.IView.InGame.Ui
         public Observable<Unit> Performed { get; }
     }
 
-    public interface IStopStateStageSelectButtonView : IStageSelectButtonView
+    public interface IStopStateStageSelectButtonView
     {
+        public Observable<SceneType> Performed { get; }
     }
 
-    public interface IStopStateReStartButtonView : IReStartButtonView
+    public interface IStopStateReStartButtonView
     {
+        public Observable<SceneType> Performed { get; }
+    }
+
+    public interface IStopStateScreenScaleSliderView
+    {
+        public Observable<float> ChangeObservable { get; }
     }
 }

@@ -11,6 +11,7 @@ namespace Adapter.View.InGame.Ui.Stop
         [SerializeField] private PlayButtonView playButtonView;
         [SerializeField] private ToStageSelectButtonView stageSelectButtonView;
         [SerializeField] private ReStartButtonView reStartButtonView;
+        [SerializeField] private ScreenScaleSliderView screenScaleSliderView;
 
         public void Register(IContainerBuilder builder)
         {
@@ -20,6 +21,7 @@ namespace Adapter.View.InGame.Ui.Stop
                 componentsBuilder.AddInstance(playButtonView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(stageSelectButtonView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(reStartButtonView).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(screenScaleSliderView).AsImplementedInterfaces();
             });
         }
 

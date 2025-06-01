@@ -1,4 +1,3 @@
-using Adapter.IView.InGame.Ui;
 using R3;
 using Structure.Scene;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.UI;
 namespace Adapter.View.InGame.Ui
 {
     [RequireComponent(typeof(Button))]
-    public abstract class SceneChangeButton : MonoBehaviour, ISceneChangeEventView
+    public abstract class SceneChangeButton : MonoBehaviour
     {
         private void Awake()
         {

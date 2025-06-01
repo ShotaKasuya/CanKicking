@@ -1,6 +1,7 @@
 using System;
 using Domain.IPresenter.Util.Camera;
 using Domain.IRepository.Util;
+using R3;
 using VContainer.Unity;
 
 namespace Domain.UseCase.InGame.Stage
@@ -17,33 +18,35 @@ namespace Domain.UseCase.InGame.Stage
             ScreenScaleRepository = screenScaleRepository;
             ScreenWidthRepository = screenWidthRepository;
             CameraOrthographicSizePresenter = cameraOrthographicSizePresenter;
+
+            CompositeDisposable = new CompositeDisposable();
         }
 
         public void Start()
         {
-            ScreenWidthRepository.OnWidthChange += FitCameraScale;
-
-            FitCameraScale();
+            ScreenWidthRepository.ReactiveWidthWeight.Subscribe(FitCameraScale).AddTo(CompositeDisposable);
+            FitCameraScale(ScreenWidthRepository.WidthWeight);
         }
 
-        private void FitCameraScale()
+        private void FitCameraScale(float weight)
         {
             var screenScale = ScreenScaleRepository.ScreenScale;
             var aspectRatio = screenScale.x / screenScale.y;
-            var targetWidth = ScreenWidthRepository.Width;
+            var width = ScreenWidthRepository.GetScreenWidth(weight);
 
-            var orthographicSize = targetWidth / (2 * aspectRatio);
+            var orthographicSize = width / (2 * aspectRatio);
 
             CameraOrthographicSizePresenter.SetOrthographicSize(orthographicSize);
         }
 
+        private CompositeDisposable CompositeDisposable { get; }
         private IScreenScaleRepository ScreenScaleRepository { get; }
         private IScreenWidthRepository ScreenWidthRepository { get; }
         private ICameraOrthographicSizePresenter CameraOrthographicSizePresenter { get; }
 
         public void Dispose()
         {
-            ScreenWidthRepository.OnWidthChange -= FitCameraScale;
+            CompositeDisposable?.Dispose();
         }
     }
 }

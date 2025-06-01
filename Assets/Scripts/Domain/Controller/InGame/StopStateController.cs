@@ -5,6 +5,7 @@ using Adapter.IView.Scene;
 using Cysharp.Threading.Tasks;
 using Domain.IRepository.InGame;
 using Domain.IRepository.InGame.Player;
+using Domain.IRepository.Util;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
@@ -27,6 +28,8 @@ namespace Domain.Controller.InGame
             IReadOnlyList<IStopUiView> stopUiView,
             IStopStateStageSelectButtonView stageSelectButtonView,
             IStopStateReStartButtonView reStartButtonView,
+            IStopStateScreenScaleSliderView screenScaleSliderView,
+            IScreenWidthRepository screenWidthRepository,
             ISceneLoadView sceneLoadView,
             IMutStateEntity<UserInterfaceStateType> stateEntity
         ) : base(UserInterfaceStateType.Stop, stateEntity)
@@ -36,10 +39,13 @@ namespace Domain.Controller.InGame
             StageSelectButtonView = stageSelectButtonView;
             ReStartButtonView = reStartButtonView;
             StopUiView = stopUiView;
+            ScreenScaleSliderView = screenScaleSliderView;
+            ScreenWidthRepository = screenWidthRepository;
             SceneLoadView = sceneLoadView;
+
             CompositeDisposable = new CompositeDisposable();
         }
-        
+
         public void Start()
         {
             OnExit();
@@ -54,6 +60,10 @@ namespace Domain.Controller.InGame
             ReStartButtonView.Performed
                 .Where(_ => IsInState())
                 .Subscribe(Load)
+                .AddTo(CompositeDisposable);
+            ScreenScaleSliderView.ChangeObservable
+                .Where(_ => IsInState())
+                .Subscribe(ScreenWidthRepository.SetWeight)
                 .AddTo(CompositeDisposable);
         }
 
@@ -86,13 +96,15 @@ namespace Domain.Controller.InGame
         {
             SceneLoadView.Load(sceneType);
         }
-        
+
         private CompositeDisposable CompositeDisposable { get; }
         private IMutPlayerStateRepository PlayerStateRepository { get; }
         private IPlayButtonView PlayButtonView { get; }
         private IReadOnlyList<IStopUiView> StopUiView { get; }
-        private IStageSelectButtonView StageSelectButtonView { get; }
-        private IReStartButtonView ReStartButtonView { get; }
+        private IStopStateStageSelectButtonView StageSelectButtonView { get; }
+        private IStopStateReStartButtonView ReStartButtonView { get; }
+        private IStopStateScreenScaleSliderView ScreenScaleSliderView { get; }
+        private IScreenWidthRepository ScreenWidthRepository { get; }
         private ISceneLoadView SceneLoadView { get; }
 
         public void Dispose()

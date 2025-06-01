@@ -1,7 +1,6 @@
 using Adapter.Presenter.InGame.Player;
 using Adapter.Presenter.Input;
 using Adapter.Repository.InGame.Player;
-using Adapter.View.InGame.Input;
 using Adapter.View.InGame.Player;
 using Domain.Entity.InGame.Player;
 using Domain.IRepository.InGame.Player;

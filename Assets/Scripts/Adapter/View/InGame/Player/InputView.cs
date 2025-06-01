@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
 
-namespace Adapter.View.InGame.Input
+namespace Adapter.View.InGame.Player
 {
     /// <summary>
     /// 特例クラス

@@ -101,4 +101,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2717279330998932041}
-  baseScale: {x: 10, y: 0.5}
+  baseScale: {x: 12.5, y: 0.25}

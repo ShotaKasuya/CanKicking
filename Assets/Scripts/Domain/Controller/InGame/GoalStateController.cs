@@ -48,8 +48,8 @@ namespace Domain.Controller.InGame
         }
 
         private IGoalUiView GoalUiView { get; }
-        private IStageSelectButtonView StageSelectButtonView { get; }
-        private IReStartButtonView ReStartButtonView { get; }
+        private IGoalStateStageSelectButtonView StageSelectButtonView { get; }
+        private IGoalStateReStartButtonView ReStartButtonView { get; }
         private ISceneLoadView SceneLoadView { get; }
         private CompositeDisposable CompositeDisposable { get; }
 

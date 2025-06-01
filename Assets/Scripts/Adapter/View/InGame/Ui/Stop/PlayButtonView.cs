@@ -8,18 +8,17 @@ namespace Adapter.View.InGame.Ui.Stop
     [RequireComponent(typeof(Button))]
     public class PlayButtonView : MonoBehaviour, IPlayButtonView
     {
-        private Subject<Unit> _subject;
-        public Observable<Unit> Performed => _subject;
+        private Subject<Unit> Subject { get; } = new Subject<Unit>();
+        public Observable<Unit> Performed => Subject;
 
         private void Awake()
         {
-            _subject = new Subject<Unit>();
             GetComponent<Button>().onClick.AddListener(Invoke);
         }
 
         private void Invoke()
         {
-            _subject.OnNext(Unit.Default);
+            Subject.OnNext(Unit.Default);
         }
 
         public void Show()
