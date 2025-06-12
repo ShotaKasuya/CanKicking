@@ -106,8 +106,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 2
+  m_AngularDamping: 0
+  m_GravityScale: 1.5
   m_Material: {fileID: 6200000, guid: 36023c1d270bbaf12a4333be212d1673, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -182,7 +182,6 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   aimView: {fileID: 9216963573848608030}
-  kickStatusDataStore: {fileID: 11400000, guid: fc5e10a27ae287be2a73e2d00d2fa8a0, type: 2}
 --- !u!114 &2155718183296470311
 MonoBehaviour:
   m_ObjectHideFlags: 0
