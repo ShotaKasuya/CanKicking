@@ -9,6 +9,6 @@ PhysicsMaterial2D:
   m_Name: CanPhys
   serializedVersion: 2
   friction: 0.6
-  bounciness: 0.2
-  m_FrictionCombine: 1
+  bounciness: 0.25
+  m_FrictionCombine: 4
   m_BounceCombine: 4

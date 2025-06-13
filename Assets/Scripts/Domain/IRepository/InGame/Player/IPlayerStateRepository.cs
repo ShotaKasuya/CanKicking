@@ -10,4 +10,12 @@ namespace Domain.IRepository.InGame.Player
     public interface IMutPlayerStateRepository : IMutStateEntity<PlayerStateType>
     {
     }
+
+    public interface IRotationStateRepository
+    {
+        public float RotationAngle { get; }
+        public RotationStateType Read();
+        public void Toggle();
+        public void Set(RotationStateType type);
+    }
 }

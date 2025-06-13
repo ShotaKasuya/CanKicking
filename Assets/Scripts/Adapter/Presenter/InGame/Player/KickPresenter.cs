@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Adapter.Presenter.InGame.Player
 {
-    public class PlayerKickPresenter : IKickPresenter
+    public class KickPresenter : IKickPresenter
     {
-        public PlayerKickPresenter
+        public KickPresenter
         (
             IMutPlayerView playerView
         )

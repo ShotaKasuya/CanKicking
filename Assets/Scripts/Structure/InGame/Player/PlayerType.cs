@@ -25,4 +25,10 @@ namespace Structure.InGame.Player
         /// </summary>
         Stopping,
     }
+
+    public enum RotationStateType
+    {
+        Positive,
+        Negative,
+    }
 }

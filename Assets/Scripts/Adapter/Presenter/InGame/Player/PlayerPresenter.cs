@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Adapter.Presenter.InGame.Player
 {
-    public class PlayerPresenter : IPlayerVelocityPresenter
+    public class PlayerPresenter : IPlayerPresenter
     {
         public PlayerPresenter
         (
-            IPlayerView playerView
+            IMutPlayerView playerView
         )
         {
             PlayerView = playerView;
@@ -26,6 +26,11 @@ namespace Adapter.Presenter.InGame.Player
             return PlayerView.Rbody.AnglerVelocity;
         }
 
-        private IPlayerView PlayerView { get; }
+        public void Rotate(float value)
+        {
+            PlayerView.ModelTransform.Rotate(new Vector3(0, 0, value));
+        }
+
+        private IMutPlayerView PlayerView { get; }
     }
 }
