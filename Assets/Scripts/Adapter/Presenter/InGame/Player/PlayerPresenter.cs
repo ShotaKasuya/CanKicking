@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Adapter.Presenter.InGame.Player
 {
-    public class PlayerPresenter : IPlayerPresenter
+    public class PlayerPresenter : IPlayerPresenter, IRotationStopPresenter
     {
         public PlayerPresenter
         (
@@ -29,6 +29,16 @@ namespace Adapter.Presenter.InGame.Player
         public void Rotate(float value)
         {
             PlayerView.ModelTransform.Rotate(new Vector3(0, 0, value));
+        }
+        
+        public void Stop()
+        {
+            PlayerView.MutRbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+
+        public void ReStart()
+        {
+            PlayerView.MutRbody.constraints = RigidbodyConstraints2D.None;
         }
 
         private IMutPlayerView PlayerView { get; }

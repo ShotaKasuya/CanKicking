@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 78.66667
+    y: 24
     width: 456.33334
     height: 250.66666
   m_SerializedDataModeController:
@@ -903,7 +903,7 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 17.218313, y: 6.319206, z: -10.11647}
+    m_Target: {x: -3.0840137, y: 29.479145, z: -9.963296}
     speed: 2
     m_Value: {x: 17.218313, y: 6.319206, z: -10.11647}
   m_RenderMode: 0
@@ -955,7 +955,7 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 23.771498
+    m_Target: 8.454273
     speed: 2
     m_Value: 23.771498
   m_Ortho:
@@ -1120,8 +1120,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 457.33334
-    y: 78.66667
+    x: 458.33334
+    y: 24
     width: 226.66666
     height: 547.3333
   m_SerializedDataModeController:
@@ -1222,8 +1222,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 686
-    y: 78.66667
+    x: 687
+    y: 24
     width: 271.3333
     height: 547.3333
   m_SerializedDataModeController:
@@ -1266,7 +1266,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 31}
     m_SelectedIDs: ec910000
     m_LastClickedID: 37356
-    m_ExpandedIDs: 0000000098bc00009abc00009cbc00009ebc0000a0bc0000a2bc0000a4bc0000a6bc0000a8bc0000aabc0000acbc0000aebc0000b0bc0000b2bc0000b4bc0000b6bc0000
+    m_ExpandedIDs: 0000000012c2000014c2000016c2000018c200001ac200001cc200001ec2000020c2000022c2000024c2000026c2000028c200002ac200002cc20000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1295,7 +1295,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 37.499237}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff0000000098bc00009abc00009cbc00009ebc0000a0bc0000a2bc0000a4bc0000a6bc0000a8bc0000aabc0000acbc0000aebc0000b0bc0000b2bc0000b4bc0000b6bc0000
+    m_ExpandedIDs: 0000000012c2000014c2000016c2000018c200001ac200001cc200001ec2000020c2000022c2000024c2000026c2000028c200002ac200002cc20000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1374,8 +1374,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 959.3334
-    y: 78.66667
+    x: 960.3333
+    y: 24
     width: 319.6667
     height: 547.3333
   m_SerializedDataModeController:
@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 355.33334
+    y: 300.66666
     width: 456.33334
     height: 270.66666
   m_SerializedDataModeController:
@@ -1446,7 +1446,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1920, y: 1080}
+  m_TargetSize: {x: 684.5, y: 374.5}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1461,10 +1461,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -640
-    m_HBaseRangeMax: 640
-    m_VBaseRangeMin: -360
-    m_VBaseRangeMax: 360
+    m_HBaseRangeMin: -228.16667
+    m_HBaseRangeMax: 228.16667
+    m_VBaseRangeMin: -124.833336
+    m_VBaseRangeMax: 124.833336
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -1484,20 +1484,20 @@ MonoBehaviour:
       y: 21
       width: 456.33334
       height: 249.66666
-    m_Scale: {x: 0.3467593, y: 0.34675926}
-    m_Translation: {x: 228.16669, y: 124.833336}
+    m_Scale: {x: 0.99999994, y: 0.99999994}
+    m_Translation: {x: 228.16667, y: 124.83333}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -657.9973
-      y: -360
-      width: 1315.9946
-      height: 720
+      x: -228.16669
+      y: -124.833336
+      width: 456.33337
+      height: 249.66667
     m_MinimalGUI: 1
-  m_defaultScale: 0.34675926
+  m_defaultScale: 0.99999994
   m_LastWindowPixelSize: {x: 684.5, y: 406}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1

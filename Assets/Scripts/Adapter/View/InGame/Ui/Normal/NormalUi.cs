@@ -8,7 +8,7 @@ namespace Adapter.View.InGame.Ui.Normal
 {
     public class NormalUi: MonoBehaviour, IRegisterable, INormalUiView
     {
-        [SerializeField] private HeightView heightView;
+        [SerializeField] private HeightTmpView heightTmpView;
         [SerializeField] private StopButton stopButton;
 
         public void Register(IContainerBuilder builder)
@@ -16,7 +16,7 @@ namespace Adapter.View.InGame.Ui.Normal
             builder.UseComponents(componentsBuilder =>
             {
                 componentsBuilder.AddInstance(this).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(heightView).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(heightTmpView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(stopButton).AsImplementedInterfaces();
             });
         }
