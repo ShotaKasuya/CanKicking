@@ -11,7 +11,7 @@ namespace Adapter.View.InGame.Ui.Normal
 
         public void SetHeight(float height)
         {
-            heightText.text = ZString.Format("{0:F2}m", heightText);
+            heightText.text = ZString.Format("{0:F2}m", height);
         }
     }
 }

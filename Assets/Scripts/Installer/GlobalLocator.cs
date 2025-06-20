@@ -3,6 +3,7 @@ using Adapter.DataStore.Setting;
 using Adapter.Repository.InGame;
 using Adapter.View.Scene;
 using Adapter.View.Util;
+using GoogleMobileAds.Api;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -26,6 +27,19 @@ namespace Installer
             
             // Repository
             builder.Register<TimeScaleRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+        }
+
+        private void Start()
+        {
+            MobileAds.Initialize((status =>
+            {
+                if (status == null)
+                {
+                    Debug.LogError("Google Mobile Ads Initialization Failed.");
+                }
+
+                Debug.Log("Google Mobile Ads Initialization Complete.");
+            }));
         }
     }
 }

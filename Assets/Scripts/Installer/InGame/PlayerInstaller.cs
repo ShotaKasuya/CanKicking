@@ -27,8 +27,8 @@ namespace Installer.InGame
             builder.Register<InputView>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // Presenter
-            // builder.Register<KickPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<KickNoRotationPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<KickPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            // builder.Register<KickNoRotationPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<PlayerPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<GroundPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<TouchPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
