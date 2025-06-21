@@ -27,8 +27,8 @@ namespace Installer.InGame
             builder.Register<InputView>(Lifetime.Scoped).AsImplementedInterfaces();
 
             // Presenter
-            builder.Register<KickPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
-            // builder.Register<KickNoRotationPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            // builder.Register<KickPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<KickNoRotationPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<PlayerPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<GroundPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<TouchPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
@@ -37,6 +37,7 @@ namespace Installer.InGame
 
             // Repository
             builder.Register<PlayerStateRepository>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<RotationStateRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<BasePowerRepository>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<GroundingInfoRepository>(Lifetime.Scoped).AsImplementedInterfaces();
 
@@ -48,9 +49,10 @@ namespace Installer.InGame
 
             // UseCase
             builder.RegisterEntryPoint<PlayerStateMachine>();
-            builder.Register<PlayerIdleCase>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<PlayerAimingCase>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<PlayerFryingCase>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<IdleCase>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<AimingCase>(Lifetime.Scoped).AsImplementedInterfaces();
+            // builder.Register<FryingCase>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<ControlledFryingStateCase>(Lifetime.Scoped).AsImplementedInterfaces();
         }
 
 #if UNITY_EDITOR

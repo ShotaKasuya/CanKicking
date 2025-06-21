@@ -8,9 +8,9 @@ using Structure.Util.Input;
 
 namespace Domain.UseCase.InGame.Player
 {
-    public class PlayerIdleCase : PlayerStateBehaviourBase
+    public class IdleCase : PlayerStateBehaviourBase
     {
-        public PlayerIdleCase
+        public IdleCase
         (
             IPlayerGroundPresenter playerGroundPresenter,
             IIsGroundedEntity isGroundedEntity,

@@ -10,9 +10,9 @@ using UnityEngine;
 
 namespace Domain.UseCase.InGame.Player
 {
-    public class PlayerAimingCase : PlayerStateBehaviourBase
+    public class AimingCase : PlayerStateBehaviourBase
     {
-        public PlayerAimingCase
+        public AimingCase
         (
             IDragFingerPresenter dragFingerPresenter,
             IFingerReleasePresenter fingerReleasePresenter,
