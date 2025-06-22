@@ -1,0 +1,3 @@
+namespace Interface.InGame.Player
+{
+}
