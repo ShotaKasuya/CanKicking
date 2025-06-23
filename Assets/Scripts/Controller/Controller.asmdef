@@ -4,7 +4,8 @@
     "references": [
         "Interface",
         "Structure",
-        "Module"
+        "Module",
+        "VContainer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
