@@ -5,6 +5,7 @@
         "Interface",
         "Structure",
         "Module",
+        "UniTask",
         "VContainer"
     ],
     "includePlatforms": [],

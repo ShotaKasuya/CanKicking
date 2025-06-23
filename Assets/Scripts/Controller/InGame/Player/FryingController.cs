@@ -1,69 +1,55 @@
-// namespace Domain.UseCase.InGame.Player
-// {
-//     public class FryingController : PlayerStateBehaviourBase
-//     {
-//         // public FryingController
-//         // (
-//         //     IPlayerPresenter playerPresenter,
-//         //     IPlayerContactPresenter playerContactPresenter,
-//         //     IGroundingInfoRepository groundingInfoRepository,
-//         //     ITimeScaleRepository timeScaleRepository,
-//         //     IIsGroundedEntity isGroundedEntity,
-//         //     IIsStopedEntity isStopedEntity,
-//         //     IMutStateEntity<PlayerStateType> stateEntity
-//         // ) : base(PlayerStateType.Frying, stateEntity)
-//         // {
-//         //     PlayerPresenter = playerPresenter;
-//         //     PlayerContactPresenter = playerContactPresenter;
-//         //     GroundingInfoRepository = groundingInfoRepository;
-//         //     TimeScaleRepository = timeScaleRepository;
-//         //     IsGroundedEntity = isGroundedEntity;
-//         //     IsStopedEntity = isStopedEntity;
-//         // }
-//         //
-//         // public override void OnEnter()
-//         // {
-//         //     Time.timeScale = TimeScaleRepository.FryState;
-//         //     PlayerContactPresenter.OnCollision += CheckGrounded;
-//         // }
-//         //
-//         // public override void OnExit()
-//         // {
-//         //     Time.timeScale = ITimeScaleRepository.Normal;
-//         //     PlayerContactPresenter.OnCollision -= CheckGrounded;
-//         // }
-//         //
-//         // private void CheckGrounded(Collision2D collision)
-//         // {
-//         //     for (int i = 0; i < collision.contactCount; i++)
-//         //     {
-//         //         var normal = collision.contacts[i].normal;
-//         //
-//         //         var isGround = IsGroundedEntity.IsGround(new CheckGroundParams(
-//         //             normal,
-//         //             GroundingInfoRepository.MaxSlope
-//         //         ));
-//         //         if (isGround)
-//         //         {
-//         //             StateEntity.ChangeState(PlayerStateType.Idle);
-//         //             return;
-//         //         }
-//         //     }
-//         // }
-//         //
-//         // public override void StateUpdate(float deltaTime)
-//         // {
-//         //     if (IsStopedEntity.IsStop(PlayerPresenter.LinearVelocity(), PlayerPresenter.AnglerVelocity()))
-//         //     {
-//         //         StateEntity.ChangeState(PlayerStateType.Idle);
-//         //     }
-//         // }
-//         //
-//         // private IPlayerPresenter PlayerPresenter { get; }
-//         // private IPlayerContactPresenter PlayerContactPresenter { get; }
-//         // private IGroundingInfoRepository GroundingInfoRepository { get; }
-//         // private ITimeScaleRepository TimeScaleRepository { get; }
-//         // private IIsGroundedEntity IsGroundedEntity { get; }
-//         // private IIsStopedEntity IsStopedEntity { get; }
-//     }
-// }
+using Interface.InGame.Player;
+using Module.StateMachine;
+using R3;
+using Structure.InGame.Player;
+using Structure.Utility.Calculation;
+using UnityEngine;
+using VContainer.Unity;
+
+namespace Domain.UseCase.InGame.Player
+{
+    public class FryingController : PlayerStateBehaviourBase, IStartable
+    {
+        public FryingController
+        (
+            IPlayerView playerView,
+            IGroundDetectionModel groundDetectionModel,
+            IMutStateEntity<PlayerStateType> stateEntity
+        ) : base(PlayerStateType.Frying, stateEntity)
+        {
+            PlayerView = playerView;
+            GroundDetectionModel = groundDetectionModel;
+
+            CompositeDisposable = new CompositeDisposable();
+        }
+        
+        public void Start()
+        {
+            PlayerView.CollisionEnterEvent
+                .Where(_ => IsInState())
+                .Subscribe(CheckGrounded)
+                .AddTo(CompositeDisposable);
+        }
+        
+        private void CheckGrounded(Collision2D collision)
+        {
+            var maxSlope = GroundDetectionModel.MaxSlope;
+            for (int i = 0; i < collision.contactCount; i++)
+            {
+                var normal = collision.contacts[i].normal;
+                var slope = Calculator.NormalToSlope(normal);
+                var isGround = maxSlope > slope;
+                
+                if (isGround)
+                {
+                    StateEntity.ChangeState(PlayerStateType.Idle);
+                    return;
+                }
+            }
+        }
+        
+        private CompositeDisposable CompositeDisposable { get; }
+        private IPlayerView PlayerView { get; }
+        private IGroundDetectionModel GroundDetectionModel { get; }
+    }
+}

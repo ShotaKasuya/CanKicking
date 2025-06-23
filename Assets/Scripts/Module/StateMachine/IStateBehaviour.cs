@@ -7,7 +7,7 @@ namespace Module.StateMachine
     /// ステートの振る舞いを行うインターフェース
     /// </summary>
     /// <typeparam name="TState">ステートを示す型</typeparam>
-    public interface IStateBehaviour<TState> where TState: struct, Enum
+    public interface IStateBehaviour<TState> where TState : struct, Enum
     {
         /// <summary>
         /// 実際に動作を行うステート
@@ -38,7 +38,7 @@ namespace Module.StateMachine
             TargetStateMask = stateMask;
             StateEntity = stateEntity;
         }
-        
+
         public TState TargetStateMask { get; }
         protected IMutStateEntity<TState> StateEntity { get; }
 
@@ -46,12 +46,15 @@ namespace Module.StateMachine
         {
             return EqualityComparer<TState>.Default.Equals(TargetStateMask, StateEntity.State);
         }
+
         public virtual void OnEnter()
         {
         }
+
         public virtual void OnExit()
         {
         }
+
         public virtual void StateUpdate(float deltaTime)
         {
         }

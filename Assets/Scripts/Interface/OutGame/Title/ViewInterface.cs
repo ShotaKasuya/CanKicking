@@ -1,7 +1,12 @@
+using R3;
+
 namespace Interface.OutGame.Title
 {
-    public class ViewInterface
+    /// <summary>
+    /// ゲームスタートのイベントを発行する
+    /// </summary>
+    public interface IStartGameView
     {
-        
+        public Observable<Unit> StartEvent { get; }
     }
 }
