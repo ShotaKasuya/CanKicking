@@ -6,16 +6,44 @@ using UnityEngine;
 namespace Interface.InGame.Player
 {
     /// <summary>
-    /// プレイヤーの情報
+    /// プレイヤーの情報を提供するインターフェース
     /// </summary>
     public interface IPlayerView
     {
         public Vector2 LinearVelocity { get; }
         public Vector2 AngularVelocity { get; }
-        
+
         public Observable<Collision2D> CollisionEnterEvent { get; }
     }
-    
+
+    /// <summary>
+    /// プレイヤーが狙っている方向を提示するインターフェース
+    /// </summary>
+    public interface IAimView
+    {
+        public void SetAim(Vector2 aimVector);
+        public void Show();
+        public void Hide();
+    }
+
+    /// <summary>
+    /// プレイヤーを飛ばすためのインターフェース
+    /// </summary>
+    public interface ICanKickView
+    {
+        public void Kick();
+    }
+
+    // public readonly ref struct KickContext(Vector2 direction, float power)
+    // {
+    //     public Vector2 Direction => direction;
+    //     public float Power => power;
+    // }
+
+    // ============================================================================================
+    // 入力系
+    // ============================================================================================
+
     /// <summary>
     /// プレイヤーからレイキャストを行うためのインターフェース
     /// </summary>
