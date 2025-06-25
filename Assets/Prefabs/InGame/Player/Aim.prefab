@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7234490555999142315}
   - component: {fileID: 2717279330998932041}
-  - component: {fileID: 3818692191929285655}
+  - component: {fileID: 6916273397995304620}
   m_Layer: 0
   m_Name: Aim
   m_TagString: Untagged
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3818692191929285655
+--- !u!114 &6916273397995304620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,8 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7542567638666638597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f00935f78694792a7080151acc54f17, type: 3}
+  m_Script: {fileID: 11500000, guid: 940d98ba2b9f4584ac96333665a0023c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 2717279330998932041}
-  baseScale: {x: 12.5, y: 0.25}
+  baseScale: {x: 1, y: 1}

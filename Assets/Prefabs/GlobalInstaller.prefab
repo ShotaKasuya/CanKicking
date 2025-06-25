@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5631739155858458978}
-  - component: {fileID: 945939619089157440}
+  - component: {fileID: 119259353916274223}
   m_Layer: 0
   m_Name: GlobalInstaller
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &945939619089157440
+--- !u!114 &119259353916274223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,12 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2352595999325407797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f44ee4cbb0144b4aa7fde276abc0730, type: 3}
+  m_Script: {fileID: 11500000, guid: f3f8a924ff0b4092bbeb6fac4ec5bc29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  playerConstantsDataStore: {fileID: 11400000, guid: 3e192efa4da699940b53073c02a35caa, type: 2}
-  timeScaleDataStore: {fileID: 11400000, guid: 075772a21a8fdce409cc03961d29de70, type: 2}

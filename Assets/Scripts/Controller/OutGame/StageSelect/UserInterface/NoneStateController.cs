@@ -8,7 +8,7 @@ using R3;
 using Structure.OutGame;
 using VContainer.Unity;
 
-namespace Domain.Controller.OutGame.StageSelect
+namespace Controller.OutGame.StageSelect.UserInterface
 {
     public class NoneStateController : StageSelectStateBehaviourBase, IStartable, IDisposable
     {

@@ -3,9 +3,10 @@ using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
 using Structure.Utility.Calculation;
+using UnityEngine;
 using VContainer.Unity;
 
-namespace Domain.UseCase.InGame.Player
+namespace Controller.InGame.Player
 {
     public class IdleController : PlayerStateBehaviourBase, IStartable
     {
@@ -27,8 +28,11 @@ namespace Domain.UseCase.InGame.Player
         public void Start()
         {
             TouchView.TouchEvent
-                .Where(_ => IsInState())
-                .Subscribe(ToCharge)
+                .Where(this, (_, controller) =>
+                {
+                    return controller.IsInState();
+                })
+                .Subscribe(this, (_, controller) => controller.ToCharge())
                 .AddTo(CompositeDisposable);
         }
 
@@ -51,8 +55,9 @@ namespace Domain.UseCase.InGame.Player
             StateEntity.ChangeState(PlayerStateType.Frying);
         }
 
-        private void ToCharge(TouchStartEventArgument touchInfo)
+        private void ToCharge()
         {
+            Debug.Log("VAR");
             StateEntity.ChangeState(PlayerStateType.Aiming);
         }
 

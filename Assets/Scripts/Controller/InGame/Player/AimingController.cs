@@ -1,87 +1,86 @@
-using System.Runtime.CompilerServices;
+using System;
 using Interface.InGame.Player;
 using Module.StateMachine;
+using R3;
 using Structure.InGame.Player;
+using Structure.Utility.Calculation;
 using UnityEngine;
+using VContainer.Unity;
 
-namespace Domain.UseCase.InGame.Player
+namespace Controller.InGame.Player
 {
-    public class AimingController : PlayerStateBehaviourBase
+    public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposable
     {
-        // public AimingController
-        // (
-        //     ITouchView touchView,
-        //     IAimView aimView,
-        //     IKickPresenter kickPresenter,
-        //     IKickBasePowerRepository kickBasePowerRepository,
-        //     ICalcPowerEntity calcPowerEntity,
-        //     IConvertScreenBaseVectorEntity convertScreenBaseVectorEntity,
-        //     IMutStateEntity<PlayerStateType> stateEntity
-        // ) : base(PlayerStateType.Aiming, stateEntity)
-        // {
-        //     DragFingerPresenter = dragFingerPresenter;
-        //     FingerReleasePresenter = fingerReleasePresenter;
-        //     AimPresenter = aimPresenter;
-        //     KickPresenter = kickPresenter;
-        //     KickBasePowerRepository = kickBasePowerRepository;
-        //     CalcPowerEntity = calcPowerEntity;
-        //     ConvertScreenBaseVectorEntity = convertScreenBaseVectorEntity;
-        // }
-        //
-        // public override void StateUpdate(float deltaTime)
-        // {
-        //     var dragInfo = DragFingerPresenter.DragInfo.Unwrap();
-        //     var aimVector = dragInfo.TouchCurrentPosition - dragInfo.TouchStartPosition;
-        //     var startPosition = ToScreenBaseVector(aimVector);
-        //
-        //     AimPresenter.PresentAim(new AimInfo(startPosition));
-        // }
-        //
-        // private void Jump(FingerReleaseInfo fingerReleaseInfo)
-        // {
-        //     var startPosition = fingerReleaseInfo.TouchStartPosition;
-        //     var endPosition = fingerReleaseInfo.TouchEndPosition;
-        //     var deltaPosition = ToScreenBaseVector(startPosition - endPosition);
-        //     var basePower = KickBasePowerRepository.KickBasePower;
-        //
-        //     var power = CalcPowerEntity.CalcPower(new CalcPowerParams(
-        //         deltaPosition, basePower
-        //     ));
-        //
-        //     var arg = new KickArg(power, Mathf.Sign(power.x));
-        //     KickPresenter.Kick(arg);
-        //     AimPresenter.PresentAim(new AimInfo(Vector2.zero));
-        //     StateEntity.ChangeState(PlayerStateType.Frying);
-        // }
-        //
-        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        // private Vector2 ToScreenBaseVector(Vector2 vector2)
-        // {
-        //     const float ratio = 1.5f;
-        //     var arg = new ScreenVectorParams(vector2, ratio, Screen.width, Screen.height);
-        //     var result = ConvertScreenBaseVectorEntity.Convert(arg);
-        //
-        //     return result;
-        // }
-        //
-        // public override void OnEnter()
-        // {
-        //     FingerReleasePresenter.OnRelease += Jump;
-        // }
-        //
-        // public override void OnExit()
-        // {
-        //     FingerReleasePresenter.OnRelease -= Jump;
-        // }
-        //
-        // private ITouchView TouchView { get; }
-        // private IKickPresenter KickPresenter { get; }
-        // private IAimView AimView { get; }
-        // private IKickBasePowerRepository KickBasePowerRepository { get; }
-        // private ICalcPowerEntity CalcPowerEntity { get; }
-        // private IConvertScreenBaseVectorEntity ConvertScreenBaseVectorEntity { get; }
-        public AimingController(PlayerStateType playerStateType, IMutStateEntity<PlayerStateType> stateEntity) : base(playerStateType, stateEntity)
+        public AimingController
+        (
+            ITouchView touchView,
+            IAimView aimView,
+            ICanKickView canKickView,
+            IKickBasePowerModel kickBasePowerModel,
+            IPullLimitModel pullLimitModel,
+            IMutStateEntity<PlayerStateType> stateEntity
+        ) : base(PlayerStateType.Aiming, stateEntity)
         {
+            TouchView = touchView;
+            AimView = aimView;
+            CanKickView = canKickView;
+            KickBasePowerModel = kickBasePowerModel;
+            PullLimitModel = pullLimitModel;
+
+            CompositeDisposable = new CompositeDisposable();
+        }
+
+        public void Start()
+        {
+            TouchView.TouchEndEvent
+                .Where(_ => IsInState())
+                .Subscribe(Jump)
+                .AddTo(CompositeDisposable);
+        }
+
+        public override void StateUpdate(float deltaTime)
+        {
+            var aimVector = TouchView.DraggingInfo.Delta;
+            var ratio = PullLimitModel.LimitRatio;
+            var startPosition = Calculator.FitVectorToScreen(aimVector, ratio);
+
+            AimView.SetAim(startPosition);
+        }
+
+        public override void OnEnter()
+        {
+            AimView.Show();
+        }
+
+        public override void OnExit()
+        {
+            AimView.Hide();
+        }
+
+        private void Jump(TouchEndEventArgument fingerReleaseInfo)
+        {
+            var basePower = KickBasePowerModel.BasePower;
+            var deltaPosition = fingerReleaseInfo.Delta;
+            var ratio = PullLimitModel.LimitRatio;
+            deltaPosition = Calculator.FitVectorToScreen(deltaPosition, ratio);
+
+            var power = deltaPosition * -basePower;
+
+            var context = new KickContext(power, Mathf.Sign(power.x));
+            CanKickView.Kick(context);
+            StateEntity.ChangeState(PlayerStateType.Frying);
+        }
+
+        private CompositeDisposable CompositeDisposable { get; }
+        private ITouchView TouchView { get; }
+        private IAimView AimView { get; }
+        private ICanKickView CanKickView { get; }
+        private IKickBasePowerModel KickBasePowerModel { get; }
+        private IPullLimitModel PullLimitModel { get; }
+
+        public void Dispose()
+        {
+            CompositeDisposable?.Dispose();
         }
     }
 }

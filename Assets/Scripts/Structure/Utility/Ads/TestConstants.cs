@@ -1,4 +1,4 @@
-﻿namespace Structure.Util.Ads
+﻿namespace Structure.Utility.Ads
 {
     public static class TestConstants
     {

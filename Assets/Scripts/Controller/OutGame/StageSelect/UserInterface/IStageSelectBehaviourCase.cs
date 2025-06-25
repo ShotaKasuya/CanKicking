@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Module.StateMachine;
 using Structure.OutGame;
-using Structure.Util;
+using Structure.Utility;
 
-namespace Domain.Controller.OutGame.StageSelect
+namespace Controller.OutGame.StageSelect.UserInterface
 {
     public class StageSelectStateMachine : StateMachineBase<StageSelectStateType>
     {

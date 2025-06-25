@@ -6,7 +6,7 @@ using Structure.Utility.Calculation;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Domain.UseCase.InGame.Player
+namespace Controller.InGame.Player
 {
     public class FryingController : PlayerStateBehaviourBase, IStartable
     {

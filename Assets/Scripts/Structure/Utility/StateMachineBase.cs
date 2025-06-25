@@ -4,7 +4,7 @@ using Module.StateMachine;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Structure.Util
+namespace Structure.Utility
 {
     public abstract class StateMachineBase<TState> : AbstractStateMachine<TState>, IStartable, ITickable
         where TState : struct, Enum

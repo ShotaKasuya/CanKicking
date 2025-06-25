@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 using R3;
-using Structure.Util;
+using Structure.Utility;
 using UnityEngine;
 
 namespace Interface.InGame.Player
@@ -10,8 +10,9 @@ namespace Interface.InGame.Player
     /// </summary>
     public interface IPlayerView
     {
+        public Transform ModelTransform { get; }
         public Vector2 LinearVelocity { get; }
-        public Vector2 AngularVelocity { get; }
+        public float AngularVelocity { get; }
 
         public Observable<Collision2D> CollisionEnterEvent { get; }
     }
@@ -31,14 +32,20 @@ namespace Interface.InGame.Player
     /// </summary>
     public interface ICanKickView
     {
-        public void Kick();
+        public void Kick(KickContext context);
     }
 
-    // public readonly ref struct KickContext(Vector2 direction, float power)
-    // {
-    //     public Vector2 Direction => direction;
-    //     public float Power => power;
-    // }
+    public readonly ref struct KickContext
+    {
+        public Vector2 Direction { get; }
+        public float RotationPower { get; }
+
+        public KickContext(Vector2 direction, float rotationPower)
+        {
+            Direction = direction;
+            RotationPower = rotationPower;
+        }
+    }
 
     // ============================================================================================
     // 入力系
@@ -49,7 +56,7 @@ namespace Interface.InGame.Player
     /// </summary>
     public interface IRayCasterView
     {
-        public RaycastHit[] PoolRay(RayCastInfo rayCastInfo);
+        public RaycastHit2D[] PoolRay(RayCastInfo rayCastInfo);
     }
 
     public interface ITouchView
@@ -69,10 +76,11 @@ namespace Interface.InGame.Player
         }
     }
 
-    public readonly ref struct FingerDraggingInfo
+    public readonly struct FingerDraggingInfo
     {
         public Vector2 TouchStartPosition { get; }
         public Vector2 CurrentPosition { get; }
+        public Vector2 Delta => CurrentPosition - TouchStartPosition;
 
         public FingerDraggingInfo(Vector2 touchStartPosition, Vector2 currentPosition)
         {
@@ -83,8 +91,9 @@ namespace Interface.InGame.Player
 
     public readonly struct TouchEndEventArgument
     {
-        public Vector2 TouchStartPosition { get; }
-        public Vector2 TouchEndPosition { get; }
+        private Vector2 TouchStartPosition { get; }
+        private Vector2 TouchEndPosition { get; }
+        public Vector2 Delta => TouchStartPosition - TouchEndPosition;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TouchEndEventArgument(Vector2 touchStartPosition, Vector2 touchEndPosition)

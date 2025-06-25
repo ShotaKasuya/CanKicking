@@ -5,7 +5,7 @@ using Interface.OutGame.Title;
 using R3;
 using VContainer.Unity;
 
-namespace Domain.Controller.OutGame
+namespace Controller.OutGame
 {
     /// <summary>
     /// タイトル画面のコントローラー

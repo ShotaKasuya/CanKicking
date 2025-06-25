@@ -1,17 +1,23 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Structure.Util
+namespace Structure.Utility
 {
-    [Serializable]
     public ref struct RayCastInfo
     {
-        public Vector2 Direction => direction;
-        public float Distance => distance;
-        public int LayerMask => layerMask;
+        public Vector2 Direction { get; }
+        public float Distance { get; }
+        public int LayerMask { get; }
 
-        [SerializeField] private Vector2 direction;
-        [SerializeField] private float distance;
-        [SerializeField] private int layerMask;
+        public RayCastInfo
+        (
+            Vector2 direction,
+            float distance,
+            int layerMask
+        )
+        {
+            Direction = direction;
+            Distance = distance;
+            LayerMask = layerMask;
+        }
     }
 }
