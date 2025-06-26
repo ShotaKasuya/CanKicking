@@ -1,9 +1,11 @@
 using System;
 using Interface.Global.Scene;
+using Interface.Global.TimeScale;
 using Interface.InGame.UserInterface;
 using Module.SceneReference;
 using Module.StateMachine;
 using R3;
+using Structure.Global.TimeScale;
 using Structure.InGame.Player;
 using Structure.InGame.UserInterface;
 using VContainer.Unity;
@@ -24,8 +26,9 @@ namespace Controller.InGame.UserInterface
             IPlayButtonView playButtonView,
             IStop_StageSelectButtonView stageSelectButtonView,
             IStop_RestartButtonView reStartButtonView,
-            IScreenScaleSliderView screenScaleSliderView,
+            // IScreenScaleSliderView screenScaleSliderView,
             ISceneLoaderView sceneLoaderView,
+            ITimeScaleModel timeScaleModel,
             IMutStateEntity<PlayerStateType> playerState,
             IMutStateEntity<UserInterfaceStateType> stateEntity
         ) : base(UserInterfaceStateType.Stop, stateEntity)
@@ -34,8 +37,9 @@ namespace Controller.InGame.UserInterface
             StageSelectButtonView = stageSelectButtonView;
             ReStartButtonView = reStartButtonView;
             StopUiView = stopUiView;
-            ScreenScaleSliderView = screenScaleSliderView;
+            // ScreenScaleSliderView = screenScaleSliderView;
             SceneLoaderView = sceneLoaderView;
+            TimeScaleModel = timeScaleModel;
             PlayerState = playerState;
         
             CompositeDisposable = new CompositeDisposable();
@@ -66,12 +70,14 @@ namespace Controller.InGame.UserInterface
         public override void OnEnter()
         {
             PlayerState.ChangeState(PlayerStateType.Stopping);
+            TimeScaleModel.Execute(TimeCommandType.Stop);
             StopUiView.Show();
         }
         
         public override void OnExit()
         {
             PlayerState.ChangeState(PlayerStateType.Idle);
+            TimeScaleModel.Undo();
             StopUiView.Hide();
         }
         
@@ -91,8 +97,9 @@ namespace Controller.InGame.UserInterface
         private IStopUiView StopUiView { get; }
         private IStop_StageSelectButtonView StageSelectButtonView { get; }
         private IStop_RestartButtonView ReStartButtonView { get; }
-        private IScreenScaleSliderView ScreenScaleSliderView { get; }
+        // private IScreenScaleSliderView ScreenScaleSliderView { get; }
         private ISceneLoaderView SceneLoaderView { get; }
+        private ITimeScaleModel TimeScaleModel { get; }
         
         public void Dispose()
         {

@@ -26,4 +26,11 @@ namespace Controller.InGame.UserInterface
         {
         }
     }
+
+    public class UserInterfaceState : AbstractStateType<UserInterfaceStateType>
+    {
+        public UserInterfaceState() : base(UserInterfaceStateType.Normal)
+        {
+        }
+    }
 }

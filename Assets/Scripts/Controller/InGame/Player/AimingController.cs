@@ -64,7 +64,7 @@ namespace Controller.InGame.Player
             var ratio = PullLimitModel.LimitRatio;
             deltaPosition = Calculator.FitVectorToScreen(deltaPosition, ratio);
 
-            var power = deltaPosition * -basePower;
+            var power = deltaPosition * basePower;
 
             var context = new KickContext(power, Mathf.Sign(power.x));
             CanKickView.Kick(context);

@@ -123,7 +123,7 @@ Canvas:
   m_GameObject: {fileID: 3651221709367825888}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 2524646628352787573}
   - component: {fileID: 4738681457783458886}
   - component: {fileID: 814197294597822864}
-  - component: {fileID: 5338640580279054156}
+  - component: {fileID: 5846161972346060590}
   m_Layer: 5
   m_Name: SelectedStage
   m_TagString: Untagged
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5338640580279054156
+--- !u!114 &5846161972346060590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -324,6 +324,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7064798812359686323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88e83d242e9341898f773e243525bef9, type: 3}
+  m_Script: {fileID: 11500000, guid: 509e3175b9a6473ab3aa3f8c1f388ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneText: {fileID: 814197294597822864}

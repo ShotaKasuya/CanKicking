@@ -11,6 +11,7 @@ namespace Interface.OutGame.StageSelect
     {
         Observable<Option<SceneReference>> SelectEvent { get; }
     }
+
     /// <summary>
     /// 選択されたステージを表示する
     /// </summary>
@@ -18,5 +19,13 @@ namespace Interface.OutGame.StageSelect
     {
         public void Reset();
         public void ShowStage(SceneReference sceneReference);
+    }
+
+    /// <summary>
+    /// 選択時にシーンを取得できるviewのinterface
+    /// </summary>
+    public interface ISceneGettableView
+    {
+        public SceneReference Scene { get; }
     }
 }

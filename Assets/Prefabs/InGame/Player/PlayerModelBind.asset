@@ -19,6 +19,6 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 4294967295
   kickBasePowerModel:
-    basePower: 1000
+    basePower: 20
   pullLimitModel:
-    limitRatio: 1.6
+    limitRatio: 1

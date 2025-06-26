@@ -28,5 +28,10 @@ namespace Module.SceneReference
             }
         }
 #endif
+
+        public SceneReference(string scene)
+        {
+            sceneName = scene;
+        }
     }
 }

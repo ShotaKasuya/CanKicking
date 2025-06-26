@@ -9,6 +9,7 @@ namespace Interface.InGame.UserInterface
         public UniTask Show();
         public UniTask Hide();
     }
+
     /// <summary>
     /// 停止状態から再開するボタンのView
     /// </summary>
@@ -19,8 +20,8 @@ namespace Interface.InGame.UserInterface
 
     public interface IScreenScaleSliderView
     {
-        
     }
+
     public interface IStop_RestartButtonView
     {
         public Observable<SceneReference> Performed { get; }

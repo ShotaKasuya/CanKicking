@@ -26,4 +26,11 @@ namespace Controller.OutGame.StageSelect.UserInterface
         {
         }
     }
+
+    public class StageSelectState : AbstractStateType<StageSelectStateType>
+    {
+        public StageSelectState() : base(StageSelectStateType.None)
+        {
+        }
+    }
 }

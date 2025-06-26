@@ -14,11 +14,6 @@ namespace Interface.InGame.UserInterface
         public Observable<Unit> Performed { get; }
     }
 
-    public interface IGoalEventView
-    {
-        public Observable<Unit> Performed { get; }
-    }
-
     public interface IHeightUiView
     {
         public void SetHeight(float height);

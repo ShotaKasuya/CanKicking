@@ -3,7 +3,6 @@ using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
 using Structure.Utility.Calculation;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Controller.InGame.Player
@@ -57,7 +56,6 @@ namespace Controller.InGame.Player
 
         private void ToCharge()
         {
-            Debug.Log("VAR");
             StateEntity.ChangeState(PlayerStateType.Aiming);
         }
 

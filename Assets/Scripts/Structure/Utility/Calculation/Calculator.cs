@@ -39,7 +39,7 @@ namespace Structure.Utility.Calculation
         {
             var width = Screen.width;
             var height = Screen.height;
-            var shorter = width > height ? width : height;
+            var shorter = math.min(width, height);
             var result = InnerFitVector(origin, ratio, shorter);
 
             return result;
@@ -49,10 +49,11 @@ namespace Structure.Utility.Calculation
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Vector2 InnerFitVector(float2 origin, float ratio, float length)
         {
-            var tmp = ratio / length;
-            var result = origin / tmp;
-
-            return math.length(result) > 1 ? math.normalize(result) : origin;
+            var result = origin / length;
+            result *= ratio;
+            result = math.length(result) > 1 ? math.normalize(result) : result;
+            
+            return result;
         }
     }
 }

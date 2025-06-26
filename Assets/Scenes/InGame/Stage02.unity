@@ -533,7 +533,6 @@ GameObject:
   - component: {fileID: 1525979990}
   - component: {fileID: 1525979989}
   - component: {fileID: 1525979988}
-  - component: {fileID: 1525979991}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -630,18 +629,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1525979991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525979987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409fc8fe2eb44ee0bc38b666a06c5974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1653270135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -769,7 +756,7 @@ PrefabInstance:
     - target: {fileID: 6407414128539428169, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
       propertyPath: playerFollowCamera
       value: 
-      objectReference: {fileID: 1525979991}
+      objectReference: {fileID: 0}
     - target: {fileID: 6533693738869769776, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -100,4 +100,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d98ba2b9f4584ac96333665a0023c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseScale: {x: 1, y: 1}
+  baseScale: {x: 10, y: 0.5}

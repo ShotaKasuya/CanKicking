@@ -248,8 +248,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aim
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3818692191929285655, guid: 536e7c653fd3f8b4c886aece6b45df8e, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

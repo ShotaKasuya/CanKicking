@@ -20,7 +20,7 @@ namespace Installer.InGame.Player
             // View
             builder.RegisterInstance(playerView).AsImplementedInterfaces();
             builder.RegisterComponent(aimView).AsImplementedInterfaces();
-            builder.Register<TouchView>(Lifetime.Transient).AsImplementedInterfaces();
+            builder.Register<TouchView>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Model
             playerModelBind.Register(builder);

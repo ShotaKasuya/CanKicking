@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 4418628363012932258}
   - component: {fileID: 2102762635178660939}
   - component: {fileID: 7047799647980618233}
-  - component: {fileID: 393058132249216405}
+  - component: {fileID: 5661647710032279934}
   m_Layer: 5
   m_Name: Stop
   m_TagString: Untagged
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &393058132249216405
+--- !u!114 &5661647710032279934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,9 +267,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2831822037792945249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b5eeaf9d9fd41708fe451ce08617698, type: 3}
+  m_Script: {fileID: 11500000, guid: bf4bfb58ea944046a07478f9efa88692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stopButton: {fileID: 7047799647980618233}
 --- !u!1 &6941614759117050398
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2613399406309987238}
   - component: {fileID: 4971570655573507249}
-  - component: {fileID: 6241410926138086658}
+  - component: {fileID: 3798375225932565158}
   m_Layer: 5
   m_Name: Nromal
   m_TagString: Untagged
@@ -317,7 +318,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6941614759117050398}
   m_CullTransparentMesh: 1
---- !u!114 &6241410926138086658
+--- !u!114 &3798375225932565158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,11 +327,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6941614759117050398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6352e2dc66f479e9df3fda6c19d875a, type: 3}
+  m_Script: {fileID: 11500000, guid: 24e69713598942f3a490724168a85dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightTmpView: {fileID: 2190488297319309806}
-  stopButton: {fileID: 393058132249216405}
+  heightUiView: {fileID: 8613127744247501216}
+  stopButtonView: {fileID: 5661647710032279934}
 --- !u!1 &7055980337359769799
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +343,7 @@ GameObject:
   - component: {fileID: 6416352926176674468}
   - component: {fileID: 620444441931334994}
   - component: {fileID: 748662392618623511}
-  - component: {fileID: 2190488297319309806}
+  - component: {fileID: 8613127744247501216}
   m_Layer: 5
   m_Name: Height
   m_TagString: Untagged
@@ -468,7 +469,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2190488297319309806
+--- !u!114 &8613127744247501216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -477,7 +478,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7055980337359769799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eda211a39172497eb97d32b145e4e352, type: 3}
+  m_Script: {fileID: 11500000, guid: f380ee667ddc4b7a89cf95786c0571c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   heightText: {fileID: 748662392618623511}

@@ -48,3 +48,9 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  timeScaleModel:
+    timeScaleSettings:
+      array:
+      - 1
+      - 2
+      - 0

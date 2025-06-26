@@ -31,13 +31,11 @@ namespace View.InGame.Player
 
         private void OnStartClick(InputAction.CallbackContext context)
         {
-            Debug.Log("start");
             _pendingTouchStarted = true;
         }
 
         private void OnReleaseInput(InputAction.CallbackContext context)
         {
-            Debug.Log("release");
             if (_fingerDraggingInfo.IsNone) return;
             var releasePosition = PlayerInputActions.Position.ReadValue<Vector2>();
             var touchPosition = _fingerDraggingInfo.Unwrap();
@@ -48,7 +46,6 @@ namespace View.InGame.Player
 
         public void Tick()
         {
-            Debug.Log(_pendingTouchStarted);
             if (_fingerDraggingInfo.TryGetValue(out var draggingInfo))
             {
                 var currentPosition = PlayerInputActions.Position.ReadValue<Vector2>();
@@ -61,14 +58,12 @@ namespace View.InGame.Player
             if (_pendingTouchStarted)
             {
                 StartClick();
-                Debug.Log("VAR");
                 _pendingTouchStarted = false;
             }
         }
 
         private void StartClick()
         {
-            Debug.Log("touch event");
             var isSome = _fingerDraggingInfo.IsSome;
             var isOnUi = EventSystem.current.IsPointerOverGameObject();
             if (isSome) return;
@@ -77,7 +72,6 @@ namespace View.InGame.Player
 
             var touchPosition = PlayerInputActions.Position.ReadValue<Vector2>();
 
-            Debug.Log("touch event");
             TouchSubject.OnNext(new TouchStartEventArgument(touchPosition));
             _fingerDraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
                 touchPosition, touchPosition
