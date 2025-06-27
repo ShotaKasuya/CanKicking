@@ -1,0 +1,23 @@
+# ninja log v5
+5	1297	1751034975460481489	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	23d8009afabb98d9
+8	271	1751034974438507459	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	5cac263f7a794159
+272	371	1751034974536504966	/home/mentaimayo/Desktop/Unity/CanKicking/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6u4vm4y5/obj/arm64-v8a/libswappywrapper.so	114cd4aa31015f98
+7	1010	1751034975175488722	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	51ff1c712f4475c8
+6	1283	1751034975447481819	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	2fc6870b1d35acfe
+5	1040	1751034975205487961	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	b2f3b5b379d99f38
+6	1019	1751034975184488494	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	1d2c88a5eada94c
+5	1102	1751034975266486413	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	6f75ea0093172c74
+7	1118	1751034975284485956	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	5fb052a0543fa643
+7	1057	1751034975220487580	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	aa371986a81b57c0
+1297	1327	1751034975495480601	/home/mentaimayo/Desktop/Unity/CanKicking/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6u4vm4y5/obj/arm64-v8a/libgame.so	bff491116789a301
+8	198	1751039615652283928	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	5cac263f7a794159
+198	274	1751039615743283652	/home/mentaimayo/Desktop/Unity/CanKicking/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6u4vm4y5/obj/arm64-v8a/libswappywrapper.so	114cd4aa31015f98
+7	968	1751039616425281587	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	51ff1c712f4475c8
+7	974	1751039616428281577	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	5fb052a0543fa643
+6	987	1751039616449281514	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	b2f3b5b379d99f38
+7	1003	1751039616466281462	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	1d2c88a5eada94c
+8	1044	1751039616504281347	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	aa371986a81b57c0
+7	1074	1751039616534281256	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	6f75ea0093172c74
+7	1229	1751039616692280776	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	2fc6870b1d35acfe
+6	1280	1751039616742280625	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	23d8009afabb98d9
+1280	1306	1751039616774280528	/home/mentaimayo/Desktop/Unity/CanKicking/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6u4vm4y5/obj/arm64-v8a/libgame.so	bff491116789a301

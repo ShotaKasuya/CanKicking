@@ -24,7 +24,6 @@ namespace Structure.Utility.Calculation
         private static float InnerAngleBetween(float2 a, float2 b)
         {
             var dot = math.dot(math.normalize(a), math.normalize(b));
-            dot = math.clamp(dot, -1f, 1f);
             var radianAngle = math.acos(dot);
             return math.degrees(radianAngle);
         }

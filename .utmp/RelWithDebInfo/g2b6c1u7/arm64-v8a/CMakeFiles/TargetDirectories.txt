@@ -1,0 +1,8 @@
+/home/mentaimayo/Desktop/Unity/CanKicking/.utmp/RelWithDebInfo/g2b6c1u7/arm64-v8a/CMakeFiles/edit_cache.dir
+/home/mentaimayo/Desktop/Unity/CanKicking/.utmp/RelWithDebInfo/g2b6c1u7/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/home/mentaimayo/Desktop/Unity/CanKicking/.utmp/RelWithDebInfo/g2b6c1u7/arm64-v8a/GameActivity/CMakeFiles/game.dir
+/home/mentaimayo/Desktop/Unity/CanKicking/.utmp/RelWithDebInfo/g2b6c1u7/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+/home/mentaimayo/Desktop/Unity/CanKicking/.utmp/RelWithDebInfo/g2b6c1u7/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
+/home/mentaimayo/Desktop/Unity/CanKicking/.utmp/RelWithDebInfo/g2b6c1u7/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+/home/mentaimayo/Desktop/Unity/CanKicking/.utmp/RelWithDebInfo/g2b6c1u7/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+/home/mentaimayo/Desktop/Unity/CanKicking/.utmp/RelWithDebInfo/g2b6c1u7/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir

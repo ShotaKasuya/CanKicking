@@ -23,14 +23,11 @@ namespace Controller.InGame.Player
 
             CompositeDisposable = new CompositeDisposable();
         }
-        
+
         public void Start()
         {
             TouchView.TouchEvent
-                .Where(this, (_, controller) =>
-                {
-                    return controller.IsInState();
-                })
+                .Where(this, (_, controller) => controller.IsInState())
                 .Subscribe(this, (_, controller) => controller.ToCharge())
                 .AddTo(CompositeDisposable);
         }
@@ -44,7 +41,7 @@ namespace Controller.InGame.Player
                 var normal = castHit[i].normal;
                 var slope = Calculator.NormalToSlope(normal);
                 var isGround = maxSlope > slope;
-                
+
                 if (isGround)
                 {
                     return;

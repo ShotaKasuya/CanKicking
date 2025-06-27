@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using R3;
 using Structure.Utility;
@@ -56,7 +57,7 @@ namespace Interface.InGame.Player
     /// </summary>
     public interface IRayCasterView
     {
-        public RaycastHit2D[] PoolRay(RayCastInfo rayCastInfo);
+        public ReadOnlySpan<RaycastHit2D> PoolRay(RayCastInfo rayCastInfo);
     }
 
     public interface ITouchView

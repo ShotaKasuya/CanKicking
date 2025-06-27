@@ -10,6 +10,15 @@ namespace View.Global.Ads
     {
         public void Start()
         {
+            MobileAds.Initialize((status =>
+            {
+                if (status == null)
+                {
+                    Debug.LogError("Google Mobile Ads Initialization Failed.");
+                }
+
+                Debug.Log("Google Mobile Ads Initialization Complete.");
+            }));
             _bannerView = new BannerView(
                 TestConstants.ADUnitId,
                 AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(Screen.width),

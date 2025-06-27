@@ -1,3 +1,4 @@
+using System;
 using Interface.InGame.Player;
 using R3;
 using Structure.Utility;
@@ -39,10 +40,10 @@ namespace View.InGame.Player
             _rigidbody.AddTorque(context.RotationPower, ForceMode2D.Impulse);
         }
 
-        public RaycastHit2D[] PoolRay(RayCastInfo rayCastInfo)
+        public ReadOnlySpan<RaycastHit2D> PoolRay(RayCastInfo rayCastInfo)
         {
             Vector2 position = _modelTransform.position;
-            Physics2D.RaycastNonAlloc
+            var hitCount = Physics2D.RaycastNonAlloc
             (
                 position,
                 rayCastInfo.Direction,
@@ -50,7 +51,7 @@ namespace View.InGame.Player
                 rayCastInfo.Distance,
                 rayCastInfo.LayerMask
             );
-            return _raycastPool;
+            return _raycastPool.AsSpan(0, hitCount);
         }
     }
 }

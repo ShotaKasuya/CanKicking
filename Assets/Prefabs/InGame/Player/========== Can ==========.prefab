@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8649193343889319043}
   - component: {fileID: 31840961135358124}
   - component: {fileID: 7069776555224343627}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ========== Can ==========
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,6 +247,10 @@ PrefabInstance:
     - target: {fileID: 7542567638666638597, guid: 536e7c653fd3f8b4c886aece6b45df8e, type: 3}
       propertyPath: m_Name
       value: Aim
+      objectReference: {fileID: 0}
+    - target: {fileID: 7542567638666638597, guid: 536e7c653fd3f8b4c886aece6b45df8e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

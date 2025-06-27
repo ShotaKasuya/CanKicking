@@ -32,8 +32,8 @@ namespace Controller.InGame.Player
         public void Start()
         {
             PlayerView.CollisionEnterEvent
-                .Where(_ => IsInState())
-                .Subscribe(CheckGrounded)
+                .Where(this, (_, controller) => controller.IsInState())
+                .Subscribe(this, (collision2D, controller) => controller.CheckGrounded(collision2D))
                 .AddTo(CompositeDisposable);
         }
 
