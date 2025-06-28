@@ -1,12 +1,13 @@
 ﻿using System;
 using GoogleMobileAds.Api;
+using Interface.Global.Ads;
 using Structure.Utility.Ads;
 using UnityEngine;
 using VContainer.Unity;
 
 namespace View.Global.Ads
 {
-    public class BottomAdsView : IStartable, IDisposable
+    public class BottomAdsView : IAdsView, IStartable, IDisposable
     {
         public void Start()
         {
@@ -33,6 +34,16 @@ namespace View.Global.Ads
         {
             _bannerView.Destroy();
             _bannerView = null;
+        }
+
+        public void Show()
+        {
+            _bannerView.Show();
+        }
+
+        public void Hide()
+        {
+            _bannerView.Hide();
         }
     }
 }

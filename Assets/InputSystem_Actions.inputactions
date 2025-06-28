@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Pinch",
+                    "type": "Value",
+                    "id": "245a3757-7c08-4e52-98b7-a46ca44303e8",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -68,6 +77,50 @@
                     "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "321ad90d-b62d-4265-8a19-fbc35057cb1c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Pinch",
+                    "id": "9d961944-9fed-4e3c-ace6-18646a607137",
+                    "path": "Pinch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Touch0",
+                    "id": "1f1354bf-b22d-4936-92bf-7991d0e50563",
+                    "path": "<Touchscreen>/touch0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Touch1",
+                    "id": "d0dfa317-3784-405f-9b9f-93c28b102368",
+                    "path": "<Touchscreen>/touch1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

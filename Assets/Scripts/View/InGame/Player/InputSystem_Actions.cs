@@ -110,6 +110,15 @@ namespace View.InGame.Player
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pinch"",
+                    ""type"": ""Value"",
+                    ""id"": ""245a3757-7c08-4e52-98b7-a46ca44303e8"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -156,6 +165,50 @@ namespace View.InGame.Player
                     ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""321ad90d-b62d-4265-8a19-fbc35057cb1c"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pinch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Pinch"",
+                    ""id"": ""9d961944-9fed-4e3c-ace6-18646a607137"",
+                    ""path"": ""Pinch"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pinch"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Touch0"",
+                    ""id"": ""1f1354bf-b22d-4936-92bf-7991d0e50563"",
+                    ""path"": ""<Touchscreen>/touch0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pinch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Touch1"",
+                    ""id"": ""d0dfa317-3784-405f-9b9f-93c28b102368"",
+                    ""path"": ""<Touchscreen>/touch1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pinch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -813,6 +866,7 @@ namespace View.InGame.Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
             m_Player_Position = m_Player.FindAction("Position", throwIfNotFound: true);
+            m_Player_Pinch = m_Player.FindAction("Pinch", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -913,6 +967,7 @@ namespace View.InGame.Player
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Touch;
         private readonly InputAction m_Player_Position;
+        private readonly InputAction m_Player_Pinch;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -932,6 +987,10 @@ namespace View.InGame.Player
             /// Provides access to the underlying input action "Player/Position".
             /// </summary>
             public InputAction @Position => m_Wrapper.m_Player_Position;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Pinch".
+            /// </summary>
+            public InputAction @Pinch => m_Wrapper.m_Player_Pinch;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -964,6 +1023,9 @@ namespace View.InGame.Player
                 @Position.started += instance.OnPosition;
                 @Position.performed += instance.OnPosition;
                 @Position.canceled += instance.OnPosition;
+                @Pinch.started += instance.OnPinch;
+                @Pinch.performed += instance.OnPinch;
+                @Pinch.canceled += instance.OnPinch;
             }
 
             /// <summary>
@@ -981,6 +1043,9 @@ namespace View.InGame.Player
                 @Position.started -= instance.OnPosition;
                 @Position.performed -= instance.OnPosition;
                 @Position.canceled -= instance.OnPosition;
+                @Pinch.started -= instance.OnPinch;
+                @Pinch.performed -= instance.OnPinch;
+                @Pinch.canceled -= instance.OnPinch;
             }
 
             /// <summary>
@@ -1402,6 +1467,13 @@ namespace View.InGame.Player
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPosition(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Pinch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPinch(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

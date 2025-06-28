@@ -12,6 +12,8 @@ namespace Installer.InGame.Stage
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(goalView).AsImplementedInterfaces();
+            
+            
         }
     }
 }
