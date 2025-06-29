@@ -3,8 +3,8 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using View.Global.Ads;
+using View.Global.Input;
 using View.Global.Scene;
-using View.InGame.Player;
 
 namespace Installer.Global
 {

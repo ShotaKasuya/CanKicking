@@ -29,12 +29,13 @@ namespace Controller.OutGame
         public void Start()
         {
             StartGameView.StartEvent
-                .Subscribe(_ => OnStart())
+                .Subscribe(this, (_, controller) => controller.OnStart())
                 .AddTo(Disposable);
         }
         
         private void OnStart()
         {
+            return;
             var scene = GameStartSceneModel.GetStartScene();
             SceneLoadView.LoadScene(scene).Forget();
         }

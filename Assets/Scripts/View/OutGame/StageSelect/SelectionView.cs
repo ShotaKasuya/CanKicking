@@ -6,7 +6,7 @@ using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer.Unity;
-using View.InGame.Player;
+using View.Global.Input;
 
 namespace View.OutGame.StageSelect
 {

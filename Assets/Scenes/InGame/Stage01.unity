@@ -495,6 +495,17 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &1275491163 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3377068754378333271, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
+  m_PrefabInstance: {fileID: 58184939}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18cd1df9ba644d0a5223a63a6e21b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1453455490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -604,6 +615,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: cameraView
+      value: 
+      objectReference: {fileID: 1275491163}
+    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: cameraZoomModel.sensitivity
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: cameraZoomModel.zoomMaxLevel
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: cameraZoomModel.zoomMinLevel
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3914332272450510873, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
       propertyPath: Target.TrackingTarget
       value: 

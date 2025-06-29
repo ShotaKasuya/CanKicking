@@ -31,6 +31,96 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Touch0",
+                    "type": "Value",
+                    "id": "38507920-6689-4cf0-bc6a-8486204a5968",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch1",
+                    "type": "Value",
+                    "id": "947c517c-fe51-4439-bc3c-109ea0465b72",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch2",
+                    "type": "Value",
+                    "id": "b0e28351-1ef9-43a4-a2fb-59b55a71eb5c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch3",
+                    "type": "Value",
+                    "id": "87c4a848-5dcd-4afa-9b5b-4f2ff17b01cf",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch4",
+                    "type": "Value",
+                    "id": "04fc0a99-adca-4aa3-a3de-a279da10e587",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch5",
+                    "type": "Value",
+                    "id": "667035b3-81ec-49ca-8f5c-545246b6c95c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch6",
+                    "type": "Value",
+                    "id": "d556c846-664b-4583-902d-0762878b0187",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch7",
+                    "type": "Value",
+                    "id": "bf9459cf-9f54-4e26-9119-88a238f4310d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch8",
+                    "type": "Value",
+                    "id": "fbc399ea-ddad-48e8-af3a-b31e3479eb82",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch9",
+                    "type": "Value",
+                    "id": "60166417-77da-4839-9d0d-0005b6b2a39b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -79,17 +169,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "321ad90d-b62d-4265-8a19-fbc35057cb1c",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pinch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "Pinch",
                     "id": "9d961944-9fed-4e3c-ace6-18646a607137",
                     "path": "Pinch",
@@ -121,6 +200,149 @@
                     "action": "Pinch",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "ca4858fd-eba6-4080-a8d4-03e46e5d1666",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "070c37c8-981f-47dc-822c-00caf0827eab",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "33c9f294-d455-48c4-a1b9-68d4929c1db5",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "c87d1cf4-4165-4a55-84e6-18abd51cda79",
+                    "path": "<Touchscreen>/touch0/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07597301-1e29-43ce-bd4c-269dc2c2a455",
+                    "path": "<Touchscreen>/touch2/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9383ceb7-fa40-4e81-b8d8-48c325e7db5e",
+                    "path": "<Touchscreen>/touch1/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "676acb0a-73f0-4c95-b920-35bb76af16e5",
+                    "path": "<Touchscreen>/touch3/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7180145-c61b-46f9-a54b-549fc08db606",
+                    "path": "<Touchscreen>/touch4/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e29b390-e9b2-4599-8b32-54f8657538d4",
+                    "path": "<Touchscreen>/touch5/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e4ef4e6-4953-4d9a-9a5a-ed06bae0f11b",
+                    "path": "<Touchscreen>/touch6/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "269356d8-f70d-429f-9356-c0e3186c9999",
+                    "path": "<Touchscreen>/touch7/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch7",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46f9c55f-f9de-4987-8211-81393980f51e",
+                    "path": "<Touchscreen>/touch8/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch8",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48efba64-8f56-4dc1-a339-eb1eb0fc8c54",
+                    "path": "<Touchscreen>/touch9/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch9",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

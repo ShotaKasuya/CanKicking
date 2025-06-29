@@ -1,4 +1,3 @@
-using System;
 using Interface.InGame.Player;
 using Module.Option;
 using R3;
@@ -7,26 +6,23 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using VContainer.Unity;
 
-namespace View.InGame.Player
+namespace View.InGame.Input
 {
-    public class TouchView: ITickable, IStartable, ITouchView, IDisposable
+    public partial class InGameInputView : ITickable
     {
-        public TouchView
-        (
-            InputSystem_Actions inputSystem
-        )
+        private void TouchInit()
         {
-            PlayerInputActions = inputSystem.Player;
-
-            TouchSubject = new Subject<TouchStartEventArgument>();
-            TouchEndSubject = new Subject<TouchEndEventArgument>();
+            Actions.Touch.performed += OnStartClick;
+            Actions.Touch.canceled += OnReleaseInput;
         }
 
-        public void Start()
+        private void TouchDispose()
         {
-            PlayerInputActions.Enable();
-            PlayerInputActions.Touch.performed += OnStartClick;
-            PlayerInputActions.Touch.canceled += OnReleaseInput;
+            TouchSubject?.Dispose();
+            TouchEndSubject?.Dispose();
+
+            Actions.Touch.performed -= OnStartClick;
+            Actions.Touch.canceled -= OnReleaseInput;
         }
 
         private void OnStartClick(InputAction.CallbackContext context)
@@ -37,7 +33,7 @@ namespace View.InGame.Player
         private void OnReleaseInput(InputAction.CallbackContext context)
         {
             if (_fingerDraggingInfo.IsNone) return;
-            var releasePosition = PlayerInputActions.Position.ReadValue<Vector2>();
+            var releasePosition = Actions.Position.ReadValue<Vector2>();
             var touchPosition = _fingerDraggingInfo.Unwrap();
 
             TouchEndSubject.OnNext(new TouchEndEventArgument(touchPosition.TouchStartPosition, releasePosition));
@@ -48,7 +44,7 @@ namespace View.InGame.Player
         {
             if (_fingerDraggingInfo.TryGetValue(out var draggingInfo))
             {
-                var currentPosition = PlayerInputActions.Position.ReadValue<Vector2>();
+                var currentPosition = Actions.Position.ReadValue<Vector2>();
 
                 _fingerDraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
                     draggingInfo.TouchStartPosition, currentPosition
@@ -66,37 +62,23 @@ namespace View.InGame.Player
         {
             var isSome = _fingerDraggingInfo.IsSome;
             var isOnUi = EventSystem.current.IsPointerOverGameObject();
-            if (isSome) return;
-            // UI上のタッチは無視する
-            if (isOnUi) return;
+            if (isSome | isOnUi) return;
 
-            var touchPosition = PlayerInputActions.Position.ReadValue<Vector2>();
+            var touchPosition = Actions.Position.ReadValue<Vector2>();
 
             TouchSubject.OnNext(new TouchStartEventArgument(touchPosition));
             _fingerDraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
                 touchPosition, touchPosition
             ));
         }
-        
+
         public Observable<TouchStartEventArgument> TouchEvent => TouchSubject;
         public FingerDraggingInfo DraggingInfo => _fingerDraggingInfo.Unwrap();
         public Observable<TouchEndEventArgument> TouchEndEvent => TouchEndSubject;
 
         private bool _pendingTouchStarted;
-        private InputSystem_Actions.PlayerActions PlayerInputActions { get; }
-        private Subject<TouchStartEventArgument> TouchSubject { get; }
-        private Subject<TouchEndEventArgument> TouchEndSubject { get; }
         private Option<FingerDraggingInfo> _fingerDraggingInfo;
-
-        public void Dispose()
-        {
-            PlayerInputActions.Disable();
-            TouchSubject?.Dispose();
-            TouchEndSubject?.Dispose();
-            
-            PlayerInputActions.Touch.performed -= OnStartClick;
-            PlayerInputActions.Touch.canceled -= OnReleaseInput;
-            PlayerInputActions.Disable();
-        }
+        private Subject<TouchStartEventArgument> TouchSubject { get; } = new Subject<TouchStartEventArgument>();
+        private Subject<TouchEndEventArgument> TouchEndSubject { get; } = new Subject<TouchEndEventArgument>();
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine.InputSystem.LowLevel;
 
+#nullable enable
 namespace Structure.Utility.Abstraction
 {
     public class TouchDeltaMagnitudeComparer : IComparer<TouchState>

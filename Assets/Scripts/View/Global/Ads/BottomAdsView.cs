@@ -32,7 +32,7 @@ namespace View.Global.Ads
 
         public void Dispose()
         {
-            _bannerView.Destroy();
+            _bannerView?.Destroy();
             _bannerView = null;
         }
 

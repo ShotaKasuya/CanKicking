@@ -3,6 +3,7 @@ using Model.InGame.Player;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using View.InGame.Input;
 using View.InGame.Player;
 
 namespace Installer.InGame.Player
@@ -20,7 +21,7 @@ namespace Installer.InGame.Player
             // View
             builder.RegisterInstance(playerView).AsImplementedInterfaces();
             builder.RegisterComponent(aimView).AsImplementedInterfaces();
-            builder.Register<TouchView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<InGameInputView>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Model
             playerModelBind.Register(builder);

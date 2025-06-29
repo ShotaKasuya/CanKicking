@@ -2,11 +2,10 @@ namespace Interface.InGame.Stage
 {
     public interface ICameraZoomModel
     {
+        public float SetZoomLevel(float level);
+        public float GetOrthoSize();
+        
         public float ZoomLevel { get; }
-
-        public void SetZoomLevel(float level);
-
-        public float ZoomMaxLevel { get; }
-        public float ZoomMinLevel { get; }
+        public float Sensitivity { get; }
     }
 }
