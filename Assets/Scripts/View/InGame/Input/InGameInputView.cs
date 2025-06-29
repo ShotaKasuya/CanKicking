@@ -6,7 +6,7 @@ using View.Global.Input;
 
 namespace View.InGame.Input
 {
-    public partial class InGameInputView : ITouchView, IPinchView, IStartable, IDisposable
+    public partial class InGameInputView : ITouchView, IPinchView, ITickable, IStartable, IDisposable
     {
         public InGameInputView
         (
@@ -20,6 +20,12 @@ namespace View.InGame.Input
         {
             Actions.Enable();
             TouchInit();
+        }
+        
+        public void Tick()
+        {
+            TouchTick();
+            DebugTick();
         }
 
         public void Dispose()

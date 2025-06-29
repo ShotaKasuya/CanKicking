@@ -19,7 +19,7 @@ namespace Installer.OutGame.Title
             builder.RegisterInstance(gameStartSceneModel).AsImplementedInterfaces();
 
             // Controller
-            builder.Register<TitleController>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterEntryPoint<TitleController>();
         }
     }
 }

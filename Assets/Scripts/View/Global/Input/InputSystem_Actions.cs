@@ -103,19 +103,19 @@ namespace View.Global.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Position"",
+                    ""name"": ""Pinch"",
                     ""type"": ""Value"",
-                    ""id"": ""b9698b42-035a-4302-82e9-58313d02d327"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""id"": ""245a3757-7c08-4e52-98b7-a46ca44303e8"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Pinch"",
+                    ""name"": ""Position"",
                     ""type"": ""Value"",
-                    ""id"": ""245a3757-7c08-4e52-98b7-a46ca44303e8"",
-                    ""expectedControlType"": ""Axis"",
+                    ""id"": ""b9698b42-035a-4302-82e9-58313d02d327"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -182,33 +182,6 @@ namespace View.Global.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Touch7"",
-                    ""type"": ""Value"",
-                    ""id"": ""bf9459cf-9f54-4e26-9119-88a238f4310d"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Touch8"",
-                    ""type"": ""Value"",
-                    ""id"": ""fbc399ea-ddad-48e8-af3a-b31e3479eb82"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Touch9"",
-                    ""type"": ""Value"",
-                    ""id"": ""60166417-77da-4839-9d0d-0005b6b2a39b"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -268,7 +241,7 @@ namespace View.Global.Input
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Touch0"",
+                    ""name"": ""Touch_zero"",
                     ""id"": ""1f1354bf-b22d-4936-92bf-7991d0e50563"",
                     ""path"": ""<Touchscreen>/touch0"",
                     ""interactions"": """",
@@ -279,7 +252,7 @@ namespace View.Global.Input
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Touch1"",
+                    ""name"": ""Touch_one"",
                     ""id"": ""d0dfa317-3784-405f-9b9f-93c28b102368"",
                     ""path"": ""<Touchscreen>/touch1"",
                     ""interactions"": """",
@@ -396,39 +369,6 @@ namespace View.Global.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Touch6"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""269356d8-f70d-429f-9356-c0e3186c9999"",
-                    ""path"": ""<Touchscreen>/touch7/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Touch7"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""46f9c55f-f9de-4987-8211-81393980f51e"",
-                    ""path"": ""<Touchscreen>/touch8/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Touch8"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""48efba64-8f56-4dc1-a339-eb1eb0fc8c54"",
-                    ""path"": ""<Touchscreen>/touch9/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Touch9"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1087,8 +1027,8 @@ namespace View.Global.Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
-            m_Player_Position = m_Player.FindAction("Position", throwIfNotFound: true);
             m_Player_Pinch = m_Player.FindAction("Pinch", throwIfNotFound: true);
+            m_Player_Position = m_Player.FindAction("Position", throwIfNotFound: true);
             m_Player_Touch0 = m_Player.FindAction("Touch0", throwIfNotFound: true);
             m_Player_Touch1 = m_Player.FindAction("Touch1", throwIfNotFound: true);
             m_Player_Touch2 = m_Player.FindAction("Touch2", throwIfNotFound: true);
@@ -1096,9 +1036,6 @@ namespace View.Global.Input
             m_Player_Touch4 = m_Player.FindAction("Touch4", throwIfNotFound: true);
             m_Player_Touch5 = m_Player.FindAction("Touch5", throwIfNotFound: true);
             m_Player_Touch6 = m_Player.FindAction("Touch6", throwIfNotFound: true);
-            m_Player_Touch7 = m_Player.FindAction("Touch7", throwIfNotFound: true);
-            m_Player_Touch8 = m_Player.FindAction("Touch8", throwIfNotFound: true);
-            m_Player_Touch9 = m_Player.FindAction("Touch9", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1198,8 +1135,8 @@ namespace View.Global.Input
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Touch;
-        private readonly InputAction m_Player_Position;
         private readonly InputAction m_Player_Pinch;
+        private readonly InputAction m_Player_Position;
         private readonly InputAction m_Player_Touch0;
         private readonly InputAction m_Player_Touch1;
         private readonly InputAction m_Player_Touch2;
@@ -1207,9 +1144,6 @@ namespace View.Global.Input
         private readonly InputAction m_Player_Touch4;
         private readonly InputAction m_Player_Touch5;
         private readonly InputAction m_Player_Touch6;
-        private readonly InputAction m_Player_Touch7;
-        private readonly InputAction m_Player_Touch8;
-        private readonly InputAction m_Player_Touch9;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1226,13 +1160,13 @@ namespace View.Global.Input
             /// </summary>
             public InputAction @Touch => m_Wrapper.m_Player_Touch;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Position".
-            /// </summary>
-            public InputAction @Position => m_Wrapper.m_Player_Position;
-            /// <summary>
             /// Provides access to the underlying input action "Player/Pinch".
             /// </summary>
             public InputAction @Pinch => m_Wrapper.m_Player_Pinch;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Position".
+            /// </summary>
+            public InputAction @Position => m_Wrapper.m_Player_Position;
             /// <summary>
             /// Provides access to the underlying input action "Player/Touch0".
             /// </summary>
@@ -1262,18 +1196,6 @@ namespace View.Global.Input
             /// </summary>
             public InputAction @Touch6 => m_Wrapper.m_Player_Touch6;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Touch7".
-            /// </summary>
-            public InputAction @Touch7 => m_Wrapper.m_Player_Touch7;
-            /// <summary>
-            /// Provides access to the underlying input action "Player/Touch8".
-            /// </summary>
-            public InputAction @Touch8 => m_Wrapper.m_Player_Touch8;
-            /// <summary>
-            /// Provides access to the underlying input action "Player/Touch9".
-            /// </summary>
-            public InputAction @Touch9 => m_Wrapper.m_Player_Touch9;
-            /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
             public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1302,12 +1224,12 @@ namespace View.Global.Input
                 @Touch.started += instance.OnTouch;
                 @Touch.performed += instance.OnTouch;
                 @Touch.canceled += instance.OnTouch;
-                @Position.started += instance.OnPosition;
-                @Position.performed += instance.OnPosition;
-                @Position.canceled += instance.OnPosition;
                 @Pinch.started += instance.OnPinch;
                 @Pinch.performed += instance.OnPinch;
                 @Pinch.canceled += instance.OnPinch;
+                @Position.started += instance.OnPosition;
+                @Position.performed += instance.OnPosition;
+                @Position.canceled += instance.OnPosition;
                 @Touch0.started += instance.OnTouch0;
                 @Touch0.performed += instance.OnTouch0;
                 @Touch0.canceled += instance.OnTouch0;
@@ -1329,15 +1251,6 @@ namespace View.Global.Input
                 @Touch6.started += instance.OnTouch6;
                 @Touch6.performed += instance.OnTouch6;
                 @Touch6.canceled += instance.OnTouch6;
-                @Touch7.started += instance.OnTouch7;
-                @Touch7.performed += instance.OnTouch7;
-                @Touch7.canceled += instance.OnTouch7;
-                @Touch8.started += instance.OnTouch8;
-                @Touch8.performed += instance.OnTouch8;
-                @Touch8.canceled += instance.OnTouch8;
-                @Touch9.started += instance.OnTouch9;
-                @Touch9.performed += instance.OnTouch9;
-                @Touch9.canceled += instance.OnTouch9;
             }
 
             /// <summary>
@@ -1352,12 +1265,12 @@ namespace View.Global.Input
                 @Touch.started -= instance.OnTouch;
                 @Touch.performed -= instance.OnTouch;
                 @Touch.canceled -= instance.OnTouch;
-                @Position.started -= instance.OnPosition;
-                @Position.performed -= instance.OnPosition;
-                @Position.canceled -= instance.OnPosition;
                 @Pinch.started -= instance.OnPinch;
                 @Pinch.performed -= instance.OnPinch;
                 @Pinch.canceled -= instance.OnPinch;
+                @Position.started -= instance.OnPosition;
+                @Position.performed -= instance.OnPosition;
+                @Position.canceled -= instance.OnPosition;
                 @Touch0.started -= instance.OnTouch0;
                 @Touch0.performed -= instance.OnTouch0;
                 @Touch0.canceled -= instance.OnTouch0;
@@ -1379,15 +1292,6 @@ namespace View.Global.Input
                 @Touch6.started -= instance.OnTouch6;
                 @Touch6.performed -= instance.OnTouch6;
                 @Touch6.canceled -= instance.OnTouch6;
-                @Touch7.started -= instance.OnTouch7;
-                @Touch7.performed -= instance.OnTouch7;
-                @Touch7.canceled -= instance.OnTouch7;
-                @Touch8.started -= instance.OnTouch8;
-                @Touch8.performed -= instance.OnTouch8;
-                @Touch8.canceled -= instance.OnTouch8;
-                @Touch9.started -= instance.OnTouch9;
-                @Touch9.performed -= instance.OnTouch9;
-                @Touch9.canceled -= instance.OnTouch9;
             }
 
             /// <summary>
@@ -1803,19 +1707,19 @@ namespace View.Global.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnTouch(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Position" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnPosition(InputAction.CallbackContext context);
-            /// <summary>
             /// Method invoked when associated input action "Pinch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPinch(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Position" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPosition(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Touch0" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
@@ -1865,27 +1769,6 @@ namespace View.Global.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnTouch6(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Touch7" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnTouch7(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Touch8" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnTouch8(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Touch9" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnTouch9(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

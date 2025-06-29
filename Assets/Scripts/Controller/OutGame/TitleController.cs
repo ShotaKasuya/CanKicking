@@ -35,7 +35,6 @@ namespace Controller.OutGame
         
         private void OnStart()
         {
-            return;
             var scene = GameStartSceneModel.GetStartScene();
             SceneLoadView.LoadScene(scene).Forget();
         }

@@ -8,7 +8,7 @@ using VContainer.Unity;
 
 namespace View.InGame.Input
 {
-    public partial class InGameInputView : ITickable
+    public partial class InGameInputView 
     {
         private void TouchInit()
         {
@@ -40,7 +40,7 @@ namespace View.InGame.Input
             _fingerDraggingInfo = Option<FingerDraggingInfo>.None();
         }
 
-        public void Tick()
+        private void TouchTick()
         {
             if (_fingerDraggingInfo.TryGetValue(out var draggingInfo))
             {

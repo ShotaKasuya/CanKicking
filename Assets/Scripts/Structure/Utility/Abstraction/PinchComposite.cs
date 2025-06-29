@@ -16,8 +16,8 @@ namespace Structure.Utility.Abstraction
     [DisplayName("Pinch Composite")]
     public class PinchComposite : InputBindingComposite<float>
     {
-        [InputControl(layout = "Touch")] public int Touch0 = 0;
-        [InputControl(layout = "Touch")] public int Touch1 = 1;
+        [InputControl(layout = "Touch")] public int touch_zero;
+        [InputControl(layout = "Touch")] public int touch_one;
 
         private static readonly TouchDeltaMagnitudeComparer Comparer = new TouchDeltaMagnitudeComparer();
 
@@ -50,20 +50,18 @@ namespace Structure.Utility.Abstraction
         /// </summary>
         public override float ReadValue(ref InputBindingCompositeContext context)
         {
-            var touchState0 = context.ReadValue<TouchState, TouchDeltaMagnitudeComparer>(Touch0, Comparer);
-            var touchState1 = context.ReadValue<TouchState, TouchDeltaMagnitudeComparer>(Touch1, Comparer);
+            DebugTextView.Instance.SetText("touch zero", touch_zero);
+            DebugTextView.Instance.SetText("touch one", touch_one);
+            var touchState0 = context.ReadValue<TouchState, TouchDeltaMagnitudeComparer>(touch_zero, Comparer);
+            var touchState1 = context.ReadValue<TouchState, TouchDeltaMagnitudeComparer>(touch_one, Comparer);
 
-            // DebugTextView.Instance.SetText("touch state 0", touchState0.phase);
-            // DebugTextView.Instance.SetText("touch state 1", touchState1.phase);
+            DebugTextView.Instance.SetText("touch state 0", touchState0.phase);
+            DebugTextView.Instance.SetText("touch state 1", touchState1.phase);
 
-            if (!touchState0.isInProgress || !touchState1.isInProgress)
-            {
-                DebugTextView.Instance.RemoveText("pinch calculated");
-                return 0;
-            }
-            
-            // DebugTextView.Instance.SetText("touch0 position", touchState0.position);
-            // DebugTextView.Instance.SetText("touch1 position", touchState1.position);
+            if (!touchState0.isInProgress || !touchState1.isInProgress) return 0;
+
+            DebugTextView.Instance.SetText("touch0 position", touchState0.position);
+            DebugTextView.Instance.SetText("touch1 position", touchState1.position);
 
             var pos0 = touchState0.position;
             var pos1 = touchState1.position;
