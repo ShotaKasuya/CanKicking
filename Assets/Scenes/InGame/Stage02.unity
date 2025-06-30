@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 1525979990}
   - component: {fileID: 1525979989}
   - component: {fileID: 1525979988}
+  - component: {fileID: 1525979991}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -629,6 +630,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1525979991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525979987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18cd1df9ba644d0a5223a63a6e21b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinemachine: {fileID: 0}
 --- !u!1001 &1653270135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -648,6 +662,22 @@ PrefabInstance:
     - target: {fileID: 1677716338486057615, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
       propertyPath: m_LocalPosition.y
       value: 67.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: cameraView
+      value: 
+      objectReference: {fileID: 1525979991}
+    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: cameraZoomModel.sensitivity
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: cameraZoomModel.zoomMaxLevel
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
+      propertyPath: cameraZoomModel.zoomMinLevel
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3914332272450510873, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
       propertyPath: Target.TrackingTarget
