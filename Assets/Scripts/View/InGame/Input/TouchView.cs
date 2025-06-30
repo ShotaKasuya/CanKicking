@@ -4,11 +4,10 @@ using R3;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using VContainer.Unity;
 
 namespace View.InGame.Input
 {
-    public partial class InGameInputView 
+    public partial class InGameInputView
     {
         private void TouchInit()
         {
@@ -44,6 +43,13 @@ namespace View.InGame.Input
         {
             if (_fingerDraggingInfo.TryGetValue(out var draggingInfo))
             {
+                var secondTouch = Actions.SecondTouch.ReadValue<float>() > 0;
+                if (secondTouch)
+                {
+                    _fingerDraggingInfo = Option<FingerDraggingInfo>.None();
+                    return;
+                }
+
                 var currentPosition = Actions.Position.ReadValue<Vector2>();
 
                 _fingerDraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
@@ -73,7 +79,7 @@ namespace View.InGame.Input
         }
 
         public Observable<TouchStartEventArgument> TouchEvent => TouchSubject;
-        public FingerDraggingInfo DraggingInfo => _fingerDraggingInfo.Unwrap();
+        public Option<FingerDraggingInfo> DraggingInfo => _fingerDraggingInfo;
         public Observable<TouchEndEventArgument> TouchEndEvent => TouchEndSubject;
 
         private bool _pendingTouchStarted;

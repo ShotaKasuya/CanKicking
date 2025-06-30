@@ -33,16 +33,21 @@ namespace Controller.InGame.Player
         public void Start()
         {
             TouchView.TouchEndEvent
-                .Where(_ => IsInState())
-                .Subscribe(Jump)
+                .Where(this, (_, controller) => controller.IsInState())
+                .Subscribe(this, (argument, controller) => controller.Jump(argument))
                 .AddTo(CompositeDisposable);
         }
 
         public override void StateUpdate(float deltaTime)
         {
-            var aimVector = TouchView.DraggingInfo.Delta;
+            if (!TouchView.DraggingInfo.TryGetValue(out var info))
+            {
+                StateEntity.ChangeState(PlayerStateType.Idle);
+                return;
+            }
+
             var ratio = PullLimitModel.LimitRatio;
-            var startPosition = Calculator.FitVectorToScreen(aimVector, ratio);
+            var startPosition = Calculator.FitVectorToScreen(info.Delta, ratio);
 
             AimView.SetAim(startPosition);
         }

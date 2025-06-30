@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using UnityEditor;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 namespace Module.DebugConsole
 {
 #if UNITY_EDITOR
+    using UnityEditor;
+    using UnityEditor.Build;
+    using UnityEditor.Build.Reporting;
     public class DebugUsageLogger : IPreprocessBuildWithReport
     {
         public int callbackOrder => 0;

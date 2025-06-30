@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using Module.Option;
 using R3;
 using Structure.Utility;
 using UnityEngine;
@@ -63,7 +64,7 @@ namespace Interface.InGame.Player
     public interface ITouchView
     {
         public Observable<TouchStartEventArgument> TouchEvent { get; }
-        public FingerDraggingInfo DraggingInfo { get; }
+        public Option<FingerDraggingInfo> DraggingInfo { get; }
         public Observable<TouchEndEventArgument> TouchEndEvent { get; }
     }
 

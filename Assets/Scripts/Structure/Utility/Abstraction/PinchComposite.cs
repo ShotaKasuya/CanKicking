@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using Module.DebugConsole;
 using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
@@ -50,40 +49,36 @@ namespace Structure.Utility.Abstraction
         /// </summary>
         public override float ReadValue(ref InputBindingCompositeContext context)
         {
-            DebugTextView.Instance.SetText("touch zero", touch_zero);
-            DebugTextView.Instance.SetText("touch one", touch_one);
             var touchState0 = context.ReadValue<TouchState, TouchDeltaMagnitudeComparer>(touch_zero, Comparer);
             var touchState1 = context.ReadValue<TouchState, TouchDeltaMagnitudeComparer>(touch_one, Comparer);
 
-            DebugTextView.Instance.SetText("touch state 0", touchState0.phase);
-            DebugTextView.Instance.SetText("touch state 1", touchState1.phase);
-
             if (!touchState0.isInProgress || !touchState1.isInProgress) return 0;
 
-            DebugTextView.Instance.SetText("touch0 position", touchState0.position);
-            DebugTextView.Instance.SetText("touch1 position", touchState1.position);
-
+            var width = Screen.width;
+            var height = Screen.height;
             var pos0 = touchState0.position;
             var pos1 = touchState1.position;
 
             var delta0 = touchState0.delta;
             var delta1 = touchState1.delta;
 
-            var result = CalcPinch(pos0, pos1, delta0, delta1);
-            // DebugTextView.Instance.SetText("pinch calculated", result);
+            var result = CalcPinch(pos0, pos1, delta0, delta1, new float2(width, height));
 
             return result;
         }
 
         [BurstCompile]
-        private static float CalcPinch(float2 pos0, float2 pos1, float2 delta0, float2 delta1)
+        private static float CalcPinch(float2 pos0, float2 pos1, float2 delta0, float2 delta1, float2 screen)
         {
             var prevPos0 = pos0 - delta0;
             var prevPos1 = pos1 - delta1;
 
             var pinch = math.distance(pos0, pos1) - math.distance(prevPos0, prevPos1);
 
-            return pinch;
+            var screenDiagonal = math.length(screen);
+            var normalizedPinch = pinch / screenDiagonal;
+
+            return normalizedPinch;
         }
     }
 }

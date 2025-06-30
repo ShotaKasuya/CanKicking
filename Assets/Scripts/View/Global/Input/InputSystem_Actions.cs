@@ -103,6 +103,15 @@ namespace View.Global.Input
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SecondTouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""e70f3352-6414-4bbf-9d29-d668822f4580"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Pinch"",
                     ""type"": ""Value"",
                     ""id"": ""245a3757-7c08-4e52-98b7-a46ca44303e8"",
@@ -369,6 +378,17 @@ namespace View.Global.Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Touch6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65ba4867-6216-4162-86bd-5911d0e3a6a9"",
+                    ""path"": ""<Touchscreen>/touch1/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1027,6 +1047,7 @@ namespace View.Global.Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
+            m_Player_SecondTouch = m_Player.FindAction("SecondTouch", throwIfNotFound: true);
             m_Player_Pinch = m_Player.FindAction("Pinch", throwIfNotFound: true);
             m_Player_Position = m_Player.FindAction("Position", throwIfNotFound: true);
             m_Player_Touch0 = m_Player.FindAction("Touch0", throwIfNotFound: true);
@@ -1135,6 +1156,7 @@ namespace View.Global.Input
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Touch;
+        private readonly InputAction m_Player_SecondTouch;
         private readonly InputAction m_Player_Pinch;
         private readonly InputAction m_Player_Position;
         private readonly InputAction m_Player_Touch0;
@@ -1159,6 +1181,10 @@ namespace View.Global.Input
             /// Provides access to the underlying input action "Player/Touch".
             /// </summary>
             public InputAction @Touch => m_Wrapper.m_Player_Touch;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/SecondTouch".
+            /// </summary>
+            public InputAction @SecondTouch => m_Wrapper.m_Player_SecondTouch;
             /// <summary>
             /// Provides access to the underlying input action "Player/Pinch".
             /// </summary>
@@ -1224,6 +1250,9 @@ namespace View.Global.Input
                 @Touch.started += instance.OnTouch;
                 @Touch.performed += instance.OnTouch;
                 @Touch.canceled += instance.OnTouch;
+                @SecondTouch.started += instance.OnSecondTouch;
+                @SecondTouch.performed += instance.OnSecondTouch;
+                @SecondTouch.canceled += instance.OnSecondTouch;
                 @Pinch.started += instance.OnPinch;
                 @Pinch.performed += instance.OnPinch;
                 @Pinch.canceled += instance.OnPinch;
@@ -1265,6 +1294,9 @@ namespace View.Global.Input
                 @Touch.started -= instance.OnTouch;
                 @Touch.performed -= instance.OnTouch;
                 @Touch.canceled -= instance.OnTouch;
+                @SecondTouch.started -= instance.OnSecondTouch;
+                @SecondTouch.performed -= instance.OnSecondTouch;
+                @SecondTouch.canceled -= instance.OnSecondTouch;
                 @Pinch.started -= instance.OnPinch;
                 @Pinch.performed -= instance.OnPinch;
                 @Pinch.canceled -= instance.OnPinch;
@@ -1706,6 +1738,13 @@ namespace View.Global.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnTouch(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "SecondTouch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSecondTouch(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Pinch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

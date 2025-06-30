@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SecondTouch",
+                    "type": "Button",
+                    "id": "e70f3352-6414-4bbf-9d29-d668822f4580",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pinch",
                     "type": "Value",
                     "id": "245a3757-7c08-4e52-98b7-a46ca44303e8",
@@ -281,6 +290,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Touch6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "65ba4867-6216-4162-86bd-5911d0e3a6a9",
+                    "path": "<Touchscreen>/touch1/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
