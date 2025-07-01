@@ -11,6 +11,7 @@ namespace View.Global.Ads
     {
         public void Start()
         {
+#if UNITY_ANDROID || UNITY_IOS
             MobileAds.Initialize((status =>
             {
                 if (status == null)
@@ -26,6 +27,7 @@ namespace View.Global.Ads
                 AdPosition.Bottom
             );
             _bannerView.LoadAd(new AdRequest());
+#endif
         }
 
         private BannerView _bannerView;
@@ -38,12 +40,12 @@ namespace View.Global.Ads
 
         public void Show()
         {
-            _bannerView.Show();
+            _bannerView?.Show();
         }
 
         public void Hide()
         {
-            _bannerView.Hide();
+            _bannerView?.Hide();
         }
     }
 }

@@ -42,6 +42,7 @@ namespace Controller.InGame.Player
         {
             if (!TouchView.DraggingInfo.TryGetValue(out var info))
             {
+                Debug.Log("return");
                 StateEntity.ChangeState(PlayerStateType.Idle);
                 return;
             }
