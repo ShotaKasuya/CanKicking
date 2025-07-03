@@ -24,9 +24,31 @@ namespace Interface.InGame.Player
     /// </summary>
     public interface IAimView
     {
-        public void SetAim(Vector2 aimVector);
-        public void Show();
+        public void SetAim(AimContext aimContext);
+        public void Show(Vector2 startPoint);
         public void Hide();
+    }
+
+    public readonly ref struct AimContext
+    {
+        public AimContext
+        (
+            Vector2 startPoint,
+            Vector2 aimVector,
+            float cancelRadius,
+            float maxRadius
+        )
+        {
+            StartPoint = startPoint;
+            AimVector = aimVector;
+            CancelRadius = cancelRadius;
+            MaxRadius = maxRadius;
+        }
+
+        public Vector2 StartPoint { get; }
+        public Vector2 AimVector { get; }
+        public float CancelRadius { get; }
+        public float MaxRadius { get; }
     }
 
     /// <summary>
