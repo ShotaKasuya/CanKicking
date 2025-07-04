@@ -47,16 +47,14 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
         }
 
         var ratio = PullLimitModel.LimitRatio;
-        var startPosition = Calculator.FitVectorToScreen(info.Delta, ratio);
+        var aimVector = Calculator.FitVectorToScreen(info.Delta, ratio);
 
-        var aimContext = new AimContext(info.TouchStartPosition, startPosition, 0, ratio);
-        AimView.SetAim(aimContext);
+        AimView.SetAim(aimVector);
     }
 
     public override void OnEnter()
     {
-        var info = TouchView.DraggingInfo.Unwrap();
-        AimView.Show(info.TouchStartPosition);
+        AimView.Show();
     }
 
     public override void OnExit()

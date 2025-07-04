@@ -27,8 +27,10 @@ namespace Model.InGame.Player
     [Serializable]
     public class PullLimitModel: IPullLimitModel
     {
+        public float CancelRatio => cancelRatio;
         public float LimitRatio => limitRatio;
 
         [SerializeField, Range(1f, 10f)] private float limitRatio;
+        [SerializeField, Range(1f, 10f)] private float cancelRatio;
     }
 }

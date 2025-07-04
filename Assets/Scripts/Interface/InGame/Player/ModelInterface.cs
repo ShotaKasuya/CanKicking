@@ -24,6 +24,7 @@ namespace Interface.InGame.Player
     /// </summary>
     public interface IPullLimitModel
     {
+        public float CancelRatio { get; }
         public float LimitRatio { get; }
     }
 }

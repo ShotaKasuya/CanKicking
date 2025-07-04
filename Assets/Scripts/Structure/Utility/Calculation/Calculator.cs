@@ -36,6 +36,7 @@ namespace Structure.Utility.Calculation
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 FitVectorToScreen(Vector2 origin, float ratio)
         {
+            // FIXME:
             var width = Screen.width;
             var height = Screen.height;
             var shorter = math.min(width, height);
@@ -50,8 +51,13 @@ namespace Structure.Utility.Calculation
         {
             var result = origin / length;
             result *= ratio;
-            result = math.length(result) > 1 ? math.normalize(result) : result;
-            
+
+            result = math.lengthsq(result) switch
+            {
+                > 1 => math.normalize(result),
+                _ => result
+            };
+
             return result;
         }
     }

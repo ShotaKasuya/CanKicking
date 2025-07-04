@@ -73,7 +73,6 @@ namespace View.InGame.Input
             var isOnUi = IsOverUi(touchPosition);
             if (isSome | isOnUi) return;
 
-
             TouchSubject.OnNext(new TouchStartEventArgument(touchPosition));
             _fingerDraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
                 touchPosition, touchPosition

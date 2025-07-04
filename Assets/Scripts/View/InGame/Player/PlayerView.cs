@@ -9,14 +9,14 @@ namespace View.InGame.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerView : MonoBehaviour, IPlayerView, ICanKickView, IRayCasterView
     {
-        public Transform ModelTransform => _modelTransform;
-        public Vector2 LinearVelocity => _rigidbody.linearVelocity;
-        public float AngularVelocity => _rigidbody.angularVelocity;
+        public Transform ModelTransform => _modelTransform!;
+        public Vector2 LinearVelocity => _rigidbody!.linearVelocity;
+        public float AngularVelocity => _rigidbody!.angularVelocity;
         public Observable<Collision2D> CollisionEnterEvent => _collisionEnterSubject;
 
         private Transform _modelTransform;
         private Rigidbody2D _rigidbody;
-        private Subject<Collision2D> _collisionEnterSubject;
+        private Subject<Collision2D> _collisionEnterSubject = new Subject<Collision2D>();
         private RaycastHit2D[] _raycastPool;
 
         [SerializeField] private int raycastPoolSize;
@@ -36,13 +36,13 @@ namespace View.InGame.Player
 
         public void Kick(KickContext context)
         {
-            _rigidbody.AddForce(context.Direction, ForceMode2D.Impulse);
+            _rigidbody!.AddForce(context.Direction, ForceMode2D.Impulse);
             _rigidbody.AddTorque(context.RotationPower, ForceMode2D.Impulse);
         }
 
         public ReadOnlySpan<RaycastHit2D> PoolRay(RayCastInfo rayCastInfo)
         {
-            Vector2 position = _modelTransform.position;
+            Vector2 position = _modelTransform!.position;
             var hitCount = Physics2D.RaycastNonAlloc
             (
                 position,
