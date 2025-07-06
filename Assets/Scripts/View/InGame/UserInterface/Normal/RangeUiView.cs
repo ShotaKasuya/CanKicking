@@ -1,4 +1,5 @@
 using Interface.InGame.UserInterface;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,32 +8,34 @@ namespace View.InGame.UserInterface.Normal
     [RequireComponent(typeof(Image))]
     public class RangeUiView : MonoBehaviour, IRangeView
     {
-        private RectTransform _transform;
+        private RectTransform _parentTransform;
+        private RectTransform _selfTransform;
         private Image _image;
         private Camera _camera;
 
         private void Awake()
         {
-            _transform = GetComponent<RectTransform>()!;
+            _selfTransform = GetComponent<RectTransform>()!;
+            _parentTransform = _selfTransform.parent as RectTransform;
             _image = GetComponent<Image>()!;
-            _camera = Camera.main!;
+            _camera = Camera.main;
+
+            Assert.NotNull(_selfTransform);
+            Assert.NotNull(_parentTransform);
+            Assert.NotNull(_image);
+            Assert.NotNull(_camera);
         }
 
         public void Set(Vector2 point, float radius)
         {
-            _transform.sizeDelta = new Vector2(radius, radius);
+            _selfTransform.sizeDelta = new Vector2(radius, radius);
             _image.enabled = true;
 
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    _transform, point, _camera, out var localPoint
+                    _parentTransform, point, _camera, out var localPoint
                 ))
             {
-                // Debug.Log($"point: {point}, local point: {localPoint}");
-                _transform.anchoredPosition = localPoint;
-            }
-            else
-            {
-                Debug.LogError("happen");
+                _selfTransform.anchoredPosition = localPoint;
             }
         }
 

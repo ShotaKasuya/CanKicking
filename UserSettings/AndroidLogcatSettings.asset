@@ -3,8 +3,8 @@
     "m_SelectedProcess": {
         "deviceId": "SX4LHMA490907785",
         "name": "com.CanKicking",
-        "processId": 21134,
-        "exited": false
+        "processId": 11844,
+        "exited": true
     },
     "m_SelectedPriority": 0,
     "m_KnownProcessesForSerialization": [
@@ -139,6 +139,12 @@
             "name": "com.CanKicking",
             "processId": 21134,
             "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 11844,
+            "exited": true
         }
     ],
     "m_Tags": {

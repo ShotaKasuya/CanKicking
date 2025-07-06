@@ -21,4 +21,5 @@ MonoBehaviour:
   kickBasePowerModel:
     basePower: 20
   pullLimitModel:
-    limitRatio: 1
+    limitRatio: 2
+    cancelRatio: 2

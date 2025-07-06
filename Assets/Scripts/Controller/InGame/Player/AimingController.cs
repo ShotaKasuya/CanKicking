@@ -47,7 +47,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
         }
 
         var ratio = PullLimitModel.LimitRatio;
-        var aimVector = Calculator.FitVectorToScreen(info.Delta, ratio);
+        var aimVector = Calculator.FitVectorToScreen(info.Delta * ratio);
 
         AimView.SetAim(aimVector);
     }
@@ -67,7 +67,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
         var basePower = KickBasePowerModel.BasePower;
         var deltaPosition = fingerReleaseInfo.Delta;
         var ratio = PullLimitModel.LimitRatio;
-        deltaPosition = Calculator.FitVectorToScreen(deltaPosition, ratio);
+        deltaPosition = Calculator.FitVectorToScreen(deltaPosition * ratio);
 
         var power = deltaPosition * basePower;
 

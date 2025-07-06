@@ -32,25 +32,23 @@ namespace Structure.Utility.Calculation
         /// 画面の短辺にベクトルの大きさを合わせる
         /// </summary>
         /// <param name="origin">変換するベクトル</param>
-        /// <param name="ratio"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 FitVectorToScreen(Vector2 origin, float ratio)
+        public static Vector2 FitVectorToScreen(Vector2 origin)
         {
-            // FIXME:
+            // FIXME: 静的リソースへのアクセスを減らす
             var width = Screen.width;
             var height = Screen.height;
             var shorter = math.min(width, height);
-            var result = InnerFitVector(origin, ratio, shorter);
+            var result = InnerFitVector(origin, shorter);
 
             return result;
         }
 
         [BurstCompile]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Vector2 InnerFitVector(float2 origin, float ratio, float length)
+        private static Vector2 InnerFitVector(float2 origin, float length)
         {
             var result = origin / length;
-            result *= ratio;
 
             result = math.lengthsq(result) switch
             {
