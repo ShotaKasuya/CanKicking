@@ -46,8 +46,18 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
             return;
         }
 
-        var ratio = PullLimitModel.LimitRatio;
-        var aimVector = Calculator.FitVectorToScreen(info.Delta * ratio);
+        var (aimVector, length) = Calculator.FitVectorToScreen(info.Delta);
+        var cancelLength = PullLimitModel.CancelRatio;
+        var maxLength = PullLimitModel.MaxRatio;
+
+        if (length < cancelLength)
+        {
+            StateEntity.ChangeState(PlayerStateType.Idle);
+            return;
+        }
+
+        var resizeLength = Mathf.InverseLerp(cancelLength, maxLength, length);
+        aimVector *= resizeLength;
 
         AimView.SetAim(aimVector);
     }
@@ -66,10 +76,12 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
     {
         var basePower = KickBasePowerModel.BasePower;
         var deltaPosition = fingerReleaseInfo.Delta;
-        var ratio = PullLimitModel.LimitRatio;
-        deltaPosition = Calculator.FitVectorToScreen(deltaPosition * ratio);
+        var cancelLength = PullLimitModel.CancelRatio;
+        var maxLength = PullLimitModel.MaxRatio;
+        var (aimVector, length) = Calculator.FitVectorToScreen(deltaPosition);
 
-        var power = deltaPosition * basePower;
+        var resizeLength = Mathf.InverseLerp(cancelLength, maxLength, length);
+        var power = basePower * resizeLength * aimVector;
 
         var context = new KickContext(power, Mathf.Sign(power.x));
         CanKickView.Kick(context);

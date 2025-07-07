@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_GUID: 7e456cdfb34a27c448fd298fdd9c792f
+  m_SerializeEntries:
+  - m_GUID: 538422ce9d179566c836ff3c556401b5
+    m_Address: Assets/Scenes/InGame/Stage02.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f8fcbd38ba5bceb3b6a266f3f3bc777
+    m_Address: Assets/TmpResource/Sprite/wall.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StageAsset
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95718b0b53d8012be9ff32ca6d631842
+    m_Address: Assets/TmpResource/Sprite/floor.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StageAsset
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a186c62999353e23a9815afcef9abbb7
+    m_Address: Assets/Scenes/InGame/Stage01.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: debf608fe4c81b940ba7b57e1d77f7b0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e5c56e8fb2b7c9e419a38aa75fd5db80, type: 2}
+    - {fileID: 11400000, guid: bfb485076b14cbb43861cec52e264980, type: 2}

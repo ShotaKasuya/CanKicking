@@ -20,11 +20,11 @@ namespace Interface.InGame.Player
     }
 
     /// <summary>
-    /// 画面をどの程度引っ張ったところを最大とするかの比率を持つ
+    /// 画面をどの程度引っ張ったところを最大・最小とするかの比率を持つ
     /// </summary>
     public interface IPullLimitModel
     {
         public float CancelRatio { get; }
-        public float LimitRatio { get; }
+        public float MaxRatio { get; }
     }
 }

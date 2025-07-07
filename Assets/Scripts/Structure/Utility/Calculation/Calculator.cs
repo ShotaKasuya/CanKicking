@@ -32,8 +32,9 @@ namespace Structure.Utility.Calculation
         /// 画面の短辺にベクトルの大きさを合わせる
         /// </summary>
         /// <param name="origin">変換するベクトル</param>
+        /// <returns>正規化された元ベクトル, 画面に合わせたベクトルの長さ</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2 FitVectorToScreen(Vector2 origin)
+        public static (Vector2, float) FitVectorToScreen(Vector2 origin)
         {
             // FIXME: 静的リソースへのアクセスを減らす
             var width = Screen.width;
@@ -46,17 +47,12 @@ namespace Structure.Utility.Calculation
 
         [BurstCompile]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Vector2 InnerFitVector(float2 origin, float length)
+        private static (float2, float) InnerFitVector(float2 origin, float length)
         {
-            var result = origin / length;
+            var originLength = math.length(origin);
+            var fitLength = originLength / length;
 
-            result = math.lengthsq(result) switch
-            {
-                > 1 => math.normalize(result),
-                _ => result
-            };
-
-            return result;
+            return (math.normalize(origin), fitLength);
         }
     }
 }

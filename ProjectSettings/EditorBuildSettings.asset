@@ -14,13 +14,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OutGame/StageSelect.unity
     guid: 2d25e4c23acd2ddb4907d76bb174b201
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/InGame/Stage01.unity
     guid: a186c62999353e23a9815afcef9abbb7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/InGame/Stage02.unity
     guid: 538422ce9d179566c836ff3c556401b5
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: ad0fc5441d6c4404dbe22488c59f79af, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 32eb997c2760bcaf19ee694399e9f0ff, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -70,7 +70,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
         var aimContext = new AimContext(
             touchStartEventArgument.TouchPosition,
             PullLimitModel.CancelRatio,
-            PullLimitModel.LimitRatio
+            PullLimitModel.MaxRatio
         );
         PullRangeView.ShowRange(aimContext);
     }

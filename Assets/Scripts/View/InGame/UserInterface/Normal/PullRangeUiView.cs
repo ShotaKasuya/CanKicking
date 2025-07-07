@@ -1,4 +1,5 @@
 using Interface.InGame.UserInterface;
+using TNRD;
 using UnityEngine;
 
 namespace View.InGame.UserInterface.Normal
@@ -8,20 +9,20 @@ namespace View.InGame.UserInterface.Normal
     /// </summary>
     public class PullRangeUiView : MonoBehaviour, IPullRangeView
     {
-        [SerializeField] private RangeUiView cancelRange;
-        [SerializeField] private RangeUiView validRange;
+        [SerializeField] private SerializableInterface<RangeUiView> cancelRange;
+        [SerializeField] private SerializableInterface<RangeUiView> validRange;
 
         public void ShowRange(AimContext aimContext)
         {
-            var shorter = Screen.width > Screen.height ? Screen.height : Screen.width;
-            cancelRange.Set(aimContext.StartPoint, aimContext.CancelRadius * shorter);
-            validRange.Set(aimContext.StartPoint, (aimContext.CancelRadius + aimContext.MaxRadius) * shorter);
+            var shorter = Mathf.Min(Screen.width, Screen.height);
+            cancelRange.Value.Set(aimContext.StartPoint, shorter * aimContext.CancelRadius);
+            validRange.Value.Set(aimContext.StartPoint, shorter * (aimContext.CancelRadius + aimContext.MaxRadius));
         }
 
         public void HideRange()
         {
-            cancelRange.Hide();
-            validRange.Hide();
+            cancelRange.Value.Hide();
+            validRange.Value.Hide();
         }
     }
 }
