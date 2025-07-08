@@ -2,6 +2,7 @@
 using DG.Tweening;
 using Interface.Global.Scene;
 using Module.SceneReference;
+using Structure.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,17 +13,26 @@ namespace View.Global.Scene
         [SerializeField] private Image panel;
         [SerializeField] private float sequenceDuration;
 
-        private const float Empty = 1f;
+        private const float Empty = 0f;
         private const float Filled = 1f;
-        
+
+        private void Awake()
+        {
+            panel.enabled = false;
+            panel.fillAmount = Empty;
+        }
+
         public async UniTask LoadScene(SceneReference sceneReference)
         {
+            panel.enabled = true;
             await panel.DOFillAmount(Filled, sequenceDuration)
-                .AsyncWaitForCompletion();
+                .AsyncWaitForCompletion().AsUniTask();
 
+            await sceneReference.LoadAsync();
             
             await panel.DOFillAmount(Empty, sequenceDuration)
-                .AsyncWaitForCompletion();
+                .AsyncWaitForCompletion().AsUniTask();
+            panel.enabled = false;
         }
     }
 }

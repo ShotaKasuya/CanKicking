@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneReference:
+    sceneType: 1
     sceneName: 
     sceneAsset: {fileID: 0}
 --- !u!61 &1391582227045921258

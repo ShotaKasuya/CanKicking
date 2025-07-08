@@ -1,23 +1,29 @@
-using Model.Global;
+using Interface.Global.Scene;
+using Interface.Global.TimeScale;
+using TNRD;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using View.Global.Ads;
 using View.Global.Input;
-using View.Global.Scene;
 
 namespace Installer.Global
 {
     public class GlobalLocator: LifetimeScope
     {
-        [SerializeField] private TimeScaleModel timeScaleModel;
+        [SerializeField] private SerializableInterface<ISceneLoaderView> sceneLoaderView;
+        [SerializeField] private SerializableInterface<ITimeScaleModel> timeScaleModel;
+        
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<InputSystem_Actions>(Lifetime.Singleton);
             builder.Register<BottomAdsView>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<SceneLoaderView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.UseComponents(componentsBuilder =>
+            {
+                componentsBuilder.AddInstance(sceneLoaderView.Value);
+            });
 
-            builder.RegisterInstance(timeScaleModel).AsImplementedInterfaces();
+            builder.RegisterInstance(timeScaleModel.Value);
         }
     }
 }

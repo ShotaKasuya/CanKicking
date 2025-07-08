@@ -151,12 +151,29 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  sceneLoaderView:
+    mode: 0
+    unityReference: {fileID: 3536605741391253119}
+    rawReference:
+      rid: -2
   timeScaleModel:
-    timeScaleSettings:
-      array:
-      - 1
-      - 2
-      - 0
+    mode: 1
+    unityReference: {fileID: 0}
+    rawReference:
+      rid: 1549412181531164768
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1549412181531164768
+      type: {class: TimeScaleModel, ns: Model.Global, asm: Model}
+      data:
+        timeScaleSettings:
+          array:
+          - 1
+          - 1.5
+          - 0
 --- !u!1 &2519652904149435850
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +185,7 @@ GameObject:
   - component: {fileID: 6376167845794208081}
   - component: {fileID: 750633421313959948}
   - component: {fileID: 2063735664864628787}
+  - component: {fileID: 3536605741391253119}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -232,3 +250,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3536605741391253119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2519652904149435850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e071d9b6636c467f8b5113644a8f3e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 2063735664864628787}
+  sequenceDuration: 0.25

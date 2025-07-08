@@ -774,7 +774,7 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN;ZSTRING_TEXTMESHPRO_SUPPORT;LEVELPLAY_DEPENDENCIES_INSTALLED
+    Android: ZSTRING_TEXTMESHPRO_SUPPORT;UNITASK_DOTWEEN_SUPPORT;DOTWEEN
     EmbeddedLinux: DOTWEEN
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN
