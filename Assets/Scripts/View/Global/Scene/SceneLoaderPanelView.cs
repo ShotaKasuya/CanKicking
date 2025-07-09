@@ -2,7 +2,7 @@
 using DG.Tweening;
 using Interface.Global.Scene;
 using Module.SceneReference;
-using Structure.Utility;
+using ModuleExtension.SceneReferenceExtension;
 using UnityEngine;
 using UnityEngine.UI;
 

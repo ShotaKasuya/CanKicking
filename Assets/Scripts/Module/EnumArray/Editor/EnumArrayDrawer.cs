@@ -1,9 +1,7 @@
-﻿#if UNITY_EDITOR
-using Module.EnumArray;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace Module.EnumList
+namespace Module.EnumArray
 {
     [CustomPropertyDrawer(typeof(EnumArrayAttribute))]
     public class EnumListDrawer : PropertyDrawer
@@ -74,4 +72,3 @@ namespace Module.EnumList
         }
     }
 }
-#endif

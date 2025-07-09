@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Module.StateMachine;
+using ModuleExtension.StateMachine;
 using Structure.OutGame;
-using Structure.Utility;
 
 namespace Controller.OutGame.StageSelect.UserInterface
 {

@@ -1,11 +1,10 @@
+// SceneReferenceDrawer.cs (既存のファイルに追記・修正)
 using System;
 using UnityEngine;
+using UnityEditor;
 
 namespace Module.SceneReference.Editor
 {
-#if UNITY_EDITOR
-    using UnityEditor;
-
     [CustomPropertyDrawer(typeof(SceneReference))]
     public class SceneReferenceDrawer : PropertyDrawer
     {
@@ -29,20 +28,26 @@ namespace Module.SceneReference.Editor
 
             // sceneType に応じた表示
             var sceneType = (SceneType)sceneTypeProp.enumValueIndex;
-            var sceneLabel=String.Empty;
+            var sceneLabel = String.Empty;
 
             switch (sceneType)
             {
                 case SceneType.Local:
-                    sceneLabel = "Local Scene";
+                    sceneLabel = "Local Scene Path"; // ラベルをPathに変更
                     break;
-                case SceneType.Addressables:
-                    sceneLabel = "Addressable Asset Scene";
+                case SceneType.Addressable:
+                    sceneLabel = "Addressable Scene Path"; // ラベルをPathに変更
                     break;
             }
+
             var newScene = EditorGUI.ObjectField(sceneRect, sceneLabel, sceneAssetProp.objectReferenceValue,
                 typeof(SceneAsset), false);
-            sceneNameProp.stringValue = newScene != null ? newScene.name : "";
+            
+            // AssetDatabase.GetAssetPath を使用してパスを取得
+            sceneNameProp.stringValue = newScene != null ? AssetDatabase.GetAssetPath(newScene) : "";
+
+            // SceneAsset プロパティも更新 (これにより、SerializeされたsceneAssetが保持される)
+            sceneAssetProp.objectReferenceValue = newScene; 
 
             EditorGUI.EndProperty();
         }
@@ -52,5 +57,4 @@ namespace Module.SceneReference.Editor
             return EditorGUIUtility.singleLineHeight * 2 + EditorGUIUtility.standardVerticalSpacing;
         }
     }
-#endif
 }

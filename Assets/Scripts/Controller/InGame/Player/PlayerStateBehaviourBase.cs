@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Module.StateMachine;
+using ModuleExtension.StateMachine;
 using Structure.InGame.Player;
-using Structure.Utility;
 
 namespace Controller.InGame.Player
 {
@@ -40,7 +40,7 @@ namespace Controller.InGame.Player
             return State == state;
         }
 
-        public Action<StatePair<PlayerStateType>> OnChangeState { get; set; }
+        public Action<StatePair<PlayerStateType>>? OnChangeState { get; set; }
 
         public void ChangeState(PlayerStateType next)
         {

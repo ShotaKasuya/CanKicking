@@ -11,7 +11,7 @@ namespace Module.SceneReference
     public enum SceneType
     {
         Local,
-        Addressables,
+        Addressable,
     }
 
     [Serializable]
@@ -34,7 +34,7 @@ namespace Module.SceneReference
                 case SceneType.Local:
                     SceneManager.LoadScene(sceneName);
                     break;
-                case SceneType.Addressables:
+                case SceneType.Addressable:
                     Addressables.LoadSceneAsync(sceneName).WaitForCompletion();
                     break;
             }

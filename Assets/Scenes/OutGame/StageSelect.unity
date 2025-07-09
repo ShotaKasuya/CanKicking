@@ -452,6 +452,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5378602285211585620, guid: 26333fa60b7ab04c78430c052c74b220, type: 3}
+      propertyPath: sceneReference.sceneName
+      value: Assets/Scenes/InGame/Stage01.unity
+      objectReference: {fileID: 0}
     - target: {fileID: 6744578254404074827, guid: 26333fa60b7ab04c78430c052c74b220, type: 3}
       propertyPath: m_Name
       value: Stage1

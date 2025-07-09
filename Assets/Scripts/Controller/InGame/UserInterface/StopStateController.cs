@@ -103,7 +103,7 @@ namespace Controller.InGame.UserInterface
         
         public void Dispose()
         {
-            CompositeDisposable?.Dispose();
+            CompositeDisposable.Dispose();
         }
     }
 }

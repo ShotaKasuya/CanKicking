@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Module.StateMachine;
+using ModuleExtension.StateMachine;
 using Structure.InGame.UserInterface;
-using Structure.Utility;
 
 namespace Controller.InGame.UserInterface
 {

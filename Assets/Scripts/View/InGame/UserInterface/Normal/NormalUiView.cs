@@ -1,8 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.InGame.UserInterface;
-using Structure.Utility;
 using UnityEngine;
 using VContainer;
+using VContainer.ModuleExtension;
 using VContainer.Unity;
 
 namespace View.InGame.UserInterface.Normal

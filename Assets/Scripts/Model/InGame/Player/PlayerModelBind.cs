@@ -1,7 +1,7 @@
 using Model.Global;
-using Structure.Utility;
 using UnityEngine;
 using VContainer;
+using VContainer.ModuleExtension;
 using VContainer.Unity;
 
 namespace Model.InGame.Player
