@@ -22,4 +22,4 @@ MonoBehaviour:
     basePower: 20
   pullLimitModel:
     limitRatio: 0.75
-    cancelRatio: 0.25
+    cancelRatio: 0.125

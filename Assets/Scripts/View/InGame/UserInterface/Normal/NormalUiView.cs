@@ -11,7 +11,7 @@ namespace View.InGame.UserInterface.Normal
     {
         [SerializeField] private HeightUiView heightUiView;
         [SerializeField] private StopButtonView stopButtonView;
-        [SerializeField] private PullRangeUiView pullRangeUiView;
+        // [SerializeField] private PullRangeUiView pullRangeUiView;
         
         public void Register(IContainerBuilder builder)
         {
@@ -20,7 +20,7 @@ namespace View.InGame.UserInterface.Normal
                 componentsBuilder.AddInstance(this).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(heightUiView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(stopButtonView).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(pullRangeUiView).AsImplementedInterfaces();
+                // componentsBuilder.AddInstance(pullRangeUiView).AsImplementedInterfaces();
             });
         }
         
