@@ -197,3 +197,8 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   goalView: {fileID: 814890634571213470}
+  cameraView: {fileID: 0}
+  cameraZoomModel:
+    sensitivity: 0.125
+    zoomMaxLevel: 14
+    zoomMinLevel: 20

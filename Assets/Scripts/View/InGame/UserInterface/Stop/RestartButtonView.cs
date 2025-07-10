@@ -14,7 +14,7 @@ namespace View.InGame.UserInterface.Stop
 
         private void Start()
         {
-            _currentScene = new SceneReference(SceneManager.GetActiveScene().name);
+            _currentScene = new SceneReference(SceneType.Addressable, SceneManager.GetActiveScene().path);
         }
     }
 }

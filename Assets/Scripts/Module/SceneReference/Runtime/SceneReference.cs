@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -24,6 +25,8 @@ namespace Module.SceneReference
         [SerializeField] private SceneAsset sceneAsset;
 #endif
 
+        private bool _isLoaded;
+        private SceneInstance _sceneInstance;
         public SceneType SceneType => sceneType;
         public string SceneName => sceneName;
 
@@ -36,7 +39,21 @@ namespace Module.SceneReference
                     break;
                 case SceneType.Addressable:
                     Addressables.LoadSceneAsync(sceneName).WaitForCompletion();
+                    _isLoaded = true;
                     break;
+            }
+        }
+
+        public void UnLoad()
+        {
+            if (sceneType == SceneType.Addressable)
+            {
+                if (!_isLoaded)
+                {
+                    Debug.LogWarning("trying to unload not loaded scene");
+                }
+
+                Addressables.UnloadSceneAsync(_sceneInstance).WaitForCompletion();
             }
         }
 
@@ -52,8 +69,9 @@ namespace Module.SceneReference
         }
 #endif
 
-        public SceneReference(string scene)
+        public SceneReference(SceneType sceneType, string scene)
         {
+            this.sceneType = sceneType;
             sceneName = scene;
         }
     }

@@ -692,18 +692,6 @@ PrefabInstance:
       propertyPath: cameraView
       value: 
       objectReference: {fileID: 1275491163}
-    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
-      propertyPath: cameraZoomModel.sensitivity
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
-      propertyPath: cameraZoomModel.zoomMaxLevel
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2727582797244925959, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
-      propertyPath: cameraZoomModel.zoomMinLevel
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 3914332272450510873, guid: cba680f0f54164de681f73d28e7e9f54, type: 3}
       propertyPath: Target.TrackingTarget
       value: 

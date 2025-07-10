@@ -15,7 +15,7 @@ namespace View.InGame.UserInterface.Goal
 
         private void Start()
         {
-            _currentScene = new SceneReference(SceneManager.GetActiveScene().name);
+            _currentScene = new SceneReference(SceneType.Addressable, SceneManager.GetActiveScene().path);
         }
     }
 }
