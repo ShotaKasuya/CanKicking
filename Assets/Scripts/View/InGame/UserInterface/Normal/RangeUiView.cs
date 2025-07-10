@@ -1,5 +1,4 @@
 using Interface.InGame.UserInterface;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
