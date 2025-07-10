@@ -172,7 +172,7 @@ MonoBehaviour:
         timeScaleSettings:
           array:
           - 1
-          - 1.5
+          - 2
           - 0
 --- !u!1 &2519652904149435850
 GameObject:

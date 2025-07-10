@@ -1,4 +1,5 @@
 ﻿using Controller.InGame;
+using GoogleMobileAds.Api;
 using Model.InGame.Stage;
 using UnityEngine;
 using VContainer;
@@ -18,6 +19,7 @@ namespace Installer.InGame.Stage
             // View
             builder.RegisterInstance(goalView).AsImplementedInterfaces();
             builder.RegisterInstance(cameraView).AsImplementedInterfaces();
+            builder.Register<BannerView>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Model
             builder.RegisterInstance(cameraZoomModel).AsImplementedInterfaces();

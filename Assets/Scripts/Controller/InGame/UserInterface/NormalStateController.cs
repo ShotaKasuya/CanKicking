@@ -22,9 +22,6 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
         IHeightUiView heightUiView,
         IPlayerView playerView,
         IGoalEventView goalEventView,
-        IPullRangeView pullRangeView,
-        ITouchView touchView,
-        IPullLimitModel pullLimitModel,
         IMutStateEntity<UserInterfaceStateType> stateEntity
     ) : base(UserInterfaceStateType.Normal, stateEntity)
     {
@@ -33,9 +30,6 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
         GoalEventView = goalEventView;
         HeightUiView = heightUiView;
         PlayerView = playerView;
-        PullRangeView = pullRangeView;
-        TouchView = touchView;
-        PullLimitModel = pullLimitModel;
         CompositeDisposable = new CompositeDisposable();
     }
 
@@ -49,30 +43,12 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
             .Where(this, (_, controller) => controller.IsInState())
             .Subscribe(this, (_, controller) => controller.ChangeToGoal())
             .AddTo(CompositeDisposable);
-        TouchView.TouchEvent
-            .Where(this, (_, controller) => controller.IsInState())
-            .Subscribe(this, (argument, controller) => controller.OnTouch(argument))
-            .AddTo(CompositeDisposable);
-        TouchView.TouchEndEvent
-            .Where(this, (_, controller) => controller.IsInState())
-            .Subscribe(this, (_, controller) => controller.PullRangeView.HideRange())
-            .AddTo(CompositeDisposable);
     }
 
     public override void StateUpdate(float deltaTime)
     {
         var height = PlayerView.ModelTransform.position.y;
         HeightUiView.SetHeight(height);
-    }
-
-    private void OnTouch(TouchStartEventArgument touchStartEventArgument)
-    {
-        var aimContext = new AimContext(
-            touchStartEventArgument.TouchPosition,
-            PullLimitModel.CancelRatio,
-            PullLimitModel.MaxRatio
-        );
-        PullRangeView.ShowRange(aimContext);
     }
 
     private void ChangeToGoal()
@@ -99,10 +75,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
     private IStopButtonView StopButtonView { get; }
     private IGoalEventView GoalEventView { get; }
     private IHeightUiView HeightUiView { get; }
-    private IPullRangeView PullRangeView { get; }
     private IPlayerView PlayerView { get; }
-    private ITouchView TouchView { get; }
-    private IPullLimitModel PullLimitModel { get; }
     private CompositeDisposable CompositeDisposable { get; }
 
     public void Dispose()

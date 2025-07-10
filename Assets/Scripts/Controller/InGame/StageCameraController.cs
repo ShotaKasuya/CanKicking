@@ -20,7 +20,7 @@ namespace Controller.InGame
 
         public void Tick()
         {
-            var pinchValue = PinchView.Pool();
+            var pinchValue = -PinchView.Pool();
             if (Mathf.Abs(pinchValue) > 0.01f)
             {
                 var sensi = CameraZoomModel.Sensitivity;

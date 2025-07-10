@@ -18,10 +18,6 @@ namespace View.InGame.UserInterface.Normal
 
         private void Awake()
         {
-            Assert.NotNull(targetCanvas);
-            Assert.NotNull(canvasCamera);
-            Assert.NotNull(circleOutlineSprite);
-
             CreateCircleObjects();
             var center = new Vector2(Screen.width, Screen.height) / 2;
             ShowRangeCircles(center, 10, 100);

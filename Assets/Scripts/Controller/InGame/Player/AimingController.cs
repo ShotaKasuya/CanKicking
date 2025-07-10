@@ -1,4 +1,5 @@
 using System;
+using Interface.Global.Screen;
 using Interface.InGame.Player;
 using Module.StateMachine;
 using R3;
@@ -18,6 +19,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
         ICanKickView canKickView,
         IKickBasePowerModel kickBasePowerModel,
         IPullLimitModel pullLimitModel,
+        IScreenScaleModel screenScaleModel,
         IMutStateEntity<PlayerStateType> stateEntity
     ) : base(PlayerStateType.Aiming, stateEntity)
     {
@@ -26,6 +28,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
         CanKickView = canKickView;
         KickBasePowerModel = kickBasePowerModel;
         PullLimitModel = pullLimitModel;
+        ScreenScaleModel = screenScaleModel;
 
         CompositeDisposable = new CompositeDisposable();
     }
@@ -46,7 +49,8 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
             return;
         }
 
-        var (aimVector, length) = Calculator.FitVectorToScreen(info.Delta);
+        var screen = ScreenScaleModel.Scale;
+        var (aimVector, length) = Calculator.FitVectorToScreen(info.Delta, screen);
         var cancelLength = PullLimitModel.CancelRatio;
         var maxLength = PullLimitModel.MaxRatio;
 
@@ -74,11 +78,12 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
 
     private void Jump(TouchEndEventArgument fingerReleaseInfo)
     {
+        var screen = ScreenScaleModel.Scale;
         var basePower = KickBasePowerModel.BasePower;
         var deltaPosition = fingerReleaseInfo.Delta;
         var cancelLength = PullLimitModel.CancelRatio;
         var maxLength = PullLimitModel.MaxRatio;
-        var (aimVector, length) = Calculator.FitVectorToScreen(deltaPosition);
+        var (aimVector, length) = Calculator.FitVectorToScreen(deltaPosition, screen);
 
         var resizeLength = Mathf.InverseLerp(cancelLength, maxLength, length);
         var power = basePower * resizeLength * aimVector;
@@ -94,6 +99,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
     private ICanKickView CanKickView { get; }
     private IKickBasePowerModel KickBasePowerModel { get; }
     private IPullLimitModel PullLimitModel { get; }
+    private IScreenScaleModel ScreenScaleModel { get; }
 
     public void Dispose()
     {

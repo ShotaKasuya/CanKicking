@@ -19,11 +19,6 @@ namespace View.InGame.UserInterface.Normal
             _parentTransform = _selfTransform.parent as RectTransform;
             _image = GetComponent<Image>()!;
             _camera = Camera.main;
-
-            Assert.NotNull(_selfTransform);
-            Assert.NotNull(_parentTransform);
-            Assert.NotNull(_image);
-            Assert.NotNull(_camera);
         }
 
         public void Set(Vector2 point, float radius)

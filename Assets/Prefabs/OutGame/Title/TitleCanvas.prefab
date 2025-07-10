@@ -200,5 +200,6 @@ MonoBehaviour:
   autoInjectGameObjects: []
   gameStartSceneModel:
     sceneReference:
-      sceneName: StageSelect
+      sceneType: 0
+      sceneName: Assets/Scenes/OutGame/StageSelect.unity
       sceneAsset: {fileID: 102900000, guid: 2d25e4c23acd2ddb4907d76bb174b201, type: 3}
