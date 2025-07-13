@@ -151,6 +151,10 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  uiScene:
+    sceneType: 1
+    sceneName: Assets/Scenes/Global/TouchPresent.unity
+    sceneAsset: {fileID: 102900000, guid: b154f490c7bdefc489cc51fcaabb7c24, type: 3}
   sceneLoaderView:
     mode: 0
     unityReference: {fileID: 3536605741391253119}

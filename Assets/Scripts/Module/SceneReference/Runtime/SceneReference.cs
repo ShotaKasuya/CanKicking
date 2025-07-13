@@ -9,17 +9,12 @@ using UnityEditor;
 
 namespace Module.SceneReference
 {
-    public enum SceneType
-    {
-        Local,
-        Addressable,
-    }
-
     [Serializable]
     public class SceneReference
     {
         [SerializeField] private SceneType sceneType;
         [SerializeField, HideInInspector] private string sceneName;
+        [SerializeField, HideInInspector] private string scenePath;
 
 #if UNITY_EDITOR
         [SerializeField] private SceneAsset sceneAsset;
@@ -27,47 +22,9 @@ namespace Module.SceneReference
 
         private bool _isLoaded;
         private SceneInstance _sceneInstance;
-        public SceneType SceneType => sceneType;
+        public SceneType Type => sceneType;
         public string SceneName => sceneName;
-
-        public void Load()
-        {
-            switch (sceneType)
-            {
-                case SceneType.Local:
-                    SceneManager.LoadScene(sceneName);
-                    break;
-                case SceneType.Addressable:
-                    Addressables.LoadSceneAsync(sceneName).WaitForCompletion();
-                    _isLoaded = true;
-                    break;
-            }
-        }
-
-        public void UnLoad()
-        {
-            if (sceneType == SceneType.Addressable)
-            {
-                if (!_isLoaded)
-                {
-                    Debug.LogWarning("trying to unload not loaded scene");
-                }
-
-                Addressables.UnloadSceneAsync(_sceneInstance).WaitForCompletion();
-            }
-        }
-
-#if UNITY_EDITOR
-        public SceneAsset SceneAsset
-        {
-            get => sceneAsset!;
-            set
-            {
-                sceneAsset = value;
-                sceneName = sceneAsset != null ? sceneAsset.name : "";
-            }
-        }
-#endif
+        public string ScenePath => scenePath;
 
         public SceneReference(SceneType sceneType, string scene)
         {

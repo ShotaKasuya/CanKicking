@@ -25,6 +25,7 @@ namespace Module.SceneReference.Editor
             // 各プロパティ
             var sceneAssetProp = property.FindPropertyRelative("sceneAsset");
             var sceneNameProp = property.FindPropertyRelative("sceneName");
+            var scenePathProp = property.FindPropertyRelative("scenePath");
 
             // sceneType に応じた表示
             var sceneType = (SceneType)sceneTypeProp.enumValueIndex;
@@ -32,7 +33,7 @@ namespace Module.SceneReference.Editor
 
             switch (sceneType)
             {
-                case SceneType.Local:
+                case SceneType.SceneManager:
                     sceneLabel = "Local Scene Path"; // ラベルをPathに変更
                     break;
                 case SceneType.Addressable:
@@ -41,10 +42,11 @@ namespace Module.SceneReference.Editor
             }
 
             var newScene = EditorGUI.ObjectField(sceneRect, sceneLabel, sceneAssetProp.objectReferenceValue,
-                typeof(SceneAsset), false);
+                typeof(SceneAsset), false) as SceneAsset;
             
             // AssetDatabase.GetAssetPath を使用してパスを取得
-            sceneNameProp.stringValue = newScene != null ? AssetDatabase.GetAssetPath(newScene) : "";
+            sceneNameProp.stringValue = newScene!.name;
+            scenePathProp.stringValue = newScene != null ? AssetDatabase.GetAssetPath(newScene) : "";
 
             // SceneAsset プロパティも更新 (これにより、SerializeされたsceneAssetが保持される)
             sceneAssetProp.objectReferenceValue = newScene; 

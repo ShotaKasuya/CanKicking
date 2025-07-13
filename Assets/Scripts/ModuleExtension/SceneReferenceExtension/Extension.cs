@@ -11,9 +11,9 @@ namespace ModuleExtension.SceneReferenceExtension
     {
         public static async UniTask LoadAsync(this SceneReference sceneReference)
         {
-            switch (sceneReference.SceneType)
+            switch (sceneReference.Type)
             {
-                case SceneType.Local:
+                case SceneType.SceneManager:
                     await SceneManager.LoadSceneAsync(sceneReference.SceneName, LoadSceneMode.Single).ToUniTask();
                     break;
                 case SceneType.Addressable:
