@@ -23,10 +23,6 @@ namespace View.Global.Scene
             {
                 case SceneType.SceneManager:
                     await SceneManager.LoadSceneAsync(sceneReference.SceneName).ToUniTask();
-                    _prevScene = new SceneContext(
-                        SceneType.SceneManager,
-                        SceneManager.GetSceneByName(sceneReference.SceneName)
-                    );
                     break;
                 case SceneType.Addressable:
                     var task = Addressables.LoadSceneAsync(sceneReference.ScenePath).Task;
