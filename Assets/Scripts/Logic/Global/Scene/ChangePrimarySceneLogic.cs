@@ -20,7 +20,7 @@ namespace Logic.Global.Scene
         
         public async UniTask ChangeScene(string scenePath)
         {
-            await UniTask.WaitUntil(BlockingOperationModel.IsAnyBlocked);
+            await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
             var sceneInstance = await SceneLoaderView.LoadScene(scenePath);
             
