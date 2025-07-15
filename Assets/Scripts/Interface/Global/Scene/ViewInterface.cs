@@ -8,9 +8,11 @@ public interface ISceneLoaderView
 {
     public UniTask LoadScene(SceneReference sceneContext);
 }
+
 public interface INewSceneLoaderView
 {
     public UniTask<SceneReleaseContext> LoadScene(string sceneContext);
+    public UniTask ActivateAsync(SceneReleaseContext scene);
     public UniTask UnLoadScene(SceneReleaseContext releaseContext);
 }
 
@@ -20,4 +22,9 @@ public interface ISceneLoadEventView
     public Observable<Unit> BeforeNextSceneActivate { get; }
     public Observable<Unit> BeforeSceneUnLoad { get; }
     public Observable<Unit> AfterSceneUnLoad { get; }
+
+    public void InvokeBeforeSceneLoad();
+    public void InvokeBeforeNextSceneActivate();
+    public void InvokeBeforeSceneUnLoad();
+    public void InvokeAfterSceneUnLoad();
 }

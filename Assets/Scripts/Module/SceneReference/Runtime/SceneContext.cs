@@ -1,4 +1,5 @@
-﻿using UnityEngine.ResourceManagement.ResourceProviders;
+﻿using UnityEngine;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
 namespace Module.SceneReference
@@ -27,16 +28,19 @@ namespace Module.SceneReference
         (
             SceneType sceneType,
             SceneInstance sceneInstance,
+            AsyncOperation operation,
             string sceneName
         )
         {
             Type = sceneType;
             SceneInstance = sceneInstance;
+            Operation = operation;
             SceneName = sceneName;
         }
         
         public SceneType Type { get; }
         public SceneInstance SceneInstance { get; }
+        public AsyncOperation Operation { get; }
         public string SceneName { get; }
     }
 }

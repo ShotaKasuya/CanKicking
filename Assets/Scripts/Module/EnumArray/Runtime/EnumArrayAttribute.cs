@@ -22,4 +22,5 @@ namespace Module.EnumArray
         {
             return array[index];
         }
-    }}
+    }
+}

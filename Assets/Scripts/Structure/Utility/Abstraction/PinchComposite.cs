@@ -27,11 +27,6 @@ namespace Structure.Utility.Abstraction
 #endif
         private static void Initialize()
         {
-            if (Touchscreen.current == null || Touchscreen.current.touches.Count < 2)
-            {
-                Debug.LogWarning("Touchscreen not available or insufficient touches");
-            }
-
             // 登録する必要がある
             InputSystem.RegisterBindingComposite(typeof(PinchComposite), "PinchComposite");
         }
