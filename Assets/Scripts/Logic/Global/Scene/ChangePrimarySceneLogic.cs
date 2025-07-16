@@ -11,34 +11,34 @@ namespace Logic.Global.Scene
             IPrimarySceneModel primarySceneModel,
             IBlockingOperationModel blockingOperationModel,
             INewSceneLoaderView sceneLoaderView,
-            ISceneLoadEventView sceneLoadEventView
+            ISceneLoadEventModel sceneLoadEventModel
         )
         {
             PrimarySceneModel = primarySceneModel;
             BlockingOperationModel = blockingOperationModel;
             SceneLoaderView = sceneLoaderView;
-            SceneLoadEventView = sceneLoadEventView;
+            SceneLoadEventModel = sceneLoadEventModel;
         }
 
         public async UniTask ChangeScene(string scenePath)
         {
             await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
-            SceneLoadEventView.InvokeBeforeSceneLoad();
+            SceneLoadEventModel.InvokeBeforeSceneLoad();
 
             var sceneInstance = await SceneLoaderView.LoadScene(scenePath);
-            SceneLoadEventView.InvokeBeforeNextSceneActivate();
+            SceneLoadEventModel.InvokeBeforeNextSceneActivate();
             await SceneLoaderView.ActivateAsync(sceneInstance);
 
-            SceneLoadEventView.InvokeBeforeSceneUnLoad();
+            SceneLoadEventModel.InvokeBeforeSceneUnLoad();
             var prevSceneInstance = PrimarySceneModel.ToggleCurrentScene(sceneInstance);
             await SceneLoaderView.UnLoadScene(prevSceneInstance);
-            SceneLoadEventView.InvokeAfterSceneUnLoad();
+            SceneLoadEventModel.InvokeAfterSceneUnLoad();
         }
 
         private IPrimarySceneModel PrimarySceneModel { get; }
         private IBlockingOperationModel BlockingOperationModel { get; }
         private INewSceneLoaderView SceneLoaderView { get; }
-        private ISceneLoadEventView SceneLoadEventView { get; }
+        private ISceneLoadEventModel SceneLoadEventModel { get; }
     }
 }
