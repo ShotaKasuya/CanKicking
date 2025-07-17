@@ -1,4 +1,5 @@
-﻿using Module.SceneReference;
+﻿using System.Collections.Generic;
+using Module.SceneReference;
 using R3;
 
 namespace Interface.Global.Scene;
@@ -19,4 +20,11 @@ public interface ISceneLoadEventModel
     public void InvokeBeforeNextSceneActivate();
     public void InvokeBeforeSceneUnLoad();
     public void InvokeAfterSceneUnLoad();
+}
+
+public interface ISceneResourcesModel
+{
+    public IReadOnlyList<SceneContext> GetSceneResources();
+    public void PushReleaseContext(SceneReleaseContext sceneReleaseContext);
+    public IReadOnlyList<SceneReleaseContext> GetSceneReleaseContexts();
 }

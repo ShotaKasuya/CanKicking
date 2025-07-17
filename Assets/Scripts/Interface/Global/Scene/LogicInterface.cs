@@ -2,7 +2,13 @@
 
 namespace Interface.Global.Scene;
 
-public interface ISceneChangeLogic
+public interface IChangePrimarySceneLogic
 {
     public UniTask ChangeScene(string scenePath);
+}
+
+public interface ILoadResourcesSceneLogic
+{
+    public UniTask LoadResources(ISceneResourcesModel sceneResourcesModel);
+    public UniTask UnLoadResources(ISceneResourcesModel sceneResourcesModel);
 }
