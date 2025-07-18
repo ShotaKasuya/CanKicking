@@ -21,7 +21,7 @@ public interface ISceneLoaderView
 /// </summary>
 public interface INewSceneLoaderView
 {
-    public UniTask<SceneReleaseContext> LoadScene(string sceneContext);
+    public UniTask<SceneReleaseContext> LoadScene(string scenePath);
     public UniTask ActivateAsync(SceneReleaseContext scene);
     public UniTask UnLoadScene(SceneReleaseContext releaseContext);
 }

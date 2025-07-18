@@ -4,39 +4,41 @@ using Interface.Global.Utility;
 
 namespace Logic.Global.Scene;
 
-public class LoadResourcesSceneLogic : ILoadResourcesSceneLogic
+public class SceneResourcesLoadLogic : ILoadResourcesSceneLogic
 {
-    public LoadResourcesSceneLogic
+    public SceneResourcesLoadLogic
     (
         INewSceneLoaderView sceneLoaderView,
+        ISceneResourcesModel sceneResourcesModel,
         IBlockingOperationModel blockingOperationModel
     )
     {
         SceneLoaderView = sceneLoaderView;
+        SceneResourcesModel = sceneResourcesModel;
         BlockingOperationModel = blockingOperationModel;
     }
 
     private const string LoadContext = "Scene Load";
     private const string UnLoadContext = "Scene UnLoad";
 
-    public async UniTask LoadResources(ISceneResourcesModel sceneResourcesModel)
+    public async UniTask LoadResources()
     {
         var operation = BlockingOperationModel.SpawnOperation(LoadContext);
-        var scenes = sceneResourcesModel.GetSceneResources();
+        var scenes = SceneResourcesModel.GetSceneResources();
         for (int i = 0; i < scenes.Count; i++)
         {
-            var scene = scenes[i];
-            var releaseContext = await SceneLoaderView.LoadScene(scene.Scene.name);
-            sceneResourcesModel.PushReleaseContext(releaseContext);
+            var scene = scenes[i]!;
+            var releaseContext = await SceneLoaderView.LoadScene(scene);
+            SceneResourcesModel.PushReleaseContext(releaseContext);
         }
 
         operation.Release();
     }
 
-    public async UniTask UnLoadResources(ISceneResourcesModel sceneResourcesModel)
+    public async UniTask UnLoadResources()
     {
         var operation = BlockingOperationModel.SpawnOperation(UnLoadContext);
-        var contexts = sceneResourcesModel.GetSceneReleaseContexts();
+        var contexts = SceneResourcesModel.GetSceneReleaseContexts();
         for (int i = 0; i < contexts.Count; i++)
         {
             var context = contexts[i];
@@ -47,5 +49,6 @@ public class LoadResourcesSceneLogic : ILoadResourcesSceneLogic
     }
 
     private INewSceneLoaderView SceneLoaderView { get; }
+    private ISceneResourcesModel SceneResourcesModel { get; }
     private IBlockingOperationModel BlockingOperationModel { get; }
 }

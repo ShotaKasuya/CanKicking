@@ -4,9 +4,9 @@ using Interface.Global.Utility;
 
 namespace Logic.Global.Scene;
 
-public class ChangePrimarySceneLogic : IChangePrimarySceneLogic
+public class PrimarySceneLoadLogic : ILoadScenePrimaryLogic
 {
-    public ChangePrimarySceneLogic
+    public PrimarySceneLoadLogic
     (
         IPrimarySceneModel primarySceneModel,
         IBlockingOperationModel blockingOperationModel,

@@ -1,9 +1,21 @@
 # ドキュメント
 
-## ProjectArchitecture
+## シーンの依存関係
 
-Installerが注入する内部の依存関係の構造を記す
+```mermaid
 
-## Dependency
+block-beta
+    columns 1
+    db("Primary Scene")
+    blockArrowId6<["Load"]>(down)
+    
+    block:ID
+        Ui
+        Environment
+        GameplayResources
+    end
+    space
+    
+    Player
 
-Installer同士の依存関係を記す
+```

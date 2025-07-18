@@ -24,7 +24,7 @@ public interface ISceneLoadEventModel
 
 public interface ISceneResourcesModel
 {
-    public IReadOnlyList<SceneContext> GetSceneResources();
+    public IReadOnlyList<string> GetSceneResources();
     public void PushReleaseContext(SceneReleaseContext sceneReleaseContext);
     public IReadOnlyList<SceneReleaseContext> GetSceneReleaseContexts();
 }

@@ -2,6 +2,7 @@ using Interface.Global.Scene;
 using Interface.Global.TimeScale;
 using Model.Global;
 using Module.SceneReference;
+using R3;
 using TNRD;
 using UnityEngine;
 using VContainer;
@@ -19,6 +20,7 @@ namespace Installer.Global
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<InputSystem_Actions>(Lifetime.Singleton);
+            builder.Register<CompositeDisposable>(Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
 
             builder.Register<ScreenScaleModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.UseComponents(componentsBuilder => { componentsBuilder.AddInstance(sceneLoaderView.Value); });

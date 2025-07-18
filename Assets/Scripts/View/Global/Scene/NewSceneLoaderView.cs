@@ -11,9 +11,9 @@ namespace View.Global.Scene
 {
     public class NewSceneLoaderView : INewSceneLoaderView
     {
-        public async UniTask<SceneReleaseContext> LoadScene(string sceneContext)
+        public async UniTask<SceneReleaseContext> LoadScene(string scenePath)
         {
-            var handle = Addressables.LoadSceneAsync(sceneContext, LoadSceneMode.Additive, false);
+            var handle = Addressables.LoadSceneAsync(scenePath, LoadSceneMode.Additive, false);
             SceneType type;
             SceneInstance instance;
             AsyncOperation operation = null;
@@ -24,7 +24,7 @@ namespace View.Global.Scene
             }
             catch (Exception _)
             {
-                operation = SceneManager.LoadSceneAsync(sceneContext, LoadSceneMode.Additive);
+                operation = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
                 operation!.allowSceneActivation = false;
                 await operation.ToUniTask();
                 instance = default;

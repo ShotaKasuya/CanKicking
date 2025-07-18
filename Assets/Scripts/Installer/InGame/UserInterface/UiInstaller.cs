@@ -22,11 +22,11 @@ namespace Installer.InGame.UserInterface
             goalUiView.Register(builder);
 
             // Controller
-            builder.Register<UserInterfaceState>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<UserInterfaceState>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.RegisterEntryPoint<UserInterfaceStateMachine>();
-            builder.Register<NormalStateController>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<StopStateController>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<GoalStateController>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<NormalStateController>(Lifetime.Transient).AsImplementedInterfaces();
+            builder.Register<StopStateController>(Lifetime.Transient).AsImplementedInterfaces();
+            builder.Register<GoalStateController>(Lifetime.Transient).AsImplementedInterfaces();
         }
     }
 }

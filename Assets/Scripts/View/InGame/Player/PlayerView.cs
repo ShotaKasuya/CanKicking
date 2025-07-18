@@ -10,8 +10,8 @@ namespace View.InGame.Player
     public class PlayerView : MonoBehaviour, IPlayerView, ICanKickView, IRayCasterView
     {
         public Transform ModelTransform => _modelTransform!;
-        public Vector2 LinearVelocity => _rigidbody!.linearVelocity;
-        public float AngularVelocity => _rigidbody!.angularVelocity;
+        public Vector2 LinearVelocity => _rigidbody.linearVelocity;
+        public float AngularVelocity => _rigidbody.angularVelocity;
         public Observable<Collision2D> CollisionEnterEvent => _collisionEnterSubject;
 
         private Transform _modelTransform;
@@ -36,7 +36,7 @@ namespace View.InGame.Player
 
         public void Kick(KickContext context)
         {
-            _rigidbody!.AddForce(context.Direction, ForceMode2D.Impulse);
+            _rigidbody.AddForce(context.Direction, ForceMode2D.Impulse);
             _rigidbody.AddTorque(context.RotationPower, ForceMode2D.Impulse);
         }
 

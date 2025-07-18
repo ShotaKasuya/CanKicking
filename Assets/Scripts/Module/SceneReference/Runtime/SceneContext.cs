@@ -43,4 +43,5 @@ namespace Module.SceneReference
         public AsyncOperation Operation { get; }
         public string SceneName { get; }
     }
+    
 }
