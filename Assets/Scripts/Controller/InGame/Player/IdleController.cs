@@ -1,3 +1,4 @@
+using Interface.Global.Input;
 using Interface.Global.Screen;
 using Interface.InGame.Player;
 using Module.StateMachine;

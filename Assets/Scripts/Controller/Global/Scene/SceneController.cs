@@ -9,7 +9,7 @@ public class SceneController : IInitializable
 {
     public SceneController
     (
-        ILoadResourcesSceneLogic loadResourcesSceneLogic,
+        ILoadSceneResourcesLogic loadResourcesSceneLogic,
         ISceneLoadEventModel sceneLoadEventModel,
         CompositeDisposable compositeDisposable
     )
@@ -31,6 +31,6 @@ public class SceneController : IInitializable
     }
 
     private CompositeDisposable CompositeDisposable { get; }
-    private ILoadResourcesSceneLogic LoadResourcesSceneLogic { get; }
+    private ILoadSceneResourcesLogic LoadResourcesSceneLogic { get; }
     private ISceneLoadEventModel SceneLoadEventModel { get; }
 }

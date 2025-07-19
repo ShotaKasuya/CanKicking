@@ -21,7 +21,7 @@ namespace Installer.Global
             builder.UseComponents(componentsBuilder =>
             {
                 componentsBuilder.AddInstance(bgmModel.Value);
-                componentsBuilder.AddInstance(bgmModel.Value);
+                componentsBuilder.AddInstance(sceneResources.Value);
             });
 
             builder.RegisterEntryPoint<SceneController>();

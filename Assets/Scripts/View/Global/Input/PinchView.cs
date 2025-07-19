@@ -1,6 +1,6 @@
-namespace View.InGame.Input
+namespace View.Global.Input
 {
-    public partial class InGameInputView
+    public partial class GlobalInputView
     {
         public float Pool()
         {

@@ -1,18 +1,21 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
+using VContainer.Unity;
 
 namespace Logic.Global.Scene;
 
-public class SceneResourcesLoadLogic : ILoadResourcesSceneLogic
+public class LoadSceneResourcesLogic : ILoadSceneResourcesLogic
 {
-    public SceneResourcesLoadLogic
+    public LoadSceneResourcesLogic
     (
+        LifetimeScope lifetimeScope,
         INewSceneLoaderView sceneLoaderView,
         ISceneResourcesModel sceneResourcesModel,
         IBlockingOperationModel blockingOperationModel
     )
     {
+        ParentScope = lifetimeScope;
         SceneLoaderView = sceneLoaderView;
         SceneResourcesModel = sceneResourcesModel;
         BlockingOperationModel = blockingOperationModel;
@@ -24,12 +27,15 @@ public class SceneResourcesLoadLogic : ILoadResourcesSceneLogic
     public async UniTask LoadResources()
     {
         var operation = BlockingOperationModel.SpawnOperation(LoadContext);
-        var scenes = SceneResourcesModel.GetSceneResources();
-        for (int i = 0; i < scenes.Count; i++)
+        using (LifetimeScope.EnqueueParent(ParentScope))
         {
-            var scene = scenes[i]!;
-            var releaseContext = await SceneLoaderView.LoadScene(scene);
-            SceneResourcesModel.PushReleaseContext(releaseContext);
+            var scenes = SceneResourcesModel.GetSceneResources();
+            for (int i = 0; i < scenes.Count; i++)
+            {
+                var scene = scenes[i]!;
+                var releaseContext = await SceneLoaderView.LoadScene(scene);
+                SceneResourcesModel.PushReleaseContext(releaseContext);
+            }
         }
 
         operation.Release();
@@ -48,6 +54,7 @@ public class SceneResourcesLoadLogic : ILoadResourcesSceneLogic
         operation.Release();
     }
 
+    private LifetimeScope ParentScope { get; }
     private INewSceneLoaderView SceneLoaderView { get; }
     private ISceneResourcesModel SceneResourcesModel { get; }
     private IBlockingOperationModel BlockingOperationModel { get; }

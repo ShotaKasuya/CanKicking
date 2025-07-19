@@ -1,3 +1,6 @@
+using Controller.Global.Scene;
+using Interface.Global.Scene;
+using TNRD;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -8,15 +11,21 @@ namespace Installer.InGame
     public class GameplayResourcesInstaller: LifetimeScope
     {
         [SerializeField] private PlayerView playerView;
+        [SerializeField] private SerializableInterface<ISceneResourcesModel> sceneResourcesModel;
         
         protected override void Configure(IContainerBuilder builder)
         {
             // View
-            builder.RegisterComponentInNewPrefab(playerView, Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterComponent(playerView).AsImplementedInterfaces();
             
             // Model
+            builder.UseComponents(componentsBuilder =>
+            {
+                componentsBuilder.AddInstance(sceneResourcesModel.Value);
+            });
             
             // Controller
+            builder.RegisterEntryPoint<SceneController>();
         }
     }
 }

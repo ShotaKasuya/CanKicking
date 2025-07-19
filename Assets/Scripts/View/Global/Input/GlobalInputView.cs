@@ -1,17 +1,13 @@
 using System;
-using Interface.InGame.Player;
+using Interface.Global.Input;
 using Interface.InGame.Stage;
 using VContainer.Unity;
-using View.Global.Input;
 
-namespace View.InGame.Input
+namespace View.Global.Input
 {
-    public partial class InGameInputView : ITouchView, IPinchView, ITickable, IStartable, IDisposable
+    public partial class GlobalInputView : ITouchView, IPinchView, ITickable, IStartable, IDisposable
     {
-        public InGameInputView
-        (
-            InputSystem_Actions inputSystemActions
-        )
+        public GlobalInputView(InputSystem_Actions inputSystemActions)
         {
             Actions = inputSystemActions.Player;
         }
@@ -21,11 +17,10 @@ namespace View.InGame.Input
             Actions.Enable();
             TouchInit();
         }
-        
+
         public void Tick()
         {
             TouchTick();
-            DebugTick();
         }
 
         public void Dispose()

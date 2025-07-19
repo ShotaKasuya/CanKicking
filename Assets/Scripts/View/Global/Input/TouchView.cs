@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Interface.InGame.Player;
+using Interface.Global.Input;
 using Module.Option;
 using R3;
 using UnityEngine;
@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace View.InGame.Input
+namespace View.Global.Input
 {
-    public partial class InGameInputView
+    public partial class GlobalInputView
     {
         private void TouchInit()
         {
@@ -85,7 +85,7 @@ namespace View.InGame.Input
             {
                 position = position
             };
-            EventSystem.current.RaycastAll(eventData, RaycastPool);
+            EventSystem.current?.RaycastAll(eventData, RaycastPool);
             foreach (var raycastResult in RaycastPool)
             {
                 if (raycastResult.gameObject.TryGetComponent(out Button _))

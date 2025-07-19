@@ -11,7 +11,7 @@ block-beta
     GL["Global Locator"]:3
     space:3
 
-%% 中段: 主要シーン3つを横並び (幅3で均等割)
+%% 中段: 主要シーン3つを横並び
     TitleScene["TitleScene"]
     StageSelectScene["StageSelectScene"]
     StageScene["StageScene"]

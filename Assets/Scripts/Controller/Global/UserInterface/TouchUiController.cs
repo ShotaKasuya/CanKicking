@@ -1,14 +1,14 @@
 using Cysharp.Threading.Tasks;
+using Interface.Global.Input;
 using Interface.Global.UserInterface;
-using Interface.InGame.Player;
 using R3;
 using VContainer.Unity;
 
 namespace Controller.Global.UserInterface;
 
-public class GlobalUiController : IStartable
+public class TouchUiController : IStartable
 {
-    public GlobalUiController
+    public TouchUiController
     (
         ITouchView touchView,
         ITouchPositionUiView touchPositionUiView
