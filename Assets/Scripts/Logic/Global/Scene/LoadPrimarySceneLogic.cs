@@ -29,13 +29,13 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
         SceneLoadEventModel.InvokeBeforeSceneUnLoad();
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
+        SceneLoadEventModel.InvokeBeforeNextSceneActivate();
+        await SceneLoaderView.ActivateAsync(sceneInstance);
+        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+
         var prevSceneInstance = PrimarySceneModel.ToggleCurrentScene(sceneInstance);
         await SceneLoaderView.UnLoadScene(prevSceneInstance);
         SceneLoadEventModel.InvokeAfterSceneUnLoad();
-        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
-
-        SceneLoadEventModel.InvokeBeforeNextSceneActivate();
-        await SceneLoaderView.ActivateAsync(sceneInstance);
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
     }
 

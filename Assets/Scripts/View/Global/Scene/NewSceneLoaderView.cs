@@ -1,9 +1,9 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Module.SceneReference;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
@@ -13,17 +13,23 @@ namespace View.Global.Scene
     {
         public async UniTask<SceneReleaseContext> LoadScene(string scenePath)
         {
-            var handle = Addressables.LoadSceneAsync(scenePath, LoadSceneMode.Additive, false);
             SceneType type;
             SceneInstance instance;
             AsyncOperation operation = null;
-            try
+
+            var locationsHandle = Addressables.LoadResourceLocationsAsync(scenePath);
+            await locationsHandle.Task;
+
+            if (locationsHandle.Status == AsyncOperationStatus.Succeeded && locationsHandle.Result.Count > 0)
             {
+                // アセットが存在する
+                var handle = Addressables.LoadSceneAsync(scenePath, LoadSceneMode.Additive, false);
                 instance = await handle.Task.AsUniTask();
                 type = SceneType.Addressable;
             }
-            catch (Exception _)
+            else
             {
+                // アセットが存在しない
                 operation = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
                 operation!.allowSceneActivation = false;
                 await operation.ToUniTask();
@@ -44,11 +50,29 @@ namespace View.Global.Scene
             {
                 await scene.SceneInstance.ActivateAsync().ToUniTask();
             }
+
+            // todo
+            var loadedScene = SceneManager.GetSceneByName(scene.SceneName);
+            if (loadedScene.IsValid() && loadedScene.isLoaded)
+            {
+                SceneManager.SetActiveScene(loadedScene);
+            }
+            else
+            {
+                Debug.LogWarning($"シーン {scene.SceneName} は有効でないかロードされていません。");
+            }
         }
 
         public async UniTask UnLoadScene(SceneReleaseContext sceneInstance)
         {
-            await Addressables.UnloadSceneAsync(sceneInstance.SceneInstance).Task;
+            if (sceneInstance.Type == SceneType.SceneManager)
+            {
+                await SceneManager.UnloadSceneAsync(sceneInstance.SceneName);
+            }
+            else if (sceneInstance.Type == SceneType.Addressable)
+            {
+                await Addressables.UnloadSceneAsync(sceneInstance.SceneInstance).Task;
+            }
         }
     }
 }

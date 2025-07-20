@@ -4,6 +4,7 @@ using R3;
 using UnityEngine;
 
 namespace Interface.Global.Input;
+
 public interface ITouchView
 {
     public Observable<TouchStartEventArgument> TouchEvent { get; }

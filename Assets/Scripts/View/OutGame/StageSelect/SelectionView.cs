@@ -1,33 +1,36 @@
-﻿using System;
+﻿using Interface.Global.Input;
 using Interface.OutGame.StageSelect;
 using Module.Option;
-using Module.SceneReference;
 using R3;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using VContainer.Unity;
-using View.Global.Input;
 
 namespace View.OutGame.StageSelect
 {
-    public class SelectionView : IStageSelectionView, IStartable, IDisposable
+    public class SelectionView : IStageSelectionView, IStartable
     {
-        public SelectionView(InputSystem_Actions inputSystemActions)
+        public SelectionView
+        (
+            ITouchView touchView,
+            CompositeDisposable compositeDisposable
+        )
         {
-            InputActions = inputSystemActions.StageSelect;
-            SelectSubject = new Subject<Option<SceneReference>>();
+            TouchView = touchView;
+            CompositeDisposable = compositeDisposable;
+            SelectSubject = new Subject<Option<string>>();
         }
 
         public void Start()
         {
             _mainCamera = Camera.main!;
-            InputActions.Enable();
-            InputActions.Touch.performed += OnClick;
+            TouchView.TouchEvent
+                .Subscribe(this, (argument, view) => view.OnClick(argument))
+                .AddTo(CompositeDisposable);
         }
 
-        private void OnClick(InputAction.CallbackContext _)
+        private void OnClick(TouchStartEventArgument touchStartEventArgument)
         {
-            var screenPosition = InputActions.TouchPosition.ReadValue<Vector2>();
+            var screenPosition = touchStartEventArgument.TouchPosition;
             var worldPosition = _mainCamera.ScreenToWorldPoint(screenPosition);
 
             var castHit = Physics2D.Raycast(worldPosition, Vector2.zero);
@@ -37,25 +40,19 @@ namespace View.OutGame.StageSelect
                 var collider = castHit.collider;
                 if (collider.TryGetComponent<ISceneGettableView>(out var sceneGettableView))
                 {
-                    SelectSubject.OnNext(Option<SceneReference>.Some(sceneGettableView.Scene));
+                    SelectSubject.OnNext(Option<string>.Some(sceneGettableView.Scene));
                     return;
                 }
             }
 
-            SelectSubject.OnNext(Option<SceneReference>.None());
+            SelectSubject.OnNext(Option<string>.None());
         }
 
-        public Observable<Option<SceneReference>> SelectEvent => SelectSubject;
+        public Observable<Option<string>> SelectEvent => SelectSubject;
 
+        private CompositeDisposable CompositeDisposable { get; }
         private Camera _mainCamera;
-        private Subject<Option<SceneReference>> SelectSubject { get; }
-        private InputSystem_Actions.StageSelectActions InputActions { get; }
-
-        public void Dispose()
-        {
-            SelectSubject?.Dispose();
-            InputActions.Touch.performed -= OnClick;
-            InputActions.Enable();
-        }
+        private Subject<Option<string>> SelectSubject { get; }
+        private ITouchView TouchView { get; }
     }
 }

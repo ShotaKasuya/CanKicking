@@ -34,6 +34,7 @@ public class LoadSceneResourcesLogic : ILoadSceneResourcesLogic
             {
                 var scene = scenes[i]!;
                 var releaseContext = await SceneLoaderView.LoadScene(scene);
+                await SceneLoaderView.ActivateAsync(releaseContext);
                 SceneResourcesModel.PushReleaseContext(releaseContext);
             }
         }

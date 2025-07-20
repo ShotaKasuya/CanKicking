@@ -172,7 +172,7 @@ MonoBehaviour:
       data:
         resourceScenes:
         - sceneAsset: {fileID: 102900000, guid: f28ab47ddedbac816a5c76a311c7bb17, type: 3}
-          scenePath: Assets/Scenes/Environment/OutGame/TitleEnvironment.unity
+          scenePath: Assets/Scenes/Environment/OutGame/Env_Title.unity
 --- !u!4 &1311802324
 Transform:
   m_ObjectHideFlags: 0

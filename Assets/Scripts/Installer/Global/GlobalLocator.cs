@@ -44,6 +44,7 @@ namespace Installer.Global
             builder.Register<ScreenScaleModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneLoadEventModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<BlockingOperationModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<PrimarySceneModel>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Logic
             builder.Register<LoadPrimarySceneLogic>(Lifetime.Transient).AsImplementedInterfaces();

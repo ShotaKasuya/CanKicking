@@ -26,19 +26,44 @@ MonoBehaviour:
     m_SerializedLabels:
     - StageAsset
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 785d3660d264942038be534e1052a9bf
+    m_Address: Assets/Scenes/Environment/InGame/Env_Stage01.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89b1521508f0ffc01a8903806ad0ee97
+    m_Address: Assets/Scenes/Primary/OutGame/Title.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89c02b0392751401582ad00179a6922f
+    m_Address: Assets/Scenes/Primary/InGame/Stage01.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d02e600a5ca914f8a3d4687ff26ee17
+    m_Address: Assets/Scenes/Primary/OutGame/StageSelect.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 95718b0b53d8012be9ff32ca6d631842
     m_Address: Assets/TmpResource/Sprite/floor.png
     m_ReadOnly: 0
     m_SerializedLabels:
     - StageAsset
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d8ab3bf6874356bf9ae912b93358e81
+    m_Address: Assets/Scenes/Environment/OutGame/Env_StageSelect.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a186c62999353e23a9815afcef9abbb7
     m_Address: Assets/Scenes/InGame/Stage01.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b154f490c7bdefc489cc51fcaabb7c24
-    m_Address: Assets/Scenes/Global/TouchPresent.unity
+  - m_GUID: f28ab47ddedbac816a5c76a311c7bb17
+    m_Address: Assets/Scenes/Environment/OutGame/Env_Title.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

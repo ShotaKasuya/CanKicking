@@ -1,7 +1,7 @@
 ﻿using Interface.OutGame.StageSelect;
-using Module.SceneReference;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace View.OutGame.StageSelect
 {
@@ -15,14 +15,16 @@ namespace View.OutGame.StageSelect
             sceneText.text = string.Empty;
         }
 
-        public void ShowStage(SceneReference sceneReference)
+        public void ShowStage(string sceneName)
         {
             if (sceneText.text == string.Empty)
             {
                 gameObject.SetActive(true);
             }
 
-            sceneText.text = sceneReference.SceneName;
+            var scene = SceneManager.GetSceneByName(sceneName);
+
+            sceneText.text = scene.name;
         }
     }
 }

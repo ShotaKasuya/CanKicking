@@ -10,31 +10,42 @@ namespace View.Global.UserInterface
     [RequireComponent(typeof(Image))]
     public class TouchPositionUiView : MonoBehaviour, ITouchPositionUiView
     {
-        [SerializeField] private RectTransform canvasTransform;
+        [SerializeField] private Canvas canvas;
         [SerializeField] private float fadeDuration;
+
         private Camera _mainCamera;
+        private RectTransform _canvasTransform;
         private RectTransform _selfTransform;
         private Vector2 _defaultSizeDelta;
-        private Image _selfImage;
+        private GameObject _self;
 
         private void Awake()
         {
             SceneManager.sceneLoaded += SetCamera;
+            _canvasTransform = canvas.GetComponent<RectTransform>();
             _selfTransform = GetComponent<RectTransform>();
-            _selfImage = GetComponent<Image>();
+            _self = gameObject;
             _defaultSizeDelta = _selfTransform.sizeDelta;
+
+            _self.SetActive(false);
         }
 
         private void SetCamera(UnityEngine.SceneManagement.Scene scene, LoadSceneMode loadSceneMode)
         {
+            SceneManager.sceneLoaded -= SetCamera;
+            if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+            {
+                return;
+            }
+
             _mainCamera = Camera.main;
         }
 
         public async UniTask FadeIn(Vector2 screenPosition)
         {
-            _selfImage.enabled = true;
+            _self.SetActive(true);
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    canvasTransform,
+                    _canvasTransform,
                     screenPosition,
                     _mainCamera,
                     out var localPos))
@@ -42,7 +53,7 @@ namespace View.Global.UserInterface
                 Debug.LogWarning("ScreenPointToLocalPointInRectangle変換失敗");
             }
 
-            
+
             _selfTransform.anchoredPosition = localPos;
             await _selfTransform.DOSizeDelta(_defaultSizeDelta, fadeDuration).AsyncWaitForCompletion().AsUniTask();
         }
@@ -50,7 +61,7 @@ namespace View.Global.UserInterface
         public async UniTask FadeOut()
         {
             await _selfTransform.DOSizeDelta(Vector2.zero, fadeDuration).AsyncWaitForCompletion().AsUniTask();
-            _selfImage.enabled = false;
+            _self.SetActive(false);
         }
     }
 }

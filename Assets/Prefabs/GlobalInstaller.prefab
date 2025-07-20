@@ -325,7 +325,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2883763364864532065
 CanvasRenderer:
@@ -377,5 +377,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c985c647a5ad4bde9b2365ed4d31040f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasTransform: {fileID: 1752758543850053156}
+  canvas: {fileID: 6651027354692117072}
   fadeDuration: 0.125

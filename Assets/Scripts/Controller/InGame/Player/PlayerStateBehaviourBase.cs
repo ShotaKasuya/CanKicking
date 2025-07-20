@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Module.StateMachine;
 using ModuleExtension.StateMachine;
@@ -31,20 +30,9 @@ public abstract class PlayerStateBehaviourBase : StateBehaviour<PlayerStateType>
     }
 }
 
-public class PlayerState : IMutStateEntity<PlayerStateType>
+public class PlayerState : AbstractStateType<PlayerStateType>
 {
-    public PlayerStateType State { get; private set; }
-
-    public bool IsInState(PlayerStateType state)
+    public PlayerState() : base(PlayerStateType.Idle)
     {
-        return State == state;
-    }
-
-    public Action<StatePair<PlayerStateType>>? OnChangeState { get; set; }
-
-    public void ChangeState(PlayerStateType next)
-    {
-        OnChangeState?.Invoke(new StatePair<PlayerStateType>(State, next));
-        State = next;
     }
 }

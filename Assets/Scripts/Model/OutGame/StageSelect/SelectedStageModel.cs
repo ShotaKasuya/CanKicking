@@ -5,9 +5,9 @@ namespace Model.OutGame.StageSelect
 {
     public class SelectedStageModel : ISelectedStageModel
     {
-        public SceneReference SelectedStage { get; private set; }
+        public string SelectedStage { get; private set; }
 
-        public void SetSelectedStage(SceneReference sceneReference)
+        public void SetSelectedStage(string sceneReference)
         {
             SelectedStage = sceneReference;
         }

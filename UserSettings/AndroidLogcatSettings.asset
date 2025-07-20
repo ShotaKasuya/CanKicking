@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "SX4LHMA490907785",
         "name": "com.CanKicking",
-        "processId": 26483,
+        "processId": 13301,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -96,6 +96,18 @@
             "deviceId": "SX4LHMA490907785",
             "name": "com.CanKicking",
             "processId": 26483,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 10536,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 13301,
             "exited": false
         }
     ],
@@ -191,5 +203,5 @@
             "exited": false
         }
     },
-    "m_AutoScroll": 1
+    "m_AutoScroll": 0
 }

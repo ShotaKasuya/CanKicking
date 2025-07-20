@@ -9,7 +9,7 @@ namespace Interface.OutGame.StageSelect
     /// </summary>
     public interface IStageSelectionView
     {
-        Observable<Option<SceneReference>> SelectEvent { get; }
+        Observable<Option<string>> SelectEvent { get; }
     }
 
     /// <summary>
@@ -18,7 +18,7 @@ namespace Interface.OutGame.StageSelect
     public interface ISelectedStageView
     {
         public void Reset();
-        public void ShowStage(SceneReference sceneReference);
+        public void ShowStage(string sceneName);
     }
 
     /// <summary>
@@ -26,6 +26,6 @@ namespace Interface.OutGame.StageSelect
     /// </summary>
     public interface ISceneGettableView
     {
-        public SceneReference Scene { get; }
+        public string Scene { get; }
     }
 }

@@ -22,10 +22,10 @@ public class SceneController : IInitializable
 
     public void Initialize()
     {
-        SceneLoadEventModel.BeforeSceneLoad
+        SceneLoadEventModel.AfterSceneUnLoad
             .Subscribe(LoadResourcesSceneLogic, (_, logic) => logic.LoadResources().Forget())
             .AddTo(CompositeDisposable);
-        SceneLoadEventModel.BeforeNextSceneActivate
+        SceneLoadEventModel.BeforeSceneUnLoad
             .Subscribe(LoadResourcesSceneLogic, (_, logic) => logic.UnLoadResources().Forget())
             .AddTo(CompositeDisposable);
     }

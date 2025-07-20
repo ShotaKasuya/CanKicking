@@ -7,7 +7,7 @@ namespace Interface.OutGame.StageSelect
     /// </summary>
     public interface ISelectedStageModel
     {
-        public SceneReference SelectedStage { get; }
-        public void SetSelectedStage(SceneReference sceneReference);
+        public string SelectedStage { get; }
+        public void SetSelectedStage(string scene);
     }
 }
