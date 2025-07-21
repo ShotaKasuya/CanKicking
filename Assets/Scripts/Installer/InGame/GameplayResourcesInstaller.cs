@@ -25,7 +25,7 @@ namespace Installer.InGame
             });
             
             // Controller
-            builder.RegisterEntryPoint<SceneController>();
+            builder.RegisterEntryPoint<ResourceSceneController>();
         }
     }
 }

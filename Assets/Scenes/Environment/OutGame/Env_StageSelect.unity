@@ -301,7 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentReference:
     TypeName: 
-  autoRun: 1
+  autoRun: 0
   autoInjectGameObjects: []
   selectedStageView: {fileID: 2031036269}
 --- !u!1001 &503172986

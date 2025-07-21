@@ -47,6 +47,7 @@ public class NoneStateController : StageSelectStateBehaviourBase, IStartable
 
         SelectedStageModel.SetSelectedStage(stage);
 
+        // FIXME: 待機せずに状態遷移すると、次の状態で同じイベントが起動する
         await UniTask.DelayFrame(1);
         StateEntity.ChangeState(StageSelectStateType.Some);
     }

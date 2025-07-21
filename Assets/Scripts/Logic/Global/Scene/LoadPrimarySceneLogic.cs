@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
+using UnityEngine;
 
 namespace Logic.Global.Scene;
 
@@ -10,7 +11,7 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
     (
         IPrimarySceneModel primarySceneModel,
         IBlockingOperationModel blockingOperationModel,
-        INewSceneLoaderView sceneLoaderView,
+        ISceneLoaderView sceneLoaderView,
         ISceneLoadEventModel sceneLoadEventModel
     )
     {
@@ -22,15 +23,17 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
 
     public async UniTask ChangeScene(string scenePath)
     {
+        Debug.Log(scenePath);
         SceneLoadEventModel.InvokeBeforeSceneLoad();
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
         var sceneInstance = await SceneLoaderView.LoadScene(scenePath);
-        SceneLoadEventModel.InvokeBeforeSceneUnLoad();
-        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
         SceneLoadEventModel.InvokeBeforeNextSceneActivate();
         await SceneLoaderView.ActivateAsync(sceneInstance);
+        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+        
+        SceneLoadEventModel.InvokeBeforeSceneUnLoad();
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
         var prevSceneInstance = PrimarySceneModel.ToggleCurrentScene(sceneInstance);
@@ -41,6 +44,6 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
 
     private IPrimarySceneModel PrimarySceneModel { get; }
     private IBlockingOperationModel BlockingOperationModel { get; }
-    private INewSceneLoaderView SceneLoaderView { get; }
+    private ISceneLoaderView SceneLoaderView { get; }
     private ISceneLoadEventModel SceneLoadEventModel { get; }
 }

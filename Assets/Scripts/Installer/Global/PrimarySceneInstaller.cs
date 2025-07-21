@@ -1,4 +1,5 @@
 using Controller.Global.Scene;
+using Cysharp.Threading.Tasks;
 using Interface.Global.Audio;
 using Interface.Global.Scene;
 using TNRD;
@@ -11,11 +12,11 @@ namespace Installer.Global
     /// <summary>
     /// 複数シーンをロードする際に中核となるシーンに配置する
     /// </summary>
-    public class PrimarySceneInstaller: LifetimeScope
+    public class PrimarySceneInstaller : LifetimeScope
     {
         [SerializeField] private SerializableInterface<IBgmModel> bgmModel;
         [SerializeField] private SerializableInterface<ISceneResourcesModel> sceneResources;
-        
+
         protected override void Configure(IContainerBuilder builder)
         {
             builder.UseComponents(componentsBuilder =>
@@ -24,7 +25,16 @@ namespace Installer.Global
                 componentsBuilder.AddInstance(sceneResources.Value);
             });
 
-            builder.RegisterEntryPoint<SceneController>();
+            builder.RegisterEntryPoint<ResourceSceneController>();
+        }
+
+        private void Start()
+        {
+            UniTask.RunOnThreadPool((o =>
+            {
+                var lifetimeScope = o as LifetimeScope;
+                lifetimeScope!.Build();
+            }), this).Forget();
         }
     }
 }

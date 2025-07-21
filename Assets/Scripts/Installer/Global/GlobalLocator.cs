@@ -1,5 +1,5 @@
+using System;
 using Controller.Global.UserInterface;
-using Interface.Global.Scene;
 using Interface.Global.TimeScale;
 using Interface.Global.UserInterface;
 using Logic.Global.Scene;
@@ -18,7 +18,6 @@ namespace Installer.Global
 {
     public class GlobalLocator : LifetimeScope
     {
-        [SerializeField] private SerializableInterface<ISceneLoaderView> sceneLoaderView;
         [SerializeField] private SerializableInterface<ITimeScaleModel> timeScaleModel;
         [SerializeField] private SerializableInterface<ITouchPositionUiView> touchPositionUiView;
         [SerializeField] private SerializableInterface<ILoadingPanelView> loadingPanelView;
@@ -28,13 +27,13 @@ namespace Installer.Global
             // Utility
             builder.Register<InputSystem_Actions>(Lifetime.Singleton);
             builder.Register<GlobalInputView>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register(_ => new CompositeDisposable(), Lifetime.Scoped).AsSelf().AsImplementedInterfaces();
+            builder.Register(_ => new CompositeDisposable(), Lifetime.Scoped)
+                .As<CompositeDisposable, IDisposable>();
             
             // View
-            builder.Register<NewSceneLoaderView>(Lifetime.Transient).AsImplementedInterfaces();
+            builder.Register<SceneLoaderView>(Lifetime.Transient).AsImplementedInterfaces();
             builder.UseComponents(componentsBuilder =>
             {
-                componentsBuilder.AddInstance(sceneLoaderView.Value);
                 componentsBuilder.AddInstance(touchPositionUiView.Value);
                 componentsBuilder.AddInstance(timeScaleModel.Value);
                 componentsBuilder.AddInstance(loadingPanelView.Value);
@@ -54,6 +53,7 @@ namespace Installer.Global
             builder.UseEntryPoints(pointsBuilder =>
             {
                 pointsBuilder.Add<TouchUiController>();
+                pointsBuilder.Add<LoadingPanelController>();
             });
         }
     }

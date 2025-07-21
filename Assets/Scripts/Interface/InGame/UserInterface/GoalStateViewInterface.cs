@@ -10,11 +10,11 @@ namespace Interface.InGame.UserInterface
 
     public interface IGoal_RestartButtonView
     {
-        public Observable<SceneReference> Performed { get; }
+        public Observable<string> Performed { get; }
     }
 
     public interface IGoal_StageSelectButtonView
     {
-        public Observable<SceneReference> Performed { get; }
+        public Observable<string> Performed { get; }
     }
 }

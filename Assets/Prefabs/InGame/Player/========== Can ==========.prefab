@@ -194,6 +194,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  playerView: {fileID: 31840961135358124}
   aimView: {fileID: 1507590813218555813}
   playerModelBind: {fileID: 11400000, guid: f7544b6aa209f21d89b3c1b9fbfec124, type: 2}
 --- !u!1001 &5410938447897997577

@@ -10,7 +10,7 @@ public class LoadSceneResourcesLogic : ILoadSceneResourcesLogic
     public LoadSceneResourcesLogic
     (
         LifetimeScope lifetimeScope,
-        INewSceneLoaderView sceneLoaderView,
+        ISceneLoaderView sceneLoaderView,
         ISceneResourcesModel sceneResourcesModel,
         IBlockingOperationModel blockingOperationModel
     )
@@ -56,7 +56,7 @@ public class LoadSceneResourcesLogic : ILoadSceneResourcesLogic
     }
 
     private LifetimeScope ParentScope { get; }
-    private INewSceneLoaderView SceneLoaderView { get; }
+    private ISceneLoaderView SceneLoaderView { get; }
     private ISceneResourcesModel SceneResourcesModel { get; }
     private IBlockingOperationModel BlockingOperationModel { get; }
 }

@@ -1,4 +1,5 @@
 ﻿using Controller.InGame;
+using Cysharp.Threading.Tasks;
 using GoogleMobileAds.Api;
 using Model.InGame.Stage;
 using UnityEngine;
@@ -26,6 +27,11 @@ namespace Installer.InGame.Stage
             
             // Controller
             builder.RegisterEntryPoint<StageCameraController>();
+        }
+
+        private void Start()
+        {
+            UniTask.RunOnThreadPool(Build).Forget();
         }
     }
 }

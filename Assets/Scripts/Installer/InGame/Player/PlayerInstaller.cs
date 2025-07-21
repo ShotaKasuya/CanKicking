@@ -1,4 +1,5 @@
 using Controller.InGame.Player;
+using Cysharp.Threading.Tasks;
 using Model.InGame.Player;
 using UnityEngine;
 using VContainer;
@@ -10,17 +11,16 @@ namespace Installer.InGame.Player
     [RequireComponent(typeof(PlayerView))]
     public class PlayerInstaller : LifetimeScope
     {
+        [SerializeField] private PlayerView playerView;
         [SerializeField] private AimView aimView;
         [SerializeField] private PlayerModelBind playerModelBind;
 
         protected override void Configure(IContainerBuilder builder)
         {
-            var playerView = GetComponent<PlayerView>();
-            
             // View
             builder.RegisterInstance(playerView).AsImplementedInterfaces();
             builder.RegisterComponent(aimView).AsImplementedInterfaces();
-            
+
             // Model
             playerModelBind.Register(builder);
 
@@ -37,6 +37,7 @@ namespace Installer.InGame.Player
 
         private void Start()
         {
+            UniTask.RunOnThreadPool(Build).Forget();
             _state = Container.Resolve<PlayerState>();
         }
 

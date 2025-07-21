@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 7e456cdfb34a27c448fd298fdd9c792f
   m_SerializeEntries:
+  - m_GUID: 2d25e4c23acd2ddb4907d76bb174b201
+    m_Address: Assets/Scenes/OutGame/Ui_StageSelect.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 538422ce9d179566c836ff3c556401b5
     m_Address: Assets/Scenes/InGame/Stage02.unity
     m_ReadOnly: 0

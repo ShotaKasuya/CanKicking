@@ -1,7 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Module.SceneReference;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
@@ -9,26 +11,66 @@ namespace View.Global.Scene
 {
     public class SceneLoaderView : ISceneLoaderView
     {
-        private SceneContext _prevScene;
-        private SceneInstance _prevInstance;
-
-        public async UniTask LoadScene(SceneReference sceneReference)
+        public async UniTask<SceneReleaseContext> LoadScene(string scenePath)
         {
-            await InternalLoad(sceneReference);
+            SceneType type;
+            SceneInstance instance;
+            AsyncOperation operation = null;
+
+            var locationsHandle = Addressables.LoadResourceLocationsAsync(scenePath);
+            await locationsHandle.Task;
+
+            if (locationsHandle.Status == AsyncOperationStatus.Succeeded && locationsHandle.Result.Count > 0)
+            {
+                // アセットが存在する
+                var handle = Addressables.LoadSceneAsync(scenePath, LoadSceneMode.Additive, false);
+                instance = await handle.Task.AsUniTask();
+                type = SceneType.Addressable;
+            }
+            else
+            {
+                // アセットが存在しない
+                operation = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+                operation!.allowSceneActivation = false;
+                await operation.ToUniTask();
+                instance = default;
+                type = SceneType.SceneManager;
+            }
+
+            return new SceneReleaseContext(type, instance, operation, instance.Scene.name);
         }
 
-        private async UniTask InternalLoad(SceneReference sceneReference)
+        public async UniTask ActivateAsync(SceneReleaseContext scene)
         {
-            switch (sceneReference.Type)
+            if (scene.Type == SceneType.SceneManager)
             {
-                case SceneType.SceneManager:
-                    await SceneManager.LoadSceneAsync(sceneReference.SceneName).ToUniTask();
-                    break;
-                case SceneType.Addressable:
-                    var task = Addressables.LoadSceneAsync(sceneReference.ScenePath).Task;
-                    _prevInstance = await task.AsUniTask();
-                    _prevScene = new SceneContext(SceneType.Addressable, _prevInstance.Scene);
-                    break;
+                scene.Operation.allowSceneActivation = true;
+            }
+            else if (scene.Type == SceneType.Addressable)
+            {
+                await scene.SceneInstance.ActivateAsync().ToUniTask();
+            }
+
+            var loadedScene = SceneManager.GetSceneByName(scene.SceneName);
+            if (loadedScene.IsValid() && loadedScene.isLoaded)
+            {
+                SceneManager.SetActiveScene(loadedScene);
+            }
+            else
+            {
+                Debug.LogWarning($"シーン {scene.SceneName} は有効でないかロードされていません。");
+            }
+        }
+
+        public async UniTask UnLoadScene(SceneReleaseContext sceneInstance)
+        {
+            if (sceneInstance.Type == SceneType.SceneManager)
+            {
+                await SceneManager.UnloadSceneAsync(sceneInstance.SceneName);
+            }
+            else if (sceneInstance.Type == SceneType.Addressable)
+            {
+                await Addressables.UnloadSceneAsync(sceneInstance.SceneInstance).Task;
             }
         }
     }

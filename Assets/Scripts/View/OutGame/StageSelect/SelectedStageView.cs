@@ -1,7 +1,6 @@
 ﻿using Interface.OutGame.StageSelect;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace View.OutGame.StageSelect
 {
@@ -22,9 +21,9 @@ namespace View.OutGame.StageSelect
                 gameObject.SetActive(true);
             }
 
-            var scene = SceneManager.GetSceneByName(sceneName);
-
-            sceneText.text = scene.name;
+            var scene = System.IO.Path.GetFileNameWithoutExtension(sceneName);
+            
+            sceneText.text = scene;
         }
     }
 }

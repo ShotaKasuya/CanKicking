@@ -1,16 +1,16 @@
 ﻿using Interface.InGame.UserInterface;
-using Module.SceneReference;
+using Module.SceneReference.AeLa.Utilities;
 using R3;
 using UnityEngine;
 using View.InGame.UserInterface.Stop;
 
 namespace View.InGame.UserInterface.Goal
 {
-    public class StageSelectButtonView: AbstractButtonView<SceneReference>, IGoal_StageSelectButtonView
+    public class StageSelectButtonView: AbstractButtonView<string>, IGoal_StageSelectButtonView
     {
-        [SerializeField] private SceneReference sceneReference;
+        [SerializeField] private SceneField sceneField;
 
-        protected override SceneReference EventValue => sceneReference;
-        public Observable<SceneReference> Performed => ButtonSubject;
+        protected override string EventValue => sceneField;
+        public Observable<string> Performed => ButtonSubject;
     }
 }

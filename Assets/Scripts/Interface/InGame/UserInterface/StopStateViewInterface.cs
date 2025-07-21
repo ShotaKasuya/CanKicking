@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Module.SceneReference;
 using R3;
 
 namespace Interface.InGame.UserInterface
@@ -24,11 +23,11 @@ namespace Interface.InGame.UserInterface
 
     public interface IStop_RestartButtonView
     {
-        public Observable<SceneReference> Performed { get; }
+        public Observable<string> Performed { get; }
     }
 
     public interface IStop_StageSelectButtonView
     {
-        public Observable<SceneReference> Performed { get; }
+        public Observable<string> Performed { get; }
     }
 }
