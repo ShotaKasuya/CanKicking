@@ -1,5 +1,4 @@
 using Controller.Global.Scene;
-using Cysharp.Threading.Tasks;
 using Interface.Global.Audio;
 using Interface.Global.Scene;
 using TNRD;
@@ -15,7 +14,7 @@ namespace Installer.Global
     public class PrimarySceneInstaller : LifetimeScope
     {
         [SerializeField] private SerializableInterface<IBgmModel> bgmModel;
-        [SerializeField] private SerializableInterface<ISceneResourcesModel> sceneResources;
+        [SerializeField] private SerializableInterface<IResourceScenesModel> sceneResources;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -26,15 +25,6 @@ namespace Installer.Global
             });
 
             builder.RegisterEntryPoint<ResourceSceneController>();
-        }
-
-        private void Start()
-        {
-            UniTask.RunOnThreadPool((o =>
-            {
-                var lifetimeScope = o as LifetimeScope;
-                lifetimeScope!.Build();
-            }), this).Forget();
         }
     }
 }

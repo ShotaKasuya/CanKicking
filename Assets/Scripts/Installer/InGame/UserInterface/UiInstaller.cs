@@ -1,5 +1,4 @@
 ﻿using Controller.InGame.UserInterface;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -28,15 +27,6 @@ namespace Installer.InGame.UserInterface
             builder.Register<NormalStateController>(Lifetime.Transient).AsImplementedInterfaces();
             builder.Register<StopStateController>(Lifetime.Transient).AsImplementedInterfaces();
             builder.Register<GoalStateController>(Lifetime.Transient).AsImplementedInterfaces();
-        }
-
-        private void Start()
-        {
-            UniTask.RunOnThreadPool((o =>
-            {
-                var installer = o as LifetimeScope;
-                installer!.Build();
-            }), this).Forget();
         }
     }
 }

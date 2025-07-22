@@ -21,6 +21,7 @@ namespace Model.Global.Utility
                 OperationHandles.Add(handle);
             }
         }
+        
 
         public OperationHandle SpawnOperation(string context)
         {
@@ -52,6 +53,8 @@ namespace Model.Global.Utility
         {
             return OperationHandles.Any(x => x.IsEnd);
         }
+
+        public IReadOnlyList<OperationHandle> GetOperationHandles => OperationHandles;
 
         private List<OperationHandle> OperationHandles { get; }
     }

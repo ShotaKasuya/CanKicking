@@ -1,47 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using UnityEngine.SceneManagement;
 
 namespace Module.SceneReference
 {
-    public readonly struct SceneContext
-    {
-        public SceneContext(SceneType sceneType, Scene scene)
-        {
-            Type = sceneType;
-            Scene = scene;
-        }
-
-        public SceneType Type { get; }
-        public Scene Scene { get; }
-    }
-
     public enum SceneType
     {
         SceneManager,
         Addressable,
     }
 
-    public readonly struct SceneReleaseContext
+    public readonly struct SceneContext
     {
-        public SceneReleaseContext
+        public SceneContext
         (
             SceneType sceneType,
             SceneInstance sceneInstance,
             AsyncOperation operation,
-            string sceneName
+            string scenePath
         )
         {
             Type = sceneType;
             SceneInstance = sceneInstance;
             Operation = operation;
-            SceneName = sceneName;
+            ScenePath = scenePath;
         }
-        
+
         public SceneType Type { get; }
         public SceneInstance SceneInstance { get; }
         public AsyncOperation Operation { get; }
-        public string SceneName { get; }
+        public string ScenePath { get; }
     }
-    
 }

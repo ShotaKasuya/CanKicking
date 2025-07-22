@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
-using VContainer.Unity;
 
 namespace Logic.Global.Scene;
 
@@ -9,34 +8,29 @@ public class LoadSceneResourcesLogic : ILoadSceneResourcesLogic
 {
     public LoadSceneResourcesLogic
     (
-        LifetimeScope lifetimeScope,
         ISceneLoaderView sceneLoaderView,
-        ISceneResourcesModel sceneResourcesModel,
+        IResourceScenesModel sceneResourcesModel,
         IBlockingOperationModel blockingOperationModel
     )
     {
-        ParentScope = lifetimeScope;
         SceneLoaderView = sceneLoaderView;
         SceneResourcesModel = sceneResourcesModel;
         BlockingOperationModel = blockingOperationModel;
     }
 
-    private const string LoadContext = "Scene Load";
-    private const string UnLoadContext = "Scene UnLoad";
+    private const string LoadContext = "Resource Scene Load";
+    private const string UnLoadContext = "Resource Scene UnLoad";
 
     public async UniTask LoadResources()
     {
         var operation = BlockingOperationModel.SpawnOperation(LoadContext);
-        using (LifetimeScope.EnqueueParent(ParentScope))
+        var scenes = SceneResourcesModel.GetResourceScenes();
+        for (int i = 0; i < scenes.Count; i++)
         {
-            var scenes = SceneResourcesModel.GetSceneResources();
-            for (int i = 0; i < scenes.Count; i++)
-            {
-                var scene = scenes[i]!;
-                var releaseContext = await SceneLoaderView.LoadScene(scene);
-                await SceneLoaderView.ActivateAsync(releaseContext);
-                SceneResourcesModel.PushReleaseContext(releaseContext);
-            }
+            var scene = scenes[i]!;
+            var releaseContext = await SceneLoaderView.LoadScene(scene);
+            await SceneLoaderView.ActivateAsync(releaseContext);
+            SceneResourcesModel.PushReleaseContext(releaseContext);
         }
 
         operation.Release();
@@ -55,8 +49,7 @@ public class LoadSceneResourcesLogic : ILoadSceneResourcesLogic
         operation.Release();
     }
 
-    private LifetimeScope ParentScope { get; }
     private ISceneLoaderView SceneLoaderView { get; }
-    private ISceneResourcesModel SceneResourcesModel { get; }
+    private IResourceScenesModel SceneResourcesModel { get; }
     private IBlockingOperationModel BlockingOperationModel { get; }
 }

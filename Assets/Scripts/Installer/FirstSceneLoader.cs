@@ -23,9 +23,9 @@ namespace Installer
             var loadLogic = Container.Resolve<ILoadPrimarySceneLogic>();
             var primarySceneModel = Container.Resolve<IPrimarySceneModel>();
 
-            primarySceneModel.ToggleCurrentScene(new SceneReleaseContext(
+            primarySceneModel.ToggleCurrentScene(new SceneContext(
                 SceneType.SceneManager, default, null,
-                SceneManager.GetActiveScene().name));
+                SceneManager.GetActiveScene().path));
 
             await loadLogic.ChangeScene(sceneField);
         }

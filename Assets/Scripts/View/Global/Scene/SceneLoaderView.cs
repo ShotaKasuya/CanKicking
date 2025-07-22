@@ -11,7 +11,7 @@ namespace View.Global.Scene
 {
     public class SceneLoaderView : ISceneLoaderView
     {
-        public async UniTask<SceneReleaseContext> LoadScene(string scenePath)
+        public async UniTask<SceneContext> LoadScene(string scenePath)
         {
             SceneType type;
             SceneInstance instance;
@@ -37,10 +37,10 @@ namespace View.Global.Scene
                 type = SceneType.SceneManager;
             }
 
-            return new SceneReleaseContext(type, instance, operation, instance.Scene.name);
+            return new SceneContext(type, instance, operation, scenePath);
         }
 
-        public async UniTask ActivateAsync(SceneReleaseContext scene)
+        public async UniTask ActivateAsync(SceneContext scene)
         {
             if (scene.Type == SceneType.SceneManager)
             {
@@ -51,22 +51,22 @@ namespace View.Global.Scene
                 await scene.SceneInstance.ActivateAsync().ToUniTask();
             }
 
-            var loadedScene = SceneManager.GetSceneByName(scene.SceneName);
+            var loadedScene = SceneManager.GetSceneByPath(scene.ScenePath);
             if (loadedScene.IsValid() && loadedScene.isLoaded)
             {
                 SceneManager.SetActiveScene(loadedScene);
             }
             else
             {
-                Debug.LogWarning($"シーン {scene.SceneName} は有効でないかロードされていません。");
+                Debug.LogWarning($"シーン {scene.ScenePath} は有効でないかロードされていません。");
             }
         }
 
-        public async UniTask UnLoadScene(SceneReleaseContext sceneInstance)
+        public async UniTask UnLoadScene(SceneContext sceneInstance)
         {
             if (sceneInstance.Type == SceneType.SceneManager)
             {
-                await SceneManager.UnloadSceneAsync(sceneInstance.SceneName);
+                await SceneManager.UnloadSceneAsync(sceneInstance.ScenePath);
             }
             else if (sceneInstance.Type == SceneType.Addressable)
             {

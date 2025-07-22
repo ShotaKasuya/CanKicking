@@ -29,7 +29,7 @@ namespace Installer.Global
             builder.Register<GlobalInputView>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register(_ => new CompositeDisposable(), Lifetime.Scoped)
                 .As<CompositeDisposable, IDisposable>();
-            
+
             // View
             builder.Register<SceneLoaderView>(Lifetime.Transient).AsImplementedInterfaces();
             builder.UseComponents(componentsBuilder =>
@@ -44,11 +44,11 @@ namespace Installer.Global
             builder.Register<SceneLoadEventModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<BlockingOperationModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PrimarySceneModel>(Lifetime.Singleton).AsImplementedInterfaces();
-            
+
             // Logic
             builder.Register<LoadPrimarySceneLogic>(Lifetime.Transient).AsImplementedInterfaces();
             builder.Register<LoadSceneResourcesLogic>(Lifetime.Transient).AsImplementedInterfaces();
-            
+
             // Controller
             builder.UseEntryPoints(pointsBuilder =>
             {
@@ -56,5 +56,24 @@ namespace Installer.Global
                 pointsBuilder.Add<LoadingPanelController>();
             });
         }
+
+        // private async void Start()
+        // {
+        //     var model = Container.Resolve<IBlockingOperationModel>();
+        //
+        //     while (true)
+        //     {
+        //         var operations = model.GetOperationHandles;
+        //         var logger = new StringBuilder();
+        //
+        //         foreach (var handle in operations)
+        //         {
+        //             logger.AppendLine(handle.ToString());
+        //         }
+        //
+        //         Debug.Log(logger.ToString());
+        //         await UniTask.WaitForSeconds(1f);
+        //     }
+        // }
     }
 }

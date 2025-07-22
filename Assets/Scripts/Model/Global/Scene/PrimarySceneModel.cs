@@ -5,12 +5,12 @@ namespace Model.Global.Scene
 {
     public class PrimarySceneModel : IPrimarySceneModel
     {
-        private SceneReleaseContext _sceneReleaseContext;
+        private SceneContext _sceneContext;
 
-        public SceneReleaseContext ToggleCurrentScene(SceneReleaseContext sceneInstance)
+        public SceneContext ToggleCurrentScene(SceneContext sceneInstance)
         {
-            var tmp = _sceneReleaseContext;
-            _sceneReleaseContext = sceneInstance;
+            var tmp = _sceneContext;
+            _sceneContext = sceneInstance;
             return tmp;
         }
     }

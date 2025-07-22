@@ -1,5 +1,4 @@
 using Controller.InGame.Player;
-using Cysharp.Threading.Tasks;
 using Model.InGame.Player;
 using UnityEngine;
 using VContainer;
@@ -37,7 +36,6 @@ namespace Installer.InGame.Player
 
         private void Start()
         {
-            UniTask.RunOnThreadPool(Build).Forget();
             _state = Container.Resolve<PlayerState>();
         }
 

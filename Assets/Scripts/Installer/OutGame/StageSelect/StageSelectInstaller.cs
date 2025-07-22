@@ -1,5 +1,4 @@
 ﻿using Controller.OutGame.StageSelect.UserInterface;
-using Cysharp.Threading.Tasks;
 using Model.OutGame.StageSelect;
 using UnityEngine;
 using VContainer;
@@ -26,15 +25,6 @@ namespace Installer.OutGame.StageSelect
             builder.RegisterEntryPoint<StageSelectStateMachine>();
             builder.Register<NoneStateController>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SomeStateController>(Lifetime.Singleton).AsImplementedInterfaces();
-        }
-
-        private void Start()
-        {
-            UniTask.RunOnThreadPool((o =>
-            {
-                var lifetimeScope = o as LifetimeScope;
-                lifetimeScope!.Build();
-            }), this).Forget();
         }
     }
 }

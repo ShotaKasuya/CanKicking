@@ -11,7 +11,7 @@ namespace Installer.InGame
     public class GameplayResourcesInstaller: LifetimeScope
     {
         [SerializeField] private PlayerView playerView;
-        [SerializeField] private SerializableInterface<ISceneResourcesModel> sceneResourcesModel;
+        [SerializeField] private SerializableInterface<IResourceScenesModel> sceneResourcesModel;
         
         protected override void Configure(IContainerBuilder builder)
         {

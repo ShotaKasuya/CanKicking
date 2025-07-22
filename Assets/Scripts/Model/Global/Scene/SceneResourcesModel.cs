@@ -9,23 +9,23 @@ using UnityEngine;
 namespace Model.Global.Scene
 {
     [Serializable]
-    public class SceneResourcesModel: ISceneResourcesModel
+    public class SceneResourcesModel: IResourceScenesModel
     {
         [SerializeField] private List<SceneField> resourceScenes;
 
-        private List<SceneReleaseContext> _releaseContexts = new List<SceneReleaseContext>();
+        private List<SceneContext> _releaseContexts = new List<SceneContext>();
         
-        public IReadOnlyList<string> GetSceneResources()
+        public IReadOnlyList<string> GetResourceScenes()
         {
             return resourceScenes.Select(x => (string)x).ToArray();
         }
 
-        public void PushReleaseContext(SceneReleaseContext sceneReleaseContext)
+        public void PushReleaseContext(SceneContext sceneContext)
         {
-            _releaseContexts.Add(sceneReleaseContext);
+            _releaseContexts.Add(sceneContext);
         }
 
-        public IReadOnlyList<SceneReleaseContext> GetSceneReleaseContexts()
+        public IReadOnlyList<SceneContext> GetSceneReleaseContexts()
         {
             return _releaseContexts;
         }

@@ -1,9 +1,12 @@
-﻿namespace Interface.Global.Utility;
+﻿using System.Collections.Generic;
+
+namespace Interface.Global.Utility;
 
 public interface IBlockingOperationModel
 {
     public OperationHandle SpawnOperation(string context);
     public bool IsAnyBlocked();
+    public IReadOnlyList<OperationHandle> GetOperationHandles { get; }
 }
 
 public class OperationHandle
@@ -29,5 +32,15 @@ public class OperationHandle
     {
         OperationContext = string.Empty;
         IsEnd = true;
+    }
+
+    public override string ToString()
+    {
+        if (IsEnd)
+        {
+            return "None";
+        }
+
+        return $"Some({OperationContext})";
     }
 }

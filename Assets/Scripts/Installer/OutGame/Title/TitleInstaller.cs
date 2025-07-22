@@ -1,5 +1,4 @@
 using Controller.OutGame.Title;
-using Cysharp.Threading.Tasks;
 using Model.OutGame.Title;
 using UnityEngine;
 using VContainer;
@@ -18,15 +17,6 @@ namespace Installer.OutGame.Title
 
             // Controller
             builder.RegisterEntryPoint<TitleController>();
-        }
-
-        private void Start()
-        {
-            UniTask.RunOnThreadPool((o =>
-            {
-                var lifetimeScope = o as LifetimeScope;
-                lifetimeScope!.Build();
-            }), this).Forget();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
-using UnityEngine;
+using Module.SceneReference;
+using UnityEngine.SceneManagement;
+using VContainer.Unity;
 
 namespace Logic.Global.Scene;
 
@@ -23,21 +25,56 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
 
     public async UniTask ChangeScene(string scenePath)
     {
-        Debug.Log(scenePath);
+        var sceneInstance = await LoadScene(scenePath);
+
+        await ActivateScene(sceneInstance);
+
+        var prevSceneInstance = PrimarySceneModel.ToggleCurrentScene(sceneInstance);
+
+        await UnLoadScene(prevSceneInstance);
+    }
+
+    private async UniTask<SceneContext> LoadScene(string scenePath)
+    {
         SceneLoadEventModel.InvokeBeforeSceneLoad();
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
         var sceneInstance = await SceneLoaderView.LoadScene(scenePath);
 
+        return sceneInstance;
+    }
+
+    private async UniTask ActivateScene(SceneContext sceneContext)
+    {
         SceneLoadEventModel.InvokeBeforeNextSceneActivate();
-        await SceneLoaderView.ActivateAsync(sceneInstance);
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+
+        await SceneLoaderView.ActivateAsync(sceneContext);
         
+        var scene = SceneManager.GetSceneByPath(sceneContext.ScenePath);
+        var rootGameObjects = scene.GetRootGameObjects()!;
+
+        for (int j = 0; j < rootGameObjects.Length; j++)
+        {
+            var lifetimeScopes = rootGameObjects[j].GetComponentsInChildren<LifetimeScope>()!;
+
+            foreach (var scope in lifetimeScopes)
+            {
+                await UniTask.RunOnThreadPool(scope.Build);
+            }
+        }
+
+        SceneLoadEventModel.InvokeAfterNextSceneActivate();
+        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+    }
+
+    private async UniTask UnLoadScene(SceneContext sceneContext)
+    {
         SceneLoadEventModel.InvokeBeforeSceneUnLoad();
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
-        var prevSceneInstance = PrimarySceneModel.ToggleCurrentScene(sceneInstance);
-        await SceneLoaderView.UnLoadScene(prevSceneInstance);
+        await SceneLoaderView.UnLoadScene(sceneContext);
+
         SceneLoadEventModel.InvokeAfterSceneUnLoad();
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
     }

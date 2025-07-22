@@ -8,7 +8,7 @@ namespace Interface.Global.Scene;
 /// </summary>
 public interface ISceneLoaderView
 {
-    public UniTask<SceneReleaseContext> LoadScene(string scenePath);
-    public UniTask ActivateAsync(SceneReleaseContext scene);
-    public UniTask UnLoadScene(SceneReleaseContext releaseContext);
+    public UniTask<SceneContext> LoadScene(string scenePath);
+    public UniTask ActivateAsync(SceneContext scene);
+    public UniTask UnLoadScene(SceneContext context);
 }
