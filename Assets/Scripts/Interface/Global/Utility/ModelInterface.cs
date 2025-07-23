@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Interface.Global.Utility;
 
@@ -9,7 +10,7 @@ public interface IBlockingOperationModel
     public IReadOnlyList<OperationHandle> GetOperationHandles { get; }
 }
 
-public class OperationHandle
+public class OperationHandle: IDisposable
 {
     public void Start(string context)
     {
@@ -42,5 +43,10 @@ public class OperationHandle
         }
 
         return $"Some({OperationContext})";
+    }
+
+    public void Dispose()
+    {
+        Release();
     }
 }

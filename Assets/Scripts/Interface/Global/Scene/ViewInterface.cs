@@ -10,5 +10,8 @@ public interface ISceneLoaderView
 {
     public UniTask<SceneContext> LoadScene(string scenePath);
     public UniTask ActivateAsync(SceneContext scene);
+    public void SetActiveScene(SceneContext scene);
     public UniTask UnLoadScene(SceneContext context);
+    
+    public UnityEngine.SceneManagement.Scene CurrentScene { get; }
 }

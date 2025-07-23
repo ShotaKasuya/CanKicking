@@ -2,7 +2,9 @@ using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
 using R3;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer.ModuleExtension;
 using VContainer.Unity;
 
 namespace Controller.Global.Scene;
@@ -29,6 +31,7 @@ public class ResourceSceneController : IInitializable
 
     public void Initialize()
     {
+        Debug.Log("VAR");
         SceneLoadEventModel.AfterSceneUnLoad
             .Subscribe(this, (_, controller) => controller.BuildAndLoadResources().Forget())
             .AddTo(CompositeDisposable);
@@ -59,7 +62,7 @@ public class ResourceSceneController : IInitializable
 
                 foreach (var scope in lifetimeScopes)
                 {
-                    await UniTask.RunOnThreadPool(scope.Build);
+                    await scope.BuildOnThreadPool();
                 }
             }
         }

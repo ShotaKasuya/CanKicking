@@ -2,7 +2,9 @@
 using Interface.Global.Scene;
 using Interface.Global.Utility;
 using Module.SceneReference;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer.ModuleExtension;
 using VContainer.Unity;
 
 namespace Logic.Global.Scene;
@@ -40,6 +42,9 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
         await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
         var sceneInstance = await SceneLoaderView.LoadScene(scenePath);
+        
+        SceneLoadEventModel.InvokeAfterSceneLoad();
+        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
 
         return sceneInstance;
     }
@@ -60,7 +65,8 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
 
             foreach (var scope in lifetimeScopes)
             {
-                await UniTask.RunOnThreadPool(scope.Build);
+                Debug.Log($"scene: {scene.name}, lifetime scope: {scope.name}");
+                await scope.BuildOnThreadPool();
             }
         }
 

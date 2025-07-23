@@ -152,6 +152,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  observeBlockingOperation: 0
   timeScaleModel:
     mode: 1
     unityReference: {fileID: 0}

@@ -16,7 +16,7 @@ using View.Global.Scene;
 
 namespace Installer.Global
 {
-    public class GlobalLocator : LifetimeScope
+    public partial class GlobalLocator : LifetimeScope
     {
         [SerializeField] private SerializableInterface<ITimeScaleModel> timeScaleModel;
         [SerializeField] private SerializableInterface<ITouchPositionUiView> touchPositionUiView;
@@ -47,7 +47,7 @@ namespace Installer.Global
 
             // Logic
             builder.Register<LoadPrimarySceneLogic>(Lifetime.Transient).AsImplementedInterfaces();
-            builder.Register<LoadSceneResourcesLogic>(Lifetime.Transient).AsImplementedInterfaces();
+            builder.Register<LoadResourceScenesLogic>(Lifetime.Transient).AsImplementedInterfaces();
 
             // Controller
             builder.UseEntryPoints(pointsBuilder =>
@@ -57,23 +57,9 @@ namespace Installer.Global
             });
         }
 
-        // private async void Start()
-        // {
-        //     var model = Container.Resolve<IBlockingOperationModel>();
-        //
-        //     while (true)
-        //     {
-        //         var operations = model.GetOperationHandles;
-        //         var logger = new StringBuilder();
-        //
-        //         foreach (var handle in operations)
-        //         {
-        //             logger.AppendLine(handle.ToString());
-        //         }
-        //
-        //         Debug.Log(logger.ToString());
-        //         await UniTask.WaitForSeconds(1f);
-        //     }
-        // }
+        private void Start()
+        {
+            // DebugStarter();
+        }
     }
 }

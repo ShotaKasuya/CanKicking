@@ -1,12 +1,13 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
+using UnityEngine;
 
 namespace Logic.Global.Scene;
 
-public class LoadSceneResourcesLogic : ILoadSceneResourcesLogic
+public class LoadResourceScenesLogic : ILoadSceneResourcesLogic
 {
-    public LoadSceneResourcesLogic
+    public LoadResourceScenesLogic
     (
         ISceneLoaderView sceneLoaderView,
         IResourceScenesModel sceneResourcesModel,
@@ -28,6 +29,7 @@ public class LoadSceneResourcesLogic : ILoadSceneResourcesLogic
         for (int i = 0; i < scenes.Count; i++)
         {
             var scene = scenes[i]!;
+            Debug.Log($"load resource scene {scene}");
             var releaseContext = await SceneLoaderView.LoadScene(scene);
             await SceneLoaderView.ActivateAsync(releaseContext);
             SceneResourcesModel.PushReleaseContext(releaseContext);

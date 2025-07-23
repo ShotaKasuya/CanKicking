@@ -50,7 +50,10 @@ namespace View.Global.Scene
             {
                 await scene.SceneInstance.ActivateAsync().ToUniTask();
             }
+        }
 
+        public void SetActiveScene(SceneContext scene)
+        {
             var loadedScene = SceneManager.GetSceneByPath(scene.ScenePath);
             if (loadedScene.IsValid() && loadedScene.isLoaded)
             {
@@ -73,5 +76,7 @@ namespace View.Global.Scene
                 await Addressables.UnloadSceneAsync(sceneInstance.SceneInstance).Task;
             }
         }
+
+        public UnityEngine.SceneManagement.Scene CurrentScene => SceneManager.GetActiveScene();
     }
 }
