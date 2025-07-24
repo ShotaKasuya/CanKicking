@@ -16,17 +16,19 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
         IPrimarySceneModel primarySceneModel,
         IBlockingOperationModel blockingOperationModel,
         ISceneLoaderView sceneLoaderView,
-        ISceneLoadEventModel sceneLoadEventModel
+        ISceneLoadSubjectModel sceneLoadSubjectModel
     )
     {
         PrimarySceneModel = primarySceneModel;
         BlockingOperationModel = blockingOperationModel;
         SceneLoaderView = sceneLoaderView;
-        SceneLoadEventModel = sceneLoadEventModel;
+        SceneLoadSubjectModel = sceneLoadSubjectModel;
     }
 
     public async UniTask ChangeScene(string scenePath)
     {
+        SceneLoadSubjectModel.InvokeStartLoadScene();
+        await WaitBlock();
         var sceneInstance = await LoadScene(scenePath);
 
         await ActivateScene(sceneInstance);
@@ -34,28 +36,31 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
         var prevSceneInstance = PrimarySceneModel.ToggleCurrentScene(sceneInstance);
 
         await UnLoadScene(prevSceneInstance);
+        SceneLoadSubjectModel.InvokeEndLoadScene();
+        await WaitBlock();
     }
 
     private async UniTask<SceneContext> LoadScene(string scenePath)
     {
-        SceneLoadEventModel.InvokeBeforeSceneLoad();
-        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+        SceneLoadSubjectModel.InvokeBeforeSceneLoad();
+        await WaitBlock();
 
         var sceneInstance = await SceneLoaderView.LoadScene(scenePath);
-        
-        SceneLoadEventModel.InvokeAfterSceneLoad();
-        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+
+        SceneLoadSubjectModel.InvokeAfterSceneLoad();
+        await WaitBlock();
 
         return sceneInstance;
     }
 
     private async UniTask ActivateScene(SceneContext sceneContext)
     {
-        SceneLoadEventModel.InvokeBeforeNextSceneActivate();
-        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+        SceneLoadSubjectModel.InvokeBeforeNextSceneActivate();
+        await WaitBlock();
 
         await SceneLoaderView.ActivateAsync(sceneContext);
-        
+
+        Debug.Log("Load primary scene\n" + sceneContext.ScenePath);
         var scene = SceneManager.GetSceneByPath(sceneContext.ScenePath);
         var rootGameObjects = scene.GetRootGameObjects()!;
 
@@ -70,23 +75,28 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
             }
         }
 
-        SceneLoadEventModel.InvokeAfterNextSceneActivate();
-        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+        SceneLoadSubjectModel.InvokeAfterNextSceneActivate();
+        await WaitBlock();
     }
 
     private async UniTask UnLoadScene(SceneContext sceneContext)
     {
-        SceneLoadEventModel.InvokeBeforeSceneUnLoad();
-        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+        SceneLoadSubjectModel.InvokeBeforeSceneUnLoad();
+        await WaitBlock();
 
         await SceneLoaderView.UnLoadScene(sceneContext);
 
-        SceneLoadEventModel.InvokeAfterSceneUnLoad();
-        await UniTask.WaitUntil(this, logic => logic.BlockingOperationModel.IsAnyBlocked());
+        SceneLoadSubjectModel.InvokeAfterSceneUnLoad();
+        await WaitBlock();
+    }
+
+    private async UniTask WaitBlock()
+    {
+        await UniTask.WaitUntil(BlockingOperationModel.IsAnyBlocked);
     }
 
     private IPrimarySceneModel PrimarySceneModel { get; }
     private IBlockingOperationModel BlockingOperationModel { get; }
     private ISceneLoaderView SceneLoaderView { get; }
-    private ISceneLoadEventModel SceneLoadEventModel { get; }
+    private ISceneLoadSubjectModel SceneLoadSubjectModel { get; }
 }

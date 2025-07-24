@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
 using R3;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer.ModuleExtension;
 using VContainer.Unity;
@@ -31,16 +30,16 @@ public class ResourceSceneController : IInitializable
 
     public void Initialize()
     {
-        Debug.Log("VAR");
         SceneLoadEventModel.AfterSceneUnLoad
             .Subscribe(this, (_, controller) => controller.BuildAndLoadResources().Forget())
             .AddTo(CompositeDisposable);
-        SceneLoadEventModel.BeforeSceneUnLoad
-            .Subscribe(LoadResourcesSceneLogic, (_, logic) => logic.UnLoadResources().Forget())
+        SceneLoadEventModel.BeforeSceneLoad
+            .Subscribe(this, (_, controller) => controller.UnLoadResourceScene().Forget())
             .AddTo(CompositeDisposable);
     }
 
     private const string BuildLoadResourcesContext = "Build load resources";
+    private const string UnLoadResourcesContext = "UnLoad Resource Scenes";
 
     private async UniTask BuildAndLoadResources()
     {
@@ -48,12 +47,12 @@ public class ResourceSceneController : IInitializable
 
         await LoadResourcesSceneLogic.LoadResources();
 
-        using var _ = LifetimeScope.EnqueueParent(ParentLifetimeScope);
+        // using var _ = LifetimeScope.EnqueueParent(ParentLifetimeScope);
 
-        var sceneContexts = ResourceScenesModel.GetSceneReleaseContexts();
+        var sceneContexts = ResourceScenesModel.GetResourceScenes();
         for (int i = 0; i < sceneContexts.Count; i++)
         {
-            var scene = SceneManager.GetSceneByPath(sceneContexts[i].ScenePath);
+            var scene = SceneManager.GetSceneByPath(sceneContexts[i]);
             var rootGameObjects = scene.GetRootGameObjects()!;
 
             for (int j = 0; j < rootGameObjects.Length; j++)
@@ -67,6 +66,15 @@ public class ResourceSceneController : IInitializable
             }
         }
 
+        handle.Release();
+    }
+
+    private async UniTask UnLoadResourceScene()
+    {
+        var handle = BlockingOperationModel.SpawnOperation(UnLoadResourcesContext);
+
+        await LoadResourcesSceneLogic.UnLoadResources();
+        
         handle.Release();
     }
 

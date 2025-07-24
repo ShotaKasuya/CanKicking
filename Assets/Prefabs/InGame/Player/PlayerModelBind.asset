@@ -19,7 +19,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 55
   kickBasePowerModel:
-    basePower: 20
+    basePower: 10
   pullLimitModel:
     limitRatio: 0.75
     cancelRatio: 0.125

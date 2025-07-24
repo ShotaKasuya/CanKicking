@@ -25,10 +25,10 @@ public class LoadingPanelController : IStartable
 
     public void Start()
     {
-        SceneLoadEventModel.BeforeSceneLoad
+        SceneLoadEventModel.StartLoadScene
             .Subscribe(this, (_, controller) => controller.FadeInPanel().Forget())
             .AddTo(CompositeDisposable);
-        SceneLoadEventModel.AfterSceneUnLoad
+        SceneLoadEventModel.EndLoadScene
             .Subscribe(this, (_, controller) => controller.FadeOutPanel().Forget())
             .AddTo(CompositeDisposable);
     }

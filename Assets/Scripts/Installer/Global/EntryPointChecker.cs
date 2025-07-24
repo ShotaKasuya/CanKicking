@@ -18,7 +18,7 @@ namespace Installer.Global
         private void DebugStarter()
         {
 #if UNITY_EDITOR
-            CheckEntryPoint().Forget();
+            // CheckEntryPoint().Forget();
             if (observeBlockingOperation)
             {
                 ObserveBlockingOperation().Forget();

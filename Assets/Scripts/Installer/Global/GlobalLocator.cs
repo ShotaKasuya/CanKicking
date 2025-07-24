@@ -59,7 +59,7 @@ namespace Installer.Global
 
         private void Start()
         {
-            // DebugStarter();
+            DebugStarter();
         }
     }
 }
