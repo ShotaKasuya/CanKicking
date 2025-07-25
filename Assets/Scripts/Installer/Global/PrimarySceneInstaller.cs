@@ -25,6 +25,12 @@ namespace Installer.Global
             });
 
             builder.RegisterEntryPoint<ResourceSceneController>();
+            
+            InnerConfigure(builder);
+        }
+
+        protected virtual void InnerConfigure(IContainerBuilder builder)
+        {
         }
     }
 }

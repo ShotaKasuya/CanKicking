@@ -14,6 +14,7 @@ namespace View.InGame.Player
         public float AngularVelocity => _rigidbody.angularVelocity;
         public Observable<Collision2D> CollisionEnterEvent => _collisionEnterSubject;
 
+        private GameObject _self;
         private Transform _modelTransform;
         private Rigidbody2D _rigidbody;
         private Subject<Collision2D> _collisionEnterSubject = new Subject<Collision2D>();
@@ -23,10 +24,16 @@ namespace View.InGame.Player
 
         private void Awake()
         {
+            _self = gameObject;
             _modelTransform = transform;
             _rigidbody = GetComponent<Rigidbody2D>();
             _collisionEnterSubject = new Subject<Collision2D>();
             _raycastPool = new RaycastHit2D[raycastPoolSize];
+        }
+
+        public void Activation(bool isActive)
+        {
+            _self.SetActive(isActive);
         }
 
         private void OnCollisionEnter2D(Collision2D other)

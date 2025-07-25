@@ -47,7 +47,7 @@ public class ResourceSceneController : IInitializable
 
         await LoadResourcesSceneLogic.LoadResources();
 
-        // using var _ = LifetimeScope.EnqueueParent(ParentLifetimeScope);
+        using var _ = LifetimeScope.EnqueueParent(ParentLifetimeScope);
 
         var sceneContexts = ResourceScenesModel.GetResourceScenes();
         for (int i = 0; i < sceneContexts.Count; i++)

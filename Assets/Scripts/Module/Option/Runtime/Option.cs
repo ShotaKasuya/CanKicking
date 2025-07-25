@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+#nullable enable
+
 namespace Module.Option
 {
     [Serializable]
@@ -31,9 +33,9 @@ namespace Module.Option
         public bool IsNone => !isSome;
 
         [SerializeField] private bool isSome;
-        [SerializeField] private T value;
+        [SerializeField] private T? value;
 
-        private Option(bool isSome, T value)
+        private Option(bool isSome, T? value)
         {
             this.isSome = isSome;
             this.value = value;
@@ -43,7 +45,7 @@ namespace Module.Option
         {
             if (IsSome)
             {
-                return $"Some({value.ToString()})";
+                return $"Some({value!.ToString()})";
             }
 
             return "None";

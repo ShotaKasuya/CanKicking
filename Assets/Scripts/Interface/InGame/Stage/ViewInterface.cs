@@ -1,22 +1,29 @@
-﻿using R3;
+﻿using Module.Option;
+using R3;
+using UnityEngine;
 
-namespace Interface.InGame.Stage
+namespace Interface.InGame.Stage;
+
+public interface IStartPositionView
 {
-    public interface IGoalEventView
-    {
-        public Observable<Unit> Performed { get; }
-    }
+    public Option<Transform> StartPosition { get; }
+    public void SetStartPosition(Transform startPosition);
+}
 
-    public interface ICameraView
-    {
-        public void SetOrthoSize(float orthoSize);
-    }
+public interface IGoalEventView
+{
+    public Observable<Unit> Performed { get; }
+}
 
-    /// <summary>
-    /// ピンチイン・ピンチアウトの入力を受け取る
-    /// </summary>
-    public interface IPinchView
-    {
-        public float Pool();
-    }
+public interface ICameraView
+{
+    public void SetOrthoSize(float orthoSize);
+}
+
+/// <summary>
+/// ピンチイン・ピンチアウトの入力を受け取る
+/// </summary>
+public interface IPinchView
+{
+    public float Pool();
 }

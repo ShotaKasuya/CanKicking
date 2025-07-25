@@ -1,6 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
-using Module.Option;
 using R3;
 using Structure.Utility;
 using UnityEngine;
@@ -17,6 +15,8 @@ public interface IPlayerView
     public float AngularVelocity { get; }
 
     public Observable<Collision2D> CollisionEnterEvent { get; }
+
+    public void Activation(bool isActive);
 }
 
 /// <summary>
