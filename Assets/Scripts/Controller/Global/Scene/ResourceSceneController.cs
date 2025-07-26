@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
 using R3;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer.ModuleExtension;
 using VContainer.Unity;
@@ -49,6 +50,7 @@ public class ResourceSceneController : IInitializable
 
         using var _ = LifetimeScope.EnqueueParent(ParentLifetimeScope);
 
+        Debug.Log($"Primary LifetimeScope: {ParentLifetimeScope.name}");
         var sceneContexts = ResourceScenesModel.GetResourceScenes();
         for (int i = 0; i < sceneContexts.Count; i++)
         {

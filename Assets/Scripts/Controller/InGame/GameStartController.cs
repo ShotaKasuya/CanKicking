@@ -24,6 +24,8 @@ public class GameStartController : IAsyncStartable
 
         await UniTask.WaitUntil(StartPositionView, view => view.StartPosition.IsSome, cancellationToken: cancellation);
         var startPosition = StartPositionView.StartPosition.Unwrap();
+
+        PlayerView.ModelTransform.position = startPosition.position;
     }
 
     private IStartPositionView StartPositionView { get; }

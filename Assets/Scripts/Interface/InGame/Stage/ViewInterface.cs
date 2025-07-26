@@ -20,6 +20,11 @@ public interface ICameraView
     public void SetOrthoSize(float orthoSize);
 }
 
+public interface ICameraInitializableView
+{
+    public void Init(Transform playerTransform);
+}
+
 /// <summary>
 /// ピンチイン・ピンチアウトの入力を受け取る
 /// </summary>

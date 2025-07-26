@@ -18,7 +18,7 @@ namespace Module.Option
             return new Option<T>(false, default);
         }
 
-        public bool TryGetValue(out T outValue)
+        public bool TryGetValue(out T? outValue)
         {
             outValue = isSome ? value : default;
             return isSome;

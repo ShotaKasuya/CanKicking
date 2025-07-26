@@ -32,5 +32,10 @@ namespace Installer.Global
         protected virtual void InnerConfigure(IContainerBuilder builder)
         {
         }
+
+        private void Reset()
+        {
+            autoRun = false;
+        }
     }
 }

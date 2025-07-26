@@ -26,6 +26,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - StageAsset
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70af0b6ea4c81bb59890f64a4b1e30ea
+    m_Address: Assets/Scenes/Primary/InGame/Stage03.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 785d3660d264942038be534e1052a9bf
     m_Address: Assets/Scenes/Environment/InGame/Env_Stage01.unity
     m_ReadOnly: 0
@@ -46,6 +51,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9465bf00f7f9798288cfb124b1fed845
+    m_Address: Assets/Scenes/Environment/InGame/Env_Stage03.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 95718b0b53d8012be9ff32ca6d631842
     m_Address: Assets/TmpResource/Sprite/floor.png
     m_ReadOnly: 0
@@ -54,6 +64,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9d8ab3bf6874356bf9ae912b93358e81
     m_Address: Assets/Scenes/Environment/OutGame/Env_StageSelect.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcca045ba975a66479df28b81babdd61
+    m_Address: Assets/Scenes/InGame/InGameUI.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
