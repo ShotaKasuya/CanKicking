@@ -10,6 +10,11 @@ public interface IStartPositionView
     public void SetStartPosition(Transform startPosition);
 }
 
+public interface IPlayerSpawnPositionView
+{
+    public Transform StartPosition { get; }
+}
+
 public interface IGoalEventView
 {
     public Observable<Unit> Performed { get; }

@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: Installer.InGame.InGamePrimaryInstaller
   autoRun: 1
   autoInjectGameObjects: []
   playerView: {fileID: 31840961135358124}

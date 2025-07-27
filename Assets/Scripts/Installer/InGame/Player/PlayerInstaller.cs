@@ -24,7 +24,6 @@ namespace Installer.InGame.Player
             playerModelBind.Register(builder);
 
             // Controller
-            builder.Register<PlayerState>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
             builder.RegisterEntryPoint<PlayerStateMachine>();
             builder.Register<IdleController>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<AimingController>(Lifetime.Scoped).AsImplementedInterfaces();

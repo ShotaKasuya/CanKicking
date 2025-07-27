@@ -1,5 +1,7 @@
 using Controller.InGame;
+using Controller.InGame.Player;
 using Installer.Global;
+using Model.InGame.Stage;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -18,7 +20,11 @@ namespace Installer.InGame
             builder.RegisterComponent(playerView).AsImplementedInterfaces();
             builder.Register<StartPositionView>(Lifetime.Singleton).AsImplementedInterfaces();
             
+            // Model
+            builder.Register<GoalEventModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            
             // Controller
+            builder.Register<PlayerState>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
             builder.UseEntryPoints(pointsBuilder =>
             {
                 pointsBuilder.Add<GameStartController>();

@@ -5,16 +5,19 @@ namespace Model.Global.Scene
 {
     public class SceneLoadEventModel : ISceneLoadEventModel, ISceneLoadSubjectModel
     {
-        public SceneLoadEventModel()
+        public SceneLoadEventModel
+        (
+            CompositeDisposable compositeDisposable
+        )
         {
-            StartSceneLoadSubject = new Subject<Unit>();
-            BeforeSceneLoadSubject = new Subject<Unit>();
-            AfterSceneLoadSubject = new Subject<Unit>();
-            BeforeNextSceneActivateSubject = new Subject<Unit>();
-            AfterNextSceneActivateSubject = new Subject<Unit>();
-            BeforeSceneUnLoadSubject = new Subject<Unit>();
-            AfterSceneUnLoadSubject = new Subject<Unit>();
-            EndSceneLoadSubject = new Subject<Unit>();
+            StartSceneLoadSubject = new Subject<Unit>().AddTo(compositeDisposable);
+            BeforeSceneLoadSubject = new Subject<Unit>().AddTo(compositeDisposable);
+            AfterSceneLoadSubject = new Subject<Unit>().AddTo(compositeDisposable);
+            BeforeNextSceneActivateSubject = new Subject<Unit>().AddTo(compositeDisposable);
+            AfterNextSceneActivateSubject = new Subject<Unit>().AddTo(compositeDisposable);
+            BeforeSceneUnLoadSubject = new Subject<Unit>().AddTo(compositeDisposable);
+            AfterSceneUnLoadSubject = new Subject<Unit>().AddTo(compositeDisposable);
+            EndSceneLoadSubject = new Subject<Unit>().AddTo(compositeDisposable);
         }
 
         public Observable<Unit> StartLoadScene => StartSceneLoadSubject;

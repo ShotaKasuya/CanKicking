@@ -21,13 +21,13 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
         IStopButtonView stopButtonView,
         IHeightUiView heightUiView,
         IPlayerView playerView,
-        IGoalEventView goalEventView,
+        IGoalEventModel goalEventModel,
         IMutStateEntity<UserInterfaceStateType> stateEntity
     ) : base(UserInterfaceStateType.Normal, stateEntity)
     {
         NormalUiView = normalUiView;
         StopButtonView = stopButtonView;
-        GoalEventView = goalEventView;
+        GoalEventModel = goalEventModel;
         HeightUiView = heightUiView;
         PlayerView = playerView;
         CompositeDisposable = new CompositeDisposable();
@@ -39,7 +39,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
             .Where(this, (_, controller) => controller.IsInState())
             .Subscribe(this, (_, controller) => controller.ChangeToStop())
             .AddTo(CompositeDisposable);
-        GoalEventView.Performed
+        GoalEventModel.GoalEvent
             .Where(this, (_, controller) => controller.IsInState())
             .Subscribe(this, (_, controller) => controller.ChangeToGoal())
             .AddTo(CompositeDisposable);
@@ -73,7 +73,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
 
     private INormalUiView NormalUiView { get; }
     private IStopButtonView StopButtonView { get; }
-    private IGoalEventView GoalEventView { get; }
+    private IGoalEventModel GoalEventModel { get; }
     private IHeightUiView HeightUiView { get; }
     private IPlayerView PlayerView { get; }
     private CompositeDisposable CompositeDisposable { get; }

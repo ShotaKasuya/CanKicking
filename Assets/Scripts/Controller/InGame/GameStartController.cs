@@ -26,6 +26,7 @@ public class GameStartController : IAsyncStartable
         var startPosition = StartPositionView.StartPosition.Unwrap();
 
         PlayerView.ModelTransform.position = startPosition.position;
+        PlayerView.Activation(true);
     }
 
     private IStartPositionView StartPositionView { get; }

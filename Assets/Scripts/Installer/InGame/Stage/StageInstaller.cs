@@ -1,4 +1,4 @@
-﻿using Controller.InGame;
+﻿using Controller.InGame.Stage;
 using GoogleMobileAds.Api;
 using Model.InGame.Stage;
 using UnityEngine;
@@ -10,6 +10,7 @@ namespace Installer.InGame.Stage
 {
     public class StageInstaller: LifetimeScope
     {
+        [SerializeField] private PlayerSpawnPositionView spawnPositionView;
         [SerializeField] private GoalView goalView;
         [SerializeField] private CameraView cameraView;
         [SerializeField] private CameraZoomModel cameraZoomModel;
@@ -17,15 +18,23 @@ namespace Installer.InGame.Stage
         protected override void Configure(IContainerBuilder builder)
         {
             // View
-            builder.RegisterInstance(goalView).AsImplementedInterfaces();
-            builder.RegisterInstance(cameraView).AsImplementedInterfaces();
+            builder.UseComponents(componentsBuilder =>
+            {
+                componentsBuilder.AddInstance(spawnPositionView).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(goalView).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(cameraView).AsImplementedInterfaces();
+            });
             builder.Register<BannerView>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Model
             builder.RegisterInstance(cameraZoomModel).AsImplementedInterfaces();
             
             // Controller
-            builder.RegisterEntryPoint<StageCameraController>();
+            builder.UseEntryPoints(pointsBuilder =>
+            {
+                pointsBuilder.Add<StageCameraController>();
+                pointsBuilder.Add<StageInitializeController>();
+            });
         }
     }
 }
