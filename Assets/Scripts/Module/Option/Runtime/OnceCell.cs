@@ -5,8 +5,13 @@ using System.Runtime.CompilerServices;
 
 namespace Module.Option
 {
-    public struct OnceCell<T>
+    public class OnceCell<T>
     {
+        public OnceCell()
+        {
+            _innerValue = Option<T>.None();
+        }
+
         private Option<T> _innerValue;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -21,9 +26,17 @@ namespace Module.Option
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Option<T> Get()
+        public bool TryUnwrap(out T? value)
         {
-            return _innerValue;
+            var result = _innerValue.IsSome;
+            value = result ? Unwrap() : default;
+            return result;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T Unwrap()
+        {
+            return _innerValue.Unwrap();
         }
 
         public bool IsInitialized => _innerValue.IsSome;

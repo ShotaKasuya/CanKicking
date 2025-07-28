@@ -1,7 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.InGame.Player;
-using Interface.InGame.Stage;
+using Interface.InGame.Primary;
 using VContainer.Unity;
 
 namespace Controller.InGame;
@@ -10,25 +9,31 @@ public class GameStartController : IAsyncStartable
 {
     public GameStartController
     (
-        IStartPositionView startPositionView,
-        IPlayerView playerView
+        ILazyStartPositionView lazyStartPositionView,
+        ILazyPlayerView lazyPlayerView
     )
     {
-        StartPositionView = startPositionView;
-        PlayerView = playerView;
+        LazyStartPositionView = lazyStartPositionView;
+        LazyPlayerView = lazyPlayerView;
     }
 
     public async UniTask StartAsync(CancellationToken cancellation = new CancellationToken())
     {
-        PlayerView.Activation(false);
+        await UniTask.WaitUntil(LazyPlayerView.PlayerView, cell => cell.IsInitialized, cancellationToken: cancellation);
+        var playerView = LazyPlayerView.PlayerView.Unwrap();
+        playerView.Activation(false);
 
-        await UniTask.WaitUntil(StartPositionView, view => view.StartPosition.IsSome, cancellationToken: cancellation);
-        var startPosition = StartPositionView.StartPosition.Unwrap();
+        await UniTask.WaitUntil(
+            LazyStartPositionView.StartPosition,
+            cell => cell.IsInitialized,
+            cancellationToken: cancellation
+        );
+        var startPosition = LazyStartPositionView.StartPosition.Unwrap();
 
-        PlayerView.ModelTransform.position = startPosition.position;
-        PlayerView.Activation(true);
+        playerView.ModelTransform.position = startPosition.StartPosition.position;
+        playerView.Activation(true);
     }
 
-    private IStartPositionView StartPositionView { get; }
-    private IPlayerView PlayerView { get; }
+    private ILazyStartPositionView LazyStartPositionView { get; }
+    private ILazyPlayerView LazyPlayerView { get; }
 }

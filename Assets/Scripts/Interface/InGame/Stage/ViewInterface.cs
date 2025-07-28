@@ -1,16 +1,9 @@
-﻿using Module.Option;
-using R3;
+﻿using R3;
 using UnityEngine;
 
 namespace Interface.InGame.Stage;
 
-public interface IStartPositionView
-{
-    public Option<Transform> StartPosition { get; }
-    public void SetStartPosition(Transform startPosition);
-}
-
-public interface IPlayerSpawnPositionView
+public interface ISpawnPositionView
 {
     public Transform StartPosition { get; }
 }

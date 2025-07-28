@@ -24,28 +24,11 @@ namespace Installer.InGame.Player
             playerModelBind.Register(builder);
 
             // Controller
+            builder.RegisterEntryPoint<InitializeController>();
             builder.RegisterEntryPoint<PlayerStateMachine>();
             builder.Register<IdleController>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<AimingController>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<FryingController>(Lifetime.Scoped).AsImplementedInterfaces();
         }
-
-#if UNITY_EDITOR
-        private PlayerState _state;
-
-        private void Start()
-        {
-            _state = Container.Resolve<PlayerState>();
-        }
-
-        private void OnGUI()
-        {
-            var style = new GUIStyle()
-            {
-                fontSize = 130
-            };
-            GUI.Label(new Rect(10, 10, 100, 20), _state.State.ToString(), style);
-        }
-#endif
     }
 }

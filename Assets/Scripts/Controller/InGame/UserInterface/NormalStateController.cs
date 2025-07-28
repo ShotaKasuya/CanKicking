@@ -1,6 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
-using Interface.InGame.Player;
+using Interface.InGame.Primary;
 using Interface.InGame.Stage;
 using Interface.InGame.UserInterface;
 using Module.StateMachine;
@@ -20,7 +20,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
         INormalUiView normalUiView,
         IStopButtonView stopButtonView,
         IHeightUiView heightUiView,
-        IPlayerView playerView,
+        ILazyPlayerView playerView,
         IGoalEventModel goalEventModel,
         IMutStateEntity<UserInterfaceStateType> stateEntity
     ) : base(UserInterfaceStateType.Normal, stateEntity)
@@ -47,7 +47,9 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
 
     public override void StateUpdate(float deltaTime)
     {
-        var height = PlayerView.ModelTransform.position.y;
+        if (!PlayerView.PlayerView.TryUnwrap(out var playerView)) return;
+        
+        var height = playerView!.ModelTransform.position.y;
         HeightUiView.SetHeight(height);
     }
 
@@ -75,7 +77,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
     private IStopButtonView StopButtonView { get; }
     private IGoalEventModel GoalEventModel { get; }
     private IHeightUiView HeightUiView { get; }
-    private IPlayerView PlayerView { get; }
+    private ILazyPlayerView PlayerView { get; }
     private CompositeDisposable CompositeDisposable { get; }
 
     public void Dispose()

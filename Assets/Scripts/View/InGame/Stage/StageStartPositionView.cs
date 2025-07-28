@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace View.InGame.Stage
 {
-    public class PlayerSpawnPositionView: MonoBehaviour, IPlayerSpawnPositionView
+    public class SpawnPositionView: MonoBehaviour, ISpawnPositionView
     {
         public Transform StartPosition => _selfTransform;
         private Transform _selfTransform;

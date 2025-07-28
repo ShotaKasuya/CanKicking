@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 #nullable enable
@@ -8,22 +9,26 @@ namespace Module.Option
     [Serializable]
     public struct Option<T>
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Option<T> Some(T value)
         {
             return new Option<T>(true, value);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Option<T> None()
         {
             return new Option<T>(false, default);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryGetValue(out T? outValue)
         {
             outValue = isSome ? value : default;
             return isSome;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T Unwrap()
         {
             return value!;

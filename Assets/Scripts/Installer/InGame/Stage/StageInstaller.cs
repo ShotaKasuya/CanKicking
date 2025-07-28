@@ -10,7 +10,7 @@ namespace Installer.InGame.Stage
 {
     public class StageInstaller: LifetimeScope
     {
-        [SerializeField] private PlayerSpawnPositionView spawnPositionView;
+        [SerializeField] private SpawnPositionView spawnPositionView;
         [SerializeField] private GoalView goalView;
         [SerializeField] private CameraView cameraView;
         [SerializeField] private CameraZoomModel cameraZoomModel;
