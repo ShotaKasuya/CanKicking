@@ -4,7 +4,6 @@ using Module.SceneReference;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
 namespace View.Global.Scene
@@ -13,10 +12,6 @@ namespace View.Global.Scene
     {
         public async UniTask<SceneContext> LoadScene(string scenePath)
         {
-            SceneType type;
-            SceneInstance instance;
-            AsyncOperation operation = null;
-
             var locationsHandle = Addressables.LoadResourceLocationsAsync(scenePath);
             await locationsHandle.Task;
 
@@ -24,20 +19,17 @@ namespace View.Global.Scene
             {
                 // アセットが存在する
                 var handle = Addressables.LoadSceneAsync(scenePath, LoadSceneMode.Additive, false);
-                instance = await handle.Task.AsUniTask();
-                type = SceneType.Addressable;
+                var instance = await handle.Task.AsUniTask();
+                return SceneContext.AddressableContext(instance, scenePath);
             }
             else
             {
                 // アセットが存在しない
-                operation = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
+                var operation = SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
                 operation!.allowSceneActivation = false;
                 await operation.ToUniTask();
-                instance = default;
-                type = SceneType.SceneManager;
+                return SceneContext.SceneManagerContext(operation, scenePath);
             }
-
-            return new SceneContext(type, instance, operation, scenePath);
         }
 
         public async UniTask ActivateAsync(SceneContext scene)

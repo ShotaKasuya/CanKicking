@@ -18,6 +18,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
     public NormalStateController
     (
         INormalUiView normalUiView,
+        ILazyBaseHeightView baseHeightView,
         IStopButtonView stopButtonView,
         IHeightUiView heightUiView,
         ILazyPlayerView playerView,
@@ -26,6 +27,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
     ) : base(UserInterfaceStateType.Normal, stateEntity)
     {
         NormalUiView = normalUiView;
+        BaseHeightView = baseHeightView;
         StopButtonView = stopButtonView;
         GoalEventModel = goalEventModel;
         HeightUiView = heightUiView;
@@ -48,9 +50,10 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
     public override void StateUpdate(float deltaTime)
     {
         if (!PlayerView.PlayerView.TryUnwrap(out var playerView)) return;
-        
+        if (!BaseHeightView.BaseHeight.TryUnwrap(out var baseHeight)) return;
+
         var height = playerView!.ModelTransform.position.y;
-        HeightUiView.SetHeight(height);
+        HeightUiView.SetHeight(height - baseHeight);
     }
 
     private void ChangeToGoal()
@@ -74,6 +77,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable, IDi
     }
 
     private INormalUiView NormalUiView { get; }
+    private ILazyBaseHeightView BaseHeightView { get; }
     private IStopButtonView StopButtonView { get; }
     private IGoalEventModel GoalEventModel { get; }
     private IHeightUiView HeightUiView { get; }

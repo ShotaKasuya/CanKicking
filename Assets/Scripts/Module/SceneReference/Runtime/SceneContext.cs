@@ -11,6 +11,16 @@ namespace Module.SceneReference
 
     public readonly struct SceneContext
     {
+        public static SceneContext SceneManagerContext(AsyncOperation operation, string scenePath)
+        {
+            return new SceneContext(SceneType.SceneManager, default, operation, scenePath);
+        }
+
+        public static SceneContext AddressableContext(SceneInstance sceneInstance, string scenePath)
+        {
+            return new SceneContext(SceneType.Addressable, sceneInstance, null, scenePath);
+        }
+
         public SceneContext
         (
             SceneType sceneType,

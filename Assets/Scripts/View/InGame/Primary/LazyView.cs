@@ -15,13 +15,15 @@ namespace View.InGame.Primary
         public OnceCell<IPlayerView> PlayerView { get; }
     }
 
-    public class LazyStartPositionView : ILazyStartPositionView
+    public class LazyStartPositionView : ILazyStartPositionView, ILazyBaseHeightView
     {
         public LazyStartPositionView()
         {
             StartPosition = new OnceCell<ISpawnPositionView>();
+            BaseHeight = new OnceCell<float>();
         }
 
         public OnceCell<ISpawnPositionView> StartPosition { get; }
+        public OnceCell<float> BaseHeight { get; }
     }
 }

@@ -13,18 +13,21 @@ namespace Installer.Global
     {
         [SerializeField] private bool observeBlockingOperation;
 
-        private const string EntryPointScene = "_init";
-
         private void DebugStarter()
         {
 #if UNITY_EDITOR
-            // CheckEntryPoint().Forget();
+            CheckEntryPoint().Forget();
             if (observeBlockingOperation)
             {
                 ObserveBlockingOperation().Forget();
             }
 #endif
         }
+
+        private const string EntryPointScene = "_init";
+        private const string EnvironmentSceneHead = "Env_";
+        private const string Primary = "Primary";
+        private const string Environment = "Environment";
 
         private async UniTask CheckEntryPoint()
         {
@@ -39,11 +42,19 @@ namespace Installer.Global
                 return;
             }
 
-            primarySceneModel.ToggleCurrentScene(new SceneContext(
-                SceneType.SceneManager, default, null,
-                currentScenePath));
+            primarySceneModel.ToggleCurrentScene(SceneContext.SceneManagerContext(
+                null, currentScenePath
+            ));
 
-            await loadPrimarySceneLogic.ChangeScene(currentScenePath);
+            if (currentScene.StartsWith(EnvironmentSceneHead))
+            {
+                var nextScenePath = currentScenePath.Replace(Environment, Primary);
+                 nextScenePath = nextScenePath.Replace(EnvironmentSceneHead, string.Empty);
+                await loadPrimarySceneLogic.ChangeScene(nextScenePath);
+                return;
+            }
+
+            Debug.LogWarning("can't find primary scene");
         }
 
         private async UniTask ObserveBlockingOperation()
@@ -59,7 +70,6 @@ namespace Installer.Global
                 {
                     var handle = operations[i];
                     logger.AppendLine(handle.ToString());
-                    
                 }
 
                 Debug.Log(logger.ToString());

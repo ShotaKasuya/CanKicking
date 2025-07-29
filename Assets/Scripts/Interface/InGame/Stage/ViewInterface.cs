@@ -8,6 +8,11 @@ public interface ISpawnPositionView
     public Transform StartPosition { get; }
 }
 
+public interface IBaseHeightView
+{
+    public float PositionY { get; }
+}
+
 public interface IGoalEventView
 {
     public Observable<Unit> Performed { get; }

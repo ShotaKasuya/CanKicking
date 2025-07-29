@@ -13,3 +13,8 @@ public interface ILazyStartPositionView
 {
     public OnceCell<ISpawnPositionView> StartPosition { get; }
 }
+
+public interface ILazyBaseHeightView
+{
+    public OnceCell<float> BaseHeight { get; }
+}

@@ -9,6 +9,8 @@ public class StageInitializeController : IStartable
 {
     public StageInitializeController
     (
+        ILazyBaseHeightView lazyBaseHeightView,
+        IBaseHeightView baseHeightView,
         ILazyStartPositionView startPositionView,
         ISpawnPositionView spawnPositionView,
         IGoalEventView goalEventView,
@@ -16,6 +18,8 @@ public class StageInitializeController : IStartable
         CompositeDisposable compositeDisposable
     )
     {
+        LazyBaseHeightView = lazyBaseHeightView;
+        BaseHeightView = baseHeightView;
         StartPositionView = startPositionView;
         SpawnPositionView = spawnPositionView;
         GoalEventView = goalEventView;
@@ -25,6 +29,7 @@ public class StageInitializeController : IStartable
 
     public void Start()
     {
+        LazyBaseHeightView.BaseHeight.Init(BaseHeightView.PositionY);
         StartPositionView.StartPosition.Init(SpawnPositionView);
         GoalEventView.Performed
             .Subscribe(this, (unit, controller) => controller.GoalEventSubjectModel.GoalEventSubject.OnNext(unit))
@@ -32,6 +37,8 @@ public class StageInitializeController : IStartable
     }
 
     private CompositeDisposable CompositeDisposable { get; }
+    private ILazyBaseHeightView LazyBaseHeightView { get; }
+    private IBaseHeightView BaseHeightView { get; }
     private ILazyStartPositionView StartPositionView { get; }
     private ISpawnPositionView SpawnPositionView { get; }
     private IGoalEventView GoalEventView { get; }

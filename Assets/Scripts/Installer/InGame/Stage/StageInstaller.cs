@@ -10,6 +10,7 @@ namespace Installer.InGame.Stage
 {
     public class StageInstaller: LifetimeScope
     {
+        [SerializeField] private BaseHeightView baseHeightView;
         [SerializeField] private SpawnPositionView spawnPositionView;
         [SerializeField] private GoalView goalView;
         [SerializeField] private CameraView cameraView;
@@ -20,6 +21,7 @@ namespace Installer.InGame.Stage
             // View
             builder.UseComponents(componentsBuilder =>
             {
+                componentsBuilder.AddInstance(baseHeightView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(spawnPositionView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(goalView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(cameraView).AsImplementedInterfaces();
