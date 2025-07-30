@@ -1,29 +1,58 @@
+using System;
 using Interface.Global.Input;
 using Interface.Global.Screen;
 using Interface.InGame.Player;
 using Module.StateMachine;
+using R3;
 using Structure.InGame.Player;
 using Structure.Utility.Calculation;
+using UnityEngine;
+using VContainer.Unity;
 
 namespace Controller.InGame.Player;
 
-public class IdleController : PlayerStateBehaviourBase
+public class IdleController : PlayerStateBehaviourBase, IStartable
 {
     public IdleController
     (
+        ITouchView touchView,
+        IDoubleTapView doubleTapView,
+        IPlayerView playerView,
         IRayCasterView rayCasterView,
         IGroundDetectionModel groundDetectionModel,
-        ITouchView touchView,
         IPullLimitModel pullLimitModel,
         IScreenScaleModel screenScaleModel,
+        IKickPositionModel kickPositionModel,
+        CompositeDisposable compositeDisposable,
         IMutStateEntity<PlayerStateType> stateEntity
     ) : base(PlayerStateType.Idle, stateEntity)
     {
+        TouchView = touchView;
+        DoubleTapView = doubleTapView;
+        PlayerView = playerView;
         RayCasterView = rayCasterView;
         GroundDetectionModel = groundDetectionModel;
-        TouchView = touchView;
         PullLimitModel = pullLimitModel;
         ScreenScaleModel = screenScaleModel;
+        KickPositionModel = kickPositionModel;
+        CompositeDisposable = compositeDisposable;
+    }
+
+    public void Start()
+    {
+        DoubleTapView.DoubleTapEvent
+            .Where(this, (_, controller) => controller.IsInState())
+            .ThrottleFirst(TimeSpan.FromSeconds(0.5f))  // FIXME: マジックナンバー
+            .Subscribe(this, (_, controller) => controller.Undo())
+            .AddTo(CompositeDisposable);
+    }
+
+    private void Undo()
+    {
+        if (!KickPositionModel.PopPosition().TryGetValue(out var position)) return;
+        Debug.Log($"on undo position => {position}");
+        
+        PlayerView.ResetPosition(position);
     }
 
     public override void StateUpdate(float deltaTime)
@@ -78,9 +107,13 @@ public class IdleController : PlayerStateBehaviourBase
         return false;
     }
 
+    private CompositeDisposable CompositeDisposable { get; }
+    private ITouchView TouchView { get; }
+    private IDoubleTapView DoubleTapView { get; }
+    private IPlayerView PlayerView { get; }
     private IRayCasterView RayCasterView { get; }
     private IGroundDetectionModel GroundDetectionModel { get; }
-    private ITouchView TouchView { get; }
     private IPullLimitModel PullLimitModel { get; }
     private IScreenScaleModel ScreenScaleModel { get; }
+    private IKickPositionModel KickPositionModel { get; }
 }

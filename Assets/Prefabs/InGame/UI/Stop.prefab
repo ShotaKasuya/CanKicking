@@ -932,9 +932,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneReference:
-    sceneType: 0
-    sceneName: Assets/Scenes/OutGame/StageSelect.unity
-    sceneAsset: {fileID: 102900000, guid: 2d25e4c23acd2ddb4907d76bb174b201, type: 3}
+    sceneAsset: {fileID: 102900000, guid: 8d02e600a5ca914f8a3d4687ff26ee17, type: 3}
+    scenePath: Assets/Scenes/Primary/OutGame/StageSelect.unity
 --- !u!1 &7454450035022526508
 GameObject:
   m_ObjectHideFlags: 0

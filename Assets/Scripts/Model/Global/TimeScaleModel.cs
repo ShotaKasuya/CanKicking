@@ -31,5 +31,12 @@ namespace Model.Global
             Time.timeScale = _prevTimeScale;
             _prevTimeScale = 0;
         }
+
+        public void Reset()
+        {
+            var defaultScale = timeScaleSettings.Get((int)TimeCommandType.Normal);
+            Time.timeScale = defaultScale;
+            _prevTimeScale = defaultScale;
+        }
     }
 }

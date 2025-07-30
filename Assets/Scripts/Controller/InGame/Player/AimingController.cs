@@ -16,8 +16,10 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
     public AimingController
     (
         ITouchView touchView,
+        IPlayerView playerView,
         IAimView aimView,
         ICanKickView canKickView,
+        IKickPositionModel kickPositionModel,
         IKickBasePowerModel kickBasePowerModel,
         IPullLimitModel pullLimitModel,
         IScreenScaleModel screenScaleModel,
@@ -25,8 +27,10 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
     ) : base(PlayerStateType.Aiming, stateEntity)
     {
         TouchView = touchView;
+        PlayerView = playerView;
         AimView = aimView;
         CanKickView = canKickView;
+        KickPositionModel = kickPositionModel;
         KickBasePowerModel = kickBasePowerModel;
         PullLimitModel = pullLimitModel;
         ScreenScaleModel = screenScaleModel;
@@ -79,25 +83,35 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
 
     private void Jump(TouchEndEventArgument fingerReleaseInfo)
     {
-        var screen = ScreenScaleModel.Scale;
-        var basePower = KickBasePowerModel.BasePower;
         var deltaPosition = fingerReleaseInfo.Delta;
+        var screen = ScreenScaleModel.Scale;
         var cancelLength = PullLimitModel.CancelRatio;
         var maxLength = PullLimitModel.MaxRatio;
+        var basePower = KickBasePowerModel.BasePower;
+        
         var (aimVector, length) = Calculator.FitVectorToScreen(deltaPosition, screen);
-
         var resizeLength = Mathf.InverseLerp(cancelLength, maxLength, length);
         var power = basePower * resizeLength * aimVector;
 
         var context = new KickContext(power, Mathf.Sign(power.x));
         CanKickView.Kick(context);
+        StorePosition();
         StateEntity.ChangeState(PlayerStateType.Frying);
+    }
+
+    private void StorePosition()
+    {
+        var position = PlayerView.ModelTransform.position;
+        
+        KickPositionModel.PushPosition(position);
     }
 
     private CompositeDisposable CompositeDisposable { get; }
     private ITouchView TouchView { get; }
+    private IPlayerView PlayerView { get; }
     private IAimView AimView { get; }
     private ICanKickView CanKickView { get; }
+    private IKickPositionModel KickPositionModel { get; }
     private IKickBasePowerModel KickBasePowerModel { get; }
     private IPullLimitModel PullLimitModel { get; }
     private IScreenScaleModel ScreenScaleModel { get; }

@@ -10,5 +10,7 @@ namespace Interface.Global.TimeScale
     {
         public void Execute(TimeCommandType timeCommand);
         public void Undo();
+
+        public void Reset();
     }
 }

@@ -22,6 +22,7 @@ namespace Installer.InGame.Player
 
             // Model
             playerModelBind.Register(builder);
+            builder.Register<KickPositionModel>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Controller
             builder.RegisterEntryPoint<InitializeController>();

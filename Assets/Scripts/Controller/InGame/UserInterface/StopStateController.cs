@@ -24,6 +24,7 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
         IStop_RestartButtonView reStartButtonView,
         ILoadPrimarySceneLogic loadPrimarySceneLogic,
         ITimeScaleModel timeScaleModel,
+        CompositeDisposable compositeDisposable,
         IMutStateEntity<PlayerStateType> playerState,
         IMutStateEntity<UserInterfaceStateType> stateEntity
     ) : base(UserInterfaceStateType.Stop, stateEntity)
@@ -34,9 +35,8 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
         StopUiView = stopUiView;
         LoadPrimarySceneLogic = loadPrimarySceneLogic;
         TimeScaleModel = timeScaleModel;
+        CompositeDisposable = compositeDisposable;
         PlayerState = playerState;
-
-        CompositeDisposable = new CompositeDisposable();
     }
 
     public void Start()

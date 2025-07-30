@@ -1,0 +1,19 @@
+{
+    "name": "EditModeTests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4d8794373ab05ad6d9f16872f64fe2f0",
+        "GUID:057b6ea880ed3e133a39ba8babd31b91"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

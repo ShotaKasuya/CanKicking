@@ -17,6 +17,7 @@ public interface IPlayerView
     public Observable<Collision2D> CollisionEnterEvent { get; }
 
     public void Activation(bool isActive);
+    public void ResetPosition(Vector2 position);
 }
 
 /// <summary>

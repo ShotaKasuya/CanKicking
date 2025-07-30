@@ -12,6 +12,11 @@ public interface ITouchView
     public Observable<TouchEndEventArgument> TouchEndEvent { get; }
 }
 
+public interface IDoubleTapView
+{
+    public Observable<Unit> DoubleTapEvent { get; }
+}
+
 public readonly struct TouchStartEventArgument
 {
     public Vector2 TouchPosition { get; }

@@ -11,21 +11,6 @@ namespace View.Global.Input
 {
     public partial class GlobalInputView
     {
-        private void TouchInit()
-        {
-            Actions.Touch.performed += OnStartClick;
-            Actions.Touch.canceled += OnReleaseInput;
-        }
-
-        private void TouchDispose()
-        {
-            TouchSubject?.Dispose();
-            TouchEndSubject?.Dispose();
-
-            Actions.Touch.performed -= OnStartClick;
-            Actions.Touch.canceled -= OnReleaseInput;
-        }
-
         private void OnStartClick(InputAction.CallbackContext context)
         {
             _pendingTouchStarted = true;

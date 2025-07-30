@@ -36,6 +36,12 @@ namespace View.InGame.Player
             _self.SetActive(isActive);
         }
 
+        public void ResetPosition(Vector2 position)
+        {
+            ModelTransform.position = position;
+            _rigidbody.linearVelocity = Vector2.zero;
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             _collisionEnterSubject.OnNext(other);

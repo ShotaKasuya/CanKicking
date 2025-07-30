@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1900261828}
-  - component: {fileID: 1900261827}
+  - component: {fileID: 1900261829}
   m_Layer: 0
   m_Name: SceneResources
   m_TagString: Untagged
@@ -136,43 +136,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1900261827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1900261826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b460a3f558964148a72006e1fe399a77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentReference:
-    TypeName: 
-  autoRun: 0
-  autoInjectGameObjects: []
-  bgmModel:
-    mode: 0
-    unityReference: {fileID: 11400000, guid: 0de4192ee40289ff89039d2e678ac095, type: 2}
-    rawReference:
-      rid: -2
-  sceneResources:
-    mode: 1
-    unityReference: {fileID: 0}
-    rawReference:
-      rid: 1549412459543266069
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1549412459543266069
-      type: {class: SceneResourcesModel, ns: Model.Global.Scene, asm: Model}
-      data:
-        resourceScenes:
-        - sceneAsset: {fileID: 102900000, guid: 785d3660d264942038be534e1052a9bf, type: 3}
-          scenePath: Assets/Scenes/Environment/InGame/Env_Stage01.unity
 --- !u!4 &1900261828
 Transform:
   m_ObjectHideFlags: 0
@@ -188,6 +151,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1900261829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900261826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5fd11c848254855b18642781fe4b228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 0
+  autoInjectGameObjects: []
+  bgmModel:
+    mode: 0
+    unityReference: {fileID: 11400000, guid: 0de4192ee40289ff89039d2e678ac095, type: 2}
+    rawReference:
+      rid: -2
+  sceneResources:
+    mode: 1
+    unityReference: {fileID: 0}
+    rawReference:
+      rid: 1549412679711195927
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1549412679711195927
+      type: {class: SceneResourcesModel, ns: Model.Global.Scene, asm: Model}
+      data:
+        resourceScenes:
+        - sceneAsset: {fileID: 102900000, guid: dcca045ba975a66479df28b81babdd61, type: 3}
+          scenePath: Assets/Scenes/InGame/InGameUI.unity
+        - sceneAsset: {fileID: 102900000, guid: 785d3660d264942038be534e1052a9bf, type: 3}
+          scenePath: Assets/Scenes/Environment/InGame/Env_Stage01.unity
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

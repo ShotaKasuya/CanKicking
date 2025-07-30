@@ -1,5 +1,7 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
+using Interface.Global.TimeScale;
 using Interface.Global.UserInterface;
 using Interface.Global.Utility;
 using R3;
@@ -14,12 +16,14 @@ public class LoadingPanelController : IStartable
         ILoadingPanelView loadingPanelView,
         ISceneLoadEventModel sceneLoadEventModel,
         IBlockingOperationModel blockingOperationModel,
+        ITimeScaleModel timeScaleModel,
         CompositeDisposable compositeDisposable
     )
     {
         LoadingPanelView = loadingPanelView;
         SceneLoadEventModel = sceneLoadEventModel;
         BlockingOperationModel = blockingOperationModel;
+        TimeScaleModel = timeScaleModel;
         CompositeDisposable = compositeDisposable;
     }
 
@@ -39,14 +43,27 @@ public class LoadingPanelController : IStartable
     private async UniTask FadeInPanel()
     {
         var handle = BlockingOperationModel.SpawnOperation(FadeInContext);
-        await LoadingPanelView.ShowPanel();
+
+        TimeScaleModel.Reset();
+        try
+        {
+            await LoadingPanelView.ShowPanel();
+        }
+        catch (Exception e) when (e is not OperationCanceledException)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
         handle.Release();
     }
 
     private async UniTask FadeOutPanel()
     {
         var handle = BlockingOperationModel.SpawnOperation(FadeOutContext);
+
         await LoadingPanelView.HidePanel();
+
         handle.Release();
     }
 
@@ -54,4 +71,5 @@ public class LoadingPanelController : IStartable
     private ILoadingPanelView LoadingPanelView { get; }
     private ISceneLoadEventModel SceneLoadEventModel { get; }
     private IBlockingOperationModel BlockingOperationModel { get; }
+    private ITimeScaleModel TimeScaleModel { get; }
 }

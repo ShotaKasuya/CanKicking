@@ -194,8 +194,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentReference:
     TypeName: Installer.InGame.Player.PlayerInstaller
-  autoRun: 1
+  autoRun: 0
   autoInjectGameObjects: []
+  baseHeightView: {fileID: 0}
+  spawnPositionView: {fileID: 0}
   goalView: {fileID: 814890634571213470}
   cameraView: {fileID: 0}
   cameraZoomModel:

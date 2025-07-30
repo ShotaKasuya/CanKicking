@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace View.Global.Input
 {
-    public partial class GlobalInputView : ITouchView, IPinchView, ITickable, IStartable, IDisposable
+    public partial class GlobalInputView : ITouchView, IPinchView, IDoubleTapView, ITickable, IStartable, IDisposable
     {
         public GlobalInputView(InputSystem_Actions inputSystemActions)
         {
@@ -15,7 +15,9 @@ namespace View.Global.Input
         public void Start()
         {
             Actions.Enable();
-            TouchInit();
+            Actions.Touch.performed += OnStartClick;
+            Actions.Touch.canceled += OnReleaseInput;
+            Actions.DoubleTap.performed += OnDoubleTap;
         }
 
         public void Tick()
@@ -25,7 +27,11 @@ namespace View.Global.Input
 
         public void Dispose()
         {
-            TouchDispose();
+            TouchSubject?.Dispose();
+            TouchEndSubject?.Dispose();
+
+            Actions.Touch.performed -= OnStartClick;
+            Actions.Touch.canceled -= OnReleaseInput;
             Actions.Disable();
         }
 

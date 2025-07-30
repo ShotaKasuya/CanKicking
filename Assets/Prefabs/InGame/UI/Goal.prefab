@@ -754,7 +754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ab822c820840f6a7931f57bf588cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneReference:
-    sceneType: 0
-    sceneName: StageSelect
-    sceneAsset: {fileID: 102900000, guid: 2d25e4c23acd2ddb4907d76bb174b201, type: 3}
+  sceneField:
+    sceneAsset: {fileID: 102900000, guid: 8d02e600a5ca914f8a3d4687ff26ee17, type: 3}
+    scenePath: Assets/Scenes/Primary/OutGame/StageSelect.unity

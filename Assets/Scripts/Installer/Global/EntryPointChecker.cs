@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
@@ -19,7 +20,7 @@ namespace Installer.Global
             CheckEntryPoint().Forget();
             if (observeBlockingOperation)
             {
-                ObserveBlockingOperation().Forget();
+                ObserveBlockingOperation(destroyCancellationToken).Forget();
             }
 #endif
         }
@@ -49,15 +50,15 @@ namespace Installer.Global
             if (currentScene.StartsWith(EnvironmentSceneHead))
             {
                 var nextScenePath = currentScenePath.Replace(Environment, Primary);
-                 nextScenePath = nextScenePath.Replace(EnvironmentSceneHead, string.Empty);
+                nextScenePath = nextScenePath.Replace(EnvironmentSceneHead, string.Empty);
                 await loadPrimarySceneLogic.ChangeScene(nextScenePath);
                 return;
             }
 
-            Debug.LogWarning("can't find primary scene");
+            await loadPrimarySceneLogic.ChangeScene(currentScenePath);
         }
 
-        private async UniTask ObserveBlockingOperation()
+        private async UniTask ObserveBlockingOperation(CancellationToken cancellationToken)
         {
             var model = Container.Resolve<IBlockingOperationModel>();
 
@@ -73,7 +74,7 @@ namespace Installer.Global
                 }
 
                 Debug.Log(logger.ToString());
-                await UniTask.WaitForSeconds(1f);
+                await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken);
             }
         }
     }
