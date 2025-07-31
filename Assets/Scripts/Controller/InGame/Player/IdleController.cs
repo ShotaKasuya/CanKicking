@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Interface.Global.Input;
 using Interface.Global.Screen;
 using Interface.InGame.Player;
@@ -6,7 +7,6 @@ using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
 using Structure.Utility.Calculation;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Controller.InGame.Player;
@@ -41,8 +41,11 @@ public class IdleController : PlayerStateBehaviourBase, IStartable
     public void Start()
     {
         DoubleTapView.DoubleTapEvent
+            .ThrottleFirst(async (_, ct) =>
+            {
+                await UniTask.Delay(TimeSpan.FromMinutes(0.5f), cancellationToken: ct);
+            }) // FIXME: マジックナンバー
             .Where(this, (_, controller) => controller.IsInState())
-            .ThrottleFirst(TimeSpan.FromSeconds(0.5f))  // FIXME: マジックナンバー
             .Subscribe(this, (_, controller) => controller.Undo())
             .AddTo(CompositeDisposable);
     }
@@ -50,8 +53,7 @@ public class IdleController : PlayerStateBehaviourBase, IStartable
     private void Undo()
     {
         if (!KickPositionModel.PopPosition().TryGetValue(out var position)) return;
-        Debug.Log($"on undo position => {position}");
-        
+
         PlayerView.ResetPosition(position);
     }
 

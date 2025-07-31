@@ -1,4 +1,3 @@
-using System;
 using Interface.Global.Input;
 using Interface.Global.Screen;
 using Interface.InGame.Player;
@@ -11,7 +10,7 @@ using VContainer.Unity;
 
 namespace Controller.InGame.Player;
 
-public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposable
+public class AimingController : PlayerStateBehaviourBase, IStartable
 {
     public AimingController
     (
@@ -23,6 +22,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
         IKickBasePowerModel kickBasePowerModel,
         IPullLimitModel pullLimitModel,
         IScreenScaleModel screenScaleModel,
+        CompositeDisposable compositeDisposable,
         IMutStateEntity<PlayerStateType> stateEntity
     ) : base(PlayerStateType.Aiming, stateEntity)
     {
@@ -34,8 +34,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
         KickBasePowerModel = kickBasePowerModel;
         PullLimitModel = pullLimitModel;
         ScreenScaleModel = screenScaleModel;
-
-        CompositeDisposable = new CompositeDisposable();
+        CompositeDisposable = compositeDisposable;
     }
 
     public void Start()
@@ -88,7 +87,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
         var cancelLength = PullLimitModel.CancelRatio;
         var maxLength = PullLimitModel.MaxRatio;
         var basePower = KickBasePowerModel.BasePower;
-        
+
         var (aimVector, length) = Calculator.FitVectorToScreen(deltaPosition, screen);
         var resizeLength = Mathf.InverseLerp(cancelLength, maxLength, length);
         var power = basePower * resizeLength * aimVector;
@@ -102,7 +101,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
     private void StorePosition()
     {
         var position = PlayerView.ModelTransform.position;
-        
+
         KickPositionModel.PushPosition(position);
     }
 
@@ -115,9 +114,4 @@ public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposabl
     private IKickBasePowerModel KickBasePowerModel { get; }
     private IPullLimitModel PullLimitModel { get; }
     private IScreenScaleModel ScreenScaleModel { get; }
-
-    public void Dispose()
-    {
-        CompositeDisposable.Dispose();
-    }
 }

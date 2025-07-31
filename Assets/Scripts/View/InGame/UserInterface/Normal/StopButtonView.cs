@@ -10,10 +10,5 @@ namespace View.InGame.UserInterface.Normal
         public Observable<Unit> Performed => stopButton.OnClickAsObservable();
 
         [SerializeField] private Button stopButton;
-
-        private void Awake()
-        {
-            Performed.Subscribe(_ => Debug.Log("on click")).AddTo(this);
-        }
     }
 }

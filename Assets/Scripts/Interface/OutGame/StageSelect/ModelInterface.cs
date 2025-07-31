@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Interface.OutGame.StageSelect;
 
 /// <summary>
@@ -7,4 +9,9 @@ public interface ISelectedStageModel
 {
     public string SelectedStage { get; }
     public void SetSelectedStage(string scene);
+}
+
+public interface IStageScenesModel
+{
+    public IReadOnlyList<string> SceneList { get; }
 }

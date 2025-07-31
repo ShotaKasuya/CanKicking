@@ -1,4 +1,5 @@
-﻿using Controller.OutGame.StageSelect.UserInterface;
+﻿using Controller.OutGame.StageSelect;
+using Controller.OutGame.StageSelect.UserInterface;
 using Model.OutGame.StageSelect;
 using UnityEngine;
 using VContainer;
@@ -10,6 +11,7 @@ namespace Installer.OutGame.StageSelect
     public class StageSelectInstaller : LifetimeScope
     {
         [SerializeField] private SelectedStageView selectedStageView;
+        [SerializeField] private StagesBind stagesBind;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -18,9 +20,11 @@ namespace Installer.OutGame.StageSelect
             builder.RegisterInstance(selectedStageView).AsImplementedInterfaces();
 
             // Model
+            stagesBind.Register(builder);
             builder.Register<SelectedStageModel>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Controller
+            builder.RegisterEntryPoint<InitializeController>();
             builder.Register<StageSelectState>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<StageSelectStateMachine>();
             builder.Register<NoneStateController>(Lifetime.Singleton).AsImplementedInterfaces();

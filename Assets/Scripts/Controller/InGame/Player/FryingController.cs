@@ -18,6 +18,7 @@ namespace Controller.InGame.Player
             IRayCasterView rayCasterView,
             IGroundDetectionModel groundDetectionModel,
             ITimeScaleModel timeScaleModel,
+            CompositeDisposable compositeDisposable,
             IMutStateEntity<PlayerStateType> stateEntity
         ) : base(PlayerStateType.Frying, stateEntity)
         {
@@ -26,7 +27,7 @@ namespace Controller.InGame.Player
             GroundDetectionModel = groundDetectionModel;
             TimeScaleModel = timeScaleModel;
 
-            CompositeDisposable = new CompositeDisposable();
+            CompositeDisposable = compositeDisposable;
         }
 
         public void Start()

@@ -1,5 +1,9 @@
-﻿using Interface.OutGame.StageSelect;
-using Module.SceneReference;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Interface.OutGame.StageSelect;
+using Module.SceneReference.AeLa.Utilities;
+using UnityEngine;
 
 namespace Model.OutGame.StageSelect
 {
@@ -11,5 +15,13 @@ namespace Model.OutGame.StageSelect
         {
             SelectedStage = sceneReference;
         }
+    }
+
+    [Serializable]
+    public class StageScenesModel : IStageScenesModel
+    {
+        [SerializeField] private List<SceneField> stages;
+
+        public IReadOnlyList<string> SceneList => stages.Select(x => (string)x).ToList();
     }
 }
