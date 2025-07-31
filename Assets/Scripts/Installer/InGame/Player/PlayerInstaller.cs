@@ -27,9 +27,9 @@ namespace Installer.InGame.Player
             // Controller
             builder.RegisterEntryPoint<InitializeController>();
             builder.RegisterEntryPoint<PlayerStateMachine>();
-            builder.Register<IdleController>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<AimingController>(Lifetime.Scoped).AsImplementedInterfaces();
-            builder.Register<FryingController>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<IdleController>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<AimingController>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<FryingController>(Lifetime.Singleton).AsImplementedInterfaces();
         }
     }
 }
