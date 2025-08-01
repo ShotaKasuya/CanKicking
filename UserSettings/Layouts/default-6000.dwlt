@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1377
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Simulator
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 79
+  controlID: 75
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 24
+  controlID: 16
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -194,14 +194,14 @@ MonoBehaviour:
     y: 0
     width: 489
     height: 1321
-  m_MinSize: {x: 52, y: 76}
-  m_MaxSize: {x: 4002, y: 4026}
-  m_ActualView: {fileID: 12}
+  m_MinSize: {x: 232, y: 276}
+  m_MaxSize: {x: 10002, y: 10026}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 12}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 1}
-  m_TargetSize: {x: 1536, y: 2048}
+  m_TargetSize: {x: 750, y: 1334}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -378,11 +378,11 @@ MonoBehaviour:
     pluginStates:
     - '{}'
     - '{}'
-    scale: 24
+    scale: 34
     fitToScreenEnabled: 1
     rotationDegree: 0
     highlightSafeAreaEnabled: 0
-    friendlyName: Apple iPad (5th gen)
+    friendlyName: Apple iPhone 6
     screenIndex: 0
     networkReachability: 1
     systemLanguage: 10
@@ -427,7 +427,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 7addffff8ae6ffffe2eafffffefaffffd0c90000
+      m_ExpandedIDs: 081dffffb81dffff881effff7868ffff626fffff6e6fffff846fffffb26fffffd86fffffd27cffffa87dffffd47dffffd87dffffdc7dffffe27dffffe67dffff1a7effff227effff687effff6c7effff247fffff307fffff467fffff487fffff4a7fffff4c7fffff4e7fffff7c7fffff7e7fffffa47fffff7880ffff6881ffff1687fffffa87ffffc88effffdc8efffffa8effff308fffff5e8fffffda94ffff9a98ffffa698ffffbc98ffffea98ffff1099ffff4aa2ffff5ca2ffff8ca6ffff94a6ffff56a7ffff2ca8ffff4ea8ffff66a8ffff6aa8ffff6ea8ffff74a8ffff78a8ffffaca8ffffb4a8ffffc4a8ffff0ca9ffff10a9ffffc8a9ffffd4a9ffffeaa9ffffeca9ffffeea9fffff0a9fffff2a9ffff20aaffff22aaffff24aaffff4aaaffff6eb0ffff8ebeffff9cbfffff5ec0ffff1ec1ffff00c2ffff16c3ffffc6c3ffff76c4ffff58c5ffff60c6ffff10c7ffffc0c7ffffb0caffff60cbffff10ccffffaecdffff82ceffff46cfffffe4d0ffff84d2ffff8ad7ffff3ad8ffff90eafffffefaffff581d0100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -548,7 +548,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/OutGame/StageSelect
+    - Assets/Scenes/Environment/OutGame
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -595,21 +595,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003ccb00003ecb000040cb000042cb000044cb000046cb000048cb00004acb00004ccb00004ecb000050cb000052cb000054cb000056cb000058cb00005acb00005ccb00005ecb000060cb000062cb000064cb000066cb000068cb00006acb00006ccb00006ecb000070cb000072cb000074cb000076cb000078cb00007acb0000
+    m_ExpandedIDs: ffffffff000000003ccb00003ecb000040cb000042cb000044cb000046cb000048cb00004acb00004ccb00004ecb000050cb000052cb000054cb000056cb00005acb00005ccb00005ecb000060cb000062cb000064cb000066cb000068cb00006acb00006ccb00006ecb000070cb000072cb000074cb000076cb000078cb00007acb000042d60000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Env_StageSelect
+      m_OriginalName: Env_StageSelect
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 52952
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 8}
@@ -1274,9 +1274,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -2.0436814, y: 0.42526898, z: -14.115901}
+    m_Target: {x: 768, y: 1040, z: 0}
     speed: 2
-    m_Value: {x: -2.0436814, y: 0.42526898, z: -14.115901}
+    m_Value: {x: 768, y: 1040, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1326,9 +1326,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 10.7566
+    m_Target: 1415.3445
     speed: 2
-    m_Value: 10.7566
+    m_Value: 1415.3445
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1346,7 +1346,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.049797863, y: 0.94966274, z: -0.2016613, w: -0.23450851}
+  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_LastSceneViewOrtho: 0
   m_Viewpoint:
     m_SceneView: {fileID: 17}

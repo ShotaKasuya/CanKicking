@@ -9,7 +9,8 @@ namespace View.OutGame.StageSelect
     {
         protected override void OnInit()
         {
-            GetComponent<TextMeshPro>().text = Scene;
+            var scene = System.IO.Path.GetFileNameWithoutExtension(Scene);
+            GetComponent<TextMeshPro>().text = scene;
         }
     }
 }

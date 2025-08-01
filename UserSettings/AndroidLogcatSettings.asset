@@ -3,8 +3,8 @@
     "m_SelectedProcess": {
         "deviceId": "SX4LHMA490907785",
         "name": "com.CanKicking",
-        "processId": 12724,
-        "exited": false
+        "processId": 27799,
+        "exited": true
     },
     "m_SelectedPriority": 0,
     "m_KnownProcessesForSerialization": [
@@ -127,6 +127,30 @@
             "name": "com.CanKicking",
             "processId": 12724,
             "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 22259,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 23711,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 24520,
+            "exited": true
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 27799,
+            "exited": true
         }
     ],
     "m_Tags": {
@@ -163,7 +187,7 @@
     },
     "m_ExtraWindowState": {
         "Type": 1,
-        "Height": 255.0
+        "Height": 400.0
     },
     "m_MemoryViewerState": {
         "MemoryWindowWidth": 170.0,
@@ -221,5 +245,5 @@
             "exited": false
         }
     },
-    "m_AutoScroll": 0
+    "m_AutoScroll": 1
 }

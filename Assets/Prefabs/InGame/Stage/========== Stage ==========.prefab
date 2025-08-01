@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: Installer.InGame.Player.PlayerInstaller
+    TypeName: 
   autoRun: 0
   autoInjectGameObjects: []
   baseHeightView: {fileID: 0}

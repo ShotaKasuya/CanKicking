@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1485137501}
   - component: {fileID: 1485137502}
   m_Layer: 0
-  m_Name: SceneReference
+  m_Name: SceneResources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,6 @@ MonoBehaviour:
     unityReference: {fileID: 0}
     rawReference:
       rid: 1549412574890033248
-  playerView: {fileID: 0}
   references:
     version: 2
     RefIds:
