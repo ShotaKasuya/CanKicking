@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Module.Option;
 using R3;
+using UnityEngine;
 
 namespace Interface.OutGame.StageSelect;
 
@@ -36,4 +37,13 @@ public interface ISceneGettableView
 public interface IStageIconFactoryView
 {
     public UniTask MakeIcons(IReadOnlyList<string> sceneNames);
+}
+
+//===================================================================
+// Camera
+//===================================================================
+
+public interface ICameraPositionView
+{
+    public void AddForce(Vector2 vector2);
 }

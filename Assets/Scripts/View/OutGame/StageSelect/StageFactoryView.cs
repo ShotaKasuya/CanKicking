@@ -47,6 +47,11 @@ namespace View.OutGame.StageSelect
             {
                 _scene = sceneName;
                 transform.position = position;
+                OnInit();
+            }
+
+            protected virtual void OnInit()
+            {
             }
         }
     }

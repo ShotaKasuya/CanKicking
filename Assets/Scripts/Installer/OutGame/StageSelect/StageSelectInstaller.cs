@@ -1,4 +1,5 @@
 ﻿using Controller.OutGame.StageSelect;
+using Controller.OutGame.StageSelect.Camera;
 using Controller.OutGame.StageSelect.UserInterface;
 using Model.OutGame.StageSelect;
 using UnityEngine;
@@ -10,14 +11,18 @@ namespace Installer.OutGame.StageSelect
 {
     public class StageSelectInstaller : LifetimeScope
     {
+        [SerializeField] private CameraPointView cameraPointView;
         [SerializeField] private SelectedStageView selectedStageView;
+        [SerializeField] private StageFactoryView stageFactoryView;
         [SerializeField] private StagesBind stagesBind;
 
         protected override void Configure(IContainerBuilder builder)
         {
             // View
             builder.Register<SelectionView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterInstance(cameraPointView).AsImplementedInterfaces();
             builder.RegisterInstance(selectedStageView).AsImplementedInterfaces();
+            builder.RegisterInstance(stageFactoryView).AsImplementedInterfaces();
 
             // Model
             stagesBind.Register(builder);
@@ -25,6 +30,7 @@ namespace Installer.OutGame.StageSelect
 
             // Controller
             builder.RegisterEntryPoint<InitializeController>();
+            builder.RegisterEntryPoint<CameraController>();
             builder.Register<StageSelectState>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<StageSelectStateMachine>();
             builder.Register<NoneStateController>(Lifetime.Singleton).AsImplementedInterfaces();

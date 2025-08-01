@@ -38,9 +38,10 @@ namespace View.Global.Input
                 }
 
                 var currentPosition = Actions.Position.ReadValue<Vector2>();
+                var currentFrameDelta = currentPosition - draggingInfo.CurrentPosition;
 
                 _fingerDraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
-                    draggingInfo.TouchStartPosition, currentPosition
+                    draggingInfo.TouchStartPosition, currentPosition, currentFrameDelta
                 ));
             }
 
@@ -60,7 +61,7 @@ namespace View.Global.Input
 
             TouchSubject.OnNext(new TouchStartEventArgument(touchPosition));
             _fingerDraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(
-                touchPosition, touchPosition
+                touchPosition, touchPosition, Vector2.zero
             ));
         }
 

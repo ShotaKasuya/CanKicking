@@ -33,12 +33,19 @@ public readonly struct FingerDraggingInfo
     public Vector2 TouchStartPosition { get; }
     public Vector2 CurrentPosition { get; }
     public Vector2 Delta => CurrentPosition - TouchStartPosition;
+    public Vector2 CurrentFrameDelta { get; }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public FingerDraggingInfo(Vector2 touchStartPosition, Vector2 currentPosition)
+    public FingerDraggingInfo
+    (
+        Vector2 touchStartPosition,
+        Vector2 currentPosition,
+        Vector2 currentFrameDelta
+    )
     {
         TouchStartPosition = touchStartPosition;
         CurrentPosition = currentPosition;
+        CurrentFrameDelta = currentFrameDelta;
     }
 }
 

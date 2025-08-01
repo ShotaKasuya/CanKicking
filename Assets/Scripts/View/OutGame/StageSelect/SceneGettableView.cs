@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace View.OutGame.StageSelect
 {
-    public class SceneGettableView:MonoBehaviour, ISceneGettableView
+    public class SceneGettableView : MonoBehaviour, ISceneGettableView
     {
         public string Scene => sceneField;
 
