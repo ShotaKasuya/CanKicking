@@ -5,7 +5,6 @@ using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
 using Structure.Utility.Calculation;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Controller.InGame.Player;
@@ -47,7 +46,6 @@ public class IdleController : PlayerStateBehaviourBase, IStartable
 
     private void Undo()
     {
-        Debug.Log("undo called");
         if (!KickPositionModel.PopPosition().TryGetValue(out var position)) return;
 
         PlayerView.ResetPosition(position);

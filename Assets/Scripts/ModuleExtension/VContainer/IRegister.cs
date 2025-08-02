@@ -14,15 +14,17 @@ namespace VContainer.ModuleExtension
     public static class Extension
     {
         /// <summary>
-        /// スレッドプール上でビルドを行うと、Diagnostics Windowを使用していた場合例外が発生する。
+        /// スレッドプール上でビルドを行うと、Diagnostics Windowを使用していた場合、
+        /// メインスレッド外からAPIが呼ばれるようで例外が発生する。
         /// これを避けるためこのメソッドを通してLifetimeScopeをビルドする
         /// </summary>
-        public static async UniTask BuildOnThreadPool(this LifetimeScope scope)
+        public static UniTask BuildOnThreadPool(this LifetimeScope scope)
         {
 #if UNITY_EDITOR
-            scope.Build();
+             scope.Build();
+             return UniTask.CompletedTask;
 #else
-            await UniTask.RunOnThreadPool(scope.Build);
+            return UniTask.RunOnThreadPool(scope.Build);
 #endif
         }
     }
