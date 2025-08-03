@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.TimeScale;
+using Interface.InGame.Primary;
 using Interface.InGame.UserInterface;
 using Module.StateMachine;
 using R3;
@@ -24,6 +25,7 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
         IStop_RestartButtonView reStartButtonView,
         ILoadPrimarySceneLogic loadPrimarySceneLogic,
         ITimeScaleModel timeScaleModel,
+        IGameRestartLogic gameRestartLogic,
         CompositeDisposable compositeDisposable,
         IMutStateEntity<PlayerStateType> playerState,
         IMutStateEntity<UserInterfaceStateType> stateEntity
@@ -35,6 +37,7 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
         StopUiView = stopUiView;
         LoadPrimarySceneLogic = loadPrimarySceneLogic;
         TimeScaleModel = timeScaleModel;
+        GameRestartLogic = gameRestartLogic;
         CompositeDisposable = compositeDisposable;
         PlayerState = playerState;
     }
@@ -52,7 +55,7 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
             .AddTo(CompositeDisposable);
         ReStartButtonView.Performed
             .Where(this, (_, controller) => controller.IsInState())
-            .Subscribe(this, (scene, controller) => controller.Load(scene))
+            .Subscribe(this, (_, controller) => controller.Restart())
             .AddTo(CompositeDisposable);
     }
 
@@ -80,6 +83,11 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
         LoadPrimarySceneLogic.ChangeScene(sceneName).Forget();
     }
 
+    private void Restart()
+    {
+        GameRestartLogic.RestartGame();
+    }
+
     private CompositeDisposable CompositeDisposable { get; }
     private IMutStateEntity<PlayerStateType> PlayerState { get; }
     private IPlayButtonView PlayButtonView { get; }
@@ -88,4 +96,5 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
     private IStop_RestartButtonView ReStartButtonView { get; }
     private ILoadPrimarySceneLogic LoadPrimarySceneLogic { get; }
     private ITimeScaleModel TimeScaleModel { get; }
+    private IGameRestartLogic GameRestartLogic { get; }
 }

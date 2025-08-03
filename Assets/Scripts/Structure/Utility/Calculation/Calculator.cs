@@ -37,7 +37,6 @@ namespace Structure.Utility.Calculation
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (Vector2, float) FitVectorToScreen(Vector2 origin, Vector2 screen)
         {
-            // FIXME: 静的リソースへのアクセスを減らす
             var shorter = math.min(screen.x, screen.y);
             var result = InnerFitVector(origin, shorter);
 

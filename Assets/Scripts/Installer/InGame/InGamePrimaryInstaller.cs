@@ -1,6 +1,7 @@
 using Controller.InGame;
 using Controller.InGame.Player;
 using Installer.Global;
+using Logic.InGame.Primary;
 using Model.InGame.Stage;
 using VContainer;
 using VContainer.Unity;
@@ -18,6 +19,9 @@ namespace Installer.InGame
             
             // Model
             builder.Register<GoalEventModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            
+            // Logic
+            builder.Register<InGameRestartLogic>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Controller
             builder.Register<PlayerState>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();

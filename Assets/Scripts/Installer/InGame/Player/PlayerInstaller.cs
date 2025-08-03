@@ -1,4 +1,5 @@
 using Controller.InGame.Player;
+using Logic.InGame.Player;
 using Model.InGame.Player;
 using UnityEngine;
 using VContainer;
@@ -23,6 +24,9 @@ namespace Installer.InGame.Player
             // Model
             playerModelBind.Register(builder);
             builder.Register<KickPositionModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            
+            // Logic
+            builder.Register<CalcByScreenRatioLogic>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Controller
             builder.RegisterEntryPoint<InitializeController>();

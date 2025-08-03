@@ -1,10 +1,8 @@
 using Interface.Global.Input;
-using Interface.Global.Screen;
 using Interface.InGame.Player;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
-using Structure.Utility.Calculation;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -20,8 +18,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         ICanKickView canKickView,
         IKickPositionModel kickPositionModel,
         IKickBasePowerModel kickBasePowerModel,
-        IPullLimitModel pullLimitModel,
-        IScreenScaleModel screenScaleModel,
+        ICalcKickPowerLogic calcKickPowerLogic,
         CompositeDisposable compositeDisposable,
         IMutStateEntity<PlayerStateType> stateEntity
     ) : base(PlayerStateType.Aiming, stateEntity)
@@ -32,8 +29,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         CanKickView = canKickView;
         KickPositionModel = kickPositionModel;
         KickBasePowerModel = kickBasePowerModel;
-        PullLimitModel = pullLimitModel;
-        ScreenScaleModel = screenScaleModel;
+        CalcKickPowerLogic = calcKickPowerLogic;
         CompositeDisposable = compositeDisposable;
     }
 
@@ -53,19 +49,13 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
             return;
         }
 
-        var screen = ScreenScaleModel.Scale;
-        var (aimVector, length) = Calculator.FitVectorToScreen(info.Delta, screen);
-        var cancelLength = PullLimitModel.CancelRatio;
-        var maxLength = PullLimitModel.MaxRatio;
+        var aimVector = CalcKickPowerLogic.CalcKickPower(info.Delta);
 
-        if (length < cancelLength)
+        if (aimVector == Vector2.zero)
         {
             StateEntity.ChangeState(PlayerStateType.Idle);
             return;
         }
-
-        var resizeLength = Mathf.InverseLerp(cancelLength, maxLength, length);
-        aimVector *= resizeLength;
 
         AimView.SetAim(aimVector);
     }
@@ -83,18 +73,15 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
     private void Jump(TouchEndEventArgument fingerReleaseInfo)
     {
         var deltaPosition = fingerReleaseInfo.Delta;
-        var screen = ScreenScaleModel.Scale;
-        var cancelLength = PullLimitModel.CancelRatio;
-        var maxLength = PullLimitModel.MaxRatio;
         var basePower = KickBasePowerModel.BasePower;
 
-        var (aimVector, length) = Calculator.FitVectorToScreen(deltaPosition, screen);
-        var resizeLength = Mathf.InverseLerp(cancelLength, maxLength, length);
-        var power = basePower * resizeLength * aimVector;
+        var power = CalcKickPowerLogic.CalcKickPower(deltaPosition);
+        var kickPower = power * basePower;
 
-        var context = new KickContext(power, Mathf.Sign(power.x));
+        var context = new KickContext(kickPower, Mathf.Sign(kickPower.x));
         CanKickView.Kick(context);
         StorePosition();
+        
         StateEntity.ChangeState(PlayerStateType.Frying);
     }
 
@@ -112,6 +99,5 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
     private ICanKickView CanKickView { get; }
     private IKickPositionModel KickPositionModel { get; }
     private IKickBasePowerModel KickBasePowerModel { get; }
-    private IPullLimitModel PullLimitModel { get; }
-    private IScreenScaleModel ScreenScaleModel { get; }
+    private ICalcKickPowerLogic CalcKickPowerLogic { get; }
 }

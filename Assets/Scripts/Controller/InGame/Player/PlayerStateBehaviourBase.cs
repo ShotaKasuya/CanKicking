@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Interface.InGame.Primary;
 using Module.StateMachine;
 using ModuleExtension.StateMachine;
 using Structure.InGame.Player;
@@ -30,9 +31,15 @@ public abstract class PlayerStateBehaviourBase : StateBehaviour<PlayerStateType>
     }
 }
 
-public class PlayerState : AbstractStateType<PlayerStateType>
+public class PlayerState : AbstractStateType<PlayerStateType>,  IResetable
 {
-    public PlayerState() : base(PlayerStateType.Idle)
+    public PlayerState() : base(EntryState)
     {
+    }
+
+    private const PlayerStateType EntryState = PlayerStateType.Idle;
+    public void Reset()
+    {
+        ChangeState(EntryState);
     }
 }
