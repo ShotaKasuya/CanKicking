@@ -20,6 +20,11 @@ namespace Interface.InGame.UserInterface
         public void SetHeight(float height);
     }
 
+    public interface IProgressUiView
+    {
+        public void SetProgress(float progress);
+    }
+
     public interface IPullRangeView
     {
         public void ShowRange(AimContext aimContext);

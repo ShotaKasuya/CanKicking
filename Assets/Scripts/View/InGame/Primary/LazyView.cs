@@ -5,6 +5,9 @@ using Module.Option;
 
 namespace View.InGame.Primary
 {
+    /// <summary>
+    /// プレイヤーが持つView
+    /// </summary>
     public class LazyPlayerView : ILazyPlayerView
     {
         public LazyPlayerView()
@@ -15,15 +18,20 @@ namespace View.InGame.Primary
         public OnceCell<IPlayerView> PlayerView { get; }
     }
 
-    public class LazyStartPositionView : ILazyStartPositionView, ILazyBaseHeightView
+    /// <summary>
+    /// ステージが持つView
+    /// </summary>
+    public class LazyStageView : ILazyStartPositionView, ILazyBaseHeightView, ILazyGoalHeightView
     {
-        public LazyStartPositionView()
+        public LazyStageView()
         {
             StartPosition = new OnceCell<ISpawnPositionView>();
             BaseHeight = new OnceCell<float>();
+            GoalHeight = new OnceCell<float>();
         }
 
         public OnceCell<ISpawnPositionView> StartPosition { get; }
         public OnceCell<float> BaseHeight { get; }
+        public OnceCell<float> GoalHeight { get; }
     }
 }

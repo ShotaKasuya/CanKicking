@@ -22,7 +22,6 @@ namespace Installer.InGame.UserInterface
             goalUiView.Register(builder);
 
             // Controller
-            builder.Register<UserInterfaceState>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.RegisterEntryPoint<UserInterfaceStateMachine>();
             builder.Register<NormalStateController>(Lifetime.Transient).AsImplementedInterfaces();
             builder.Register<StopStateController>(Lifetime.Transient).AsImplementedInterfaces();

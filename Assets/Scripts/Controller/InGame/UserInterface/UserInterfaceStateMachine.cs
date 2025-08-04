@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Interface.InGame.Primary;
 using Module.StateMachine;
 using ModuleExtension.StateMachine;
 using Structure.InGame.UserInterface;
@@ -27,10 +28,17 @@ namespace Controller.InGame.UserInterface
         }
     }
 
-    public class UserInterfaceState : AbstractStateType<UserInterfaceStateType>
+    public class UserInterfaceState : AbstractStateType<UserInterfaceStateType>, IResetable
     {
         public UserInterfaceState() : base(UserInterfaceStateType.Normal)
         {
+        }
+
+        private const UserInterfaceStateType EntryState = UserInterfaceStateType.Normal;
+
+        public void Reset()
+        {
+            ChangeState(EntryState);
         }
     }
 }

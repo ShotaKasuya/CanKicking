@@ -44,7 +44,8 @@ public class CalcByScreenRatioLogic : ICalcKickPowerLogic
             return float2.zero;
         }
 
-        var result = (inputRatio - cancelLength) / (maxLength - cancelLength); // InverseLerp
+        var result = (clampedInputRatio - cancelLength) / (maxLength - cancelLength); // InverseLerp
+        result = math.clamp(result, 0, 1);
 
         return normalizedInput * result;
     }

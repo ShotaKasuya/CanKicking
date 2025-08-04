@@ -18,7 +18,12 @@ public interface IGoalEventView
     public Observable<Unit> Performed { get; }
 }
 
-public interface ICameraView
+public interface IGoalHeightView
+{
+    public float PositionY { get; }
+}
+
+public interface ICameraView : ICameraInitializableView
 {
     public void SetOrthoSize(float orthoSize);
 }

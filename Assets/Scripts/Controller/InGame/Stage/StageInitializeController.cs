@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace Controller.InGame.Stage;
 
-public class StageInitializeController : IStartable
+public class StageInitializeController : IInitializable
 {
     public StageInitializeController
     (
@@ -13,6 +13,8 @@ public class StageInitializeController : IStartable
         IBaseHeightView baseHeightView,
         ILazyStartPositionView startPositionView,
         ISpawnPositionView spawnPositionView,
+        ILazyGoalHeightView lazyGoalHeightView,
+        IGoalHeightView goalHeightView,
         IGoalEventView goalEventView,
         IGoalEventSubjectModel goalEventSubjectModel,
         CompositeDisposable compositeDisposable
@@ -22,13 +24,16 @@ public class StageInitializeController : IStartable
         BaseHeightView = baseHeightView;
         StartPositionView = startPositionView;
         SpawnPositionView = spawnPositionView;
+        LazyGoalHeightView = lazyGoalHeightView;
+        GoalHeightView = goalHeightView;
         GoalEventView = goalEventView;
         GoalEventSubjectModel = goalEventSubjectModel;
         CompositeDisposable = compositeDisposable;
     }
 
-    public void Start()
+    public void Initialize()
     {
+        LazyGoalHeightView.GoalHeight.Init(GoalHeightView.PositionY);
         LazyBaseHeightView.BaseHeight.Init(BaseHeightView.PositionY);
         StartPositionView.StartPosition.Init(SpawnPositionView);
         GoalEventView.Performed
@@ -41,6 +46,8 @@ public class StageInitializeController : IStartable
     private IBaseHeightView BaseHeightView { get; }
     private ILazyStartPositionView StartPositionView { get; }
     private ISpawnPositionView SpawnPositionView { get; }
+    private ILazyGoalHeightView LazyGoalHeightView { get; }
+    private IGoalHeightView GoalHeightView { get; }
     private IGoalEventView GoalEventView { get; }
     private IGoalEventSubjectModel GoalEventSubjectModel { get; }
 }

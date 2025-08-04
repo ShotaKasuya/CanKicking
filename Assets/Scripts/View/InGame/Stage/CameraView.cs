@@ -5,7 +5,7 @@ using UnityEngine;
 namespace View.InGame.Stage
 {
     [RequireComponent(typeof(CinemachineCamera))]
-    public class CameraView : MonoBehaviour, ICameraView, ICameraInitializableView
+    public class CameraView : MonoBehaviour, ICameraView
     {
         private CinemachineCamera _cinemachineCamera;
 

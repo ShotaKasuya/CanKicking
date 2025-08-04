@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Interface.InGame.Player;
 
+//====================================================================
+// 設定データ
+//====================================================================
+
 /// <summary>
 /// 地面の検出に関する情報を持つ
 /// </summary>
@@ -22,19 +26,23 @@ public interface IKickBasePowerModel
 }
 
 /// <summary>
-/// キックを行った場所のログを持つ
-/// </summary>
-public interface IKickPositionModel
-{
-    public Option<Vector2> PopPosition();
-    public void PushPosition(Vector2 position);
-}
-
-/// <summary>
 /// 画面をどの程度引っ張ったところを最大・最小とするかの比率を持つ
 /// </summary>
 public interface IPullLimitModel
 {
     public float CancelRatio { get; }
     public float MaxRatio { get; }
+}
+
+//====================================================================
+// 実行時データ
+//====================================================================
+
+/// <summary>
+/// キックを行った場所のログを持つ
+/// </summary>
+public interface IKickPositionModel
+{
+    public Option<Vector2> PopPosition();
+    public void PushPosition(Vector2 position);
 }

@@ -1,5 +1,6 @@
 using Controller.InGame;
 using Controller.InGame.Player;
+using Controller.InGame.UserInterface;
 using Installer.Global;
 using Logic.InGame.Primary;
 using Model.InGame.Stage;
@@ -15,16 +16,17 @@ namespace Installer.InGame
         {
             // View
             builder.Register<LazyPlayerView>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<LazyStartPositionView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<LazyStageView>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Model
             builder.Register<GoalEventModel>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Logic
-            builder.Register<InGameRestartLogic>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GameRestartLogic>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Controller
             builder.Register<PlayerState>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+            builder.Register<UserInterfaceState>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.UseEntryPoints(pointsBuilder =>
             {
                 pointsBuilder.Add<GameStartController>();

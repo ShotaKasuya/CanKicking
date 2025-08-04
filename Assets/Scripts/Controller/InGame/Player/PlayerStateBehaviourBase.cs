@@ -31,13 +31,14 @@ public abstract class PlayerStateBehaviourBase : StateBehaviour<PlayerStateType>
     }
 }
 
-public class PlayerState : AbstractStateType<PlayerStateType>,  IResetable
+public class PlayerState : AbstractStateType<PlayerStateType>, IResetable
 {
     public PlayerState() : base(EntryState)
     {
     }
 
     private const PlayerStateType EntryState = PlayerStateType.Idle;
+
     public void Reset()
     {
         ChangeState(EntryState);
