@@ -11,6 +11,14 @@ public interface ICameraZoomModel
     public float Sensitivity { get; }
 }
 
+/// <summary>
+/// 落下したと判定されるy座標
+/// </summary>
+public interface IFallLineModel
+{
+    public float FallLine { get; }
+}
+
 public interface IGoalEventModel
 {
     public Observable<Unit> GoalEvent { get; }

@@ -15,27 +15,27 @@ namespace Installer.InGame.Stage
         [SerializeField] private GoalView goalView;
         [SerializeField] private CameraView cameraView;
         [SerializeField] private CameraZoomModel cameraZoomModel;
+        [SerializeField] private FallLineModel fallLineModel;
 
         protected override void Configure(IContainerBuilder builder)
         {
             // View
-            builder.UseComponents(componentsBuilder =>
-            {
-                componentsBuilder.AddInstance(baseHeightView).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(spawnPositionView).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(goalView).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(cameraView).AsImplementedInterfaces();
-            });
+            builder.RegisterInstance(baseHeightView).AsImplementedInterfaces();
+            builder.RegisterInstance(spawnPositionView).AsImplementedInterfaces();
+            builder.RegisterInstance(goalView).AsImplementedInterfaces();
+            builder.RegisterInstance(cameraView).AsImplementedInterfaces();
             builder.Register<BannerView>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Model
             builder.RegisterInstance(cameraZoomModel).AsImplementedInterfaces();
+            builder.RegisterInstance(fallLineModel).AsImplementedInterfaces();
             
             // Controller
             builder.UseEntryPoints(pointsBuilder =>
             {
                 pointsBuilder.Add<StageCameraController>();
                 pointsBuilder.Add<StageInitializeController>();
+                pointsBuilder.Add<RespawnPlayerController>();
             });
         }
     }

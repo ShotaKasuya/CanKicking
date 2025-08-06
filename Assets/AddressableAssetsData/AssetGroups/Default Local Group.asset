@@ -77,6 +77,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b1f573536f88f5f39b506045c91d8e93
+    m_Address: Assets/Scenes/Environment/InGame/Env_Stage04.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dcca045ba975a66479df28b81babdd61
     m_Address: Assets/Scenes/InGame/InGameUI.unity
     m_ReadOnly: 0
