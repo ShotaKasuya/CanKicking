@@ -1,5 +1,5 @@
 using Interface.Global.Input;
-using Interface.Global.Screen;
+using Interface.Global.Utility;
 using Interface.InGame.Player;
 using Module.StateMachine;
 using R3;

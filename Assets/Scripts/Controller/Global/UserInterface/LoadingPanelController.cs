@@ -42,7 +42,7 @@ public class LoadingPanelController : IStartable
 
     private async UniTask FadeInPanel()
     {
-        var handle = BlockingOperationModel.SpawnOperation(FadeInContext);
+        using var handle = BlockingOperationModel.SpawnOperation(FadeInContext);
 
         TimeScaleModel.Reset();
         try
@@ -54,17 +54,13 @@ public class LoadingPanelController : IStartable
             Console.WriteLine(e);
             throw;
         }
-
-        handle.Release();
     }
 
     private async UniTask FadeOutPanel()
     {
-        var handle = BlockingOperationModel.SpawnOperation(FadeOutContext);
+        using var handle = BlockingOperationModel.SpawnOperation(FadeOutContext);
 
         await LoadingPanelView.HidePanel();
-
-        handle.Release();
     }
 
     private CompositeDisposable CompositeDisposable { get; }

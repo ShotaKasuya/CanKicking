@@ -1,8 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using Module.Option;
+using UnityEngine;
 
 namespace Interface.Global.Utility;
 
+//====================================================================
+// Screen Scale
+//====================================================================
+public interface IScreenScaleModel
+{
+    public Vector2 Scale { get; }
+    public float Width { get; }
+    public float Height { get; }
+}
+
+//====================================================================
+// Blocking Operation
+//====================================================================
 public interface IBlockingOperationModel
 {
     public OperationHandle SpawnOperation(string context);
@@ -10,7 +25,7 @@ public interface IBlockingOperationModel
     public IReadOnlyList<OperationHandle> GetOperationHandles { get; }
 }
 
-public class OperationHandle: IDisposable
+public class OperationHandle : IDisposable
 {
     public void Start(string context)
     {
@@ -18,7 +33,7 @@ public class OperationHandle: IDisposable
         OperationContext = context;
     }
 
-    public void Release()
+    private void Release()
     {
         IsEnd = true;
         OperationContext = string.Empty;
@@ -49,4 +64,14 @@ public class OperationHandle: IDisposable
     {
         Release();
     }
+}
+
+//====================================================================
+// Save Data
+//====================================================================
+
+public interface IClearRecordModel
+{
+    public void Save(string key, int jumpCount);
+    public Option<int> Load(string key);
 }

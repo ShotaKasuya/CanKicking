@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
+using Interface.Global.Utility;
 using Interface.OutGame.StageSelect;
 using Module.Option;
 using Module.StateMachine;
@@ -17,6 +18,7 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
         IStageSelectionView stageSelectionView,
         ISelectedStageView selectedStageView,
         ISelectedStageModel selectedStageModel,
+        IClearRecordModel clearRecordModel,
         CompositeDisposable compositeDisposable,
         IMutStateEntity<StageSelectStateType> stateEntity
     ) : base(StageSelectStateType.Some, stateEntity)
@@ -25,9 +27,10 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
         StageSelectionView = stageSelectionView;
         SelectedStageView = selectedStageView;
         SelectedStageModel = selectedStageModel;
+        ClearRecordModel = clearRecordModel;
         CompositeDisposable = compositeDisposable;
     }
-    
+
     public void Start()
     {
         StageSelectionView.SelectEvent
@@ -39,7 +42,8 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
     public override void OnEnter()
     {
         var stage = SelectedStageModel.SelectedStage;
-        SelectedStageView.ShowStage(stage);
+        var record = ClearRecordModel.Load(stage);
+        SelectedStageView.ShowStage(stage, record);
     }
 
     private void OnSelect(Option<string> selectedStage)
@@ -53,7 +57,7 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
 
         if (stage != prevSelect)
         {
-            SelectedStageModel.SetSelectedStage(stage);
+            SelectedStageModel.SetSelectedStage(stage!);
             OnEnter();
             return;
         }
@@ -66,4 +70,5 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
     private IStageSelectionView StageSelectionView { get; }
     private ISelectedStageView SelectedStageView { get; }
     private ISelectedStageModel SelectedStageModel { get; }
+    private IClearRecordModel ClearRecordModel { get; }
 }

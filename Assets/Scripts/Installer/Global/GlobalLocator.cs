@@ -4,6 +4,7 @@ using Interface.Global.TimeScale;
 using Interface.Global.UserInterface;
 using Logic.Global.Scene;
 using Model.Global;
+using Model.Global.SaveData;
 using Model.Global.Scene;
 using Model.Global.Utility;
 using R3;
@@ -44,6 +45,7 @@ namespace Installer.Global
             builder.Register<SceneLoadEventModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<BlockingOperationModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PrimarySceneModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<ClearRecordModel>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Logic
             builder.Register<LoadPrimarySceneLogic>(Lifetime.Transient).AsImplementedInterfaces();

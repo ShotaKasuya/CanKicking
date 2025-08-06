@@ -1,5 +1,5 @@
 using Interface.Global.Input;
-using Interface.Global.Screen;
+using Interface.Global.Utility;
 using Interface.OutGame.StageSelect;
 using UnityEngine;
 using VContainer.Unity;

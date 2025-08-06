@@ -18,23 +18,27 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
     public NormalStateController
     (
         INormalUiView normalUiView,
+        ILazyPlayerView playerView,
         ILazyBaseHeightView baseHeightView,
         ILazyGoalHeightView goalHeightView,
         IStopButtonView stopButtonView,
         IProgressUiView progressUiView,
-        ILazyPlayerView playerView,
+        IJumpCountUiView jumpCountUiView,
         IGoalEventModel goalEventModel,
+        IJumpCountModel jumpCountModel,
         CompositeDisposable compositeDisposable,
         IMutStateEntity<UserInterfaceStateType> stateEntity
     ) : base(UserInterfaceStateType.Normal, stateEntity)
     {
         NormalUiView = normalUiView;
+        PlayerView = playerView;
         BaseHeightView = baseHeightView;
         GoalHeightView = goalHeightView;
         StopButtonView = stopButtonView;
+        JumpCountUiView = jumpCountUiView;
         GoalEventModel = goalEventModel;
+        JumpCountModel = jumpCountModel;
         ProgressUiView = progressUiView;
-        PlayerView = playerView;
         CompositeDisposable = compositeDisposable;
     }
 
@@ -47,6 +51,10 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
         GoalEventModel.GoalEvent
             .Where(this, (_, controller) => controller.IsInState())
             .Subscribe(this, (_, controller) => controller.ChangeToGoal())
+            .AddTo(CompositeDisposable);
+        JumpCountModel.JumpCount
+            .Where(this, (_, controller) => controller.IsInState())
+            .Subscribe(this, (i, controller) => controller.JumpCountUiView.SetCount(i))
             .AddTo(CompositeDisposable);
     }
 
@@ -83,11 +91,13 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
     }
 
     private INormalUiView NormalUiView { get; }
+    private ILazyPlayerView PlayerView { get; }
     private ILazyBaseHeightView BaseHeightView { get; }
     private ILazyGoalHeightView GoalHeightView { get; }
     private IStopButtonView StopButtonView { get; }
+    private IJumpCountUiView JumpCountUiView { get; }
     private IGoalEventModel GoalEventModel { get; }
     private IProgressUiView ProgressUiView { get; }
-    private ILazyPlayerView PlayerView { get; }
+    private IJumpCountModel JumpCountModel { get; }
     private CompositeDisposable CompositeDisposable { get; }
 }

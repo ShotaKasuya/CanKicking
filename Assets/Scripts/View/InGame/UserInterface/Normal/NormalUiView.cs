@@ -9,6 +9,7 @@ namespace View.InGame.UserInterface.Normal
 {
     public class NormalUiView: MonoBehaviour, INormalUiView, IRegisterable
     {
+        [SerializeField] private HeightUiView heightUiView;
         [SerializeField] private ProgressUiView progressUiView;
         [SerializeField] private StopButtonView stopButtonView;
         
@@ -17,6 +18,7 @@ namespace View.InGame.UserInterface.Normal
             builder.UseComponents(componentsBuilder =>
             {
                 componentsBuilder.AddInstance(this).AsImplementedInterfaces();
+                componentsBuilder.AddInstance(heightUiView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(progressUiView).AsImplementedInterfaces();
                 componentsBuilder.AddInstance(stopButtonView).AsImplementedInterfaces();
             });

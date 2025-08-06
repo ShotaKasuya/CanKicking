@@ -1,7 +1,13 @@
-﻿namespace Interface.InGame.Primary;
+﻿using R3;
 
-public interface IJumpCountKModel
+namespace Interface.InGame.Primary;
+
+/// <summary>
+/// ジャンプを行った回数をカウントするモデル
+/// </summary>
+public interface IJumpCountModel
 {
-    public int Count { get; }
+    public ReadOnlyReactiveProperty<int> JumpCount { get; }
+    public void Inc();
     public void Reset();
 }

@@ -649,6 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e69713598942f3a490724168a85dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightUiView: {fileID: 8613127744247501216}
   progressUiView: {fileID: 6043021814189403335}
   stopButtonView: {fileID: 5661647710032279934}
 --- !u!1 &7055980337359769799

@@ -1,4 +1,4 @@
-﻿using Interface.Global.Screen;
+﻿using Interface.Global.Utility;
 using Interface.InGame.Player;
 using Unity.Burst;
 using Unity.Mathematics;

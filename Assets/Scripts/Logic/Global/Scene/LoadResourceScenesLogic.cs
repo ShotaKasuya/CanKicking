@@ -25,7 +25,7 @@ public class LoadResourceScenesLogic : ILoadSceneResourcesLogic
 
     public async UniTask LoadResources()
     {
-        var operation = BlockingOperationModel.SpawnOperation(LoadContext);
+        using var handle = BlockingOperationModel.SpawnOperation(LoadContext);
         var scenes = SceneResourcesModel.GetResourceScenes();
 
         Debug.Log("load resource scene:\n" + string.Join("\n", scenes));
@@ -36,13 +36,11 @@ public class LoadResourceScenesLogic : ILoadSceneResourcesLogic
             await SceneLoaderView.ActivateAsync(releaseContext);
             SceneResourcesModel.PushReleaseContext(releaseContext);
         }
-
-        operation.Release();
     }
 
     public async UniTask UnLoadResources()
     {
-        var operation = BlockingOperationModel.SpawnOperation(UnLoadContext);
+        using var handle = BlockingOperationModel.SpawnOperation(UnLoadContext);
         var contexts = SceneResourcesModel.GetSceneReleaseContexts();
         Debug.Log("Unload resource scene:\n" + string.Join("\n", contexts.Select(x => x.ScenePath)));
         for (int i = 0; i < contexts.Count; i++)
@@ -50,8 +48,6 @@ public class LoadResourceScenesLogic : ILoadSceneResourcesLogic
             var context = contexts[i];
             await SceneLoaderView.UnLoadScene(context);
         }
-
-        operation.Release();
     }
 
     private ISceneLoaderView SceneLoaderView { get; }

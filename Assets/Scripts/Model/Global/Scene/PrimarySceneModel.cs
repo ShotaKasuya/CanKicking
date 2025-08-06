@@ -13,5 +13,7 @@ namespace Model.Global.Scene
             _sceneContext = sceneInstance;
             return tmp;
         }
+
+        public SceneContext GetCurrentSceneContext => _sceneContext;
     }
 }

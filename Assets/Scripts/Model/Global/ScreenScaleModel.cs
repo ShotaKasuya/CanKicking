@@ -1,4 +1,4 @@
-﻿using Interface.Global.Screen;
+﻿using Interface.Global.Utility;
 using UnityEngine;
 using VContainer.Unity;
 

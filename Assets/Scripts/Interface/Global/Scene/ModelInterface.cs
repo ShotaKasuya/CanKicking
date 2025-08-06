@@ -7,6 +7,7 @@ namespace Interface.Global.Scene;
 public interface IPrimarySceneModel
 {
     public SceneContext ToggleCurrentScene(SceneContext sceneInstance);
+    public SceneContext GetCurrentSceneContext { get; }
 }
 
 public interface ISceneLoadEventModel

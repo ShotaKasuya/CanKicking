@@ -1,5 +1,6 @@
 using Interface.Global.Input;
 using Interface.InGame.Player;
+using Interface.InGame.Primary;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
@@ -18,6 +19,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         ICanKickView canKickView,
         IKickPositionModel kickPositionModel,
         IKickBasePowerModel kickBasePowerModel,
+        IJumpCountModel jumpCountModel,
         ICalcKickPowerLogic calcKickPowerLogic,
         CompositeDisposable compositeDisposable,
         IMutStateEntity<PlayerStateType> stateEntity
@@ -29,6 +31,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         CanKickView = canKickView;
         KickPositionModel = kickPositionModel;
         KickBasePowerModel = kickBasePowerModel;
+        JumpCountModel = jumpCountModel;
         CalcKickPowerLogic = calcKickPowerLogic;
         CompositeDisposable = compositeDisposable;
     }
@@ -90,6 +93,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         var position = PlayerView.ModelTransform.position;
 
         KickPositionModel.PushPosition(position);
+        JumpCountModel.Inc();
     }
 
     private CompositeDisposable CompositeDisposable { get; }
@@ -99,5 +103,6 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
     private ICanKickView CanKickView { get; }
     private IKickPositionModel KickPositionModel { get; }
     private IKickBasePowerModel KickBasePowerModel { get; }
+    private IJumpCountModel JumpCountModel { get; }
     private ICalcKickPowerLogic CalcKickPowerLogic { get; }
 }

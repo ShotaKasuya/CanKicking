@@ -3,6 +3,7 @@ using Controller.InGame.Player;
 using Controller.InGame.UserInterface;
 using Installer.Global;
 using Logic.InGame.Primary;
+using Model.InGame.Primary;
 using Model.InGame.Stage;
 using VContainer;
 using VContainer.Unity;
@@ -20,6 +21,7 @@ namespace Installer.InGame
             
             // Model
             builder.Register<GoalEventModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<JumpCountModel>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Logic
             builder.Register<GameRestartLogic>(Lifetime.Singleton).AsImplementedInterfaces();

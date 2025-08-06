@@ -20,7 +20,7 @@ public interface IStageSelectionView
 public interface ISelectedStageView
 {
     public void Reset();
-    public void ShowStage(string sceneName);
+    public void ShowStage(string sceneName, Option<int> clearRecord);
 }
 
 /// <summary>

@@ -44,7 +44,7 @@ public class ResourceSceneController : IInitializable
 
     private async UniTask BuildAndLoadResources()
     {
-        var handle = BlockingOperationModel.SpawnOperation(BuildLoadResourcesContext);
+        using var handle = BlockingOperationModel.SpawnOperation(BuildLoadResourcesContext);
 
         await LoadResourcesSceneLogic.LoadResources();
 
@@ -67,17 +67,13 @@ public class ResourceSceneController : IInitializable
                 }
             }
         }
-
-        handle.Release();
     }
 
     private async UniTask UnLoadResourceScene()
     {
-        var handle = BlockingOperationModel.SpawnOperation(UnLoadResourcesContext);
+        using var _ = BlockingOperationModel.SpawnOperation(UnLoadResourcesContext);
 
         await LoadResourcesSceneLogic.UnLoadResources();
-        
-        handle.Release();
     }
 
     private LifetimeScope ParentLifetimeScope { get; }
