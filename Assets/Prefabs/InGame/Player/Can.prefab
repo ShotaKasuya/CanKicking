@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 31840961135358124}
   - component: {fileID: 7069776555224343627}
   m_Layer: 6
-  m_Name: ========== Can ==========
+  m_Name: Can
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,8 +103,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 0.75
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_GravityScale: 2
@@ -197,6 +197,7 @@ MonoBehaviour:
   playerView: {fileID: 31840961135358124}
   aimView: {fileID: 1507590813218555813}
   playerModelBind: {fileID: 11400000, guid: f7544b6aa209f21d89b3c1b9fbfec124, type: 2}
+  playerCollisionEffectViewFactory: {fileID: 11400000, guid: 426eec9dd888b1e70bc9a87ec3317150, type: 2}
 --- !u!1001 &5410938447897997577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7234490555999142315, guid: 536e7c653fd3f8b4c886aece6b45df8e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7234490555999142315, guid: 536e7c653fd3f8b4c886aece6b45df8e, type: 3}
       propertyPath: m_LocalRotation.w

@@ -19,7 +19,11 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 55
   kickBasePowerModel:
-    basePower: 20
+    kickPower: 15
+    rotationPower: 1
   pullLimitModel:
     limitRatio: 0.75
     cancelRatio: 0.125
+  effectSpawnModel:
+    spawnThresholdVelocity: 8
+    effectShowLength: 3

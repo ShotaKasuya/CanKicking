@@ -1,5 +1,5 @@
 using Interface.OutGame.StageSelect;
-using Model.Global;
+using Structure.Utility;
 using TNRD;
 using UnityEngine;
 using VContainer;

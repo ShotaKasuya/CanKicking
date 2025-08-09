@@ -27,8 +27,10 @@ namespace Installer.Global
 
         private const string EntryPointScene = "_init";
         private const string EnvironmentSceneHead = "Env_";
+        private const string UiSceneHead = "UI_";
         private const string Primary = "Primary";
         private const string Environment = "Environment";
+        private const string UserInterface = "UI";
 
         private async UniTask CheckEntryPoint()
         {
@@ -55,7 +57,12 @@ namespace Installer.Global
                 return;
             }
 
-            await loadPrimarySceneLogic.ChangeScene(currentScenePath);
+            if (currentScene.StartsWith(UiSceneHead))
+            {
+                var nextScenePath = currentScenePath.Replace(UserInterface, Primary);
+                nextScenePath = nextScenePath.Replace(UiSceneHead, string.Empty);
+                await loadPrimarySceneLogic.ChangeScene(nextScenePath);
+            }
         }
 
         private async UniTask ObserveBlockingOperation(CancellationToken cancellationToken)

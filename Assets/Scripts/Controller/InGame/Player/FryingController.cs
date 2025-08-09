@@ -44,7 +44,7 @@ namespace Controller.InGame.Player
             if (upVelocity > 0f) return;
 
             var maxSlope = GroundDetectionModel.MaxSlope;
-            for (int i = 0; i < collision.contactCount; i++)
+            for (var i = 0; i < collision.contactCount; i++)
             {
                 var normal = collision.contacts[i].normal;
                 var slope = Calculator.NormalToSlope(normal);
@@ -65,7 +65,7 @@ namespace Controller.InGame.Player
 
             var castHit = RayCasterView.PoolRay(GroundDetectionModel.GroundDetectionInfo);
             var maxSlope = GroundDetectionModel.MaxSlope;
-            for (int i = 0; i < castHit.Length; i++)
+            for (var i = 0; i < castHit.Length; i++)
             {
                 var normal = castHit[i].normal;
                 var slope = Calculator.NormalToSlope(normal);

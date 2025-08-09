@@ -174,7 +174,7 @@ MonoBehaviour:
         - sceneAsset: {fileID: 102900000, guid: 18cc72d3bd560070097b423c66253250, type: 3}
           scenePath: Assets/Scenes/Environment/InGame/Env_Stage02.unity
         - sceneAsset: {fileID: 102900000, guid: dcca045ba975a66479df28b81babdd61, type: 3}
-          scenePath: Assets/Scenes/InGame/InGameUI.unity
+          scenePath: Assets/Scenes/UI/InGame/InGameUI.unity
 --- !u!4 &205021076
 Transform:
   m_ObjectHideFlags: 0

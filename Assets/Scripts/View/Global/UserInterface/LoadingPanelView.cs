@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace View.Global.UserInterface
 {
     [RequireComponent(typeof(Image))]
-    public class LoadingPanelView:MonoBehaviour,ILoadingPanelView
+    public class LoadingPanelView : MonoBehaviour, ILoadingPanelView
     {
         private const float Empty = 0f;
         private const float Filled = 1f;

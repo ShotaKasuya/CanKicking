@@ -76,7 +76,8 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
     private void Jump(TouchEndEventArgument fingerReleaseInfo)
     {
         var deltaPosition = fingerReleaseInfo.Delta;
-        var basePower = KickBasePowerModel.BasePower;
+        var basePower = KickBasePowerModel.KickPower;
+
 
         var power = CalcKickPowerLogic.CalcKickPower(deltaPosition);
         var kickPower = power * basePower;
@@ -84,7 +85,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         var context = new KickContext(kickPower, Mathf.Sign(kickPower.x));
         CanKickView.Kick(context);
         StorePosition();
-        
+
         StateEntity.ChangeState(PlayerStateType.Frying);
     }
 

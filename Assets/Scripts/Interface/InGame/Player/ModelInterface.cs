@@ -22,7 +22,8 @@ public interface IGroundDetectionModel
 /// </summary>
 public interface IKickBasePowerModel
 {
-    public float BasePower { get; }
+    public float KickPower { get; }
+    public float RotationPower { get; }
 }
 
 /// <summary>
@@ -32,6 +33,12 @@ public interface IPullLimitModel
 {
     public float CancelRatio { get; }
     public float MaxRatio { get; }
+}
+
+public interface IEffectSpawnModel
+{
+    public float SpawnThreshold { get; }
+    public float EffectLength { get; }
 }
 
 //====================================================================

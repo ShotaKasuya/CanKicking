@@ -19,9 +19,11 @@ namespace Model.InGame.Player
     [Serializable]
     public class KickBasePowerModel : IKickBasePowerModel
     {
-        public float BasePower => basePower;
+        public float KickPower => kickPower;
+        public float RotationPower => rotationPower;
 
-        [SerializeField] private float basePower;
+        [SerializeField] private float kickPower;
+        [SerializeField] private float rotationPower;
     }
 
     [Serializable]
@@ -32,5 +34,14 @@ namespace Model.InGame.Player
 
         [SerializeField, Range(0.01f, 1.0f)] private float limitRatio = 0.7f;
         [SerializeField, Range(0.01f, 1.0f)] private float cancelRatio = 0.1f;
+    }
+    [Serializable]
+    public class EffectSpawnModel: IEffectSpawnModel
+    {
+        public float SpawnThreshold => spawnThresholdVelocity;
+        public float EffectLength => effectShowLength;
+
+        [SerializeField] private float spawnThresholdVelocity;
+        [SerializeField] private float effectShowLength;
     }
 }

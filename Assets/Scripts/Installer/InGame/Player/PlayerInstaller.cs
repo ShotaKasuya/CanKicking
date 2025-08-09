@@ -14,12 +14,14 @@ namespace Installer.InGame.Player
         [SerializeField] private PlayerView playerView;
         [SerializeField] private AimView aimView;
         [SerializeField] private PlayerModelBind playerModelBind;
+        [SerializeField] private PlayerCollisionEffectViewFactory playerCollisionEffectViewFactory;
 
         protected override void Configure(IContainerBuilder builder)
         {
             // View
             builder.RegisterInstance(playerView).AsImplementedInterfaces();
             builder.RegisterComponent(aimView).AsImplementedInterfaces();
+            builder.RegisterInstance(playerCollisionEffectViewFactory).AsImplementedInterfaces();
 
             // Model
             playerModelBind.Register(builder);
@@ -29,7 +31,7 @@ namespace Installer.InGame.Player
             builder.Register<CalcByScreenRatioLogic>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Controller
-            builder.RegisterEntryPoint<InitializeController>();
+            builder.RegisterEntryPoint<AnyStateController>();
             builder.RegisterEntryPoint<PlayerStateMachine>();
             builder.Register<IdleController>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<AimingController>(Lifetime.Singleton).AsImplementedInterfaces();

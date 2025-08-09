@@ -46,11 +46,11 @@ public class ResourceSceneController : IInitializable
     {
         using var handle = BlockingOperationModel.SpawnOperation(BuildLoadResourcesContext);
 
+        Debug.Log($"Primary LifetimeScope: {ParentLifetimeScope.name}");
         await LoadResourcesSceneLogic.LoadResources();
 
         using var _ = LifetimeScope.EnqueueParent(ParentLifetimeScope);
 
-        Debug.Log($"Primary LifetimeScope: {ParentLifetimeScope.name}");
         var sceneContexts = ResourceScenesModel.GetResourceScenes();
         for (int i = 0; i < sceneContexts.Count; i++)
         {

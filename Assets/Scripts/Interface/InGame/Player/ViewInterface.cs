@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using R3;
 using Structure.Utility;
 using UnityEngine;
@@ -50,9 +52,14 @@ public readonly ref struct KickContext
     }
 }
 
-// ============================================================================================
-// 入力系
-// ============================================================================================
+/// <summary>
+/// エフェクトを再生するインターフェース
+/// </summary>
+public interface ISpawnEffectView
+{
+    public UniTask Initialize();
+    public UniTask SpawnEffect(Vector2 spawnPoint, Vector2 angle, float duration, CancellationToken cancellationToken);
+}
 
 /// <summary>
 /// プレイヤーからレイキャストを行うためのインターフェース

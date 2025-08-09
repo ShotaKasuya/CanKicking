@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace Controller.InGame.Stage;
 
-public class StageCameraController : ITickable
+public class StageCameraController : IInitializable, ITickable
 {
     public StageCameraController
     (
@@ -16,6 +16,14 @@ public class StageCameraController : ITickable
         PinchView = pinchView;
         CameraView = cameraView;
         CameraZoomModel = cameraZoomModel;
+    }
+
+    public void Initialize()
+    {
+        CameraZoomModel.SetZoomLevel(0);
+        var orthoSize = CameraZoomModel.GetOrthoSize();
+
+        CameraView.SetOrthoSize(orthoSize);
     }
 
     public void Tick()

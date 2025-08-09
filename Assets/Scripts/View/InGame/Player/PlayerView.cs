@@ -1,6 +1,7 @@
 using System;
 using Interface.InGame.Player;
 using R3;
+using R3.Triggers;
 using Structure.Utility;
 using UnityEngine;
 
@@ -12,12 +13,11 @@ namespace View.InGame.Player
         public Transform ModelTransform => _modelTransform!;
         public Vector2 LinearVelocity => _rigidbody.linearVelocity;
         public float AngularVelocity => _rigidbody.angularVelocity;
-        public Observable<Collision2D> CollisionEnterEvent => _collisionEnterSubject;
+        public Observable<Collision2D> CollisionEnterEvent => this.OnCollisionEnter2DAsObservable();
 
         private GameObject _self;
         private Transform _modelTransform;
         private Rigidbody2D _rigidbody;
-        private Subject<Collision2D> _collisionEnterSubject = new Subject<Collision2D>();
         private RaycastHit2D[] _raycastPool;
 
         [SerializeField] private int raycastPoolSize;
@@ -27,7 +27,6 @@ namespace View.InGame.Player
             _self = gameObject;
             _modelTransform = transform;
             _rigidbody = GetComponent<Rigidbody2D>();
-            _collisionEnterSubject = new Subject<Collision2D>();
             _raycastPool = new RaycastHit2D[raycastPoolSize];
         }
 
@@ -40,11 +39,6 @@ namespace View.InGame.Player
         {
             ModelTransform.position = position;
             _rigidbody.linearVelocity = Vector2.zero;
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            _collisionEnterSubject.OnNext(other);
         }
 
         public void Kick(KickContext context)

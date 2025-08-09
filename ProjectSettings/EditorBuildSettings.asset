@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/_init.unity
     guid: 1a3534b035b946e5e9f7f3a9d5c4663e
   - enabled: 1
-    path: Assets/Scenes/OutGame/Title.unity
+    path: Assets/Scenes/UI/OutGame/Title.unity
     guid: c546dbbf0d6d586c2a4ad3d92ff3f6f3
   - enabled: 0
-    path: Assets/Scenes/OutGame/Ui_StageSelect.unity
+    path: Assets/Scenes/UI/OutGame/Ui_StageSelect.unity
     guid: 2d25e4c23acd2ddb4907d76bb174b201
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
