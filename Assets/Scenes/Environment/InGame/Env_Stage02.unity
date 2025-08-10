@@ -811,7 +811,7 @@ MonoBehaviour:
     zoomMaxLevel: 14
     zoomMinLevel: 20
   fallLineModel:
-    fallLine: 0
+    fallLine: -10
 --- !u!4 &1925309902
 Transform:
   m_ObjectHideFlags: 0

@@ -40,3 +40,16 @@ public interface IPinchView
 {
     public float Pool();
 }
+
+//====================================================================
+// ステージギミック
+//====================================================================
+
+public interface IDisappearingPlatformView
+{
+    public Observable<Collision2D> OnCollision { get; }
+
+    public void OnLandPlayer();
+    public void Hide();
+    public void Show();
+}

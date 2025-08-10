@@ -43,6 +43,11 @@ public class AsyncObjectPool<T> where T : Component
 
     public void Return(T obj)
     {
+        if (obj == null)
+        {
+            return;
+        }
+
         obj.gameObject.SetActive(false);
         Pool.Enqueue(obj);
     }

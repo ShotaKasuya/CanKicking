@@ -188,7 +188,7 @@ MonoBehaviour:
         resourceScenes:
         - sceneAsset: {fileID: 102900000, guid: dcca045ba975a66479df28b81babdd61, type: 3}
           scenePath: Assets/Scenes/UI/InGame/InGameUI.unity
-        - sceneAsset: {fileID: 102900000, guid: 785d3660d264942038be534e1052a9bf, type: 3}
+        - sceneAsset: {fileID: 102900000, guid: 9465bf00f7f9798288cfb124b1fed845, type: 3}
           scenePath: Assets/Scenes/Environment/InGame/Env_Stage01.unity
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

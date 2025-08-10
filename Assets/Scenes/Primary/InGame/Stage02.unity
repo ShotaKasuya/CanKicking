@@ -171,7 +171,7 @@ MonoBehaviour:
       type: {class: SceneResourcesModel, ns: Model.Global.Scene, asm: Model}
       data:
         resourceScenes:
-        - sceneAsset: {fileID: 102900000, guid: 18cc72d3bd560070097b423c66253250, type: 3}
+        - sceneAsset: {fileID: 102900000, guid: b1f573536f88f5f39b506045c91d8e93, type: 3}
           scenePath: Assets/Scenes/Environment/InGame/Env_Stage02.unity
         - sceneAsset: {fileID: 102900000, guid: dcca045ba975a66479df28b81babdd61, type: 3}
           scenePath: Assets/Scenes/UI/InGame/InGameUI.unity

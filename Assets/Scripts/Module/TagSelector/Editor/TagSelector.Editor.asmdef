@@ -1,0 +1,18 @@
+{
+    "name": "TagSelector.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8e1dda4c4c82420d58e6cf762347eb18"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -52,7 +52,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9465bf00f7f9798288cfb124b1fed845
-    m_Address: Assets/Scenes/Environment/InGame/Env_Stage03.unity
+    m_Address: Assets/Scenes/Environment/InGame/Env_Stage01.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1f573536f88f5f39b506045c91d8e93
-    m_Address: Assets/Scenes/Environment/InGame/Env_Stage04.unity
+    m_Address: Assets/Scenes/Environment/InGame/Env_Stage02.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

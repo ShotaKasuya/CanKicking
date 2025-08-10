@@ -2,11 +2,6 @@
 
 缶を引っ張って飛ばし、ゴールを目指すゲーム
 
-## todo
-
-* 引っ張り時にキャンセル範囲と引っ張り範囲を提示したい。
-* 引っ張りの最大距離をユーザーに表示したい。
-
 ## クラス構成
 
 * Installer
@@ -17,7 +12,12 @@
 
 * Controller
   * 主なゲームの動作を記述する
-  * クラス名は最後にCaseをつける
+  * クラス名は最後にControllerをつける
+  * 関心
+    * Interface
+* Logic
+  * Controllerに抽象化した処理を提供する
+  * クラス名は最後にLogicをつける
   * 関心
     * Interface
 * Interface
@@ -32,3 +32,12 @@
   * クラス名は最後にModelをつける
   * 関心
     * なし
+
+
+## 使用ライブラリ
+
+* DOTween
+* R3
+* UniTask
+* VContainer
+* CsprojModifier
