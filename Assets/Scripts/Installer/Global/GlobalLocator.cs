@@ -1,27 +1,29 @@
 using System;
 using Controller.Global.UserInterface;
-using Interface.Global.TimeScale;
-using Interface.Global.UserInterface;
 using Logic.Global.Scene;
 using Model.Global;
 using Model.Global.SaveData;
 using Model.Global.Scene;
 using Model.Global.Utility;
 using R3;
-using TNRD;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using View.Global.Audio;
 using View.Global.Input;
 using View.Global.Scene;
+using View.Global.UserInterface;
 
 namespace Installer.Global
 {
     public partial class GlobalLocator : LifetimeScope
     {
-        [SerializeField] private SerializableInterface<ITimeScaleModel> timeScaleModel;
-        [SerializeField] private SerializableInterface<ITouchPositionUiView> touchPositionUiView;
-        [SerializeField] private SerializableInterface<ILoadingPanelView> loadingPanelView;
+        [SerializeField] private TimeScaleModel timeScaleModel;
+        [SerializeField] private TouchPositionUiView touchPositionUiView;
+        [SerializeField] private LoadingPanelView loadingPanelView;
+        [SerializeField] private BgmSourceView bgmSourceView;
+        [SerializeField] private SeSourceView seSourceView;
+        [SerializeField] private UiSourceView uiSourceView;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -33,12 +35,12 @@ namespace Installer.Global
 
             // View
             builder.Register<SceneLoaderView>(Lifetime.Transient).AsImplementedInterfaces();
-            builder.UseComponents(componentsBuilder =>
-            {
-                componentsBuilder.AddInstance(touchPositionUiView.Value);
-                componentsBuilder.AddInstance(timeScaleModel.Value);
-                componentsBuilder.AddInstance(loadingPanelView.Value);
-            });
+            builder.RegisterInstance(timeScaleModel).AsImplementedInterfaces();
+            builder.RegisterInstance(touchPositionUiView).AsImplementedInterfaces();
+            builder.RegisterInstance(loadingPanelView).AsImplementedInterfaces();
+            builder.RegisterInstance(bgmSourceView).AsImplementedInterfaces();
+            builder.RegisterInstance(seSourceView).AsImplementedInterfaces();
+            builder.RegisterInstance(uiSourceView).AsImplementedInterfaces();
 
             // Model
             builder.Register<ScreenScaleModel>(Lifetime.Singleton).AsImplementedInterfaces();

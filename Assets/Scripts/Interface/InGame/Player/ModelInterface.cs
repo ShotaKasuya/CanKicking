@@ -35,10 +35,22 @@ public interface IPullLimitModel
     public float MaxRatio { get; }
 }
 
+/// <summary>
+/// 衝突時に生成するエフェクトなどの設定を持つ
+/// </summary>
 public interface IEffectSpawnModel
 {
     public float SpawnThreshold { get; }
     public float EffectLength { get; }
+}
+
+/// <summary>
+/// プレイヤーが発する効果音を持つ
+/// </summary>
+public interface IPlayerSoundModel
+{
+    public AudioClip GetKickSound();
+    public AudioClip GetBoundSound();
 }
 
 //====================================================================

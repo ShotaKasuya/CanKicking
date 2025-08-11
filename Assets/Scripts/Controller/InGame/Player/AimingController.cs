@@ -1,3 +1,4 @@
+using Interface.Global.Audio;
 using Interface.Global.Input;
 using Interface.InGame.Player;
 using Interface.InGame.Primary;
@@ -17,9 +18,11 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         IPlayerView playerView,
         IAimView aimView,
         ICanKickView canKickView,
+        ISeSourceView seSourceView,
         IKickPositionModel kickPositionModel,
         IKickBasePowerModel kickBasePowerModel,
         IJumpCountModel jumpCountModel,
+        IPlayerSoundModel playerSoundModel,
         ICalcKickPowerLogic calcKickPowerLogic,
         CompositeDisposable compositeDisposable,
         IMutStateEntity<PlayerStateType> stateEntity
@@ -29,9 +32,11 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         PlayerView = playerView;
         AimView = aimView;
         CanKickView = canKickView;
+        SeSourceView = seSourceView;
         KickPositionModel = kickPositionModel;
         KickBasePowerModel = kickBasePowerModel;
         JumpCountModel = jumpCountModel;
+        PlayerSoundModel = playerSoundModel;
         CalcKickPowerLogic = calcKickPowerLogic;
         CompositeDisposable = compositeDisposable;
     }
@@ -84,13 +89,18 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
 
         var context = new KickContext(kickPower, Mathf.Sign(kickPower.x));
         CanKickView.Kick(context);
-        StorePosition();
+        OnJump();
 
         StateEntity.ChangeState(PlayerStateType.Frying);
     }
 
-    private void StorePosition()
+    private void OnJump()
     {
+        // Play Se
+        var clip = PlayerSoundModel.GetKickSound();
+        SeSourceView.Play(clip);
+        
+        // Store Position
         var position = PlayerView.ModelTransform.position;
 
         KickPositionModel.PushPosition(position);
@@ -102,8 +112,10 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
     private IPlayerView PlayerView { get; }
     private IAimView AimView { get; }
     private ICanKickView CanKickView { get; }
+    private ISeSourceView SeSourceView { get; }
     private IKickPositionModel KickPositionModel { get; }
     private IKickBasePowerModel KickBasePowerModel { get; }
     private IJumpCountModel JumpCountModel { get; }
+    private IPlayerSoundModel PlayerSoundModel { get; }
     private ICalcKickPowerLogic CalcKickPowerLogic { get; }
 }

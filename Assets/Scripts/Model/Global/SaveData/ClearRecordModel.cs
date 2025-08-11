@@ -11,13 +11,18 @@ namespace Model.Global.SaveData
     {
         public void Save(string key, int jumpCount)
         {
-            PlayerPrefs.SetInt(key, jumpCount);
+            if (!PlayerPrefs.HasKey(key)) return;
+            var saveData = PlayerPrefs.GetInt(key);
+            if (jumpCount < saveData)
+            {
+                PlayerPrefs.SetInt(key, jumpCount);
+            }
         }
 
         public Option<int> Load(string key)
         {
             if (!PlayerPrefs.HasKey(key)) return Option<int>.None();
-            
+
             var jumpCount = PlayerPrefs.GetInt(key);
             return Option<int>.Some(jumpCount);
         }

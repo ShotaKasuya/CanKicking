@@ -14,6 +14,7 @@ namespace Model.InGame.Player
         [SerializeField] private KickBasePowerModel kickBasePowerModel;
         [SerializeField] private PullLimitModel pullLimitModel;
         [SerializeField] private EffectSpawnModel effectSpawnModel;
+        [SerializeField] private SoundEffectModel soundEffectModel;
 
         public void Register(IContainerBuilder builder)
         {
@@ -21,6 +22,7 @@ namespace Model.InGame.Player
             builder.RegisterInstance(kickBasePowerModel).AsImplementedInterfaces();
             builder.RegisterInstance(pullLimitModel).AsImplementedInterfaces();
             builder.RegisterInstance(effectSpawnModel).AsImplementedInterfaces();
+            builder.RegisterInstance(soundEffectModel).AsImplementedInterfaces();
         }
     }
 }
