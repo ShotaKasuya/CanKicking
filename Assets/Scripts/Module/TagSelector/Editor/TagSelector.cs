@@ -24,7 +24,7 @@ namespace Module.TagSelector.Editor
 
             var displayedTags = new string[tags.Length + 1];
             displayedTags[0] = "<None>";
-            for (int i = 0; i < displayedTags.Length; i++) displayedTags[i + 1] = tags[i];
+            for (int i = 0; i < tags.Length; i++) displayedTags[i + 1] = tags[i];
 
             // 選択されている`tag`のインデックスを探す
             for (int i = 0; i < tags.Length; i++)

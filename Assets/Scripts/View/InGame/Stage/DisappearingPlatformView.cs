@@ -24,6 +24,7 @@ namespace View.InGame.Stage
         private void Awake()
         {
             _selfObject = gameObject;
+            disappearingEffect.Stop();
         }
 
         private enum State
@@ -35,7 +36,7 @@ namespace View.InGame.Stage
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (_currentState == State.Idle) return;
+            if (_currentState != State.Idle) return;
             if (!other.gameObject.CompareTag(playerTag)) return;
 
             DisappearRoutine(destroyCancellationToken).Forget();
@@ -48,12 +49,12 @@ namespace View.InGame.Stage
             await UniTask.Delay(TimeSpan.FromSeconds(disappearTime), cancellationToken: cancellationToken);
 
             _currentState = State.Hide;
-            disappearingEffect.Stop();
             _selfObject.SetActive(false);
             await UniTask.Delay(TimeSpan.FromSeconds(respawnTime), cancellationToken: cancellationToken);
 
             _currentState = State.Idle;
             _selfObject.SetActive(true);
+            disappearingEffect.Stop();
         }
     }
 }

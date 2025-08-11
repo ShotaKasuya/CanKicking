@@ -21,7 +21,6 @@ namespace View.InGame.Player
 
         public async UniTask Initialize()
         {
-            // スパイクが減りそう?
             await UniTask.SwitchToThreadPool();
             _collisionEffectPool = new AsyncObjectPool<VisualEffect>(collisionEffectView, poolSize);
             await UniTask.SwitchToMainThread();

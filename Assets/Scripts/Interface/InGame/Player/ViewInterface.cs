@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
+using Structure.InGame.Player;
 using Structure.Utility;
 using UnityEngine;
 
@@ -30,6 +31,16 @@ public interface IAimView
     public void SetAim(Vector2 aimVector);
     public void Show();
     public void Hide();
+}
+
+/// <summary>
+/// プレイヤーがコマンドを受け取るためのインターフェース
+/// </summary>
+public interface IPlayerCommandReceiver
+{
+    public void SendCommand(PlayerInteractCommand playerInteractCommand);
+    
+    public Observable<PlayerInteractCommand> Stream { get; } 
 }
 
 /// <summary>

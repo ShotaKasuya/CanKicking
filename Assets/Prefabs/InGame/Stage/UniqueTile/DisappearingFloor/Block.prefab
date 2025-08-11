@@ -149,10 +149,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag:
-    tag: 
-  disappearTime: 1
-  respawnTime: 3
-  disappearingEffect: {fileID: 0}
+    tag: Player
+  disappearTime: 1.5
+  respawnTime: 5
+  disappearingEffect: {fileID: 3921916433989032242}
 --- !u!1 &6283610221783684782
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ Transform:
   m_GameObject: {fileID: 6283610221783684782}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -204,11 +204,14 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0.1
+      - m_Value: 2
         m_Name: SmallBurstInterval
         m_Overridden: 1
       - m_Value: 1
         m_Name: BigBatchInterval
+        m_Overridden: 1
+      - m_Value: 2
+        m_Name: SpawnRate
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
@@ -227,7 +230,10 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 2800000, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+        m_Name: FallingUnit
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!73398921 &8899070093105587502
