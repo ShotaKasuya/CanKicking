@@ -1,6 +1,7 @@
 using System;
 using Interface.Global.Input;
 using Interface.InGame.Stage;
+using UnityEngine.EventSystems;
 using VContainer.Unity;
 
 namespace View.Global.Input
@@ -10,6 +11,7 @@ namespace View.Global.Input
         public GlobalInputView(InputSystem_Actions inputSystemActions)
         {
             Actions = inputSystemActions.Player;
+            EventData = new PointerEventData(EventSystem.current);
         }
 
         public void Start()
@@ -32,6 +34,7 @@ namespace View.Global.Input
 
             Actions.Touch.performed -= OnStartClick;
             Actions.Touch.canceled -= OnReleaseInput;
+            Actions.DoubleTap.performed -= OnDoubleTap;
             Actions.Disable();
         }
 
