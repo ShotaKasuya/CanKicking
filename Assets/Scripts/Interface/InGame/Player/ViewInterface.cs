@@ -1,107 +1,81 @@
 using System;
-using System.Runtime.CompilerServices;
-using Module.Option;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using R3;
+using Structure.InGame.Player;
 using Structure.Utility;
 using UnityEngine;
 
-namespace Interface.InGame.Player
+namespace Interface.InGame.Player;
+
+/// <summary>
+/// プレイヤーの情報を提供するインターフェース
+/// </summary>
+public interface IPlayerView
 {
-    /// <summary>
-    /// プレイヤーの情報を提供するインターフェース
-    /// </summary>
-    public interface IPlayerView
+    public Transform ModelTransform { get; }
+    public Vector2 LinearVelocity { get; }
+    public float AngularVelocity { get; }
+
+    public Observable<Collision2D> CollisionEnterEvent { get; }
+
+    public void Activation(bool isActive);
+    public void ResetPosition(Vector2 position);
+}
+
+/// <summary>
+/// プレイヤーが狙っている方向を提示するインターフェース
+/// </summary>
+public interface IAimView
+{
+    public void SetAim(Vector2 aimVector);
+    public void Show();
+    public void Hide();
+}
+
+/// <summary>
+/// プレイヤーがコマンドを受け取るためのインターフェース
+/// </summary>
+public interface IPlayerCommandReceiver
+{
+    public void SendCommand(PlayerInteractCommand playerInteractCommand);
+    
+    public Observable<PlayerInteractCommand> Stream { get; } 
+}
+
+/// <summary>
+/// プレイヤーを飛ばすためのインターフェース
+/// </summary>
+public interface ICanKickView
+{
+    public void Kick(KickContext context);
+}
+
+public readonly ref struct KickContext
+{
+    public Vector2 Direction { get; }
+    public float RotationPower { get; }
+
+    public KickContext(Vector2 direction, float rotationPower)
     {
-        public Transform ModelTransform { get; }
-        public Vector2 LinearVelocity { get; }
-        public float AngularVelocity { get; }
-
-        public Observable<Collision2D> CollisionEnterEvent { get; }
+        Direction = direction;
+        RotationPower = rotationPower;
     }
+}
 
-    /// <summary>
-    /// プレイヤーが狙っている方向を提示するインターフェース
-    /// </summary>
-    public interface IAimView
-    {
-        public void SetAim(Vector2 aimVector);
-        public void Show();
-        public void Hide();
-    }
+/// <summary>
+/// エフェクトを再生するインターフェース
+/// </summary>
+public interface ISpawnEffectView
+{
+    public UniTask Initialize();
+    public UniTask SpawnEffect(Vector2 spawnPoint, Vector2 angle, float duration, CancellationToken cancellationToken);
+}
 
-    /// <summary>
-    /// プレイヤーを飛ばすためのインターフェース
-    /// </summary>
-    public interface ICanKickView
-    {
-        public void Kick(KickContext context);
-    }
-
-    public readonly ref struct KickContext
-    {
-        public Vector2 Direction { get; }
-        public float RotationPower { get; }
-
-        public KickContext(Vector2 direction, float rotationPower)
-        {
-            Direction = direction;
-            RotationPower = rotationPower;
-        }
-    }
-
-    // ============================================================================================
-    // 入力系
-    // ============================================================================================
-
-    /// <summary>
-    /// プレイヤーからレイキャストを行うためのインターフェース
-    /// </summary>
-    public interface IRayCasterView
-    {
-        public ReadOnlySpan<RaycastHit2D> PoolRay(RayCastInfo rayCastInfo);
-    }
-
-    public interface ITouchView
-    {
-        public Observable<TouchStartEventArgument> TouchEvent { get; }
-        public Option<FingerDraggingInfo> DraggingInfo { get; }
-        public Observable<TouchEndEventArgument> TouchEndEvent { get; }
-    }
-
-    public readonly struct TouchStartEventArgument
-    {
-        public Vector2 TouchPosition { get; }
-
-        public TouchStartEventArgument(Vector2 touchPosition)
-        {
-            TouchPosition = touchPosition;
-        }
-    }
-
-    public readonly struct FingerDraggingInfo
-    {
-        public Vector2 TouchStartPosition { get; }
-        public Vector2 CurrentPosition { get; }
-        public Vector2 Delta => CurrentPosition - TouchStartPosition;
-
-        public FingerDraggingInfo(Vector2 touchStartPosition, Vector2 currentPosition)
-        {
-            TouchStartPosition = touchStartPosition;
-            CurrentPosition = currentPosition;
-        }
-    }
-
-    public readonly struct TouchEndEventArgument
-    {
-        private Vector2 TouchStartPosition { get; }
-        private Vector2 TouchEndPosition { get; }
-        public Vector2 Delta => TouchStartPosition - TouchEndPosition;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public TouchEndEventArgument(Vector2 touchStartPosition, Vector2 touchEndPosition)
-        {
-            TouchStartPosition = touchStartPosition;
-            TouchEndPosition = touchEndPosition;
-        }
-    }
+/// <summary>
+/// プレイヤーからレイキャストを行うためのインターフェース
+/// </summary>
+public interface IRayCasterView
+{
+    public ReadOnlySpan<RaycastHit2D> PoolRay(RayCastInfo rayCastInfo);
 }

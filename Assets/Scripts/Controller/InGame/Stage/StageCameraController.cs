@@ -1,0 +1,46 @@
+using Interface.InGame.Stage;
+using UnityEngine;
+using VContainer.Unity;
+
+namespace Controller.InGame.Stage;
+
+public class StageCameraController : IInitializable, ITickable
+{
+    public StageCameraController
+    (
+        IPinchView pinchView,
+        ICameraView cameraView,
+        ICameraZoomModel cameraZoomModel
+    )
+    {
+        PinchView = pinchView;
+        CameraView = cameraView;
+        CameraZoomModel = cameraZoomModel;
+    }
+
+    public void Initialize()
+    {
+        CameraZoomModel.SetZoomLevel(0);
+        var orthoSize = CameraZoomModel.GetOrthoSize();
+
+        CameraView.SetOrthoSize(orthoSize);
+    }
+
+    public void Tick()
+    {
+        var pinchValue = -PinchView.Pool();
+        if (Mathf.Abs(pinchValue) > 0.01f)
+        {
+            var sensi = CameraZoomModel.Sensitivity;
+            var currentLevel = CameraZoomModel.ZoomLevel;
+            var nextLevel = sensi * pinchValue + currentLevel;
+
+            var orthoSize = CameraZoomModel.SetZoomLevel(nextLevel);
+            CameraView.SetOrthoSize(orthoSize);
+        }
+    }
+
+    private IPinchView PinchView { get; }
+    private ICameraView CameraView { get; }
+    private ICameraZoomModel CameraZoomModel { get; }
+}

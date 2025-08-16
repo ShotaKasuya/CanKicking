@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Interface.InGame.Primary;
 using Module.StateMachine;
+using ModuleExtension.StateMachine;
 using Structure.OutGame;
-using Structure.Utility;
 
 namespace Controller.OutGame.StageSelect.UserInterface
 {
@@ -27,10 +28,17 @@ namespace Controller.OutGame.StageSelect.UserInterface
         }
     }
 
-    public class StageSelectState : AbstractStateType<StageSelectStateType>
+    public class StageSelectState : AbstractStateType<StageSelectStateType>, IResetable
     {
-        public StageSelectState() : base(StageSelectStateType.None)
+        public StageSelectState() : base(EntryState)
         {
+        }
+
+        private const StageSelectStateType EntryState = StageSelectStateType.None;
+
+        public void Reset()
+        {
+            ChangeState(EntryState);
         }
     }
 }

@@ -4,13 +4,25 @@ using UnityEngine;
 
 namespace View.InGame.Stage
 {
+    [RequireComponent(typeof(CinemachineCamera))]
     public class CameraView : MonoBehaviour, ICameraView
     {
-        [SerializeField] private CinemachineCamera cinemachine;
+        private CinemachineCamera _cinemachineCamera;
+
+        private void Awake()
+        {
+            _cinemachineCamera = GetComponent<CinemachineCamera>();
+        }
 
         public void SetOrthoSize(float orthoSize)
         {
-            cinemachine.Lens.OrthographicSize = orthoSize;
+            _cinemachineCamera.Lens.OrthographicSize = orthoSize;
+        }
+
+        public void Init(Transform playerTransform)
+        {
+            _cinemachineCamera.Target.TrackingTarget = playerTransform;
+            _cinemachineCamera.PreviousStateIsValid = false;
         }
     }
 }

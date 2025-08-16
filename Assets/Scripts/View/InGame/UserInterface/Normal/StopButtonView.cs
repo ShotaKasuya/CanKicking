@@ -7,19 +7,8 @@ namespace View.InGame.UserInterface.Normal
 {
     public class StopButtonView : MonoBehaviour, IStopButtonView
     {
-        public Observable<Unit> Performed => Subject;
+        public Observable<Unit> Performed => stopButton.OnClickAsObservable();
 
-        private Subject<Unit> Subject { get; } = new Subject<Unit>();
         [SerializeField] private Button stopButton;
-
-        private void Awake()
-        {
-            stopButton.onClick.AddListener(OnClick);
-        }
-
-        private void OnClick()
-        {
-            Subject.OnNext(Unit.Default);
-        }
     }
 }

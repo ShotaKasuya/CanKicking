@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Module.StateMachine
 {
@@ -18,7 +19,7 @@ namespace Module.StateMachine
 
         public bool IsInState(TState state)
         {
-            return State.Equals(state);
+            return EqualityComparer<TState>.Default.Equals(State, state);
         }
 
         public virtual void ChangeState(TState next)

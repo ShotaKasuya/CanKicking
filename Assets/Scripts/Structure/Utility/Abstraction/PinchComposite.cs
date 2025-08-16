@@ -27,11 +27,6 @@ namespace Structure.Utility.Abstraction
 #endif
         private static void Initialize()
         {
-            if (Touchscreen.current == null || Touchscreen.current.touches.Count < 2)
-            {
-                Debug.LogWarning("Touchscreen not available or insufficient touches");
-            }
-
             // 登録する必要がある
             InputSystem.RegisterBindingComposite(typeof(PinchComposite), "PinchComposite");
         }
@@ -54,31 +49,26 @@ namespace Structure.Utility.Abstraction
 
             if (!touchState0.isInProgress || !touchState1.isInProgress) return 0;
 
-            var width = Screen.width;
-            var height = Screen.height;
             var pos0 = touchState0.position;
             var pos1 = touchState1.position;
 
             var delta0 = touchState0.delta;
             var delta1 = touchState1.delta;
 
-            var result = CalcPinch(pos0, pos1, delta0, delta1, new float2(width, height));
+            var result = CalcPinch(pos0, pos1, delta0, delta1);
 
             return result;
         }
 
         [BurstCompile]
-        private static float CalcPinch(float2 pos0, float2 pos1, float2 delta0, float2 delta1, float2 screen)
+        private static float CalcPinch(float2 pos0, float2 pos1, float2 delta0, float2 delta1)
         {
             var prevPos0 = pos0 - delta0;
             var prevPos1 = pos1 - delta1;
 
             var pinch = math.distance(pos0, pos1) - math.distance(prevPos0, prevPos1);
 
-            var screenDiagonal = math.length(screen);
-            var normalizedPinch = pinch / screenDiagonal;
-
-            return normalizedPinch;
+            return pinch;
         }
     }
 }

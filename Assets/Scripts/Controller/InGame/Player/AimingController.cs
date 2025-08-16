@@ -1,92 +1,121 @@
-using System;
+using Interface.Global.Audio;
+using Interface.Global.Input;
 using Interface.InGame.Player;
+using Interface.InGame.Primary;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
-using Structure.Utility.Calculation;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace Controller.InGame.Player
+namespace Controller.InGame.Player;
+
+public class AimingController : PlayerStateBehaviourBase, IStartable
 {
-    public class AimingController : PlayerStateBehaviourBase, IStartable, IDisposable
+    public AimingController
+    (
+        ITouchView touchView,
+        IPlayerView playerView,
+        IAimView aimView,
+        ICanKickView canKickView,
+        ISeSourceView seSourceView,
+        IKickPositionModel kickPositionModel,
+        IKickBasePowerModel kickBasePowerModel,
+        IJumpCountModel jumpCountModel,
+        IPlayerSoundModel playerSoundModel,
+        ICalcKickPowerLogic calcKickPowerLogic,
+        CompositeDisposable compositeDisposable,
+        IMutStateEntity<PlayerStateType> stateEntity
+    ) : base(PlayerStateType.Aiming, stateEntity)
     {
-        public AimingController
-        (
-            ITouchView touchView,
-            IAimView aimView,
-            ICanKickView canKickView,
-            IKickBasePowerModel kickBasePowerModel,
-            IPullLimitModel pullLimitModel,
-            IMutStateEntity<PlayerStateType> stateEntity
-        ) : base(PlayerStateType.Aiming, stateEntity)
-        {
-            TouchView = touchView;
-            AimView = aimView;
-            CanKickView = canKickView;
-            KickBasePowerModel = kickBasePowerModel;
-            PullLimitModel = pullLimitModel;
-
-            CompositeDisposable = new CompositeDisposable();
-        }
-
-        public void Start()
-        {
-            TouchView.TouchEndEvent
-                .Where(this, (_, controller) => controller.IsInState())
-                .Subscribe(this, (argument, controller) => controller.Jump(argument))
-                .AddTo(CompositeDisposable);
-        }
-
-        public override void StateUpdate(float deltaTime)
-        {
-            if (!TouchView.DraggingInfo.TryGetValue(out var info))
-            {
-                Debug.Log("return");
-                StateEntity.ChangeState(PlayerStateType.Idle);
-                return;
-            }
-
-            var ratio = PullLimitModel.LimitRatio;
-            var startPosition = Calculator.FitVectorToScreen(info.Delta, ratio);
-
-            AimView.SetAim(startPosition);
-        }
-
-        public override void OnEnter()
-        {
-            AimView.Show();
-        }
-
-        public override void OnExit()
-        {
-            AimView.Hide();
-        }
-
-        private void Jump(TouchEndEventArgument fingerReleaseInfo)
-        {
-            var basePower = KickBasePowerModel.BasePower;
-            var deltaPosition = fingerReleaseInfo.Delta;
-            var ratio = PullLimitModel.LimitRatio;
-            deltaPosition = Calculator.FitVectorToScreen(deltaPosition, ratio);
-
-            var power = deltaPosition * basePower;
-
-            var context = new KickContext(power, Mathf.Sign(power.x));
-            CanKickView.Kick(context);
-            StateEntity.ChangeState(PlayerStateType.Frying);
-        }
-
-        private CompositeDisposable CompositeDisposable { get; }
-        private ITouchView TouchView { get; }
-        private IAimView AimView { get; }
-        private ICanKickView CanKickView { get; }
-        private IKickBasePowerModel KickBasePowerModel { get; }
-        private IPullLimitModel PullLimitModel { get; }
-
-        public void Dispose()
-        {
-            CompositeDisposable?.Dispose();
-        }
+        TouchView = touchView;
+        PlayerView = playerView;
+        AimView = aimView;
+        CanKickView = canKickView;
+        SeSourceView = seSourceView;
+        KickPositionModel = kickPositionModel;
+        KickBasePowerModel = kickBasePowerModel;
+        JumpCountModel = jumpCountModel;
+        PlayerSoundModel = playerSoundModel;
+        CalcKickPowerLogic = calcKickPowerLogic;
+        CompositeDisposable = compositeDisposable;
     }
+
+    public void Start()
+    {
+        TouchView.TouchEndEvent
+            .Where(this, (_, controller) => controller.IsInState())
+            .Subscribe(this, (argument, controller) => controller.Jump(argument))
+            .AddTo(CompositeDisposable);
+    }
+
+    public override void StateUpdate(float deltaTime)
+    {
+        if (!TouchView.DraggingInfo.TryGetValue(out var info))
+        {
+            StateEntity.ChangeState(PlayerStateType.Idle);
+            return;
+        }
+
+        var aimVector = CalcKickPowerLogic.CalcKickPower(info.Delta);
+
+        if (aimVector == Vector2.zero)
+        {
+            StateEntity.ChangeState(PlayerStateType.Idle);
+            return;
+        }
+
+        AimView.SetAim(aimVector);
+    }
+
+    public override void OnEnter()
+    {
+        AimView.Show();
+    }
+
+    public override void OnExit()
+    {
+        AimView.Hide();
+    }
+
+    private void Jump(TouchEndEventArgument fingerReleaseInfo)
+    {
+        var deltaPosition = fingerReleaseInfo.Delta;
+        var basePower = KickBasePowerModel.KickPower;
+
+
+        var power = CalcKickPowerLogic.CalcKickPower(deltaPosition);
+        var kickPower = power * basePower;
+
+        var context = new KickContext(kickPower, Mathf.Sign(kickPower.x));
+        CanKickView.Kick(context);
+        OnJump();
+
+        StateEntity.ChangeState(PlayerStateType.Frying);
+    }
+
+    private void OnJump()
+    {
+        // Play Se
+        var clip = PlayerSoundModel.GetKickSound();
+        SeSourceView.Play(clip);
+        
+        // Store Position
+        var position = PlayerView.ModelTransform.position;
+
+        KickPositionModel.PushPosition(position);
+        JumpCountModel.Inc();
+    }
+
+    private CompositeDisposable CompositeDisposable { get; }
+    private ITouchView TouchView { get; }
+    private IPlayerView PlayerView { get; }
+    private IAimView AimView { get; }
+    private ICanKickView CanKickView { get; }
+    private ISeSourceView SeSourceView { get; }
+    private IKickPositionModel KickPositionModel { get; }
+    private IKickBasePowerModel KickBasePowerModel { get; }
+    private IJumpCountModel JumpCountModel { get; }
+    private IPlayerSoundModel PlayerSoundModel { get; }
+    private ICalcKickPowerLogic CalcKickPowerLogic { get; }
 }

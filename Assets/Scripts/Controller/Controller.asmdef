@@ -4,7 +4,10 @@
     "references": [
         "Interface",
         "Structure",
-        "Module",
+        "Option",
+        "StateMachine",
+        "SceneReference",
+        "ModuleExtension",
         "UniTask",
         "VContainer"
     ],

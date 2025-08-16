@@ -450,6 +450,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nromal
       objectReference: {fileID: 0}
+    - target: {fileID: 9170011784968921677, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

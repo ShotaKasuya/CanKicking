@@ -19,6 +19,15 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 55
   kickBasePowerModel:
-    basePower: 20
+    kickPower: 15
+    rotationPower: 1
   pullLimitModel:
-    limitRatio: 1
+    limitRatio: 0.75
+    cancelRatio: 0.125
+  effectSpawnModel:
+    spawnThresholdVelocity: 8
+    effectShowLength: 3
+  soundEffectModel:
+    kickSounds:
+    - {fileID: 8300000, guid: 83808fc9c16e981f1a8ba5379c1d5d11, type: 3}
+    boundSounds: []

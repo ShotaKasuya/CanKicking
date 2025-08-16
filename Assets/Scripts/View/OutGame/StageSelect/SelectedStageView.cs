@@ -1,5 +1,5 @@
 ﻿using Interface.OutGame.StageSelect;
-using Module.SceneReference;
+using Module.Option;
 using TMPro;
 using UnityEngine;
 
@@ -7,22 +7,36 @@ namespace View.OutGame.StageSelect
 {
     public class SelectedStageView : MonoBehaviour, ISelectedStageView
     {
-        [SerializeField] private TextMeshProUGUI sceneText;
+        [SerializeField] private GameObject selectedStageObject;
+        [SerializeField] private GameObject stageRecordObject;
+
+        [SerializeField] private TextMeshProUGUI stageNameText;
+        [SerializeField] private TextMeshProUGUI stageRecordText;
 
         public void Reset()
         {
-            gameObject.SetActive(false);
-            sceneText.text = string.Empty;
+            selectedStageObject.SetActive(false);
+            stageRecordObject.SetActive(false);
+            stageNameText.text = string.Empty;
+            stageRecordText.text = string.Empty;
         }
 
-        public void ShowStage(SceneReference sceneReference)
+        public void ShowStage(string sceneName, Option<int> clearRecord)
         {
-            if (sceneText.text == string.Empty)
+            if (stageNameText.text == string.Empty)
             {
-                gameObject.SetActive(true);
+                selectedStageObject.SetActive(true);
             }
 
-            sceneText.text = sceneReference.SceneName;
+            var scene = System.IO.Path.GetFileNameWithoutExtension(sceneName);
+            
+            stageNameText.text = scene;
+
+            if (clearRecord.TryGetValue(out var record))
+            {
+                stageRecordObject.SetActive(true);
+                stageRecordText.text = record.ToString();
+            }
         }
     }
 }

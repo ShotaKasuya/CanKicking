@@ -1,17 +1,18 @@
 ﻿using System;
 using Interface.OutGame.Title;
-using Module.SceneReference;
+using Module.SceneReference.AeLa.Utilities;
 using UnityEngine;
 
 namespace Model.OutGame.Title
 {
     [Serializable]
-    public class GameStartSceneModel: IGameStartSceneModel
+    public class GameStartSceneModel : IStartSceneModel
     {
-        [SerializeField] private SceneReference sceneReference;
-        public SceneReference GetStartScene()
+        [SerializeField] private SceneField sceneField;
+
+        public string GetStartSceneName()
         {
-            return sceneReference;
+            return sceneField;
         }
     }
 }

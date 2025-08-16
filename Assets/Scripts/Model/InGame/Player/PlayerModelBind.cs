@@ -1,8 +1,7 @@
-using Model.Global;
 using Structure.Utility;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
+using VContainer.ModuleExtension;
 
 namespace Model.InGame.Player
 {
@@ -14,15 +13,16 @@ namespace Model.InGame.Player
         [SerializeField] private GroundDetectionModel groundDetectionModel;
         [SerializeField] private KickBasePowerModel kickBasePowerModel;
         [SerializeField] private PullLimitModel pullLimitModel;
+        [SerializeField] private EffectSpawnModel effectSpawnModel;
+        [SerializeField] private SoundEffectModel soundEffectModel;
 
         public void Register(IContainerBuilder builder)
         {
-            builder.UseComponents(componentsBuilder =>
-            {
-                componentsBuilder.AddInstance(groundDetectionModel).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(kickBasePowerModel).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(pullLimitModel).AsImplementedInterfaces();
-            });
+            builder.RegisterInstance(groundDetectionModel).AsImplementedInterfaces();
+            builder.RegisterInstance(kickBasePowerModel).AsImplementedInterfaces();
+            builder.RegisterInstance(pullLimitModel).AsImplementedInterfaces();
+            builder.RegisterInstance(effectSpawnModel).AsImplementedInterfaces();
+            builder.RegisterInstance(soundEffectModel).AsImplementedInterfaces();
         }
     }
 }
