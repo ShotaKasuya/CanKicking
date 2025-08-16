@@ -67,11 +67,8 @@ namespace View.Global.Input
 
         private bool IsOverUi(Vector2 position)
         {
-            var eventData = new PointerEventData(EventSystem.current)
-            {
-                position = position
-            };
-            EventSystem.current?.RaycastAll(eventData, RaycastPool);
+            EventData.position = position;
+            EventSystem.current?.RaycastAll(EventData, RaycastPool);
             foreach (var raycastResult in RaycastPool)
             {
                 if (raycastResult.gameObject.TryGetComponent(out Button _))
@@ -87,6 +84,7 @@ namespace View.Global.Input
         public Option<FingerDraggingInfo> DraggingInfo => _fingerDraggingInfo;
         public Observable<TouchEndEventArgument> TouchEndEvent => TouchEndSubject;
 
+        private PointerEventData EventData { get; }
         private List<RaycastResult> RaycastPool { get; } = new List<RaycastResult>(8);
         private bool _pendingTouchStarted;
         private Option<FingerDraggingInfo> _fingerDraggingInfo;

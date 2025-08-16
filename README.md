@@ -41,3 +41,4 @@
 * UniTask
 * VContainer
 * CsprojModifier
+* ZString
