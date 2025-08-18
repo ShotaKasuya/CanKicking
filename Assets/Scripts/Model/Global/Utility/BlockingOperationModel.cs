@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Interface.Global.Utility;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Model.Global.Utility
                 OperationHandles.Add(handle);
             }
         }
-        
+
 
         public OperationHandle SpawnOperation(string context)
         {
@@ -35,13 +36,14 @@ namespace Model.Global.Utility
             }
 
 #if UNITY_EDITOR
-            var operations = string.Empty;
+            var logBuilder = new StringBuilder();
+            logBuilder.Append("operation overflow\n");
             for (int i = 0; i < OperationHandles.Count; i++)
             {
-                operations += OperationHandles[i].ToString();
+                logBuilder.Append(OperationHandles[i]);
             }
 
-            Debug.LogWarning("operation overflow\n" + operations);
+            Debug.LogWarning(logBuilder.ToString());
 #endif
 
             var handle = new OperationHandle();
@@ -51,7 +53,19 @@ namespace Model.Global.Utility
 
         public bool IsAnyBlocked()
         {
-            return OperationHandles.Any(x => x.IsEnd);
+            return !OperationHandles.All(x => x.IsEnd);
+        }
+
+        public string GetAllOperations()
+        {
+            var operations = new StringBuilder();
+            for (int i = 0; i < OperationHandles.Count; i++)
+            {
+                operations.Append(OperationHandles[i]);
+                operations.Append("\n");
+            }
+
+            return operations.ToString();
         }
 
         public IReadOnlyList<OperationHandle> GetOperationHandles => OperationHandles;

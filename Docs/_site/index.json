@@ -1,0 +1,127 @@
+{
+  "ArticleOutline.html": {
+    "href": "ArticleOutline.html",
+    "title": "【案】Unityプロジェクト「CanKicking」技術解説 | Article",
+    "summary": "【案】Unityプロジェクト「CanKicking」技術解説 第1章: はじめに 1-1. この記事で解説すること 1-2. ゲーム「CanKicking」の概要 1-3. 対象読者 第2章: プロジェクト全体のアーキテクチャ 2-1. 全体像：DIと責務分離によるクリーンアーキテクチャ 2-2. ディレクトリ構造と各レイヤーの責務 2-3. シーンの依存関係とライフタイムスコープ 第3章: 主要技術とライブラリ選定 3-1. DIコンテナ: VContainer 3-2. 非同期処理: UniTask 3-3. リアクティブプログラミング: R3 3-4. その他（DOTween, InputSystem など） 第4章: デザインパターンと実装詳細 4-1. DIコンテナによる依存性の注入（Installer の役割） 4-2. Controllerにおけるステートマシン実装 4-3. ゲームの状態管理（Model の役割） 4-4. 画面表示とエフェクト（View の役割） 4-5. Object Poolによるパフォーマンス最適化 VContainerを使ったオブジェクトプーリング エフェクトや弾丸のライフサイクル管理 4-6. R3によるリアクティブなデータフロー 第5章: アセット管理とシーン遷移 5-1. Addressables を利用したアセット管理 5-2. シーン遷移の実装方法 第6章: まとめ 6-1. 本アーキテクチャのメリット 6-2. 今後の展望"
+  },
+  "Chapter01/Abstract.html": {
+    "href": "Chapter01/Abstract.html",
+    "title": "概要 | Article",
+    "summary": "概要"
+  },
+  "Chapter01/DirectoryStructure.html": {
+    "href": "Chapter01/DirectoryStructure.html",
+    "title": "2-2. ディレクトリ構造と各レイヤーの責務 | Article",
+    "summary": "2-2. ディレクトリ構造と各レイヤーの責務"
+  },
+  "Chapter01/OverallArchitecture.html": {
+    "href": "Chapter01/OverallArchitecture.html",
+    "title": "2-1. 全体像：DIと責務分離によるクリーンアーキテクチャ | Article",
+    "summary": "2-1. 全体像：DIと責務分離によるクリーンアーキテクチャ"
+  },
+  "Chapter01/SceneDependencies.html": {
+    "href": "Chapter01/SceneDependencies.html",
+    "title": "2-3. シーンの依存関係とライフタイムスコープ | Article",
+    "summary": "2-3. シーンの依存関係とライフタイムスコープ"
+  },
+  "Chapter02/Abstract.html": {
+    "href": "Chapter02/Abstract.html",
+    "title": "概要 | Article",
+    "summary": "概要"
+  },
+  "Chapter02/OtherLibraries.html": {
+    "href": "Chapter02/OtherLibraries.html",
+    "title": "3-4. その他（DOTween, InputSystem など） | Article",
+    "summary": "3-4. その他（DOTween, InputSystem など）"
+  },
+  "Chapter02/R3.html": {
+    "href": "Chapter02/R3.html",
+    "title": "3-3. リアクティブプログラミング: R3 | Article",
+    "summary": "3-3. リアクティブプログラミング: R3"
+  },
+  "Chapter02/UniTask.html": {
+    "href": "Chapter02/UniTask.html",
+    "title": "3-2. 非同期処理: UniTask | Article",
+    "summary": "3-2. 非同期処理: UniTask"
+  },
+  "Chapter02/VContainer.html": {
+    "href": "Chapter02/VContainer.html",
+    "title": "3-1. DIコンテナ: VContainer | Article",
+    "summary": "3-1. DIコンテナ: VContainer"
+  },
+  "Chapter03/Abstract.html": {
+    "href": "Chapter03/Abstract.html",
+    "title": "概要 | Article",
+    "summary": "概要"
+  },
+  "Chapter03/ControllerStateMachine.html": {
+    "href": "Chapter03/ControllerStateMachine.html",
+    "title": "4-2. Controllerにおけるステートマシン実装 | Article",
+    "summary": "4-2. Controllerにおけるステートマシン実装"
+  },
+  "Chapter03/DIContainer.html": {
+    "href": "Chapter03/DIContainer.html",
+    "title": "4-1. DIコンテナによる依存性の注入（Installer の役割） | Article",
+    "summary": "4-1. DIコンテナによる依存性の注入（Installer の役割）"
+  },
+  "Chapter03/DisplayAndEffects.html": {
+    "href": "Chapter03/DisplayAndEffects.html",
+    "title": "4-4. 画面表示とエフェクト（View の役割） | Article",
+    "summary": "4-4. 画面表示とエフェクト（View の役割）"
+  },
+  "Chapter03/GameStateManagement.html": {
+    "href": "Chapter03/GameStateManagement.html",
+    "title": "4-3. ゲームの状態管理（Model の役割） | Article",
+    "summary": "4-3. ゲームの状態管理（Model の役割）"
+  },
+  "Chapter03/ObjectPool.html": {
+    "href": "Chapter03/ObjectPool.html",
+    "title": "4-5. Object Poolによるパフォーマンス最適化 | Article",
+    "summary": "4-5. Object Poolによるパフォーマンス最適化"
+  },
+  "Chapter03/ReactiveDataFlow.html": {
+    "href": "Chapter03/ReactiveDataFlow.html",
+    "title": "4-6. R3によるリアクティブなデータフロー | Article",
+    "summary": "4-6. R3によるリアクティブなデータフロー"
+  },
+  "Chapter04/Abstract.html": {
+    "href": "Chapter04/Abstract.html",
+    "title": "概要 | Article",
+    "summary": "概要"
+  },
+  "Chapter04/AssetManagement.html": {
+    "href": "Chapter04/AssetManagement.html",
+    "title": "5-1. Addressables を利用したアセット管理 | Article",
+    "summary": "5-1. Addressables を利用したアセット管理"
+  },
+  "Chapter04/SceneTransition.html": {
+    "href": "Chapter04/SceneTransition.html",
+    "title": "5-2. シーン遷移の実装方法 | Article",
+    "summary": "5-2. シーン遷移の実装方法"
+  },
+  "Chapter05/Abstract.html": {
+    "href": "Chapter05/Abstract.html",
+    "title": "概要 | Article",
+    "summary": "概要"
+  },
+  "Chapter05/Benefits.html": {
+    "href": "Chapter05/Benefits.html",
+    "title": "6-1. 本アーキテクチャのメリット | Article",
+    "summary": "6-1. 本アーキテクチャのメリット"
+  },
+  "Chapter05/FutureProspects.html": {
+    "href": "Chapter05/FutureProspects.html",
+    "title": "6-2. 今後の展望 | Article",
+    "summary": "6-2. 今後の展望"
+  },
+  "docs.html": {
+    "href": "docs.html",
+    "title": "ドキュメント | Article",
+    "summary": "ドキュメント シーンの依存関係 block-beta columns 3 %% 上段: グローバルエントリー GL[\"Global Locator\"]:3 space:3 %% 中段: 主要シーン3つを横並び TitleScene[\"TitleScene\"] StageSelectScene[\"StageSelectScene\"] StageScene[\"StageScene\"] space:3 %% 下段: サブシーングループ block:TitleDeps columns 1 TitleUiScene(\"TitleUiScene\") TitleEnvironmentScene(\"TitleEnvironmentScene\") end block:StageSelectDeps columns 1 StageSelectUiScene(\"StageSelectUiScene\") StageSelectEnvironmentScene(\"StageSelectEnvironmentScene\") StageSelectResources(\"StageSelectResources\") end block:StageDeps columns 1 StageUiScene(\"StageUiScene\") StageEnvironmentScene(\"StageEnvironmentScene\") StageResources(\"StageResources\") end %% 下段の配置（サブグループ3つ横並び） TitleDeps StageSelectDeps StageDeps %% 矢印／依存関係 GL --> TitleScene GL --> StageSelectScene GL --> StageScene TitleScene --> TitleDeps StageSelectScene --> StageSelectDeps StageScene --> StageDeps %% カラー style GL fill:#ffe,stroke:#cc0,stroke-width:2px style TitleScene fill:#ccf,stroke:#333 style StageSelectScene fill:#cfc,stroke:#333 style StageScene fill:#fcc,stroke:#333 style TitleDeps fill:#eef,stroke:#99f style StageSelectDeps fill:#efe,stroke:#9f9 style StageDeps fill:#fee,stroke:#f99 style TitleUiScene fill:#ddf style TitleEnvironmentScene fill:#ddf style StageSelectUiScene fill:#dfd style StageSelectEnvironmentScene fill:#dfd style StageSelectResources fill:#dfd style StageUiScene fill:#fdd style StageEnvironmentScene fill:#fdd style StageResources fill:#fdd ライフタイムスコープの依存関係"
+  },
+  "index.html": {
+    "href": "index.html",
+    "title": "| Article",
+    "summary": "はじめに この記事で解説すること より良いプログラムを実現するための手段として、アーキテクチャやデザインパターンといったものがある。 これらは、ネット上では、抽象的な理論として解説が存在するが、実際にゲームに組み込まれたプログラムとして探すことは難しい。 ここで、私が書いたプログラムを元に学んで貰えればと思い、この記事を書いた。 CanKickingの概要 まずは、このゲームの仕様について話そうと思う。 タイトル タッチでステージセレクトに移動する ステージセレクト 上下にスクロール移動を行う 選択状態 選択なし ステージをタッチで選択すると、選択状態に移行する 選択状態 選択されているステージ情報が表示される 選択されているステージをもう一度選択するとステージに移動する ステージ プレイヤー 待機状態 フリックで引っ張り状態に移行する 引っ張り状態 指を離すとプレイヤーが飛ぶ 飛行状態 時間が加速する 着地すると、待機状態に移行する ゴールに到達したらクリア 一定座標以下に落ちると最初の地点にリスポーンする"
+  }
+}

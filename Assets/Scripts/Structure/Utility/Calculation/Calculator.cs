@@ -29,7 +29,7 @@ namespace Structure.Utility.Calculation
         }
 
         /// <summary>
-        /// 画面の短辺にベクトルの大きさを合わせる
+        /// 画面の短辺を長さ1として-1~1のベクトルに変換する
         /// </summary>
         /// <param name="origin">変換するベクトル</param>
         /// <param name="screen">画面の大きさ</param>

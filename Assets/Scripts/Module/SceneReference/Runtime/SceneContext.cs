@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
-namespace Module.SceneReference
+namespace Module.SceneReference.Runtime
 {
     public enum SceneType
     {
@@ -21,7 +21,7 @@ namespace Module.SceneReference
             return new SceneContext(SceneType.Addressable, sceneInstance, null, scenePath);
         }
 
-        public SceneContext
+        private SceneContext
         (
             SceneType sceneType,
             SceneInstance sceneInstance,

@@ -1,7 +1,8 @@
+using Module.Option.Runtime;
 using UnityEditor;
 using UnityEngine;
 
-namespace Module.Option
+namespace Module.Option.Editor
 {
     [CustomPropertyDrawer(typeof(Option<>), true)]
     public class OptionPropertyDrawer : PropertyDrawer

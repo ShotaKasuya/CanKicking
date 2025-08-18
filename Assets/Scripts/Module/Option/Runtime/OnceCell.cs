@@ -1,9 +1,9 @@
+#nullable enable
+
 using System;
 using System.Runtime.CompilerServices;
 
-#nullable enable
-
-namespace Module.Option
+namespace Module.Option.Runtime
 {
     public class OnceCell<T>
     {

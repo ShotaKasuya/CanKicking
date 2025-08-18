@@ -1,0 +1,347 @@
+{
+  "source_base_path": "/home/mentaimayo/Desktop/Unity/CanKicking/Docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "ArticleOutline.md",
+      "output": {
+        ".html": {
+          "relative_path": "ArticleOutline.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter01/Abstract.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter01/Abstract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter01/DirectoryStructure.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter01/DirectoryStructure.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter01/OverallArchitecture.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter01/OverallArchitecture.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter01/SceneDependencies.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter01/SceneDependencies.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Chapter01/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter01/toc.html"
+        },
+        ".json": {
+          "relative_path": "Chapter01/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter02/Abstract.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter02/Abstract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter02/OtherLibraries.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter02/OtherLibraries.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter02/R3.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter02/R3.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter02/UniTask.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter02/UniTask.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter02/VContainer.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter02/VContainer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Chapter02/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter02/toc.html"
+        },
+        ".json": {
+          "relative_path": "Chapter02/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter03/Abstract.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter03/Abstract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter03/ControllerStateMachine.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter03/ControllerStateMachine.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter03/DIContainer.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter03/DIContainer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter03/DisplayAndEffects.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter03/DisplayAndEffects.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter03/GameStateManagement.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter03/GameStateManagement.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter03/ObjectPool.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter03/ObjectPool.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter03/ReactiveDataFlow.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter03/ReactiveDataFlow.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Chapter03/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter03/toc.html"
+        },
+        ".json": {
+          "relative_path": "Chapter03/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter04/Abstract.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter04/Abstract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter04/AssetManagement.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter04/AssetManagement.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter04/SceneTransition.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter04/SceneTransition.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Chapter04/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter04/toc.html"
+        },
+        ".json": {
+          "relative_path": "Chapter04/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter05/Abstract.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter05/Abstract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter05/Benefits.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter05/Benefits.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Chapter05/FutureProspects.md",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter05/FutureProspects.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Chapter05/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "Chapter05/toc.html"
+        },
+        ".json": {
+          "relative_path": "Chapter05/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

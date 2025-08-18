@@ -2,6 +2,7 @@ using Interface.InGame.Player;
 using Interface.InGame.Primary;
 using Interface.InGame.Stage;
 using Module.Option;
+using Module.Option.Runtime;
 
 namespace View.InGame.Primary
 {

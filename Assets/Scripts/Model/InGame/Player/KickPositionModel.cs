@@ -1,5 +1,5 @@
 using Interface.InGame.Player;
-using Module.Option;
+using Module.Option.Runtime;
 using UnityEngine;
 
 namespace Model.InGame.Player

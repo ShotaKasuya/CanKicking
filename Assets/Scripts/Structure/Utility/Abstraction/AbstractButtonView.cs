@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace View.InGame.UserInterface.Stop
+namespace Structure.Utility.Abstraction
 {
     [RequireComponent(typeof(Button))]
     public abstract class AbstractButtonView<T> : MonoBehaviour

@@ -1,10 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
-using Module.SceneReference;
+using Module.SceneReference.Runtime;
+using ModuleExtension.VContainer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VContainer.ModuleExtension;
 using VContainer.Unity;
 
 namespace Logic.Global.Scene;
@@ -92,7 +92,7 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
 
     private async UniTask WaitBlock()
     {
-        await UniTask.WaitUntil(BlockingOperationModel.IsAnyBlocked);
+        await UniTask.WaitUntil(BlockingOperationModel, model => !model.IsAnyBlocked());
     }
 
     private IPrimarySceneModel PrimarySceneModel { get; }

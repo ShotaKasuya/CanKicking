@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Module.SceneReference;
+using Module.SceneReference.Runtime;
 
 namespace Interface.Global.Scene;
 

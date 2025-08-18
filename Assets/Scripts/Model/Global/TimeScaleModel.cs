@@ -1,6 +1,6 @@
 ﻿using System;
 using Interface.Global.TimeScale;
-using Module.EnumArray;
+using Module.EnumArray.Runtime;
 using Structure.Global.TimeScale;
 using UnityEngine;
 

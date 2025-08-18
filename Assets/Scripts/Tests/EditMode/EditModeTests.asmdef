@@ -2,8 +2,17 @@
     "name": "EditModeTests",
     "rootNamespace": "",
     "references": [
+        "GUID:b3321f0bf7074008997652ea55744639",
+        "GUID:0c272c28dfc821b4389a1532c9d37804",
+        "GUID:16e8f5d69514955ed81c242275bdc6eb",
+        "GUID:f1052dff81777ca1197906223025d0ca",
         "GUID:4d8794373ab05ad6d9f16872f64fe2f0",
-        "GUID:057b6ea880ed3e133a39ba8babd31b91"
+        "GUID:057b6ea880ed3e133a39ba8babd31b91",
+        "GUID:c52c7ec17229bd6e28dadc941c3334fa",
+        "GUID:d9627c355e8131a43b3fdb2c5c363bc2",
+        "GUID:8f953d635790a5e529ca6f38acd32b8a",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
     ],
     "includePlatforms": [
         "Editor"

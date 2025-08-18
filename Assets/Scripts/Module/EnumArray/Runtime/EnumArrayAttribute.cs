@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Module.EnumArray
+namespace Module.EnumArray.Runtime
 {
     public class EnumArrayAttribute : PropertyAttribute
     {

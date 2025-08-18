@@ -1,9 +1,9 @@
 using Interface.OutGame.StageSelect;
+using ModuleExtension.VContainer;
 using Structure.Utility;
 using TNRD;
 using UnityEngine;
 using VContainer;
-using VContainer.ModuleExtension;
 using VContainer.Unity;
 
 namespace Model.OutGame.StageSelect

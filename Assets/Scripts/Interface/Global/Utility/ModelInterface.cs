@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Module.Option;
+using Module.Option.Runtime;
 using UnityEngine;
 
 namespace Interface.Global.Utility;
@@ -39,7 +39,7 @@ public class OperationHandle : IDisposable
         OperationContext = string.Empty;
     }
 
-    public string OperationContext { get; private set; }
+    private string OperationContext { get; set; }
     public bool IsEnd { get; private set; }
 
     public OperationHandle

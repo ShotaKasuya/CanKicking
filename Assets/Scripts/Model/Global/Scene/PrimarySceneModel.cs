@@ -1,5 +1,5 @@
 ﻿using Interface.Global.Scene;
-using Module.SceneReference;
+using Module.SceneReference.Runtime;
 
 namespace Model.Global.Scene
 {

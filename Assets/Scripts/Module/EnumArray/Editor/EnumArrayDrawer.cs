@@ -1,7 +1,8 @@
-﻿using UnityEditor;
+﻿using Module.EnumArray.Runtime;
+using UnityEditor;
 using UnityEngine;
 
-namespace Module.EnumArray
+namespace Module.EnumArray.Editor
 {
     [CustomPropertyDrawer(typeof(EnumArrayAttribute))]
     public class EnumListDrawer : PropertyDrawer

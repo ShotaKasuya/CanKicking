@@ -1,7 +1,8 @@
 using Cysharp.Threading.Tasks;
+using VContainer;
 using VContainer.Unity;
 
-namespace VContainer.ModuleExtension
+namespace ModuleExtension.VContainer
 {
     /// <summary>
     /// コンテナに保管するコンポーネントをまとめるクラスに継承させる

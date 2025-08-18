@@ -3,6 +3,7 @@ using Interface.Global.Scene;
 using Interface.Global.Utility;
 using Interface.OutGame.StageSelect;
 using Module.Option;
+using Module.Option.Runtime;
 using Module.StateMachine;
 using R3;
 using Structure.OutGame;

@@ -1,10 +1,10 @@
+#nullable enable
+
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-#nullable enable
-
-namespace Module.Option
+namespace Module.Option.Runtime
 {
     [Serializable]
     public struct Option<T>

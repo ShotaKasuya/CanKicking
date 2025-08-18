@@ -1,9 +1,8 @@
-namespace Structure.InGame.UserInterface
+namespace Structure.InGame.UserInterface;
+
+public enum UserInterfaceStateType
 {
-    public enum UserInterfaceStateType
-    {
-        Normal,
-        Stop,
-        Goal,
-    }
+    Normal,
+    Stop,
+    Goal,
 }

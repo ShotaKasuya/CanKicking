@@ -14,7 +14,6 @@ public class GameStartController : IInitializable, IResetable
     (
         ILazyStartPositionView lazyStartPositionView,
         ILazyPlayerView lazyPlayerView,
-        IBlockingOperationModel blockingOperationModel,
         IJumpCountModel jumpCountModel,
         IClearRecordModel clearRecordModel,
         IGoalEventModel goalEventModel,
@@ -24,7 +23,6 @@ public class GameStartController : IInitializable, IResetable
     {
         LazyStartPositionView = lazyStartPositionView;
         LazyPlayerView = lazyPlayerView;
-        BlockingOperationModel = blockingOperationModel;
         JumpCountModel = jumpCountModel;
         ClearRecordModel = clearRecordModel;
         GoalEventModel = goalEventModel;
@@ -41,12 +39,8 @@ public class GameStartController : IInitializable, IResetable
             .AddTo(CompositeDisposable);
     }
 
-    private const string InitPlayerPosition = "Initialize Player Position";
-
     private async UniTask StartAsync()
     {
-        using var _ = BlockingOperationModel.SpawnOperation(InitPlayerPosition);
-
         await UniTask.WaitUntil(LazyPlayerView.PlayerView, cell => cell.IsInitialized);
         await UniTask.WaitUntil(
             LazyStartPositionView.StartPosition,
@@ -84,7 +78,6 @@ public class GameStartController : IInitializable, IResetable
     private CompositeDisposable CompositeDisposable { get; }
     private ILazyStartPositionView LazyStartPositionView { get; }
     private ILazyPlayerView LazyPlayerView { get; }
-    private IBlockingOperationModel BlockingOperationModel { get; }
     private IJumpCountModel JumpCountModel { get; }
     private IClearRecordModel ClearRecordModel { get; }
     private IGoalEventModel GoalEventModel { get; }
