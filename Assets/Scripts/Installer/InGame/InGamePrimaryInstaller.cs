@@ -32,6 +32,7 @@ namespace Installer.InGame
             builder.UseEntryPoints(pointsBuilder =>
             {
                 pointsBuilder.Add<GameStartController>();
+                pointsBuilder.Add<AdvertiseController>();
             });
         }
     }

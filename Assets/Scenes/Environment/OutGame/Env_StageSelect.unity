@@ -520,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8963053758510981043, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.033824682
+      value: -0.0059959292
       objectReference: {fileID: 0}
     - target: {fileID: 8963053758510981043, guid: ff1ddf91f6cdbe5f8bca29b2686beaa8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -637,7 +637,7 @@ MonoBehaviour:
     m_Knots:
     - Position:
         x: 0
-        y: -4.99
+        y: -5
         z: 0
       TangentIn:
         x: 0
@@ -655,7 +655,7 @@ MonoBehaviour:
           w: 1
     - Position:
         x: 0
-        y: 10.07
+        y: 20
         z: 0
       TangentIn:
         x: 0
@@ -821,7 +821,7 @@ Transform:
   m_GameObject: {fileID: 1578951484}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.033824682, z: -1}
+  m_LocalPosition: {x: 0, y: -0.0059959292, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1067,7 +1067,7 @@ Transform:
   m_GameObject: {fileID: 2052209665}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

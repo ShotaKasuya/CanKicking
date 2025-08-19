@@ -1,4 +1,5 @@
 using System;
+using Controller.Global;
 using Controller.Global.UserInterface;
 using Logic.Global.Scene;
 using Model.Global;
@@ -9,6 +10,7 @@ using R3;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using View.Global.Advertisement;
 using View.Global.Audio;
 using View.Global.Input;
 using View.Global.Scene;
@@ -16,6 +18,9 @@ using View.Global.UserInterface;
 
 namespace Installer.Global
 {
+    /// <summary>
+    /// グローバルライフタイムスコープ
+    /// </summary>
     public partial class GlobalLocator : LifetimeScope
     {
         [SerializeField] private TimeScaleModel timeScaleModel;
@@ -35,6 +40,7 @@ namespace Installer.Global
 
             // View
             builder.Register<SceneLoaderView>(Lifetime.Transient).AsImplementedInterfaces();
+            builder.Register<BottomAdsView>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(timeScaleModel).AsImplementedInterfaces();
             builder.RegisterInstance(touchPositionUiView).AsImplementedInterfaces();
             builder.RegisterInstance(loadingPanelView).AsImplementedInterfaces();
@@ -56,6 +62,7 @@ namespace Installer.Global
             // Controller
             builder.UseEntryPoints(pointsBuilder =>
             {
+                pointsBuilder.Add<ResourceController>();
                 pointsBuilder.Add<TouchUiController>();
                 pointsBuilder.Add<LoadingPanelController>();
             });
