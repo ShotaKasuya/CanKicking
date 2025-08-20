@@ -1,7 +1,7 @@
-
 using System;
 using System.Threading.Tasks;
 using Controller.OutGame.StageSelect.UserInterface;
+using Cysharp.Threading.Tasks;
 using Interface.OutGame.StageSelect;
 using Module.Option.Runtime;
 using Module.StateMachine;
@@ -25,7 +25,10 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
         {
             public bool IsReset { get; private set; }
             public void Reset() => IsReset = true;
-            public void ShowStage(string sceneName, Option<int> clearRecord) { }
+
+            public void ShowStage(string sceneName, Option<int> clearRecord)
+            {
+            }
         }
 
         private class MockSelectedStageModel : ISelectedStageModel
@@ -36,10 +39,37 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
 
         private class MockStateEntity : IMutStateEntity<StageSelectStateType>
         {
-            public StageSelectStateType State { get; private set; } = StageSelectStateType.None;
-            public System.Action<StatePair<StageSelectStateType>> OnChangeState { get; set; }
-            public bool IsInState(StageSelectStateType state) => State == state;
-            public void ChangeState(StageSelectStateType next) => State = next;
+            public StageSelectStateType CurrentState { get; private set; }
+            public StageSelectStateType EntryState { get; }
+            public Observable<StageSelectStateType> StateExitObservable => _stateExitSubject;
+            public Observable<StageSelectStateType> StateEnterObservable => _stateEnterSubject;
+
+            private readonly Subject<StageSelectStateType> _stateExitSubject = new();
+            private readonly Subject<StageSelectStateType> _stateEnterSubject = new();
+
+            public MockStateEntity(StageSelectStateType initialState)
+            {
+                CurrentState = initialState;
+                EntryState = initialState;
+            }
+
+            public bool IsInState(StageSelectStateType state)
+            {
+                return CurrentState == state;
+            }
+
+            public UniTask ChangeState(StageSelectStateType next)
+            {
+                _stateExitSubject.OnNext(CurrentState);
+                CurrentState = next;
+                _stateEnterSubject.OnNext(next);
+                return UniTask.CompletedTask;
+            }
+
+            public OperationHandle GetStateLock(string context)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private NoneStateController _controller;
@@ -55,19 +85,25 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
             _selectionView = new MockStageSelectionView();
             _selectedStageView = new MockSelectedStageView();
             _selectedStageModel = new MockSelectedStageModel();
-            _stateEntity = new MockStateEntity();
+            _stateEntity = new MockStateEntity(StageSelectStateType.None);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new NoneStateController(
-                _selectionView, _selectedStageView, _selectedStageModel, 
+                _selectionView, _selectedStageView, _selectedStageModel,
                 _compositeDisposable, _stateEntity
             );
             _controller.Start();
         }
 
-        [TearDown] public void TearDown() => _compositeDisposable.Dispose();
+        [TearDown]
+        public void TearDown() => _compositeDisposable.Dispose();
 
-        [Test] public void OnEnter_ResetsSelectedStageView() { _controller.OnEnter(); Assert.IsTrue(_selectedStageView.IsReset); }
+        [Test]
+        public void OnEnter_ResetsSelectedStageView()
+        {
+            _controller.OnEnter();
+            Assert.IsTrue(_selectedStageView.IsReset);
+        }
 
         [Test]
         public async Task OnSelect_WithStage_SetsModelAndChangesState()
@@ -76,18 +112,18 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
             _selectionView.SimulateSelect(Option<string>.Some(stageName));
 
             await Task.Delay(TimeSpan.FromSeconds(0.25f));
-            
+
             Assert.AreEqual(stageName, _selectedStageModel.SelectedStage);
-            Assert.AreEqual(StageSelectStateType.Some, _stateEntity.State);
+            Assert.AreEqual(StageSelectStateType.Some, _stateEntity.CurrentState);
         }
 
         [Test]
         public void OnSelect_WithNone_DoesNothing()
         {
             _selectionView.SimulateSelect(Option<string>.None());
-            
+
             Assert.IsNull(_selectedStageModel.SelectedStage);
-            Assert.AreEqual(StageSelectStateType.None, _stateEntity.State);
+            Assert.AreEqual(StageSelectStateType.None, _stateEntity.CurrentState);
         }
     }
 }

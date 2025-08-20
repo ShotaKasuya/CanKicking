@@ -398,6 +398,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 610696566889663651, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
+      propertyPath: m_Name
+      value: ======HeightSlider=======
+      objectReference: {fileID: 0}
     - target: {fileID: 2613399406309987238, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -478,6 +482,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2985326540981145475, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
+      propertyPath: m_Name
+      value: =======StopButtom========
+      objectReference: {fileID: 0}
+    - target: {fileID: 5006420877896496615, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
+      propertyPath: m_Name
+      value: =======StopButtom========
+      objectReference: {fileID: 0}
     - target: {fileID: 6705837576787170468, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -485,6 +497,10 @@ PrefabInstance:
     - target: {fileID: 6941614759117050398, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
       propertyPath: m_Name
       value: Nromal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532580641467277612, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
+      propertyPath: m_Name
+      value: =========Height==========
       objectReference: {fileID: 0}
     - target: {fileID: 9170011784968921677, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
       propertyPath: m_UiScaleMode

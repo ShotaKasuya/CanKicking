@@ -1,3 +1,4 @@
+using System;
 using Controller.OutGame.StageSelect.UserInterface;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
@@ -7,6 +8,7 @@ using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
 using R3;
+using System.Threading.Tasks;
 using Structure.OutGame;
 
 namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
@@ -67,10 +69,37 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
 
         private class MockStateEntity : IMutStateEntity<StageSelectStateType>
         {
-            public StageSelectStateType State { get; private set; } = StageSelectStateType.Some;
-            public System.Action<StatePair<StageSelectStateType>> OnChangeState { get; set; }
-            public bool IsInState(StageSelectStateType state) => State == state;
-            public void ChangeState(StageSelectStateType next) => State = next;
+            public StageSelectStateType CurrentState { get; private set; }
+            public StageSelectStateType EntryState { get; }
+            public Observable<StageSelectStateType> StateExitObservable => _stateExitSubject;
+            public Observable<StageSelectStateType> StateEnterObservable => _stateEnterSubject;
+
+            private readonly Subject<StageSelectStateType> _stateExitSubject = new();
+            private readonly Subject<StageSelectStateType> _stateEnterSubject = new();
+
+            public MockStateEntity(StageSelectStateType initialState)
+            {
+                CurrentState = initialState;
+                EntryState = initialState;
+            }
+
+            public bool IsInState(StageSelectStateType state)
+            {
+                return CurrentState == state;
+            }
+
+            public UniTask ChangeState(StageSelectStateType next)
+            {
+                _stateExitSubject.OnNext(CurrentState);
+                CurrentState = next;
+                _stateEnterSubject.OnNext(next);
+                return UniTask.CompletedTask;
+            }
+
+            public OperationHandle GetStateLock(string context)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private SomeStateController _controller;
@@ -90,7 +119,7 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
             _selectedStageView = new MockSelectedStageView();
             _selectedStageModel = new MockSelectedStageModel();
             _clearRecordModel = new MockClearRecordModel();
-            _stateEntity = new MockStateEntity();
+            _stateEntity = new MockStateEntity(StageSelectStateType.Some);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new SomeStateController(
@@ -119,18 +148,20 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
         }
 
         [Test]
-        public void OnSelect_SameStage_ChangesScene()
+        public async Task OnSelect_SameStage_ChangesScene()
         {
             const string stageName = "TestStage";
             _selectedStageModel.SetSelectedStage(stageName);
 
             _selectionView.SimulateSelect(Option<string>.Some(stageName));
 
+            await UniTask.Yield();
+
             Assert.AreEqual(stageName, _loadLogic.CalledScenePath);
         }
 
         [Test]
-        public void OnSelect_DifferentStage_UpdatesModelAndShowsNewStage()
+        public async Task OnSelect_DifferentStage_UpdatesModelAndShowsNewStage()
         {
             const string initialStage = "InitialStage";
             const string newStage = "NewStage";
@@ -138,16 +169,21 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
 
             _selectionView.SimulateSelect(Option<string>.Some(newStage));
 
+            await UniTask.Yield();
+
             Assert.AreEqual(newStage, _selectedStageModel.SelectedStage);
             Assert.AreEqual(newStage, _selectedStageView.ShownStageName);
-            Assert.AreEqual(StageSelectStateType.Some, _stateEntity.State);
+            Assert.AreEqual(StageSelectStateType.Some, _stateEntity.CurrentState);
         }
 
         [Test]
-        public void OnSelect_None_ChangesStateToNone()
+        public async Task OnSelect_None_ChangesStateToNone()
         {
             _selectionView.SimulateSelect(Option<string>.None());
-            Assert.AreEqual(StageSelectStateType.None, _stateEntity.State);
+            
+            await UniTask.Yield();
+
+            Assert.AreEqual(StageSelectStateType.None, _stateEntity.CurrentState);
         }
     }
 }

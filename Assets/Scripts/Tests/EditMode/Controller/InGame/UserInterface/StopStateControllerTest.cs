@@ -10,6 +10,7 @@ using NUnit.Framework;
 using R3;
 using Structure.Global.TimeScale;
 using Structure.InGame.Player;
+using Module.Option.Runtime;
 using Structure.InGame.UserInterface;
 
 namespace Tests.EditMode.Controller.InGame.UserInterface
@@ -86,18 +87,72 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
 
         private class MockPlayerStateEntity : IMutStateEntity<PlayerStateType>
         {
-            public PlayerStateType State { get; private set; }
-            public Action<StatePair<PlayerStateType>> OnChangeState { get; set; }
-            public bool IsInState(PlayerStateType state) => State == state;
-            public void ChangeState(PlayerStateType next) => State = next;
+            public PlayerStateType CurrentState { get; private set; }
+            public PlayerStateType EntryState { get; }
+            public Observable<PlayerStateType> StateExitObservable => _stateExitSubject;
+            public Observable<PlayerStateType> StateEnterObservable => _stateEnterSubject;
+
+            private readonly Subject<PlayerStateType> _stateExitSubject = new();
+            private readonly Subject<PlayerStateType> _stateEnterSubject = new();
+
+            public MockPlayerStateEntity(PlayerStateType initialState)
+            {
+                CurrentState = initialState;
+                EntryState = initialState;
+            }
+
+            public bool IsInState(PlayerStateType state)
+            {
+                return CurrentState == state;
+            }
+
+            public UniTask ChangeState(PlayerStateType next)
+            {
+                _stateExitSubject.OnNext(CurrentState);
+                CurrentState = next;
+                _stateEnterSubject.OnNext(next);
+                return UniTask.CompletedTask;
+            }
+
+            public OperationHandle GetStateLock(string context)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private class MockUiStateEntity : IMutStateEntity<UserInterfaceStateType>
         {
-            public UserInterfaceStateType State { get; private set; } = UserInterfaceStateType.Stop;
-            public Action<StatePair<UserInterfaceStateType>> OnChangeState { get; set; }
-            public bool IsInState(UserInterfaceStateType state) => State == state;
-            public void ChangeState(UserInterfaceStateType next) => State = next;
+            public UserInterfaceStateType CurrentState { get; private set; }
+            public UserInterfaceStateType EntryState { get; }
+            public Observable<UserInterfaceStateType> StateExitObservable => _stateExitSubject;
+            public Observable<UserInterfaceStateType> StateEnterObservable => _stateEnterSubject;
+
+            private readonly Subject<UserInterfaceStateType> _stateExitSubject = new();
+            private readonly Subject<UserInterfaceStateType> _stateEnterSubject = new();
+
+            public MockUiStateEntity(UserInterfaceStateType initialState)
+            {
+                CurrentState = initialState;
+                EntryState = initialState;
+            }
+
+            public bool IsInState(UserInterfaceStateType state)
+            {
+                return CurrentState == state;
+            }
+
+            public UniTask ChangeState(UserInterfaceStateType next)
+            {
+                _stateExitSubject.OnNext(CurrentState);
+                CurrentState = next;
+                _stateEnterSubject.OnNext(next);
+                return UniTask.CompletedTask;
+            }
+
+            public OperationHandle GetStateLock(string context)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private StopStateController _controller;
@@ -122,8 +177,8 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
             _loadPrimarySceneLogic = new MockLoadPrimarySceneLogic();
             _timeScaleModel = new MockTimeScaleModel();
             _gameRestartLogic = new MockGameRestartLogic();
-            _playerStateEntity = new MockPlayerStateEntity();
-            _uiStateEntity = new MockUiStateEntity();
+            _playerStateEntity = new MockPlayerStateEntity(default);
+            _uiStateEntity = new MockUiStateEntity(UserInterfaceStateType.Stop);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new StopStateController(
@@ -141,7 +196,7 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         public void OnEnter_SetsPlayerState_SetsTimeScale_ShowsUi()
         {
             _controller.OnEnter();
-            Assert.AreEqual(PlayerStateType.Stopping, _playerStateEntity.State);
+            Assert.AreEqual(PlayerStateType.Stopping, _playerStateEntity.CurrentState);
             Assert.AreEqual(TimeCommandType.Stop, _timeScaleModel.ExecutedCommand);
             Assert.IsTrue(_stopUiView.IsShown);
         }
@@ -150,7 +205,7 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         public void OnExit_ResetsPlayerState_UndoesTimeScale_HidesUi()
         {
             _controller.OnExit();
-            Assert.AreEqual(PlayerStateType.Idle, _playerStateEntity.State);
+            Assert.AreEqual(PlayerStateType.Idle, _playerStateEntity.CurrentState);
             Assert.IsTrue(_timeScaleModel.IsUndoCalled);
             Assert.IsFalse(_stopUiView.IsShown);
         }
@@ -159,7 +214,7 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         public void OnPlayButtonClick_ChangesStateToNormal()
         {
             _playButtonView.SimulateClick();
-            Assert.AreEqual(UserInterfaceStateType.Normal, _uiStateEntity.State);
+            Assert.AreEqual(UserInterfaceStateType.Normal, _uiStateEntity.CurrentState);
         }
 
         [Test]

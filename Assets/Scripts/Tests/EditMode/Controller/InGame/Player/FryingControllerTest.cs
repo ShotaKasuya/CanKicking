@@ -1,7 +1,9 @@
 using System;
 using Controller.InGame.Player;
+using Cysharp.Threading.Tasks;
 using Interface.Global.TimeScale;
 using Interface.InGame.Player;
+using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
 using R3;
@@ -58,13 +60,25 @@ namespace Tests.EditMode.Controller.InGame.Player
 
         private class MockStateEntity : IMutStateEntity<PlayerStateType>
         {
-            public PlayerStateType State { get; private set; } = PlayerStateType.Frying;
-            public Action<StatePair<PlayerStateType>> OnChangeState { get; set; }
-            public bool IsInState(PlayerStateType state) => State == state;
+            public PlayerStateType CurrentState { get; private set; } = PlayerStateType.Frying;
+            public PlayerStateType EntryState => PlayerStateType.Idle;
+            public Observable<PlayerStateType> StateExitObservable => Observable.Empty<PlayerStateType>();
+            public Observable<PlayerStateType> StateEnterObservable => Observable.Empty<PlayerStateType>();
 
-            public void ChangeState(PlayerStateType next)
+            public bool IsInState(PlayerStateType state)
             {
-                State = next;
+                return CurrentState == state;
+            }
+
+            public UniTask ChangeState(PlayerStateType next)
+            {
+                CurrentState = next;
+                return UniTask.CompletedTask;
+            }
+
+            public OperationHandle GetStateLock(string context)
+            {
+                return new OperationHandle();
             }
         }
 
@@ -122,7 +136,7 @@ namespace Tests.EditMode.Controller.InGame.Player
 
             _controller.StateUpdate(0.1f);
 
-            Assert.AreEqual(PlayerStateType.Idle, _stateEntity.State);
+            Assert.AreEqual(PlayerStateType.Idle, _stateEntity.CurrentState);
         }
     }
 }

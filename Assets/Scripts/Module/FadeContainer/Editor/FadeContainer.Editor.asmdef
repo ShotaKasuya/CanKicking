@@ -1,13 +1,12 @@
 {
-    "name": "StateMachine",
+    "name": "FadeContainer.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:057b6ea880ed3e133a39ba8babd31b91",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:77221876cc6b8244180b96e320b1bcd4",
-        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+        "GUID:246865f11b496832fb41228e07b96667"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

@@ -1,11 +1,11 @@
-using Module.SceneReference;
+using Cysharp.Threading.Tasks;
 using R3;
 
 namespace Interface.InGame.UserInterface
 {
     public interface IGoalUiView
     {
-        public void Show();
+        public UniTask Show();
     }
 
     public interface IGoal_RestartButtonView

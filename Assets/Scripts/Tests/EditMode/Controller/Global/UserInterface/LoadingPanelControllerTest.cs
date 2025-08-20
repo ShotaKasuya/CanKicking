@@ -5,6 +5,7 @@ using Interface.Global.Scene;
 using Interface.Global.TimeScale;
 using Interface.Global.UserInterface;
 using Interface.Global.Utility;
+using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;
 using Structure.Global.TimeScale;

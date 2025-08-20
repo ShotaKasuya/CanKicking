@@ -1,10 +1,10 @@
-
-using System;
 using Controller.InGame.Player;
+using Cysharp.Threading.Tasks;
 using Interface.Global.Audio;
 using Interface.Global.Input;
 using Interface.InGame.Player;
 using Interface.InGame.Primary;
+using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
 using R3;
@@ -20,7 +20,9 @@ namespace Tests.EditMode.Controller.InGame.Player
         {
             private readonly Subject<TouchEndEventArgument> _touchEndSubject = new();
             public Observable<TouchStartEventArgument> TouchEvent => Observable.Empty<TouchStartEventArgument>();
-            public Module.Option.Runtime.Option<FingerDraggingInfo> DraggingInfo { get; set; } = Module.Option.Runtime.Option<FingerDraggingInfo>.None();
+
+            public Option<FingerDraggingInfo> DraggingInfo { get; set; } = Option<FingerDraggingInfo>.None();
+
             public Observable<TouchEndEventArgument> TouchEndEvent => _touchEndSubject;
             public void SimulateTouchEnd(TouchEndEventArgument arg) => _touchEndSubject.OnNext(arg);
         }
@@ -31,8 +33,14 @@ namespace Tests.EditMode.Controller.InGame.Player
             public Vector2 LinearVelocity => Vector2.zero;
             public float AngularVelocity => 0f;
             public Observable<Collision2D> CollisionEnterEvent => Observable.Empty<Collision2D>();
-            public void Activation(bool isActive) { }
-            public void ResetPosition(Vector2 position) { }
+
+            public void Activation(bool isActive)
+            {
+            }
+
+            public void ResetPosition(Vector2 position)
+            {
+            }
         }
 
         private class MockAimView : IAimView
@@ -60,14 +68,20 @@ namespace Tests.EditMode.Controller.InGame.Player
         {
             public AudioClip PlayedClip { get; private set; }
             public void Play(AudioClip clip) => PlayedClip = clip;
-            public void Stop() { }
-            public void Continue() { }
+
+            public void Stop()
+            {
+            }
+
+            public void Continue()
+            {
+            }
         }
 
         private class MockKickPositionModel : IKickPositionModel
         {
             public Vector2? PushedPosition { get; private set; }
-            public Module.Option.Runtime.Option<Vector2> PopPosition() => Module.Option.Runtime.Option<Vector2>.None();
+            public Option<Vector2> PopPosition() => Option<Vector2>.None();
             public void PushPosition(Vector2 position) => PushedPosition = position;
         }
 
@@ -82,8 +96,18 @@ namespace Tests.EditMode.Controller.InGame.Player
             public int Count { get; private set; }
             private readonly ReactiveProperty<int> _jumpCount = new(0);
             public ReadOnlyReactiveProperty<int> JumpCount => _jumpCount;
-            public void Inc() { Count++; _jumpCount.Value++; }
-            public void Reset() { Count = 0; _jumpCount.Value = 0; }
+
+            public void Inc()
+            {
+                Count++;
+                _jumpCount.Value++;
+            }
+
+            public void Reset()
+            {
+                Count = 0;
+                _jumpCount.Value = 0;
+            }
         }
 
         private class MockPlayerSoundModel : IPlayerSoundModel
@@ -102,10 +126,26 @@ namespace Tests.EditMode.Controller.InGame.Player
 
         private class MockStateEntity : IMutStateEntity<PlayerStateType>
         {
-            public PlayerStateType State { get; private set; } = PlayerStateType.Aiming;
-            public Action<StatePair<PlayerStateType>> OnChangeState { get; set; }
-            public bool IsInState(PlayerStateType state) => State == state;
-            public void ChangeState(PlayerStateType next) { State = next; }
+            public PlayerStateType CurrentState { get; private set; } = PlayerStateType.Aiming;
+            public PlayerStateType EntryState => PlayerStateType.Idle;
+            public Observable<PlayerStateType> StateExitObservable => Observable.Empty<PlayerStateType>();
+            public Observable<PlayerStateType> StateEnterObservable => Observable.Empty<PlayerStateType>();
+
+            public bool IsInState(PlayerStateType state)
+            {
+                return CurrentState == state;
+            }
+
+            public UniTask ChangeState(PlayerStateType next)
+            {
+                CurrentState = next;
+                return UniTask.CompletedTask;
+            }
+
+            public OperationHandle GetStateLock(string context)
+            {
+                return new OperationHandle();
+            }
         }
 
         private AimingController _controller;
@@ -152,9 +192,9 @@ namespace Tests.EditMode.Controller.InGame.Player
         [Test]
         public void StateUpdate_NoDragging_ChangesStateToIdle()
         {
-            _touchView.DraggingInfo = Module.Option.Runtime.Option<FingerDraggingInfo>.None();
+            _touchView.DraggingInfo = Option<FingerDraggingInfo>.None();
             _controller.StateUpdate(0.1f);
-            Assert.AreEqual(PlayerStateType.Idle, _stateEntity.State);
+            Assert.AreEqual(PlayerStateType.Idle, _stateEntity.CurrentState);
         }
 
         [Test]
@@ -187,7 +227,7 @@ namespace Tests.EditMode.Controller.InGame.Player
             Assert.AreEqual(_playerSoundModel.KickSound, _seSourceView.PlayedClip);
             Assert.IsNotNull(_kickPositionModel.PushedPosition);
             Assert.AreEqual(1, _jumpCountModel.Count);
-            Assert.AreEqual(PlayerStateType.Frying, _stateEntity.State);
+            Assert.AreEqual(PlayerStateType.Frying, _stateEntity.CurrentState);
         }
     }
 }

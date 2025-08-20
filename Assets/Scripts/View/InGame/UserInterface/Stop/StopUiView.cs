@@ -1,39 +1,36 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.InGame.UserInterface;
+using Module.FadeContainer.Runtime;
 using ModuleExtension.VContainer;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace View.InGame.UserInterface.Stop
 {
     public class StopUiView : MonoBehaviour, IStopUiView, IRegisterable
     {
-        [SerializeField] private PlayButtonView playButtonView;
-        [SerializeField] private RestartButtonView restartButtonView;
-        [SerializeField] private StageSelectButtonView stageSelectButtonView;
+        [SerializeField] private FadeContainer fadeContainer;
 
         public void Register(IContainerBuilder builder)
         {
-            builder.UseComponents(componentsBuilder =>
+            var fadeTargets = fadeContainer.Targets;
+            builder.RegisterInstance(this).AsImplementedInterfaces();
+            foreach (var (targetType, targetTransform)  in fadeTargets)
             {
-                componentsBuilder.AddInstance(this).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(playButtonView).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(restartButtonView).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(stageSelectButtonView).AsImplementedInterfaces();
-            });
+                builder.RegisterInstance(targetTransform.GetComponent(targetType)).AsImplementedInterfaces();
+            }
         }
 
-        public UniTask Show()
+        public async UniTask Show()
         {
             gameObject.SetActive(true);
-            return UniTask.CompletedTask;
+            await fadeContainer.FadeIn();
         }
 
-        public UniTask Hide()
+        public async UniTask Hide()
         {
+            await fadeContainer.FadeOut();
             gameObject.SetActive(false);
-            return UniTask.CompletedTask;
         }
     }
 }

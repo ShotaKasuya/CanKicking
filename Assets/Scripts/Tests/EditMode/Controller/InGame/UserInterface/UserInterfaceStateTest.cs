@@ -1,6 +1,9 @@
+using System;
 using Controller.InGame.UserInterface;
 using NUnit.Framework;
+using R3;
 using Structure.InGame.UserInterface;
+using System.Threading.Tasks;
 
 namespace Tests.EditMode.Controller.InGame.UserInterface
 {
@@ -18,47 +21,50 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         [Test]
         public void InitialState_IsNormal()
         {
-            Assert.AreEqual(UserInterfaceStateType.Normal, _state.State);
+            Assert.AreEqual(UserInterfaceStateType.Normal, _state.CurrentState);
         }
 
         // テストケース2: ChangeStateで現在の状態が更新されること
         [Test]
-        public void ChangeState_UpdatesCurrentState()
+        public async Task ChangeState_UpdatesCurrentState()
         {
             // Arrange
-            _state.ChangeState(UserInterfaceStateType.Goal);
+            await _state.ChangeState(UserInterfaceStateType.Goal);
 
             // Assert
-            Assert.AreEqual(UserInterfaceStateType.Goal, _state.State);
+            Assert.AreEqual(UserInterfaceStateType.Goal, _state.CurrentState);
         }
 
         // テストケース3: Resetで状態が 'Normal' に戻ること
         [Test]
-        public void Reset_ChangesStateToNormal()
+        public async Task Reset_ChangesStateToNormal()
         {
             // Arrange
-            _state.ChangeState(UserInterfaceStateType.Stop);
+            await _state.ChangeState(UserInterfaceStateType.Stop);
 
             // Act
             _state.Reset();
+            await Task.Delay(TimeSpan.FromSeconds(0.5));
 
             // Assert
-            Assert.AreEqual(UserInterfaceStateType.Normal, _state.State);
+            Assert.AreEqual(_state.EntryState, _state.CurrentState);
         }
 
         // テストケース4: 状態の変更が購読者に通知されること
         [Test]
-        public void CurrentState_OnValueChanged_NotifiesSubscriber()
+        public async Task CurrentState_OnValueChanged_NotifiesSubscriber()
         {
             // Arrange
             var receivedState = UserInterfaceStateType.Normal;
-            _state.OnChangeState += pair => receivedState = pair.NextState;
+            var disposable = _state.StateEnterObservable
+                .Subscribe(type => receivedState = type);
 
             // Act
-            _state.ChangeState(UserInterfaceStateType.Goal);
+            await _state.ChangeState(UserInterfaceStateType.Goal);
 
             // Assert
             Assert.AreEqual(UserInterfaceStateType.Goal, receivedState);
+            disposable.Dispose();
         }
     }
 }

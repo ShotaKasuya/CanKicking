@@ -1,18 +1,20 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Interface.InGame.Primary;
 using Module.StateMachine;
-using ModuleExtension.StateMachine;
+using R3;
 using Structure.OutGame;
 
 namespace Controller.OutGame.StageSelect.UserInterface
 {
-    public class StageSelectStateMachine : StateMachineBase<StageSelectStateType>
+    public class StageSelectStateMachine : AbstractAsyncStateMachine<StageSelectStateType>
     {
         public StageSelectStateMachine
         (
             IState<StageSelectStateType> state,
-            IReadOnlyList<IStateBehaviour<StageSelectStateType>> behaviourEntities
-        ) : base(state, behaviourEntities)
+            IReadOnlyList<IStateBehaviour<StageSelectStateType>> behaviourEntities,
+            CompositeDisposable compositeDisposable
+        ) : base(state, behaviourEntities, compositeDisposable)
         {
         }
     }
@@ -30,15 +32,13 @@ namespace Controller.OutGame.StageSelect.UserInterface
 
     public class StageSelectState : AbstractStateType<StageSelectStateType>, IResetable
     {
-        public StageSelectState() : base(EntryState)
+        public StageSelectState() : base(StageSelectStateType.None)
         {
         }
 
-        private const StageSelectStateType EntryState = StageSelectStateType.None;
-
         public void Reset()
         {
-            ChangeState(EntryState);
+            ChangeState(EntryState).Forget();
         }
     }
 }

@@ -21,7 +21,7 @@ public class AdvertiseController : IInitializable
 
     public void Initialize()
     {
-        SceneLoadEventModel.AfterNextSceneActivate
+        SceneLoadEventModel.EndLoadScene
             .Subscribe(this, (_, controller) => controller.AdvertisementView.Spawn())
             .AddTo(CompositeDisposable);
     }

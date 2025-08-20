@@ -1,18 +1,20 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Interface.InGame.Primary;
 using Module.StateMachine;
-using ModuleExtension.StateMachine;
+using R3;
 using Structure.InGame.UserInterface;
 
 namespace Controller.InGame.UserInterface
 {
-    public class UserInterfaceStateMachine : StateMachineBase<UserInterfaceStateType>
+    public class UserInterfaceStateMachine : AbstractAsyncStateMachine<UserInterfaceStateType>
     {
         public UserInterfaceStateMachine
         (
             IState<UserInterfaceStateType> state,
-            IReadOnlyList<IStateBehaviour<UserInterfaceStateType>> behaviourEntities
-        ) : base(state, behaviourEntities)
+            IReadOnlyList<IStateBehaviour<UserInterfaceStateType>> behaviourEntities,
+            CompositeDisposable compositeDisposable
+        ) : base(state, behaviourEntities, compositeDisposable)
         {
         }
     }
@@ -34,11 +36,9 @@ namespace Controller.InGame.UserInterface
         {
         }
 
-        private const UserInterfaceStateType EntryState = UserInterfaceStateType.Normal;
-
         public void Reset()
         {
-            ChangeState(EntryState);
+            ChangeState(EntryState).Forget();
         }
     }
 }

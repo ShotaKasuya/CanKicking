@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Module.Option.Runtime;
+using R3;
 
 namespace Module.StateMachine
 {
@@ -11,21 +14,38 @@ namespace Module.StateMachine
             TState entryState
         )
         {
-            State = entryState;
+            CurrentState = entryState;
+            EntryState = entryState;
+            StateEnterSubject = new();
+            StateExitSubject = new();
+            StateLock = new();
         }
 
-        public TState State { get; private set; }
-        public Action<StatePair<TState>> OnChangeState { get; set; }
+        public TState CurrentState { get; private set; }
+        public TState EntryState { get; }
+        public Observable<TState> StateExitObservable => StateExitSubject;
+        public Observable<TState> StateEnterObservable => StateEnterSubject;
+
+        private Subject<TState> StateEnterSubject { get; }
+        private Subject<TState> StateExitSubject { get; }
+        private OperationPool StateLock { get; }
 
         public bool IsInState(TState state)
         {
-            return EqualityComparer<TState>.Default.Equals(State, state);
+            return EqualityComparer<TState>.Default.Equals(CurrentState, state);
         }
 
-        public virtual void ChangeState(TState next)
+        public async UniTask ChangeState(TState next)
         {
-            OnChangeState?.Invoke(new StatePair<TState>(State, next));
-            State = next;
+            StateExitSubject.OnNext(CurrentState);
+            await UniTask.WaitWhile(StateLock, pool => pool.IsAnyBlocked());
+            CurrentState = next;
+            StateEnterSubject.OnNext(next);
+        }
+
+        public OperationHandle GetStateLock(string context)
+        {
+            return StateLock.SpawnOperation(context);
         }
     }
 
@@ -34,7 +54,12 @@ namespace Module.StateMachine
         /// <summary>
         /// 現在のステート
         /// </summary>
-        public TState State { get; }
+        public TState CurrentState { get; }
+
+        /// <summary>
+        /// 初期ステート
+        /// </summary>
+        public TState EntryState { get; }
 
         /// <summary>
         /// そのステートであるなら`true`
@@ -42,9 +67,19 @@ namespace Module.StateMachine
         public bool IsInState(TState state);
 
         /// <summary>
-        /// ステートが変化した際のイベント
+        /// ステートのロックを取得する
         /// </summary>
-        public Action<StatePair<TState>> OnChangeState { get; set; }
+        public OperationHandle GetStateLock(string context);
+
+        /// <summary>
+        /// ステートが変化する前のイベント
+        /// </summary>
+        public Observable<TState> StateExitObservable { get; }
+
+        /// <summary>
+        /// ステートが変化する後のイベント
+        /// </summary>
+        public Observable<TState> StateEnterObservable { get; }
     }
 
     public interface IMutStateEntity<TState> : IState<TState> where TState : struct, Enum
@@ -53,18 +88,6 @@ namespace Module.StateMachine
         /// ステートを変化させる
         /// </summary>
         /// <param name="next">次のステート</param>
-        public void ChangeState(TState next);
-    }
-
-    public struct StatePair<TState> where TState : struct, Enum
-    {
-        public StatePair(TState prev, TState next)
-        {
-            PrevState = prev;
-            NextState = next;
-        }
-
-        public TState PrevState { get; }
-        public TState NextState { get; }
+        public UniTask ChangeState(TState next);
     }
 }

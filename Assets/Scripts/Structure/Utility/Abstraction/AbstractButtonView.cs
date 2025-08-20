@@ -13,6 +13,11 @@ namespace Structure.Utility.Abstraction
         private void Awake()
         {
             GetComponent<Button>().onClick.AddListener(OnClick);
+            OnAwake();
+        }
+
+        protected virtual void OnAwake()
+        {
         }
 
         protected virtual void OnClick()

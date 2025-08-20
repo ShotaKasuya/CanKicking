@@ -1,11 +1,10 @@
 {
-    "name": "StateMachine",
+    "name": "FadeContainer",
     "rootNamespace": "",
     "references": [
-        "GUID:057b6ea880ed3e133a39ba8babd31b91",
+        "GUID:e6f134f5cf84d7344bb9c11a39295540",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:77221876cc6b8244180b96e320b1bcd4",
-        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+        "GUID:029c1c1b674aaae47a6841a0b89ad80e"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

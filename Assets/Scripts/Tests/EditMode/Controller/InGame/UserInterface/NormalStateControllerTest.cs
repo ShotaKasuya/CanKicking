@@ -73,10 +73,37 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
 
         private class MockUiStateEntity : IMutStateEntity<UserInterfaceStateType>
         {
-            public UserInterfaceStateType State { get; private set; } = UserInterfaceStateType.Normal;
-            public Action<StatePair<UserInterfaceStateType>> OnChangeState { get; set; }
-            public bool IsInState(UserInterfaceStateType state) => State == state;
-            public void ChangeState(UserInterfaceStateType next) { State = next; }
+            public UserInterfaceStateType CurrentState { get; private set; }
+            public UserInterfaceStateType EntryState { get; }
+            public Observable<UserInterfaceStateType> StateExitObservable => _stateExitSubject;
+            public Observable<UserInterfaceStateType> StateEnterObservable => _stateEnterSubject;
+
+            private readonly Subject<UserInterfaceStateType> _stateExitSubject = new();
+            private readonly Subject<UserInterfaceStateType> _stateEnterSubject = new();
+
+            public MockUiStateEntity(UserInterfaceStateType initialState)
+            {
+                CurrentState = initialState;
+                EntryState = initialState;
+            }
+
+            public bool IsInState(UserInterfaceStateType state)
+            {
+                return CurrentState == state;
+            }
+
+            public UniTask ChangeState(UserInterfaceStateType next)
+            {
+                _stateExitSubject.OnNext(CurrentState);
+                CurrentState = next;
+                _stateEnterSubject.OnNext(next);
+                return UniTask.CompletedTask;
+            }
+
+            public OperationHandle GetStateLock(string context)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private NormalStateController _controller;
@@ -104,7 +131,7 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
             _jumpCountUiView = new MockJumpCountUiView();
             _goalEventModel = new MockGoalEventModel();
             _jumpCountModel = new MockJumpCountModel();
-            _stateEntity = new MockUiStateEntity();
+            _stateEntity = new MockUiStateEntity(UserInterfaceStateType.Normal);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new NormalStateController(
@@ -125,14 +152,14 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         public void OnStopButtonClick_ChangesStateToStop()
         {
             _stopButtonView.SimulateClick();
-            Assert.AreEqual(UserInterfaceStateType.Stop, _stateEntity.State);
+            Assert.AreEqual(UserInterfaceStateType.Stop, _stateEntity.CurrentState);
         }
 
         [Test]
         public void OnGoalEvent_ChangesStateToGoal()
         {
             _goalEventModel.SimulateGoal();
-            Assert.AreEqual(UserInterfaceStateType.Goal, _stateEntity.State);
+            Assert.AreEqual(UserInterfaceStateType.Goal, _stateEntity.CurrentState);
         }
 
         [Test]

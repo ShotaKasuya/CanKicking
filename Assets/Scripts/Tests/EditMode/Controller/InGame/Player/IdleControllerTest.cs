@@ -4,6 +4,8 @@ using Controller.InGame.Player;
 using Interface.Global.Input;
 using Interface.Global.Utility;
 using Interface.InGame.Player;
+using Cysharp.Threading.Tasks;
+using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
 using R3;
@@ -19,7 +21,7 @@ namespace Tests.EditMode.Controller.InGame.Player
         private class MockTouchView : ITouchView
         {
             public Observable<TouchStartEventArgument> TouchEvent => Observable.Empty<TouchStartEventArgument>();
-            public Module.Option.Runtime.Option<FingerDraggingInfo> DraggingInfo { get; set; } = Module.Option.Runtime.Option<FingerDraggingInfo>.None();
+            public Option<FingerDraggingInfo> DraggingInfo { get; set; } = Option<FingerDraggingInfo>.None();
             public Observable<TouchEndEventArgument> TouchEndEvent => Observable.Empty<TouchEndEventArgument>();
         }
 
@@ -77,10 +79,26 @@ namespace Tests.EditMode.Controller.InGame.Player
 
         private class MockStateEntity : IMutStateEntity<PlayerStateType>
         {
-            public PlayerStateType State { get; private set; } = PlayerStateType.Idle;
-            public Action<StatePair<PlayerStateType>> OnChangeState { get; set; }
-            public bool IsInState(PlayerStateType state) => State == state;
-            public void ChangeState(PlayerStateType next) { State = next; }
+            public PlayerStateType CurrentState { get; private set; } = PlayerStateType.Idle;
+            public PlayerStateType EntryState => PlayerStateType.Idle;
+            public Observable<PlayerStateType> StateExitObservable => Observable.Empty<PlayerStateType>();
+            public Observable<PlayerStateType> StateEnterObservable => Observable.Empty<PlayerStateType>();
+
+            public bool IsInState(PlayerStateType state)
+            {
+                return CurrentState == state;
+            }
+
+            public UniTask ChangeState(PlayerStateType next)
+            {
+                CurrentState = next;
+                return UniTask.CompletedTask;
+            }
+
+            public OperationHandle GetStateLock(string context)
+            {
+                return new OperationHandle();
+            }
         }
 
         private IdleController _controller;
@@ -140,7 +158,7 @@ namespace Tests.EditMode.Controller.InGame.Player
             _controller.StateUpdate(0.1f);
 
             // Assert
-            Assert.AreEqual(PlayerStateType.Frying, _stateEntity.State);
+            Assert.AreEqual(PlayerStateType.Frying, _stateEntity.CurrentState);
         }
 
         [Test]
@@ -150,13 +168,13 @@ namespace Tests.EditMode.Controller.InGame.Player
             var hit = new RaycastHit2D { normal = Vector2.up };
             _rayCasterView.HitsToReturn = new[] { hit }; // Grounded
             var dragDelta = new Vector2(0, _screenScaleModel.Height * _pullLimitModel.CancelRatio * 1.1f);
-            _touchView.DraggingInfo = Module.Option.Runtime.Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(Vector2.zero, dragDelta, Vector2.zero));
+            _touchView.DraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(Vector2.zero, dragDelta, Vector2.zero));
 
             // Act
             _controller.StateUpdate(0.1f);
 
             // Assert
-            Assert.AreEqual(PlayerStateType.Aiming, _stateEntity.State);
+            Assert.AreEqual(PlayerStateType.Aiming, _stateEntity.CurrentState);
         }
         
         [Test]

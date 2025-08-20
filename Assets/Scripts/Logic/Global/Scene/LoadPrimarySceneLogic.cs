@@ -92,7 +92,7 @@ public class LoadPrimarySceneLogic : ILoadPrimarySceneLogic
 
     private async UniTask WaitBlock()
     {
-        await UniTask.WaitUntil(BlockingOperationModel, model => !model.IsAnyBlocked());
+        await UniTask.WaitWhile(BlockingOperationModel, model => model.IsAnyBlocked());
     }
 
     private IPrimarySceneModel PrimarySceneModel { get; }

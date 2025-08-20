@@ -1,39 +1,36 @@
 ﻿using Cysharp.Threading.Tasks;
 using Interface.InGame.UserInterface;
+using Module.FadeContainer.Runtime;
 using ModuleExtension.VContainer;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace View.InGame.UserInterface.Normal
 {
-    public class NormalUiView: MonoBehaviour, INormalUiView, IRegisterable
+    public class NormalUiView : MonoBehaviour, INormalUiView, IRegisterable
     {
-        [SerializeField] private HeightUiView heightUiView;
-        [SerializeField] private ProgressUiView progressUiView;
-        [SerializeField] private StopButtonView stopButtonView;
-        
+        [SerializeField] private FadeContainer fadeContainer;
+
         public void Register(IContainerBuilder builder)
         {
-            builder.UseComponents(componentsBuilder =>
+            var fadeTargets = fadeContainer.Targets;
+            builder.RegisterInstance(this).AsImplementedInterfaces();
+            foreach (var (targetType, targetTransform)  in fadeTargets)
             {
-                componentsBuilder.AddInstance(this).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(heightUiView).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(progressUiView).AsImplementedInterfaces();
-                componentsBuilder.AddInstance(stopButtonView).AsImplementedInterfaces();
-            });
-        }
-        
-        public UniTask Show()
-        {
-            gameObject.SetActive(true);
-            return UniTask.CompletedTask;
+                builder.RegisterInstance(targetTransform.GetComponent(targetType)).AsImplementedInterfaces();
+            }
         }
 
-        public UniTask Hide()
+        public async UniTask Show()
         {
+            gameObject.SetActive(true);
+            await fadeContainer.FadeIn();
+        }
+
+        public async UniTask Hide()
+        {
+            await fadeContainer.FadeOut();
             gameObject.SetActive(false);
-            return UniTask.CompletedTask;
         }
     }
 }

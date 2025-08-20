@@ -44,7 +44,7 @@ namespace Module.StateMachine
 
         protected bool IsInState()
         {
-            return EqualityComparer<TState>.Default.Equals(TargetStateMask, StateEntity.State);
+            return EqualityComparer<TState>.Default.Equals(TargetStateMask, StateEntity.CurrentState);
         }
 
         public virtual void OnEnter()
