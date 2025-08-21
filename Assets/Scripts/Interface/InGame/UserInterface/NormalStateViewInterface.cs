@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
@@ -9,8 +10,8 @@ namespace Interface.InGame.UserInterface;
 /// </summary>
 public interface INormalUiView
 {
-    public UniTask Show();
-    public UniTask Hide();
+    public UniTask Show(CancellationToken token);
+    public UniTask Hide(CancellationToken token);
 }
 
 /// <summary>

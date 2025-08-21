@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 
@@ -5,8 +6,8 @@ namespace Interface.InGame.UserInterface;
 
 public interface IStopUiView
 {
-    public UniTask Show();
-    public UniTask Hide();
+    public UniTask Show(CancellationToken token);
+    public UniTask Hide(CancellationToken token);
 }
 
 /// <summary>

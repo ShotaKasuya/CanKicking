@@ -85,13 +85,13 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
 
     public override async UniTask OnEnter(CancellationToken token)
     {
-        await NormalUiView.Show();
+        await NormalUiView.Show(token);
     }
 
     public override async UniTask OnExit(CancellationToken token)
     {
         using var handle = StateEntity.GetStateLock(NormalStateSequence);
-        await NormalUiView.Hide();
+        await NormalUiView.Hide(token);
     }
 
     private INormalUiView NormalUiView { get; }

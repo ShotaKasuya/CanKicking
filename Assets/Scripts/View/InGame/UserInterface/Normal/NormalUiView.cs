@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using Interface.InGame.UserInterface;
 using Module.FadeContainer.Runtime;
 using ModuleExtension.VContainer;
@@ -21,15 +22,15 @@ namespace View.InGame.UserInterface.Normal
             }
         }
 
-        public async UniTask Show()
+        public async UniTask Show(CancellationToken token)
         {
             gameObject.SetActive(true);
-            await fadeContainer.FadeIn();
+            await fadeContainer.FadeIn(token);
         }
 
-        public async UniTask Hide()
+        public async UniTask Hide(CancellationToken token)
         {
-            await fadeContainer.FadeOut();
+            await fadeContainer.FadeOut(token);
             gameObject.SetActive(false);
         }
     }

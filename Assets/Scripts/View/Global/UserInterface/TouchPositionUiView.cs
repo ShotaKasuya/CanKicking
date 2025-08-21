@@ -55,12 +55,18 @@ namespace View.Global.UserInterface
 
 
             _selfTransform.anchoredPosition = localPos;
-            await _selfTransform.DOSizeDelta(_defaultSizeDelta, fadeDuration).AsyncWaitForCompletion().AsUniTask();
+            await _selfTransform.DOSizeDelta(_defaultSizeDelta, fadeDuration)
+                .SetUpdate(true)
+                .AsyncWaitForCompletion()
+                .AsUniTask();
         }
 
         public async UniTask FadeOut()
         {
-            await _selfTransform.DOSizeDelta(Vector2.zero, fadeDuration).AsyncWaitForCompletion().AsUniTask();
+            await _selfTransform.DOSizeDelta(Vector2.zero, fadeDuration)
+                .SetUpdate(true)
+                .AsyncWaitForCompletion()
+                .AsUniTask();
             _self.SetActive(false);
         }
     }

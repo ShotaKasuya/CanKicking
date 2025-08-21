@@ -48,7 +48,7 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
 
     public override async UniTask OnEnter(CancellationToken token)
     {
-        await GoalUiView.Show();
+        await GoalUiView.Show(token);
     }
 
     private void Load(string sceneName)

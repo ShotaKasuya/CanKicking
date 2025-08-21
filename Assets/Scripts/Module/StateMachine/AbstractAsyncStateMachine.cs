@@ -37,7 +37,18 @@ namespace Module.StateMachine
                     (@enum, machine, arg3) => machine.CallOnEnter(@enum, arg3),
                     AwaitOperation.Parallel)
                 .AddTo(Disposable);
-            CallOnEnter(State.CurrentState).Forget();
+            
+            var currentState = State.CurrentState;
+            CallOnEnter(currentState).Forget();
+
+            for (int i = 0; i < Behaviours.Count; i++)
+            {
+                var behaviour = Behaviours[i];
+                if (!EqualityComparer<TState>.Default.Equals(currentState, behaviour.TargetStateMask))
+                {
+                    behaviour.OnExit(CancellationToken.None).Forget();
+                }
+            }
         }
 
         public void Tick()

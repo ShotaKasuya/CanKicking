@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 
@@ -5,7 +6,7 @@ namespace Interface.InGame.UserInterface
 {
     public interface IGoalUiView
     {
-        public UniTask Show();
+        public UniTask Show(CancellationToken token);
     }
 
     public interface IGoal_RestartButtonView

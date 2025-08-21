@@ -22,13 +22,13 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         {
             public bool IsShown { get; private set; }
 
-            public UniTask Show()
+            public UniTask Show(CancellationToken token)
             {
                 IsShown = true;
                 return UniTask.CompletedTask;
             }
 
-            public UniTask Hide()
+            public UniTask Hide(CancellationToken token)
             {
                 IsShown = false;
                 return UniTask.CompletedTask;

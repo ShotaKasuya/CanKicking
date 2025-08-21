@@ -63,14 +63,14 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
     {
         await PlayerState.ChangeState(PlayerStateType.Stopping);
         TimeScaleModel.Execute(TimeCommandType.Stop);
-        await StopUiView.Show();
+        await StopUiView.Show(token);
     }
 
     public override async UniTask OnExit(CancellationToken token)
     {
         TimeScaleModel.Undo();
         await PlayerState.ChangeState(PlayerStateType.Idle);
-        await StopUiView.Hide();
+        await StopUiView.Hide(token);
     }
 
     private void Play()
