@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.TimeScale;
@@ -44,7 +45,6 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
 
     public void Start()
     {
-        OnExit();
         PlayButtonView.Performed
             .Where(this, (_, controller) => controller.IsInState())
             .Subscribe(this, (_, controller) => controller.Play())
@@ -59,18 +59,18 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
             .AddTo(CompositeDisposable);
     }
 
-    public override void OnEnter()
+    public override async UniTask OnEnter(CancellationToken token)
     {
-        PlayerState.ChangeState(PlayerStateType.Stopping);
+        await PlayerState.ChangeState(PlayerStateType.Stopping);
         TimeScaleModel.Execute(TimeCommandType.Stop);
-        StopUiView.Show();
+        await StopUiView.Show();
     }
 
-    public override void OnExit()
+    public override async UniTask OnExit(CancellationToken token)
     {
-        PlayerState.ChangeState(PlayerStateType.Idle);
         TimeScaleModel.Undo();
-        StopUiView.Hide();
+        await PlayerState.ChangeState(PlayerStateType.Idle);
+        await StopUiView.Hide();
     }
 
     private void Play()

@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Controller.InGame.Player;
 using Cysharp.Threading.Tasks;
 using Interface.Global.TimeScale;
@@ -115,16 +117,16 @@ namespace Tests.EditMode.Controller.InGame.Player
         public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
-        public void OnEnter_SetsFryingTimeScale()
+        public async Task OnEnter_SetsFryingTimeScale()
         {
-            _controller.OnEnter();
+            await _controller.OnEnter(CancellationToken.None);
             Assert.AreEqual(TimeCommandType.Frying, _timeScaleModel.ExecutedCommand);
         }
 
         [Test]
-        public void OnExit_UndoesTimeScale()
+        public async Task OnExit_UndoesTimeScale()
         {
-            _controller.OnExit();
+            await _controller.OnExit(CancellationToken.None);
             Assert.IsTrue(_timeScaleModel.IsUndoCalled);
         }
 

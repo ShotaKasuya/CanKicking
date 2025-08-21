@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 using VContainer.Unity;
@@ -17,19 +19,25 @@ namespace Module.StateMachine
         {
             State = state;
             Behaviours = behaviours;
+            StateSequenceTasks = new List<UniTask>(behaviours.Count);
             Disposable = compositeDisposable;
         }
-
 
         public void Initialize()
         {
             State.StateExitObservable
-                .Subscribe(this, (@enum, machine) => machine.CallOnExit(@enum))
+                .SubscribeAwait(
+                    this,
+                    (@enum, machine, arg3) => machine.CallOnExit(@enum, arg3),
+                    AwaitOperation.Parallel)
                 .AddTo(Disposable);
             State.StateEnterObservable
-                .Subscribe(this, (@enum, machine) => machine.CallOnEnter(@enum))
+                .SubscribeAwait(
+                    this,
+                    (@enum, machine, arg3) => machine.CallOnEnter(@enum, arg3),
+                    AwaitOperation.Parallel)
                 .AddTo(Disposable);
-            CallOnEnter(State.CurrentState);
+            CallOnEnter(State.CurrentState).Forget();
         }
 
         public void Tick()
@@ -47,32 +55,41 @@ namespace Module.StateMachine
             }
         }
 
-        private void CallOnEnter(TState prev)
+        private async UniTask CallOnEnter(TState prev, CancellationToken token = new CancellationToken())
         {
             for (int i = 0; i < Behaviours.Count; i++)
             {
                 var behaviour = Behaviours[i];
                 if (EqualityComparer<TState>.Default.Equals(prev, behaviour.TargetStateMask))
                 {
-                    behaviour.OnEnter();
+                    StateSequenceTasks.Add(behaviour.OnEnter(token));
                 }
             }
+
+            await UniTask.WhenAll(StateSequenceTasks);
+            StateSequenceTasks.Clear();
         }
 
-        private void CallOnExit(TState next)
+        private async UniTask CallOnExit(TState next, CancellationToken token = new CancellationToken())
         {
+            const string stateExit = "State Exit";
+            using var handle = State.GetStateLock(stateExit);
             for (int i = 0; i < Behaviours.Count; i++)
             {
                 var behaviour = Behaviours[i];
                 if (EqualityComparer<TState>.Default.Equals(next, behaviour.TargetStateMask))
                 {
-                    behaviour.OnExit();
+                    StateSequenceTasks.Add(behaviour.OnExit(token));
                 }
             }
+
+            await UniTask.WhenAll(StateSequenceTasks);
+            StateSequenceTasks.Clear();
         }
 
         private CompositeDisposable Disposable { get; }
         private IState<TState> State { get; }
         private IReadOnlyList<IStateBehaviour<TState>> Behaviours { get; }
+        private List<UniTask> StateSequenceTasks { get; }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Controller.OutGame.StageSelect.UserInterface;
 using Cysharp.Threading.Tasks;
@@ -99,9 +100,9 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
         public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
-        public void OnEnter_ResetsSelectedStageView()
+        public async Task OnEnter_ResetsSelectedStageView()
         {
-            _controller.OnEnter();
+            await _controller.OnEnter(CancellationToken.None);
             Assert.IsTrue(_selectedStageView.IsReset);
         }
 

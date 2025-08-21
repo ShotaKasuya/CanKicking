@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.InGame.Primary;
@@ -45,9 +46,9 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
             .AddTo(CompositeDisposable);
     }
 
-    public override void OnEnter()
+    public override async UniTask OnEnter(CancellationToken token)
     {
-        GoalUiView.Show();
+        await GoalUiView.Show();
     }
 
     private void Load(string sceneName)

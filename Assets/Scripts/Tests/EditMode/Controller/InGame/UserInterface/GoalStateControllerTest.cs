@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Controller.InGame.UserInterface;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
@@ -123,9 +125,9 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
-        public void OnEnter_ShowsGoalUi()
+        public async Task OnEnter_ShowsGoalUi()
         {
-            _controller.OnEnter();
+            await _controller.OnEnter(CancellationToken.None);
             Assert.IsTrue(_goalUiView.IsShown);
         }
 

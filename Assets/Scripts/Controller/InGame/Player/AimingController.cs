@@ -1,3 +1,5 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Interface.Global.Audio;
 using Interface.Global.Input;
 using Interface.InGame.Player;
@@ -68,21 +70,22 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         AimView.SetAim(aimVector);
     }
 
-    public override void OnEnter()
+    public override UniTask OnEnter(CancellationToken token)
     {
         AimView.Show();
+        return UniTask.CompletedTask;
     }
 
-    public override void OnExit()
+    public override UniTask OnExit(CancellationToken token)
     {
         AimView.Hide();
+        return UniTask.CompletedTask;
     }
 
     private void Jump(TouchEndEventArgument fingerReleaseInfo)
     {
         var deltaPosition = fingerReleaseInfo.Delta;
         var basePower = KickBasePowerModel.KickPower;
-
 
         var power = CalcKickPowerLogic.CalcKickPower(deltaPosition);
         var kickPower = power * basePower;
@@ -99,7 +102,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         // Play Se
         var clip = PlayerSoundModel.GetKickSound();
         SeSourceView.Play(clip);
-        
+
         // Store Position
         var position = PlayerView.ModelTransform.position;
 

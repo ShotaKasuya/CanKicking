@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using Controller.InGame.Player;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Audio;
@@ -198,16 +200,16 @@ namespace Tests.EditMode.Controller.InGame.Player
         }
 
         [Test]
-        public void OnEnter_ShowsAimView()
+        public async Task OnEnter_ShowsAimView()
         {
-            _controller.OnEnter();
+            await _controller.OnEnter(CancellationToken.None);
             Assert.IsTrue(_aimView.IsShown);
         }
 
         [Test]
-        public void OnExit_HidesAimView()
+        public async Task OnExit_HidesAimView()
         {
-            _controller.OnExit();
+            await _controller.OnExit(CancellationToken.None);
             Assert.IsFalse(_aimView.IsShown);
         }
 

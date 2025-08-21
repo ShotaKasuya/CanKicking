@@ -1,8 +1,8 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
 using Interface.OutGame.StageSelect;
-using Module.Option;
 using Module.Option.Runtime;
 using Module.StateMachine;
 using R3;
@@ -40,11 +40,13 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
             .AddTo(CompositeDisposable);
     }
 
-    public override void OnEnter()
+    public override UniTask OnEnter(CancellationToken token)
     {
         var stage = SelectedStageModel.SelectedStage;
         var record = ClearRecordModel.Load(stage);
         SelectedStageView.ShowStage(stage, record);
+
+        return UniTask.CompletedTask;
     }
 
     private void OnSelect(Option<string> selectedStage)
@@ -59,7 +61,7 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
         if (stage != prevSelect)
         {
             SelectedStageModel.SetSelectedStage(stage!);
-            OnEnter();
+            OnEnter(CancellationToken.None).Forget();
             return;
         }
 

@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Controller.InGame.UserInterface;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
@@ -193,18 +195,18 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
-        public void OnEnter_SetsPlayerState_SetsTimeScale_ShowsUi()
+        public async Task OnEnter_SetsPlayerState_SetsTimeScale_ShowsUi()
         {
-            _controller.OnEnter();
+            await _controller.OnEnter(CancellationToken.None);
             Assert.AreEqual(PlayerStateType.Stopping, _playerStateEntity.CurrentState);
             Assert.AreEqual(TimeCommandType.Stop, _timeScaleModel.ExecutedCommand);
             Assert.IsTrue(_stopUiView.IsShown);
         }
 
         [Test]
-        public void OnExit_ResetsPlayerState_UndoesTimeScale_HidesUi()
+        public async Task OnExit_ResetsPlayerState_UndoesTimeScale_HidesUi()
         {
-            _controller.OnExit();
+            await _controller.OnExit(CancellationToken.None);
             Assert.AreEqual(PlayerStateType.Idle, _playerStateEntity.CurrentState);
             Assert.IsTrue(_timeScaleModel.IsUndoCalled);
             Assert.IsFalse(_stopUiView.IsShown);

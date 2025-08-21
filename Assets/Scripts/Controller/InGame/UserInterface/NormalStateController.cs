@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interface.InGame.Primary;
 using Interface.InGame.Stage;
@@ -80,14 +81,17 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
         StateEntity.ChangeState(UserInterfaceStateType.Stop);
     }
 
-    public override void OnEnter()
+    private const string NormalStateSequence = "NormalState";
+
+    public override async UniTask OnEnter(CancellationToken token)
     {
-        NormalUiView.Show().Forget();
+        await NormalUiView.Show();
     }
 
-    public override void OnExit()
+    public override async UniTask OnExit(CancellationToken token)
     {
-        NormalUiView.Hide().Forget();
+        using var handle = StateEntity.GetStateLock(NormalStateSequence);
+        await NormalUiView.Hide();
     }
 
     private INormalUiView NormalUiView { get; }

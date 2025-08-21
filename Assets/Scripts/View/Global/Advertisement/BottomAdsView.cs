@@ -31,7 +31,6 @@ namespace View.Global.Advertisement
                 AdPosition.Bottom
             );
             _bannerView.LoadAd(new AdRequest());
-            Debug.Log("spawn");
 #endif
         }
 

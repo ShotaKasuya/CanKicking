@@ -1,3 +1,5 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Interface.Global.TimeScale;
 using Interface.InGame.Player;
 using Module.StateMachine;
@@ -79,14 +81,16 @@ namespace Controller.InGame.Player
             }
         }
 
-        public override void OnEnter()
+        public override UniTask OnEnter(CancellationToken token)
         {
             TimeScaleModel.Execute(TimeCommandType.Frying);
+            return UniTask.CompletedTask;
         }
 
-        public override void OnExit()
+        public override UniTask OnExit(CancellationToken token)
         {
             TimeScaleModel.Undo();
+            return UniTask.CompletedTask;
         }
 
         private CompositeDisposable CompositeDisposable { get; }

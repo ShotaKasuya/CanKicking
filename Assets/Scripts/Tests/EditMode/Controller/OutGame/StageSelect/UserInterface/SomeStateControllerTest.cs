@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Controller.OutGame.StageSelect.UserInterface;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
@@ -140,7 +141,7 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
             _selectedStageModel.SetSelectedStage(stageName);
             _clearRecordModel.AddRecord(stageName, record);
 
-            _controller.OnEnter();
+            _controller.OnEnter(CancellationToken.None);
 
             Assert.AreEqual(stageName, _selectedStageView.ShownStageName);
             Assert.IsTrue(_selectedStageView.ShownClearRecord.IsSome);

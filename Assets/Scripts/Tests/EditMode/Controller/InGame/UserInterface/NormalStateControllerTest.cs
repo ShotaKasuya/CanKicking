@@ -1,5 +1,5 @@
-
-using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Controller.InGame.UserInterface;
 using Cysharp.Threading.Tasks;
 using Interface.InGame.Primary;
@@ -21,21 +21,50 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         private class MockNormalUiView : INormalUiView
         {
             public bool IsShown { get; private set; }
-            public UniTask Show() { IsShown = true; return UniTask.CompletedTask; }
-            public UniTask Hide() { IsShown = false; return UniTask.CompletedTask; }
+
+            public UniTask Show()
+            {
+                IsShown = true;
+                return UniTask.CompletedTask;
+            }
+
+            public UniTask Hide()
+            {
+                IsShown = false;
+                return UniTask.CompletedTask;
+            }
         }
 
         private class MockPlayerView : IPlayerView
         {
             public Transform ModelTransform { get; } = new GameObject().transform;
-            public Vector2 LinearVelocity => Vector2.zero; public float AngularVelocity => 0f;
+            public Vector2 LinearVelocity => Vector2.zero;
+            public float AngularVelocity => 0f;
             public Observable<Collision2D> CollisionEnterEvent => Observable.Empty<Collision2D>();
-            public void Activation(bool isActive) { } public void ResetPosition(Vector2 position) { }
+
+            public void Activation(bool isActive)
+            {
+            }
+
+            public void ResetPosition(Vector2 position)
+            {
+            }
         }
 
-        private class MockLazyPlayerView : ILazyPlayerView { public OnceCell<IPlayerView> PlayerView { get; } = new(); }
-        private class MockLazyBaseHeightView : ILazyBaseHeightView { public OnceCell<float> BaseHeight { get; } = new(); }
-        private class MockLazyGoalHeightView : ILazyGoalHeightView { public OnceCell<float> GoalHeight { get; } = new(); }
+        private class MockLazyPlayerView : ILazyPlayerView
+        {
+            public OnceCell<IPlayerView> PlayerView { get; } = new();
+        }
+
+        private class MockLazyBaseHeightView : ILazyBaseHeightView
+        {
+            public OnceCell<float> BaseHeight { get; } = new();
+        }
+
+        private class MockLazyGoalHeightView : ILazyGoalHeightView
+        {
+            public OnceCell<float> GoalHeight { get; } = new();
+        }
 
         private class MockStopButtonView : IStopButtonView
         {
@@ -80,6 +109,7 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
 
             private readonly Subject<UserInterfaceStateType> _stateExitSubject = new();
             private readonly Subject<UserInterfaceStateType> _stateEnterSubject = new();
+            private readonly OperationPool _operationPool = new OperationPool();
 
             public MockUiStateEntity(UserInterfaceStateType initialState)
             {
@@ -102,7 +132,7 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
 
             public OperationHandle GetStateLock(string context)
             {
-                throw new NotImplementedException();
+                return _operationPool.SpawnOperation(context);
             }
         }
 
@@ -145,8 +175,19 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         [TearDown]
         public void TearDown() => _compositeDisposable.Dispose();
 
-        [Test] public void OnEnter_ShowsNormalUi() { _controller.OnEnter(); Assert.IsTrue(_normalUiView.IsShown); }
-        [Test] public void OnExit_HidesNormalUi() { _controller.OnExit(); Assert.IsFalse(_normalUiView.IsShown); }
+        [Test]
+        public async Task OnEnter_ShowsNormalUi()
+        {
+            await _controller.OnEnter(CancellationToken.None);
+            Assert.IsTrue(_normalUiView.IsShown);
+        }
+
+        [Test]
+        public async Task OnExit_HidesNormalUi()
+        {
+            await _controller.OnExit(CancellationToken.None);
+            Assert.IsFalse(_normalUiView.IsShown);
+        }
 
         [Test]
         public void OnStopButtonClick_ChangesStateToStop()

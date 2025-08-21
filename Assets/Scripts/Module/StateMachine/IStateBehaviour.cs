@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace Module.StateMachine
 {
@@ -17,12 +19,12 @@ namespace Module.StateMachine
         /// <summary>
         /// 動作を行うステートに入った際に呼ばれる
         /// </summary>
-        public void OnEnter();
+        public UniTask OnEnter(CancellationToken token);
 
         /// <summary>
         /// ステートを出る際に呼ばれる
         /// </summary>
-        public void OnExit();
+        public UniTask OnExit(CancellationToken token);
 
         /// <summary>
         /// `TargetState`の場合にまフレーム呼ばれる
@@ -40,6 +42,7 @@ namespace Module.StateMachine
         }
 
         public TState TargetStateMask { get; }
+
         protected IMutStateEntity<TState> StateEntity { get; }
 
         protected bool IsInState()
@@ -47,12 +50,14 @@ namespace Module.StateMachine
             return EqualityComparer<TState>.Default.Equals(TargetStateMask, StateEntity.CurrentState);
         }
 
-        public virtual void OnEnter()
+        public virtual UniTask OnEnter(CancellationToken token)
         {
+            return UniTask.CompletedTask;
         }
 
-        public virtual void OnExit()
+        public virtual UniTask OnExit(CancellationToken token)
         {
+            return UniTask.CompletedTask;
         }
 
         public virtual void StateUpdate(float deltaTime)
