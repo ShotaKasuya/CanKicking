@@ -7,10 +7,12 @@ public class GameRestartLogic : IGameRestartLogic
 {
     public GameRestartLogic
     (
-        IReadOnlyList<IResetable> resetables
+        IReadOnlyList<IResetable> resetables,
+        IReadOnlyList<IResetableModel> resetableModels
     )
     {
         Resetables = resetables;
+        ResetableModels = resetableModels;
     }
 
     public void RestartGame()
@@ -19,7 +21,13 @@ public class GameRestartLogic : IGameRestartLogic
         {
             Resetables[i].Reset();
         }
+
+        for (int i = 0; i < ResetableModels.Count; i++)
+        {
+            ResetableModels[i].Reset();
+        }
     }
 
     private IReadOnlyList<IResetable> Resetables { get; }
+    private IReadOnlyList<IResetableModel> ResetableModels { get; }
 }

@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.Utility;
+using Interface.View.Global;
 using UnityEngine;
 
 namespace Logic.Global.Scene;

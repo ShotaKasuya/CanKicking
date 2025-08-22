@@ -2,7 +2,9 @@
     "name": "Controller",
     "rootNamespace": "",
     "references": [
-        "Interface",
+        "LogicInterface",
+        "ViewInterface",
+        "ModelInterface",
         "Structure",
         "Option",
         "StateMachine",

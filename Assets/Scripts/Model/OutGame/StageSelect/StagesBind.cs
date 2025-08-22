@@ -1,6 +1,6 @@
 using Interface.OutGame.StageSelect;
-using ModuleExtension.VContainer;
 using Structure.Utility;
+using Structure.Utility.Extension;
 using TNRD;
 using UnityEngine;
 using VContainer;

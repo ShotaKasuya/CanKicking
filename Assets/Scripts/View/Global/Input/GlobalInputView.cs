@@ -1,5 +1,5 @@
 using System;
-using Interface.Global.Input;
+using Interface.Global;
 using Interface.InGame.Stage;
 using UnityEngine.EventSystems;
 using VContainer.Unity;

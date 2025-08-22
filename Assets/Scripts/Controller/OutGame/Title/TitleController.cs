@@ -1,5 +1,5 @@
 using Cysharp.Threading.Tasks;
-using Interface.Global.Input;
+using Interface.Global;
 using Interface.Global.Scene;
 using Interface.OutGame.Title;
 using R3;

@@ -3,7 +3,7 @@ using R3;
 
 namespace Model.InGame.Primary
 {
-    public class JumpCountModel : IJumpCountModel, IResetable
+    public class JumpCountModel : IJumpCountModel, IResetableModel
     {
         private ReactiveProperty<int> InnerJumpCount { get; } = new ReactiveProperty<int>();
 

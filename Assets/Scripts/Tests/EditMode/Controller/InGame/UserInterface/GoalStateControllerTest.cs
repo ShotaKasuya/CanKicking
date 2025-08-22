@@ -26,6 +26,12 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
                 IsShown = true;
                 return UniTask.CompletedTask;
             }
+
+            public UniTask Hide(CancellationToken token)
+            {
+                IsShown = false;
+                return UniTask.CompletedTask;
+            }
         }
 
         private class MockRestartButtonView : IGoal_RestartButtonView

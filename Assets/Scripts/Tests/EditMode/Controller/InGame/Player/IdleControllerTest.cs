@@ -1,10 +1,9 @@
-
 using System;
 using Controller.InGame.Player;
-using Interface.Global.Input;
 using Interface.Global.Utility;
 using Interface.InGame.Player;
 using Cysharp.Threading.Tasks;
+using Interface.Global;
 using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
@@ -40,8 +39,14 @@ namespace Tests.EditMode.Controller.InGame.Player
             public Observable<Collision2D> CollisionEnterEvent => Observable.Empty<Collision2D>();
             public Vector2? ResetPositionValue { get; private set; }
 
-            public void Activation(bool isActive) { }
-            public void ResetPosition(Vector2 position) { ResetPositionValue = position; }
+            public void Activation(bool isActive)
+            {
+            }
+
+            public void ResetPosition(Vector2 position)
+            {
+                ResetPositionValue = position;
+            }
         }
 
         private class MockRayCasterView : IRayCasterView
@@ -73,8 +78,14 @@ namespace Tests.EditMode.Controller.InGame.Player
         {
             private Vector2? _positionToPop;
             public void SetPositionToPop(Vector2? pos) => _positionToPop = pos;
-            public Module.Option.Runtime.Option<Vector2> PopPosition() => _positionToPop.HasValue ? Module.Option.Runtime.Option<Vector2>.Some(_positionToPop.Value) : Module.Option.Runtime.Option<Vector2>.None();
-            public void PushPosition(Vector2 position) { }
+
+            public Module.Option.Runtime.Option<Vector2> PopPosition() => _positionToPop.HasValue
+                ? Module.Option.Runtime.Option<Vector2>.Some(_positionToPop.Value)
+                : Module.Option.Runtime.Option<Vector2>.None();
+
+            public void PushPosition(Vector2 position)
+            {
+            }
         }
 
         private class MockStateEntity : IMutStateEntity<PlayerStateType>
@@ -168,7 +179,8 @@ namespace Tests.EditMode.Controller.InGame.Player
             var hit = new RaycastHit2D { normal = Vector2.up };
             _rayCasterView.HitsToReturn = new[] { hit }; // Grounded
             var dragDelta = new Vector2(0, _screenScaleModel.Height * _pullLimitModel.CancelRatio * 1.1f);
-            _touchView.DraggingInfo = Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(Vector2.zero, dragDelta, Vector2.zero));
+            _touchView.DraggingInfo =
+                Option<FingerDraggingInfo>.Some(new FingerDraggingInfo(Vector2.zero, dragDelta, Vector2.zero));
 
             // Act
             _controller.StateUpdate(0.1f);
@@ -176,7 +188,7 @@ namespace Tests.EditMode.Controller.InGame.Player
             // Assert
             Assert.AreEqual(PlayerStateType.Aiming, _stateEntity.CurrentState);
         }
-        
+
         [Test]
         public void OnDoubleTap_WithPositionToUndo_ResetsPlayerPosition()
         {

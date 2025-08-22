@@ -1,6 +1,5 @@
-
 using Controller.OutGame.StageSelect.Camera;
-using Interface.Global.Input;
+using Interface.Global;
 using Interface.Global.Utility;
 using Interface.OutGame.StageSelect;
 using Module.Option.Runtime;

@@ -1,0 +1,17 @@
+{
+    "name": "LogicInterface",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d9627c355e8131a43b3fdb2c5c363bc2",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

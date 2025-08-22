@@ -316,6 +316,46 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "images/InGame.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/InGame.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/StageSelect_None.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/StageSelect_None.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/StageSelect_Some.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/StageSelect_Some.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/Title.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/Title.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {

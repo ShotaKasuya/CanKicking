@@ -2,8 +2,8 @@
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
 using Interface.Global.TimeScale;
-using Interface.Global.UserInterface;
 using Interface.Global.Utility;
+using Interface.View.Global;
 using R3;
 using VContainer.Unity;
 

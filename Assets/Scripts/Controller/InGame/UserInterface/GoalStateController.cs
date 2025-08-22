@@ -46,9 +46,14 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
             .AddTo(CompositeDisposable);
     }
 
-    public override async UniTask OnEnter(CancellationToken token)
+    public override UniTask OnEnter(CancellationToken token)
     {
-        await GoalUiView.Show(token);
+        return GoalUiView.Show(token);
+    }
+
+    public override UniTask OnExit(CancellationToken token)
+    {
+        return GoalUiView.Hide(token);
     }
 
     private void Load(string sceneName)

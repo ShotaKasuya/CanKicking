@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Interface.InGame.UserInterface;
 using Module.FadeContainer.Runtime;
-using ModuleExtension.VContainer;
+using Structure.Utility.Extension;
 using UnityEngine;
 using VContainer;
 
@@ -26,6 +26,12 @@ namespace View.InGame.UserInterface.Goal
         {
             gameObject.SetActive(true);
             await fadeContainer.FadeIn(token);
+        }
+
+        public async UniTask Hide(CancellationToken token)
+        {
+            await fadeContainer.FadeOut(token);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Interface.Global.Input;
-using Module.Option;
+using Interface.Global;
 using Module.Option.Runtime;
 using R3;
 using UnityEngine;

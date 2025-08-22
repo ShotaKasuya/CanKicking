@@ -1,8 +1,8 @@
 
 using Controller.Global.UserInterface;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Input;
-using Interface.Global.UserInterface;
+using Interface.Global;
+using Interface.View.Global;
 using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;

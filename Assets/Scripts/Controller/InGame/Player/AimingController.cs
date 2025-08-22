@@ -1,7 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Audio;
-using Interface.Global.Input;
+using Interface.Global;
+using Interface.Global.Advertisement;
 using Interface.InGame.Player;
 using Interface.InGame.Primary;
 using Module.StateMachine;

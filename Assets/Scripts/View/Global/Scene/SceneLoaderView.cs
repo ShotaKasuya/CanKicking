@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Module.SceneReference;
+using Interface.View.Global;
 using Module.SceneReference.Runtime;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -20,7 +19,7 @@ namespace View.Global.Scene
             {
                 // アセットが存在する
                 var handle = Addressables.LoadSceneAsync(scenePath, LoadSceneMode.Additive, false);
-                var instance = await handle.Task.AsUniTask();
+                var instance = await handle.ToUniTask();
                 return SceneContext.AddressableContext(instance, scenePath);
             }
             else
@@ -66,7 +65,7 @@ namespace View.Global.Scene
             }
             else if (sceneInstance.Type == SceneType.Addressable)
             {
-                await Addressables.UnloadSceneAsync(sceneInstance.SceneInstance).Task;
+                await Addressables.UnloadSceneAsync(sceneInstance.SceneInstance).ToUniTask();
             }
         }
 

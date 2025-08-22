@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Interface.Global.UserInterface;
+using Interface.View.Global;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

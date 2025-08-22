@@ -1,4 +1,4 @@
-using Interface.Global.Input;
+using Interface.Global;
 using Interface.Global.Utility;
 using Interface.InGame.Player;
 using Module.StateMachine;

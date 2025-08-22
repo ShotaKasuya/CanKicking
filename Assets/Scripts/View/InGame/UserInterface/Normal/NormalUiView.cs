@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Interface.InGame.UserInterface;
 using Module.FadeContainer.Runtime;
-using ModuleExtension.VContainer;
+using Structure.Utility.Extension;
 using UnityEngine;
 using VContainer;
 
