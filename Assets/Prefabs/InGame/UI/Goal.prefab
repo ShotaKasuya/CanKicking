@@ -703,16 +703,19 @@ MonoBehaviour:
     fadeDuration: 0.5
     fadeTargets:
     - targetType: 
+      targetObject: {fileID: 0}
       fadeTarget: {fileID: 5699530941528448941}
       fadeInPosition: {fileID: 6531327992359411419}
       fadeOutPosition: {fileID: 3625584808704706576}
     - targetType: View.InGame.UserInterface.Goal.StageSelectButtonView, View, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+      targetObject: {fileID: 1589337251141985431}
       fadeTarget: {fileID: 8035275215004709908}
       fadeInPosition: {fileID: 8911506472270707676}
       fadeOutPosition: {fileID: 760848394978024899}
     - targetType: View.InGame.UserInterface.Goal.RestartButtonView, View, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+      targetObject: {fileID: 9106830574742817474}
       fadeTarget: {fileID: 1829460263683763853}
       fadeInPosition: {fileID: 8465666090644874474}
       fadeOutPosition: {fileID: 5187081817371482383}

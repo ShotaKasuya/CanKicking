@@ -5,7 +5,7 @@ using VContainer.Unity;
 
 namespace Controller.InGame.Stage;
 
-public class StageInitializeController : IInitializable
+public class StageInitializeController : IStartable
 {
     public StageInitializeController
     (
@@ -31,7 +31,7 @@ public class StageInitializeController : IInitializable
         CompositeDisposable = compositeDisposable;
     }
 
-    public void Initialize()
+    public void Start()
     {
         LazyGoalHeightView.GoalHeight.Init(GoalHeightView.PositionY);
         LazyBaseHeightView.BaseHeight.Init(BaseHeightView.PositionY);

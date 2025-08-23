@@ -1,5 +1,3 @@
-
-using System;
 using Controller.InGame.Stage;
 using Interface.InGame.Primary;
 using Interface.InGame.Stage;
@@ -13,18 +11,43 @@ namespace Tests.EditMode.Controller.InGame.Stage
     public class StageInitializeControllerTest
     {
         // Mocks
-        private class MockLazyBaseHeightView : ILazyBaseHeightView { public OnceCell<float> BaseHeight { get; } = new(); }
-        private class MockBaseHeightView : IBaseHeightView { public float PositionY => 10f; }
-        private class MockLazyStartPositionView : ILazyStartPositionView { public OnceCell<ISpawnPositionView> StartPosition { get; } = new(); }
-        private class MockSpawnPositionView : ISpawnPositionView { public Transform StartPosition => new GameObject().transform; }
-        private class MockLazyGoalHeightView : ILazyGoalHeightView { public OnceCell<float> GoalHeight { get; } = new(); }
-        private class MockGoalHeightView : IGoalHeightView { public float PositionY => 100f; }
+        private class MockLazyBaseHeightView : ILazyBaseHeightView
+        {
+            public OnceCell<float> BaseHeight { get; } = new();
+        }
+
+        private class MockBaseHeightView : IBaseHeightView
+        {
+            public float PositionY => 10f;
+        }
+
+        private class MockLazyStartPositionView : ILazyStartPositionView
+        {
+            public OnceCell<ISpawnPositionView> StartPosition { get; } = new();
+        }
+
+        private class MockSpawnPositionView : ISpawnPositionView
+        {
+            public Transform StartPosition => new GameObject().transform;
+        }
+
+        private class MockLazyGoalHeightView : ILazyGoalHeightView
+        {
+            public OnceCell<float> GoalHeight { get; } = new();
+        }
+
+        private class MockGoalHeightView : IGoalHeightView
+        {
+            public float PositionY => 100f;
+        }
+
         private class MockGoalEventView : IGoalEventView
         {
             private readonly Subject<Unit> _subject = new();
             public Observable<Unit> Performed => _subject;
             public void SimulateGoal() => _subject.OnNext(Unit.Default);
         }
+
         private class MockGoalEventSubjectModel : IGoalEventSubjectModel
         {
             public Subject<Unit> GoalEventSubject { get; } = new();
@@ -60,13 +83,14 @@ namespace Tests.EditMode.Controller.InGame.Stage
             );
         }
 
-        [TearDown] public void TearDown() => _compositeDisposable.Dispose();
+        [TearDown]
+        public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
         public void Initialize_InitializesAllLazyViews()
         {
             // Act
-            _controller.Initialize();
+            _controller.Start();
 
             // Assert
             Assert.IsTrue(_lazyGoalHeightView.GoalHeight.IsInitialized);
@@ -87,7 +111,7 @@ namespace Tests.EditMode.Controller.InGame.Stage
             _goalEventSubjectModel.GoalEventSubject.Subscribe(_ => wasGoalEventFired = true);
 
             // Act
-            _controller.Initialize();
+            _controller.Start();
             _goalEventView.SimulateGoal();
 
             // Assert

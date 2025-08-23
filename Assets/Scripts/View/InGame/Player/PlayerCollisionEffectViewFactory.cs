@@ -19,13 +19,13 @@ namespace View.InGame.Player
 
         private AsyncObjectPool<VisualEffect> _collisionEffectPool;
 
-        public async UniTask Initialize()
+        public async UniTask Initialize(CancellationToken token)
         {
             await UniTask.SwitchToThreadPool();
             _collisionEffectPool = new AsyncObjectPool<VisualEffect>(collisionEffectView, poolSize);
-            await UniTask.SwitchToMainThread();
+            await UniTask.SwitchToMainThread(token);
 
-            await _collisionEffectPool.InitializeAsync();
+            await _collisionEffectPool.InitializeAsync(token);
         }
 
         public async UniTask SpawnEffect(Vector2 spawnPoint, Vector2 angle, float duration, CancellationToken cancellationToken)

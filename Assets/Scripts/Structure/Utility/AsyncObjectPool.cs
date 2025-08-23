@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -19,9 +20,9 @@ public class AsyncObjectPool<T> where T : Component
         Capacity = capacity;
     }
 
-    public async UniTask InitializeAsync()
+    public async UniTask InitializeAsync(CancellationToken token)
     {
-        var poolObject = await Object.InstantiateAsync(Prefab, Capacity).ToUniTask();
+        var poolObject = await Object.InstantiateAsync(Prefab, Capacity).ToUniTask(cancellationToken: token);
 
         for (int i = 0; i < poolObject.Length; i++)
         {

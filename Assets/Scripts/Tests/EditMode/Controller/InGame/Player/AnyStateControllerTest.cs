@@ -1,5 +1,5 @@
-
 using System.Threading;
+using System.Threading.Tasks;
 using Controller.InGame.Player;
 using Cysharp.Threading.Tasks;
 using Interface.Global.Utility;
@@ -21,23 +21,43 @@ namespace Tests.EditMode.Controller.InGame.Player
             private readonly Subject<Collision2D> _collisionSubject = new();
             private readonly Subject<PlayerInteractCommand> _commandSubject = new();
             public Transform ModelTransform { get; } = new GameObject().transform;
-            public Vector2 LinearVelocity => Vector2.zero; public float AngularVelocity => 0f;
+            public Vector2 LinearVelocity => Vector2.zero;
+            public float AngularVelocity => 0f;
             public Observable<Collision2D> CollisionEnterEvent => _collisionSubject;
             public Vector2? ResetPositionValue { get; private set; }
-            public void Activation(bool isActive) { } public void ResetPosition(Vector2 position) { ResetPositionValue = position; }
+
+            public void Activation(bool isActive)
+            {
+            }
+
+            public void ResetPosition(Vector2 position)
+            {
+                ResetPositionValue = position;
+            }
+
             public void SimulateCollision(Collision2D collision) => _collisionSubject.OnNext(collision);
             public void SendCommand(PlayerInteractCommand command) => _commandSubject.OnNext(command);
             public Observable<PlayerInteractCommand> Stream => _commandSubject;
         }
 
-        private class MockLazyPlayerView : ILazyPlayerView { public OnceCell<IPlayerView> PlayerView { get; } = new(); }
+        private class MockLazyPlayerView : ILazyPlayerView
+        {
+            public OnceCell<IPlayerView> PlayerView { get; } = new();
+        }
 
         private class MockSpawnEffectView : ISpawnEffectView
         {
             public bool IsInitialized { get; private set; }
             public int SpawnEffectCallCount { get; private set; }
-            public UniTask Initialize() { IsInitialized = true; return UniTask.CompletedTask; }
-            public UniTask SpawnEffect(Vector2 spawnPoint, Vector2 angle, float duration, CancellationToken cancellationToken)
+
+            public UniTask Initialize(CancellationToken token)
+            {
+                IsInitialized = true;
+                return UniTask.CompletedTask;
+            }
+
+            public UniTask SpawnEffect(Vector2 spawnPoint, Vector2 angle, float duration,
+                CancellationToken cancellationToken)
             {
                 SpawnEffectCallCount++;
                 return UniTask.CompletedTask;
@@ -54,8 +74,14 @@ namespace Tests.EditMode.Controller.InGame.Player
         {
             private Vector2? _positionToPop;
             public void SetPositionToPop(Vector2? pos) => _positionToPop = pos;
-            public Option<Vector2> PopPosition() => _positionToPop.HasValue ? Option<Vector2>.Some(_positionToPop.Value) : Option<Vector2>.None();
-            public void PushPosition(Vector2 position) { }
+
+            public Option<Vector2> PopPosition() => _positionToPop.HasValue
+                ? Option<Vector2>.Some(_positionToPop.Value)
+                : Option<Vector2>.None();
+
+            public void PushPosition(Vector2 position)
+            {
+            }
         }
 
         private class MockBlockingOperationModel : IBlockingOperationModel
@@ -91,21 +117,22 @@ namespace Tests.EditMode.Controller.InGame.Player
             );
         }
 
-        [TearDown] public void TearDown() => _compositeDisposable.Dispose();
+        [TearDown]
+        public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
-        public void Initialize_InitsLazyViewAndEffectView()
+        public async Task Initialize_InitsLazyViewAndEffectView()
         {
-            _controller.Initialize();
+            await _controller.StartAsync();
             Assert.IsTrue(_lazyPlayerView.PlayerView.IsInitialized);
             Assert.AreEqual(_playerView, _lazyPlayerView.PlayerView.Unwrap());
             Assert.IsTrue(_spawnEffectView.IsInitialized);
         }
 
         [Test]
-        public void OnCollision_WithHighVelocity_SpawnsEffect()
+        public async Task OnCollision_WithHighVelocity_SpawnsEffect()
         {
-            _controller.Initialize();
+            await _controller.StartAsync();
             // new GameObject().AddComponent<Collision2D>() はコンパイルエラーを引き起こします。
             // また、Collision2DのrelativeVelocityを直接設定することはできません。これは物理演算のモックの制限です。
             _effectSpawnModel.SpawnThreshold = 0; // スポーンがトリガーされるようにしきい値を0に設定
@@ -118,9 +145,9 @@ namespace Tests.EditMode.Controller.InGame.Player
         }
 
         [Test]
-        public void OnUndoCommand_ResetsPlayerPosition()
+        public async Task OnUndoCommand_ResetsPlayerPosition()
         {
-            _controller.Initialize();
+            await _controller.StartAsync();
             var undoPosition = new Vector2(10, 10);
             _kickPositionModel.SetPositionToPop(undoPosition);
 

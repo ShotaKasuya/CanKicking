@@ -482,10 +482,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2985326540981145475, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
-      propertyPath: m_Name
-      value: =======StopButtom========
-      objectReference: {fileID: 0}
     - target: {fileID: 5006420877896496615, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
       propertyPath: m_Name
       value: =======StopButtom========
@@ -500,11 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7532580641467277612, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
       propertyPath: m_Name
-      value: =========Height==========
-      objectReference: {fileID: 0}
-    - target: {fileID: 9170011784968921677, guid: f3dd8a3c7dbf60e41ab114e760e59f64, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
+      value: ======JumpCountText======
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

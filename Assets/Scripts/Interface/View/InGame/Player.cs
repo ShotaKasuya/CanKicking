@@ -68,7 +68,7 @@ public readonly ref struct KickContext
 /// </summary>
 public interface ISpawnEffectView
 {
-    public UniTask Initialize();
+    public UniTask Initialize(CancellationToken token);
     public UniTask SpawnEffect(Vector2 spawnPoint, Vector2 angle, float duration, CancellationToken cancellationToken);
 }
 

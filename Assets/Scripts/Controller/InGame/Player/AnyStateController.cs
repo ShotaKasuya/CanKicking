@@ -11,7 +11,7 @@ using VContainer.Unity;
 
 namespace Controller.InGame.Player;
 
-public class AnyStateController : IInitializable
+public class AnyStateController : IAsyncStartable
 {
     public AnyStateController
     (
@@ -40,7 +40,7 @@ public class AnyStateController : IInitializable
         };
     }
 
-    public void Initialize()
+    public async UniTask StartAsync(CancellationToken cancellation = new CancellationToken())
     {
         LazyPlayerView.PlayerView.Init(PlayerView);
         PlayerView.CollisionEnterEvent
@@ -55,16 +55,16 @@ public class AnyStateController : IInitializable
                 (command, controller) => controller.CommandTrampoline(command)
             )
             .AddTo(CompositeDisposable);
-        InitEffect().Forget();
+        await InitEffect(cancellation);
     }
 
     private const string InitEffectContext = "Initialize Effect Context";
 
-    private async UniTask InitEffect()
+    private async UniTask InitEffect(CancellationToken token)
     {
         using var handle = BlockingOperationModel.SpawnOperation(InitEffectContext);
 
-        await SpawnEffectView.Initialize();
+        await SpawnEffectView.Initialize(token);
     }
 
     /// <summary>

@@ -900,16 +900,19 @@ MonoBehaviour:
     fadeTargets:
     - targetType: View.InGame.UserInterface.Normal.StopButtonView, View, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+      targetObject: {fileID: 5661647710032279934}
       fadeTarget: {fileID: 9220602923252570725}
       fadeInPosition: {fileID: 3272236986934557577}
       fadeOutPosition: {fileID: 8745396265153988459}
     - targetType: View.InGame.UserInterface.Normal.HeightUiView, View, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+      targetObject: {fileID: 8613127744247501216}
       fadeTarget: {fileID: 6416352926176674468}
       fadeInPosition: {fileID: 8256779438463507864}
       fadeOutPosition: {fileID: 5680550546463845375}
     - targetType: View.InGame.UserInterface.Normal.ProgressUiView, View, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+      targetObject: {fileID: 6043021814189403335}
       fadeTarget: {fileID: 637816866307560565}
       fadeInPosition: {fileID: 752935883548190907}
       fadeOutPosition: {fileID: 3195622036176554319}
