@@ -14,6 +14,7 @@ namespace Module.FadeContainer.Editor
             EditorGUI.BeginProperty(position, label, property);
 
             var registerTypeProp = property.FindPropertyRelative("targetType");
+            var targetObjectProp = property.FindPropertyRelative("targetObject");
             var fadeTargetProp = property.FindPropertyRelative("fadeTarget");
             var fadeInPosProp = property.FindPropertyRelative("fadeInPosition");
             var fadeOutPosProp = property.FindPropertyRelative("fadeOutPosition");
@@ -45,6 +46,7 @@ namespace Module.FadeContainer.Editor
                 {
                     var type = comps[newIndex].GetType();
                     registerTypeProp.stringValue = type.AssemblyQualifiedName;
+                    targetObjectProp.objectReferenceValue = tr.GetComponent(type);
                 }
             }
             else

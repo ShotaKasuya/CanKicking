@@ -18,7 +18,7 @@ namespace View.InGame.UserInterface.Goal
             builder.RegisterInstance(this).AsImplementedInterfaces();
             foreach (var (targetType, targetTransform)  in fadeTargets)
             {
-                builder.RegisterInstance(targetTransform.GetComponent(targetType)).AsImplementedInterfaces();
+                builder.RegisterInstance(targetTransform).AsImplementedInterfaces();
             }
         }
 

@@ -21,6 +21,7 @@ namespace Module.FadeContainer.Runtime
         }
 
         [SerializeField, HideInInspector] internal string targetType;
+        [SerializeField, HideInInspector] internal MonoBehaviour targetObject;
         [SerializeField] internal Transform fadeTarget;
         [SerializeField] internal Transform fadeInPosition;
         [SerializeField] internal Transform fadeOutPosition;
