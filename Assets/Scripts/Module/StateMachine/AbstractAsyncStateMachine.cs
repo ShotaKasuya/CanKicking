@@ -8,7 +8,7 @@ using VContainer.Unity;
 
 namespace Module.StateMachine
 {
-    public abstract class AbstractAsyncStateMachine<TState> : IInitializable, ITickable where TState : struct, Enum
+    public abstract class AbstractAsyncStateMachine<TState> : IAsyncStartable, ITickable where TState : struct, Enum
     {
         protected AbstractAsyncStateMachine
         (
@@ -23,7 +23,7 @@ namespace Module.StateMachine
             Disposable = compositeDisposable;
         }
 
-        public void Initialize()
+        public async UniTask StartAsync(CancellationToken cancellation = new CancellationToken())
         {
             State.StateExitObservable
                 .SubscribeAwait(
@@ -37,16 +37,16 @@ namespace Module.StateMachine
                     (@enum, machine, arg3) => machine.CallOnEnter(@enum, arg3),
                     AwaitOperation.Parallel)
                 .AddTo(Disposable);
-            
+
             var currentState = State.CurrentState;
-            CallOnEnter(currentState).Forget();
+            await CallOnEnter(currentState, cancellation);
 
             for (int i = 0; i < Behaviours.Count; i++)
             {
                 var behaviour = Behaviours[i];
                 if (!EqualityComparer<TState>.Default.Equals(currentState, behaviour.TargetStateMask))
                 {
-                    behaviour.OnExit(CancellationToken.None).Forget();
+                    await behaviour.OnExit(cancellation);
                 }
             }
         }
