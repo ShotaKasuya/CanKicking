@@ -1,0 +1,3 @@
+-keep class com.google.android.gms.ads.** { ; }
+-keep class com.google.ads.mediation.** { *; }
+-keep public class com.google.unity.** { *; }

@@ -24,14 +24,12 @@ namespace View.Global.Advertisement
 
         public void Spawn()
         {
-#if UNITY_ANDROID || UNITY_IOS
             _bannerView = new BannerView(
                 TestConstants.ADUnitId,
                 AdSize.GetLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(Screen.width),
                 AdPosition.Bottom
             );
             _bannerView.LoadAd(new AdRequest());
-#endif
         }
 
         public void Show()

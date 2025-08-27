@@ -7,11 +7,10 @@ namespace Controller.Global;
 /// <summary>
 /// 静的リソース関連の処理を持つ
 /// </summary>
-public class ResourceController: IInitializable
+public class ResourceController : IStartable
 {
-    public void Initialize()
+    public void Start()
     {
-#if UNITY_ANDROID || UNITY_IOS
         MobileAds.Initialize(status =>
         {
             if (status == null)
@@ -21,6 +20,5 @@ public class ResourceController: IInitializable
 
             Debug.Log("Google Mobile Ads Initialization Complete.");
         });
-#endif
     }
 }

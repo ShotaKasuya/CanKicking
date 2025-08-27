@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using Interface.Global.Scene;
-using Module.SceneReference;
 using Module.SceneReference.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;

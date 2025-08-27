@@ -3,8 +3,8 @@
     "m_SelectedProcess": {
         "deviceId": "SX4LHMA490907785",
         "name": "com.CanKicking",
-        "processId": 31462,
-        "exited": true
+        "processId": 9286,
+        "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownProcessesForSerialization": [
@@ -13,24 +13,6 @@
             "name": "jp.co.sharp.android.launcher3",
             "processId": 2743,
             "exited": false
-        },
-        {
-            "deviceId": "SX4LHMA490907785",
-            "name": "com.CanKicking",
-            "processId": 17650,
-            "exited": true
-        },
-        {
-            "deviceId": "SX4LHMA490907785",
-            "name": "com.CanKicking",
-            "processId": 21134,
-            "exited": true
-        },
-        {
-            "deviceId": "SX4LHMA490907785",
-            "name": "com.CanKicking",
-            "processId": 11844,
-            "exited": true
         },
         {
             "deviceId": "SX4LHMA490907785",
@@ -43,12 +25,6 @@
             "name": "com.CanKicking",
             "processId": 10885,
             "exited": false
-        },
-        {
-            "deviceId": "SX4LHMA490907785",
-            "name": "com.CanKicking",
-            "processId": 12916,
-            "exited": true
         },
         {
             "deviceId": "SX4LHMA490907785",
@@ -143,18 +119,6 @@
         {
             "deviceId": "SX4LHMA490907785",
             "name": "com.CanKicking",
-            "processId": 24520,
-            "exited": true
-        },
-        {
-            "deviceId": "SX4LHMA490907785",
-            "name": "com.CanKicking",
-            "processId": 27799,
-            "exited": true
-        },
-        {
-            "deviceId": "SX4LHMA490907785",
-            "name": "com.CanKicking",
             "processId": 6206,
             "exited": false
         },
@@ -179,12 +143,6 @@
         {
             "deviceId": "SX4LHMA490907785",
             "name": "com.CanKicking",
-            "processId": 23096,
-            "exited": true
-        },
-        {
-            "deviceId": "SX4LHMA490907785",
-            "name": "com.CanKicking",
             "processId": 25445,
             "exited": false
         },
@@ -203,8 +161,80 @@
         {
             "deviceId": "SX4LHMA490907785",
             "name": "com.CanKicking",
-            "processId": 31462,
+            "processId": 31996,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 18128,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 20452,
             "exited": true
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 21681,
+            "exited": true
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 23448,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 25602,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 32566,
+            "exited": true
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 5084,
+            "exited": true
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 10995,
+            "exited": false
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 31385,
+            "exited": true
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 2790,
+            "exited": true
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 4409,
+            "exited": true
+        },
+        {
+            "deviceId": "SX4LHMA490907785",
+            "name": "com.CanKicking",
+            "processId": 9286,
+            "exited": false
         }
     ],
     "m_Tags": {
