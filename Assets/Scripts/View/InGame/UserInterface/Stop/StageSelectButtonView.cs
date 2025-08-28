@@ -1,4 +1,4 @@
-﻿using Interface.InGame.UserInterface;
+﻿using Interface.View.InGame.UserInterface;
 using Module.SceneReference.Runtime;
 using R3;
 using Structure.Utility.Abstraction;

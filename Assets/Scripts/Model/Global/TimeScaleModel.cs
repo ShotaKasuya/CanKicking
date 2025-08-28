@@ -1,5 +1,5 @@
 ﻿using System;
-using Interface.Global.TimeScale;
+using Interface.Model.Global;
 using Module.EnumArray.Runtime;
 using Structure.Global.TimeScale;
 using UnityEngine;

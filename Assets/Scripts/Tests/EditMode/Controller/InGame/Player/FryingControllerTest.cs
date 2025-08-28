@@ -3,8 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.Player;
 using Cysharp.Threading.Tasks;
-using Interface.Global.TimeScale;
-using Interface.InGame.Player;
+using Interface.Model.Global;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
@@ -12,6 +13,7 @@ using R3;
 using Structure.Global.TimeScale;
 using Structure.InGame.Player;
 using Structure.Utility;
+using Tests.EditMode.Mocks;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
@@ -19,24 +21,6 @@ namespace Tests.EditMode.Controller.InGame.Player
     public class FryingControllerTest
     {
         // Mocks
-        private class MockPlayerView : IPlayerView
-        {
-            private readonly Subject<Collision2D> _collisionSubject = new();
-            public Transform ModelTransform { get; } = new GameObject().transform;
-            public Vector2 LinearVelocity { get; set; } = Vector2.down;
-            public float AngularVelocity => 0f;
-            public Observable<Collision2D> CollisionEnterEvent => _collisionSubject;
-
-            public void Activation(bool isActive)
-            {
-            }
-
-            public void ResetPosition(Vector2 position)
-            {
-            }
-
-            public void SimulateCollision(Collision2D collision) => _collisionSubject.OnNext(collision);
-        }
 
         private class MockRayCasterView : IRayCasterView
         {
@@ -60,36 +44,12 @@ namespace Tests.EditMode.Controller.InGame.Player
             public void Reset() => IsResetCalled = true;
         }
 
-        private class MockStateEntity : IMutStateEntity<PlayerStateType>
-        {
-            public PlayerStateType CurrentState { get; private set; } = PlayerStateType.Frying;
-            public PlayerStateType EntryState => PlayerStateType.Idle;
-            public Observable<PlayerStateType> StateExitObservable => Observable.Empty<PlayerStateType>();
-            public Observable<PlayerStateType> StateEnterObservable => Observable.Empty<PlayerStateType>();
-
-            public bool IsInState(PlayerStateType state)
-            {
-                return CurrentState == state;
-            }
-
-            public UniTask ChangeState(PlayerStateType next)
-            {
-                CurrentState = next;
-                return UniTask.CompletedTask;
-            }
-
-            public OperationHandle GetStateLock(string context)
-            {
-                return new OperationHandle();
-            }
-        }
-
         private FryingController _controller;
         private MockPlayerView _playerView;
         private MockRayCasterView _rayCasterView;
         private MockGroundDetectionModel _groundDetectionModel;
         private MockTimeScaleModel _timeScaleModel;
-        private MockStateEntity _stateEntity;
+        private MockStateEntity<PlayerStateType> _stateEntity;
         private CompositeDisposable _compositeDisposable;
 
         [SetUp]
@@ -99,7 +59,7 @@ namespace Tests.EditMode.Controller.InGame.Player
             _rayCasterView = new MockRayCasterView();
             _groundDetectionModel = new MockGroundDetectionModel();
             _timeScaleModel = new MockTimeScaleModel();
-            _stateEntity = new MockStateEntity();
+            _stateEntity = new MockStateEntity<PlayerStateType>(PlayerStateType.Frying);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new FryingController(

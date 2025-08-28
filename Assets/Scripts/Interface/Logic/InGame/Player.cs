@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Interface.InGame.Player;
+namespace Interface.Logic.InGame;
 
 public interface ICalcKickPowerLogic
 {

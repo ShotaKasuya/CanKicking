@@ -1,4 +1,4 @@
-namespace Interface.Global.Advertisement;
+namespace Interface.View.Global;
 
 public interface IAdvertisementView
 {

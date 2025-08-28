@@ -1,5 +1,5 @@
 ﻿using System;
-using Interface.OutGame.Title;
+using Interface.View.OutGame;
 using R3;
 using UnityEngine.InputSystem;
 using VContainer.Unity;

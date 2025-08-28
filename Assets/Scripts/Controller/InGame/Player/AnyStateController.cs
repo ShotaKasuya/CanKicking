@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Utility;
-using Interface.InGame.Player;
-using Interface.InGame.Primary;
+using Interface.Model.Global;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using R3;
 using Structure.InGame.Player;
 using UnityEngine;

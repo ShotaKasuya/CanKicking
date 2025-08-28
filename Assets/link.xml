@@ -1,9 +1,4 @@
 <linker>
-    <assembly fullname="GoogleMobileAds">
-        <type fullname="GoogleMobileAds.GoogleMobileAdsClientFactory" preserve="all"/>
-        <type fullname="GoogleMobileAds.Android.MobileAdsClientFactory" preserve="all"/>
-        <type fullname="GoogleMobileAds.iOS.MobileAdsClientFactory" preserve="all"/>
-    </assembly>
     <assembly fullname="GoogleMobileAds.Android">
         <type fullname="GoogleMobileAds.GoogleMobileAdsClientFactory" preserve="all"/>
     </assembly>

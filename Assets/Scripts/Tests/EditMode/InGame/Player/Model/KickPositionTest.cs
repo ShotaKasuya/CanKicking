@@ -19,7 +19,7 @@ namespace Tests.EditMode.InGame.Player.Model
 
             foreach (var position in positions)
             {
-                kickPositionModel.PushPosition(position);
+                kickPositionModel.PushPosition(new Pose(position,Quaternion.identity));
             }
 
             foreach (var position in positions.Reverse())
@@ -27,7 +27,7 @@ namespace Tests.EditMode.InGame.Player.Model
                 var popPosition = kickPositionModel.PopPosition();
                 Assert.IsTrue(popPosition.TryGetValue(out var value));
                 Debug.Log($"position == value: {position} == {value}");
-                Assert.IsTrue(position == value);
+                Assert.IsTrue(position == new Vector2(value.position.x, value.position.y));
             }
         }
     }

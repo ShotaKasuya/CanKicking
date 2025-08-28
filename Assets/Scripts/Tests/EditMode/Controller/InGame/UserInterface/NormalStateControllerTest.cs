@@ -2,16 +2,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.UserInterface;
 using Cysharp.Threading.Tasks;
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
-using Interface.InGame.UserInterface;
+using Interface.Logic.InGame;
+using Interface.Model.InGame;
+using Interface.View.InGame;
+using Interface.View.InGame.UserInterface;
 using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.UserInterface;
+using Tests.EditMode.Mocks;
 using UnityEngine;
-using Interface.InGame.Player;
 
 namespace Tests.EditMode.Controller.InGame.UserInterface
 {
@@ -32,22 +33,6 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
             {
                 IsShown = false;
                 return UniTask.CompletedTask;
-            }
-        }
-
-        private class MockPlayerView : IPlayerView
-        {
-            public Transform ModelTransform { get; } = new GameObject().transform;
-            public Vector2 LinearVelocity => Vector2.zero;
-            public float AngularVelocity => 0f;
-            public Observable<Collision2D> CollisionEnterEvent => Observable.Empty<Collision2D>();
-
-            public void Activation(bool isActive)
-            {
-            }
-
-            public void ResetPosition(Vector2 position)
-            {
             }
         }
 
@@ -79,7 +64,7 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
             public void SetProgress(float progress) => Progress = progress;
         }
 
-        private class MockJumpCountUiView : IJumpCountUiView
+        private class MockKickCountUiView : IKickCountUiView
         {
             public int? Count { get; private set; }
             public void SetCount(int count) => Count = count;
@@ -90,14 +75,6 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
             private readonly Subject<Unit> _subject = new();
             public Observable<Unit> GoalEvent => _subject;
             public void SimulateGoal() => _subject.OnNext(Unit.Default);
-        }
-
-        private class MockJumpCountModel : IJumpCountModel, IResetable
-        {
-            private readonly ReactiveProperty<int> _jumpCount = new(0);
-            public ReadOnlyReactiveProperty<int> JumpCount => _jumpCount;
-            public void Inc() => _jumpCount.Value++;
-            public void Reset() => _jumpCount.Value = 0;
         }
 
         private class MockUiStateEntity : IMutStateEntity<UserInterfaceStateType>
@@ -143,9 +120,9 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         private MockLazyGoalHeightView _lazyGoalHeightView;
         private MockStopButtonView _stopButtonView;
         private MockProgressUiView _progressUiView;
-        private MockJumpCountUiView _jumpCountUiView;
+        private MockKickCountUiView _kickCountUiView;
         private MockGoalEventModel _goalEventModel;
-        private MockJumpCountModel _jumpCountModel;
+        private MockKickCountModel _kickCountModel;
         private MockUiStateEntity _stateEntity;
         private CompositeDisposable _compositeDisposable;
 
@@ -158,16 +135,16 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
             _lazyGoalHeightView = new MockLazyGoalHeightView();
             _stopButtonView = new MockStopButtonView();
             _progressUiView = new MockProgressUiView();
-            _jumpCountUiView = new MockJumpCountUiView();
+            _kickCountUiView = new MockKickCountUiView();
             _goalEventModel = new MockGoalEventModel();
-            _jumpCountModel = new MockJumpCountModel();
+            _kickCountModel = new MockKickCountModel();
             _stateEntity = new MockUiStateEntity(UserInterfaceStateType.Normal);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new NormalStateController(
                 _normalUiView, _lazyPlayerView, _lazyBaseHeightView, _lazyGoalHeightView,
-                _stopButtonView, _progressUiView, _jumpCountUiView, _goalEventModel,
-                _jumpCountModel, _compositeDisposable, _stateEntity
+                _stopButtonView, _progressUiView, _kickCountUiView, _goalEventModel,
+                _kickCountModel, _compositeDisposable, _stateEntity
             );
             _controller.Start();
         }
@@ -206,8 +183,8 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         [Test]
         public void OnJumpCountChanged_UpdatesUi()
         {
-            _jumpCountModel.Inc();
-            Assert.AreEqual(1, _jumpCountUiView.Count);
+            _kickCountModel.Inc();
+            Assert.AreEqual(1, _kickCountUiView.Count);
         }
 
         [Test]

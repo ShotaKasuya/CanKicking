@@ -1,9 +1,7 @@
 
 using Controller.Global.UserInterface;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.Global.TimeScale;
-using Interface.Global.Utility;
+using Interface.Model.Global;
 using Interface.View.Global;
 using Module.Option.Runtime;
 using NUnit.Framework;

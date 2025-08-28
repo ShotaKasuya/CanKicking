@@ -1,15 +1,14 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Controller.InGame.Player;
 using Controller.InGame.UserInterface;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.InGame.Primary;
-using Interface.InGame.UserInterface;
-using Module.StateMachine;
+using Interface.Logic.Global;
+using Interface.Logic.InGame;
+using Interface.View.InGame.UserInterface;
 using NUnit.Framework;
 using R3;
-using Module.Option.Runtime;
+using Structure.InGame.Player;
 using Structure.InGame.UserInterface;
 
 namespace Tests.EditMode.Controller.InGame.UserInterface
@@ -65,64 +64,33 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
             public void RestartGame() => IsRestarted = true;
         }
 
-        private class MockUiStateEntity : IMutStateEntity<UserInterfaceStateType>
-        {
-            public UserInterfaceStateType CurrentState { get; private set; }
-            public UserInterfaceStateType EntryState { get; }
-            public Observable<UserInterfaceStateType> StateExitObservable => _stateExitSubject;
-            public Observable<UserInterfaceStateType> StateEnterObservable => _stateEnterSubject;
-
-            private readonly Subject<UserInterfaceStateType> _stateExitSubject = new();
-            private readonly Subject<UserInterfaceStateType> _stateEnterSubject = new();
-
-            public MockUiStateEntity(UserInterfaceStateType initialState)
-            {
-                CurrentState = initialState;
-                EntryState = initialState;
-            }
-
-            public bool IsInState(UserInterfaceStateType state)
-            {
-                return CurrentState == state;
-            }
-
-            public UniTask ChangeState(UserInterfaceStateType next)
-            {
-                _stateExitSubject.OnNext(CurrentState);
-                CurrentState = next;
-                _stateEnterSubject.OnNext(next);
-                return UniTask.CompletedTask;
-            }
-
-            public OperationHandle GetStateLock(string context)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         private GoalStateController _controller;
         private MockGoalUiView _goalUiView;
         private MockRestartButtonView _restartButtonView;
         private MockStageSelectButtonView _stageSelectButtonView;
         private MockLoadPrimarySceneLogic _loadPrimarySceneLogic;
         private MockGameRestartLogic _gameRestartLogic;
-        private MockUiStateEntity _uiStateEntity;
+        private PlayerState _playerState;
+        private UserInterfaceState _uiStateEntity;
         private CompositeDisposable _compositeDisposable;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
             _goalUiView = new MockGoalUiView();
             _restartButtonView = new MockRestartButtonView();
             _stageSelectButtonView = new MockStageSelectButtonView();
             _loadPrimarySceneLogic = new MockLoadPrimarySceneLogic();
             _gameRestartLogic = new MockGameRestartLogic();
-            _uiStateEntity = new MockUiStateEntity(UserInterfaceStateType.Goal);
+            _playerState = new PlayerState();
+            _uiStateEntity = new UserInterfaceState();
+            await _uiStateEntity.ChangeState(UserInterfaceStateType.Goal);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new GoalStateController(
                 _goalUiView, _restartButtonView, _stageSelectButtonView,
-                _loadPrimarySceneLogic, _gameRestartLogic, _compositeDisposable, _uiStateEntity
+                _loadPrimarySceneLogic, _gameRestartLogic, _compositeDisposable,
+                _playerState, _uiStateEntity
             );
             _controller.Start();
         }
@@ -131,10 +99,11 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
-        public async Task OnEnter_ShowsGoalUi()
+        public async Task OnEnter_ShowsGoalUi_AndChangesPlayerState()
         {
             await _controller.OnEnter(CancellationToken.None);
             Assert.IsTrue(_goalUiView.IsShown);
+            Assert.AreEqual(PlayerStateType.Stopping, _playerState.CurrentState);
         }
 
         [Test]

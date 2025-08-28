@@ -1,4 +1,4 @@
-﻿using Interface.Global.Utility;
+﻿using Interface.Model.Global;
 using UnityEngine;
 using VContainer.Unity;
 

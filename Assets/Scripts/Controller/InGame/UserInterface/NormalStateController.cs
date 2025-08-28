@@ -1,8 +1,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
-using Interface.InGame.UserInterface;
+using Interface.Model.InGame;
+using Interface.View.InGame;
+using Interface.View.InGame.UserInterface;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.UserInterface;
@@ -24,9 +24,9 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
         ILazyGoalHeightView goalHeightView,
         IStopButtonView stopButtonView,
         IProgressUiView progressUiView,
-        IJumpCountUiView jumpCountUiView,
+        IKickCountUiView kickCountUiView,
         IGoalEventModel goalEventModel,
-        IJumpCountModel jumpCountModel,
+        IKickCountModel jumpCountModel,
         CompositeDisposable compositeDisposable,
         IMutStateEntity<UserInterfaceStateType> stateEntity
     ) : base(UserInterfaceStateType.Normal, stateEntity)
@@ -36,7 +36,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
         BaseHeightView = baseHeightView;
         GoalHeightView = goalHeightView;
         StopButtonView = stopButtonView;
-        JumpCountUiView = jumpCountUiView;
+        KickCountUiView = kickCountUiView;
         GoalEventModel = goalEventModel;
         JumpCountModel = jumpCountModel;
         ProgressUiView = progressUiView;
@@ -50,12 +50,10 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
             .Subscribe(this, (_, controller) => controller.ChangeToStop())
             .AddTo(CompositeDisposable);
         GoalEventModel.GoalEvent
-            .Where(this, (_, controller) => controller.IsInState())
             .Subscribe(this, (_, controller) => controller.ChangeToGoal())
             .AddTo(CompositeDisposable);
-        JumpCountModel.JumpCount
-            .Where(this, (_, controller) => controller.IsInState())
-            .Subscribe(this, (i, controller) => controller.JumpCountUiView.SetCount(i))
+        JumpCountModel.KickCount
+            .Subscribe(this, (i, controller) => controller.KickCountUiView.SetCount(i))
             .AddTo(CompositeDisposable);
     }
 
@@ -99,9 +97,9 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
     private ILazyBaseHeightView BaseHeightView { get; }
     private ILazyGoalHeightView GoalHeightView { get; }
     private IStopButtonView StopButtonView { get; }
-    private IJumpCountUiView JumpCountUiView { get; }
+    private IKickCountUiView KickCountUiView { get; }
     private IGoalEventModel GoalEventModel { get; }
     private IProgressUiView ProgressUiView { get; }
-    private IJumpCountModel JumpCountModel { get; }
+    private IKickCountModel JumpCountModel { get; }
     private CompositeDisposable CompositeDisposable { get; }
 }

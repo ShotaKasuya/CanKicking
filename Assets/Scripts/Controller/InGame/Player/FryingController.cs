@@ -1,7 +1,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.Global.TimeScale;
-using Interface.InGame.Player;
+using Interface.Model.Global;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using Module.StateMachine;
 using R3;
 using Structure.Global.TimeScale;

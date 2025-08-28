@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Controller.Global.Scene;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.Global.Utility;
+using Interface.Logic.Global;
+using Interface.Model.Global;
 using Module.Option.Runtime;
 using Module.SceneReference.Runtime;
 using NUnit.Framework;

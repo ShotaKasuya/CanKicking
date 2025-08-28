@@ -1,4 +1,4 @@
-using Interface.OutGame.StageSelect;
+using Interface.Model.OutGame;
 using Structure.Utility;
 using Structure.Utility.Extension;
 using TNRD;

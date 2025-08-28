@@ -1,5 +1,5 @@
 ﻿using System;
-using Interface.OutGame.Title;
+using Interface.Model.OutGame;
 using Module.SceneReference.Runtime;
 using UnityEngine;
 

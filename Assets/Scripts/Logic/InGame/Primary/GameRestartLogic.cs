@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using Interface.InGame.Primary;
+using Interface.Logic.InGame;
+using Interface.Model.InGame;
 
 namespace Logic.InGame.Primary;
 

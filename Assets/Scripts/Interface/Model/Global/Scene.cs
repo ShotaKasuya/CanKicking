@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Module.SceneReference;
 using Module.SceneReference.Runtime;
 using R3;
 
-namespace Interface.Global.Scene;
+namespace Interface.Model.Global;
 
 public interface IPrimarySceneModel
 {

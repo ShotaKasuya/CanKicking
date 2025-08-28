@@ -1,5 +1,6 @@
 using Controller.InGame.Stage;
-using Interface.InGame.Stage;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using NUnit.Framework;
 using UnityEngine;
 

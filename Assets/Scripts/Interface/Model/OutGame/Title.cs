@@ -1,4 +1,4 @@
-﻿namespace Interface.OutGame.Title;
+﻿namespace Interface.Model.OutGame;
 
 /// <summary>
 /// ゲーム開始時のシーン情報を提供する。

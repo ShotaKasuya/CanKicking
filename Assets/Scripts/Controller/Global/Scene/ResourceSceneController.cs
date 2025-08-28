@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.Global.Utility;
+using Interface.Logic.Global;
+using Interface.Model.Global;
 using R3;
 using Structure.Utility.Extension;
 using UnityEngine;

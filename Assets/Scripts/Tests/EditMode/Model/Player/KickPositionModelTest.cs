@@ -32,7 +32,8 @@ namespace Tests.EditMode.Model.Player
         {
             // Arrange
             var position = new Vector2(10, 20);
-            _model.PushPosition(position);
+            var pose = new Pose(position, Quaternion.identity);
+            _model.PushPosition(pose);
 
             // Act
             var result = _model.PopPosition();
@@ -49,8 +50,8 @@ namespace Tests.EditMode.Model.Player
             // Arrange
             var pos1 = new Vector2(1, 1);
             var pos2 = new Vector2(2, 2);
-            _model.PushPosition(pos1);
-            _model.PushPosition(pos2);
+            _model.PushPosition(new Pose(pos1, Quaternion.identity));
+            _model.PushPosition(new Pose(pos2, Quaternion.identity));
 
             // Act & Assert
             var result1 = _model.PopPosition();
@@ -66,7 +67,8 @@ namespace Tests.EditMode.Model.Player
         {
             // Arrange
             var position = new Vector2(10, 20);
-            _model.PushPosition(position);
+            var pose = new Pose(position, Quaternion.identity);
+            _model.PushPosition(pose);
 
             // Act
             _model.PopPosition(); // 1回Popする
@@ -84,7 +86,7 @@ namespace Tests.EditMode.Model.Player
             // 容量(8) + 1回 Pushする
             for (int i = 0; i < Capacity + 1; i++)
             {
-                _model.PushPosition(new Vector2(i, i));
+                _model.PushPosition(new Pose(new Vector2(i, i), Quaternion.identity));
             }
 
             // Act & Assert

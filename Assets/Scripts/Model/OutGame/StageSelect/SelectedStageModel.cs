@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Interface.OutGame.StageSelect;
+using Interface.Model.OutGame;
 using Module.SceneReference.Runtime;
 using UnityEngine;
 

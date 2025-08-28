@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Interface.Global.Advertisement;
+namespace Interface.View.Global;
 
 public interface IBgmSourceView : IPausableView
 {

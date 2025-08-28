@@ -1,11 +1,11 @@
 
 using Controller.Global.UserInterface;
 using Cysharp.Threading.Tasks;
-using Interface.Global;
 using Interface.View.Global;
 using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;
+using Tests.EditMode.Mocks;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.Global.UserInterface
@@ -13,17 +13,6 @@ namespace Tests.EditMode.Controller.Global.UserInterface
     public class TouchUiControllerTest
     {
         // Mocks
-        private class MockTouchView : ITouchView
-        {
-            private readonly Subject<TouchStartEventArgument> _touchSubject = new();
-            private readonly Subject<TouchEndEventArgument> _touchEndSubject = new();
-            public Observable<TouchStartEventArgument> TouchEvent => _touchSubject;
-            public Option<FingerDraggingInfo> DraggingInfo => Option<FingerDraggingInfo>.None();
-            public Observable<TouchEndEventArgument> TouchEndEvent => _touchEndSubject;
-
-            public void SimulateTouch(Vector2 position) => _touchSubject.OnNext(new TouchStartEventArgument(position));
-            public void SimulateTouchEnd() => _touchEndSubject.OnNext(new TouchEndEventArgument());
-        }
 
         private class MockTouchPositionUiView : ITouchPositionUiView
         {

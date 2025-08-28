@@ -1,8 +1,8 @@
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.Global.Utility;
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
+using Interface.Logic.InGame;
+using Interface.Model.Global;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using R3;
 using VContainer.Unity;
 
@@ -14,7 +14,7 @@ public class GameStartController : IInitializable, IResetable
     (
         ILazyStartPositionView lazyStartPositionView,
         ILazyPlayerView lazyPlayerView,
-        IJumpCountModel jumpCountModel,
+        IKickCountModel jumpCountModel,
         IClearRecordModel clearRecordModel,
         IGoalEventModel goalEventModel,
         IPrimarySceneModel primarySceneModel,
@@ -69,7 +69,7 @@ public class GameStartController : IInitializable, IResetable
 
     private void SaveRecord()
     {
-        var record = JumpCountModel.JumpCount.CurrentValue;
+        var record = JumpCountModel.KickCount.CurrentValue;
         var key = PrimarySceneModel.GetCurrentSceneContext.ScenePath!;
 
         ClearRecordModel.Save(key, record);
@@ -78,7 +78,7 @@ public class GameStartController : IInitializable, IResetable
     private CompositeDisposable CompositeDisposable { get; }
     private ILazyStartPositionView LazyStartPositionView { get; }
     private ILazyPlayerView LazyPlayerView { get; }
-    private IJumpCountModel JumpCountModel { get; }
+    private IKickCountModel JumpCountModel { get; }
     private IClearRecordModel ClearRecordModel { get; }
     private IGoalEventModel GoalEventModel { get; }
     private IPrimarySceneModel PrimarySceneModel { get; }

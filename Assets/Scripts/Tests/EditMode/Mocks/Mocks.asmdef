@@ -1,0 +1,22 @@
+{
+    "name": "Mocks",
+    "rootNamespace": "Tests.EditMode.Mocks",
+    "references": [
+        "GUID:f1052dff81777ca1197906223025d0ca",
+        "GUID:8f953d635790a5e529ca6f38acd32b8a",
+        "GUID:057b6ea880ed3e133a39ba8babd31b91",
+        "GUID:d9627c355e8131a43b3fdb2c5c363bc2",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

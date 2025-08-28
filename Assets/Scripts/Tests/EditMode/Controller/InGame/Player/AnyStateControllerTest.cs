@@ -2,13 +2,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.Player;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Utility;
-using Interface.InGame.Player;
-using Interface.InGame.Primary;
+using Interface.Model.Global;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.Player;
+using Tests.EditMode.Mocks;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
@@ -16,29 +17,6 @@ namespace Tests.EditMode.Controller.InGame.Player
     public class AnyStateControllerTest
     {
         // Mocks
-        private class MockPlayerView : IPlayerView, IPlayerCommandReceiver
-        {
-            private readonly Subject<Collision2D> _collisionSubject = new();
-            private readonly Subject<PlayerInteractCommand> _commandSubject = new();
-            public Transform ModelTransform { get; } = new GameObject().transform;
-            public Vector2 LinearVelocity => Vector2.zero;
-            public float AngularVelocity => 0f;
-            public Observable<Collision2D> CollisionEnterEvent => _collisionSubject;
-            public Vector2? ResetPositionValue { get; private set; }
-
-            public void Activation(bool isActive)
-            {
-            }
-
-            public void ResetPosition(Vector2 position)
-            {
-                ResetPositionValue = position;
-            }
-
-            public void SimulateCollision(Collision2D collision) => _collisionSubject.OnNext(collision);
-            public void SendCommand(PlayerInteractCommand command) => _commandSubject.OnNext(command);
-            public Observable<PlayerInteractCommand> Stream => _commandSubject;
-        }
 
         private class MockLazyPlayerView : ILazyPlayerView
         {
@@ -68,20 +46,6 @@ namespace Tests.EditMode.Controller.InGame.Player
         {
             public float SpawnThreshold { get; set; } = 5f;
             public float EffectLength { get; set; } = 1f;
-        }
-
-        private class MockKickPositionModel : IKickPositionModel
-        {
-            private Vector2? _positionToPop;
-            public void SetPositionToPop(Vector2? pos) => _positionToPop = pos;
-
-            public Option<Vector2> PopPosition() => _positionToPop.HasValue
-                ? Option<Vector2>.Some(_positionToPop.Value)
-                : Option<Vector2>.None();
-
-            public void PushPosition(Vector2 position)
-            {
-            }
         }
 
         private class MockBlockingOperationModel : IBlockingOperationModel
@@ -149,7 +113,8 @@ namespace Tests.EditMode.Controller.InGame.Player
         {
             await _controller.StartAsync();
             var undoPosition = new Vector2(10, 10);
-            _kickPositionModel.SetPositionToPop(undoPosition);
+            var pose = new Pose(undoPosition, Quaternion.identity);
+            _kickPositionModel.SetPositionToPop(pose);
 
             _playerView.SendCommand(new PlayerInteractCommand(CommandType.Undo));
 

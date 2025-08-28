@@ -1,6 +1,4 @@
-using Interface.InGame.Player;
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
+using Interface.View.InGame;
 using Module.Option;
 using Module.Option.Runtime;
 

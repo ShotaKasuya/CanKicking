@@ -1,4 +1,4 @@
-using Interface.Global.Audio;
+using Interface.Model.Global;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

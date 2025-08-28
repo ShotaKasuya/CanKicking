@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
-namespace Interface.InGame.UserInterface;
+namespace Interface.View.InGame.UserInterface;
 
 /// <summary>
 /// `Normal`状態UIの表示切り替えを行う
@@ -33,7 +33,7 @@ public interface IHeightUiView
 /// <summary>
 /// ジャンプ回数を表示する
 /// </summary>
-public interface IJumpCountUiView
+public interface IKickCountUiView
 {
     public void SetCount(int count);
 }

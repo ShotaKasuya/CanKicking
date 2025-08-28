@@ -1,5 +1,6 @@
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
+using Interface.Model.InGame;
+using Interface.View.InGame;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace Controller.InGame.Stage;
@@ -26,7 +27,9 @@ public class RespawnPlayerController : ITickable
 
         if (playerView!.ModelTransform.position.y < fallLine)
         {
-            playerView.ResetPosition(SpawnPositionView.StartPosition.position);
+            var pos = SpawnPositionView.StartPosition.position;
+            var pose = new Pose(pos, Quaternion.identity);
+            playerView.ResetPosition(pose);
         }
     }
 

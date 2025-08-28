@@ -1,4 +1,4 @@
-﻿namespace Interface.InGame.Primary;
+﻿namespace Interface.Logic.InGame;
 
 public interface IGameRestartLogic
 {

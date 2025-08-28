@@ -1,6 +1,6 @@
-using Interface.Global;
-using Interface.Global.Utility;
-using Interface.OutGame.StageSelect;
+using Interface.Model.Global;
+using Interface.View.Global;
+using Interface.View.OutGame;
 using UnityEngine;
 using VContainer.Unity;
 

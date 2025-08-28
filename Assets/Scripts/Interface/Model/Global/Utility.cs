@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Module.Option.Runtime;
-using Structure.Utility;
 using UnityEngine;
 
-namespace Interface.Global.Utility;
+namespace Interface.Model.Global;
 
 //====================================================================
 // Screen Scale

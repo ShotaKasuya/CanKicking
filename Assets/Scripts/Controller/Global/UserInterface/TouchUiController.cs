@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Interface.Global;
 using Interface.View.Global;
 using R3;
 using VContainer.Unity;

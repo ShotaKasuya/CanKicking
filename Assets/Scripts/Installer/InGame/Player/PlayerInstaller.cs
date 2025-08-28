@@ -25,7 +25,6 @@ namespace Installer.InGame.Player
 
             // Model
             playerModelBind.Register(builder);
-            builder.Register<KickPositionModel>(Lifetime.Singleton).AsImplementedInterfaces();
             
             // Logic
             builder.Register<CalcByScreenRatioLogic>(Lifetime.Singleton).AsImplementedInterfaces();

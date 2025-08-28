@@ -1,7 +1,7 @@
 ﻿using R3;
 using UnityEngine;
 
-namespace Interface.InGame.Stage;
+namespace Interface.View.InGame;
 
 public interface ISpawnPositionView
 {

@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.InGame.Player;
+using Interface.View.InGame;
 using Structure.Utility;
 using UnityEngine;
 using UnityEngine.VFX;

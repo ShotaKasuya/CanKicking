@@ -3,7 +3,7 @@ using Module.Option.Runtime;
 using R3;
 using UnityEngine;
 
-namespace Interface.Global;
+namespace Interface.View.Global;
 
 public interface ITouchView
 {

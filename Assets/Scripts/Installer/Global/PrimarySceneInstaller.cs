@@ -1,6 +1,5 @@
 using Controller.Global.Scene;
-using Interface.Global.Audio;
-using Interface.Global.Scene;
+using Interface.Model.Global;
 using TNRD;
 using UnityEngine;
 using VContainer;

@@ -1,6 +1,6 @@
 using R3;
 
-namespace Interface.InGame.Stage;
+namespace Interface.Model.InGame;
 
 public interface ICameraZoomModel
 {

@@ -1,9 +1,9 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.Global;
-using Interface.Global.Advertisement;
-using Interface.InGame.Player;
-using Interface.InGame.Primary;
+using Interface.Logic.InGame;
+using Interface.Model.InGame;
+using Interface.View.Global;
+using Interface.View.InGame;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;
@@ -23,7 +23,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         ISeSourceView seSourceView,
         IKickPositionModel kickPositionModel,
         IKickBasePowerModel kickBasePowerModel,
-        IJumpCountModel jumpCountModel,
+        IKickCountModel jumpCountModel,
         IPlayerSoundModel playerSoundModel,
         ICalcKickPowerLogic calcKickPowerLogic,
         CompositeDisposable compositeDisposable,
@@ -47,7 +47,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
     {
         TouchView.TouchEndEvent
             .Where(this, (_, controller) => controller.IsInState())
-            .Subscribe(this, (argument, controller) => controller.Jump(argument))
+            .Subscribe(this, (argument, controller) => controller.Kick(argument))
             .AddTo(CompositeDisposable);
     }
 
@@ -82,7 +82,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         return UniTask.CompletedTask;
     }
 
-    private void Jump(TouchEndEventArgument fingerReleaseInfo)
+    private void Kick(TouchEndEventArgument fingerReleaseInfo)
     {
         var deltaPosition = fingerReleaseInfo.Delta;
         var basePower = KickBasePowerModel.KickPower;
@@ -92,21 +92,23 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
 
         var context = new KickContext(kickPower, Mathf.Sign(kickPower.x));
         CanKickView.Kick(context);
-        OnJump();
+        OnKick();
 
         StateEntity.ChangeState(PlayerStateType.Frying);
     }
 
-    private void OnJump()
+    private void OnKick()
     {
         // Play Se
         var clip = PlayerSoundModel.GetKickSound();
         SeSourceView.Play(clip);
 
         // Store Position
-        var position = PlayerView.ModelTransform.position;
+        var transform = PlayerView.ModelTransform;
+        var position = transform.position;
+        var rotation = transform.rotation;
 
-        KickPositionModel.PushPosition(position);
+        KickPositionModel.PushPosition(new Pose(position, rotation));
         JumpCountModel.Inc();
     }
 
@@ -118,7 +120,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
     private ISeSourceView SeSourceView { get; }
     private IKickPositionModel KickPositionModel { get; }
     private IKickBasePowerModel KickBasePowerModel { get; }
-    private IJumpCountModel JumpCountModel { get; }
+    private IKickCountModel JumpCountModel { get; }
     private IPlayerSoundModel PlayerSoundModel { get; }
     private ICalcKickPowerLogic CalcKickPowerLogic { get; }
 }

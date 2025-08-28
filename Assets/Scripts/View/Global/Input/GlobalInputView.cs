@@ -1,6 +1,6 @@
 using System;
-using Interface.Global;
-using Interface.InGame.Stage;
+using Interface.View.Global;
+using Interface.View.InGame;
 using UnityEngine.EventSystems;
 using VContainer.Unity;
 

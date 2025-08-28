@@ -1,5 +1,5 @@
 using System;
-using Interface.InGame.Player;
+using Interface.Model.InGame;
 using Structure.Utility;
 using UnityEngine;
 using Random = UnityEngine.Random;

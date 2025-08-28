@@ -1,4 +1,4 @@
-﻿using Interface.InGame.Stage;
+﻿using Interface.View.InGame;
 using R3;
 using R3.Triggers;
 using UnityEngine;

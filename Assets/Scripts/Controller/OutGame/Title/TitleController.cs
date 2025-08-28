@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
-using Interface.Global;
-using Interface.Global.Scene;
-using Interface.OutGame.Title;
+using Interface.Logic.Global;
+using Interface.Model.OutGame;
+using Interface.View.Global;
 using R3;
 using VContainer.Unity;
 

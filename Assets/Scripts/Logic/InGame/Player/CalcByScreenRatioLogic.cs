@@ -1,5 +1,6 @@
-﻿using Interface.Global.Utility;
-using Interface.InGame.Player;
+﻿using Interface.Logic.InGame;
+using Interface.Model.Global;
+using Interface.Model.InGame;
 using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;

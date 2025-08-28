@@ -1,5 +1,5 @@
-using Interface.Global.Advertisement;
-using Interface.Global.Scene;
+using Interface.Model.Global;
+using Interface.View.Global;
 using R3;
 using VContainer.Unity;
 

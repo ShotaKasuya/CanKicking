@@ -1,10 +1,11 @@
 using System.Threading;
+using Controller.InGame.Player;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.InGame.Primary;
-using Interface.InGame.UserInterface;
-using Module.StateMachine;
+using Interface.Logic.Global;
+using Interface.Logic.InGame;
+using Interface.View.InGame.UserInterface;
 using R3;
+using Structure.InGame.Player;
 using Structure.InGame.UserInterface;
 using VContainer.Unity;
 
@@ -23,7 +24,8 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
         ILoadPrimarySceneLogic loadPrimarySceneLogic,
         IGameRestartLogic gameRestartLogic,
         CompositeDisposable compositeDisposable,
-        IMutStateEntity<UserInterfaceStateType> stateEntity
+        PlayerState playerState,
+        UserInterfaceState stateEntity
     ) : base(UserInterfaceStateType.Goal, stateEntity)
     {
         GoalUiView = goalUiView;
@@ -31,6 +33,7 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
         StageSelectButtonView = stageSelectButtonView;
         LoadPrimarySceneLogic = loadPrimarySceneLogic;
         GameRestartLogic = gameRestartLogic;
+        PlayerState = playerState;
         CompositeDisposable = compositeDisposable;
     }
 
@@ -46,9 +49,10 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
             .AddTo(CompositeDisposable);
     }
 
-    public override UniTask OnEnter(CancellationToken token)
+    public override async UniTask OnEnter(CancellationToken token)
     {
-        return GoalUiView.Show(token);
+        await PlayerState.ChangeState(PlayerStateType.Stopping);
+        await GoalUiView.Show(token);
     }
 
     public override UniTask OnExit(CancellationToken token)
@@ -66,6 +70,7 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
         GameRestartLogic.RestartGame();
     }
 
+    private PlayerState PlayerState { get; }
     private IGoalUiView GoalUiView { get; }
     private IGoal_RestartButtonView RestartButtonView { get; }
     private IGoal_StageSelectButtonView StageSelectButtonView { get; }

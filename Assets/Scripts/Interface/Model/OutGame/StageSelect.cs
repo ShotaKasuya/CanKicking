@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Interface.OutGame.StageSelect;
+namespace Interface.Model.OutGame;
 
 /// <summary>
 /// 選択されたステージを保持する

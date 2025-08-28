@@ -1,9 +1,6 @@
-using Interface.InGame.Player;
-using Interface.InGame.Stage;
-using Module.Option;
 using Module.Option.Runtime;
 
-namespace Interface.InGame.Primary;
+namespace Interface.View.InGame;
 
 /// <summary>
 /// 遅延初期化されるプレイヤーのView

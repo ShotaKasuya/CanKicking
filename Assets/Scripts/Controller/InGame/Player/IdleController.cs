@@ -1,6 +1,7 @@
-using Interface.Global;
-using Interface.Global.Utility;
-using Interface.InGame.Player;
+using Interface.Model.Global;
+using Interface.Model.InGame;
+using Interface.View.Global;
+using Interface.View.InGame;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.Player;

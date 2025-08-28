@@ -1,5 +1,5 @@
 using System;
-using Interface.InGame.Stage;
+using Interface.Model.InGame;
 using UnityEngine;
 
 namespace Model.InGame.Stage

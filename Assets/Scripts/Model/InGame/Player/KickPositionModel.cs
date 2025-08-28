@@ -1,4 +1,4 @@
-using Interface.InGame.Player;
+using Interface.Model.InGame;
 using Module.Option.Runtime;
 using UnityEngine;
 
@@ -7,43 +7,51 @@ namespace Model.InGame.Player
     /// <summary>
     /// キックした座標を記録するModel
     /// </summary>
-    public class KickPositionModel : IKickPositionModel
+    public class KickPositionModel : IKickPositionModel, IResetableModel
     {
-        private readonly Vector2[] _buffer;
+        private  Pose[] PositionBuffer { get; }
         private int _count;
         private int _topIndex;
 
-        private int Capacity => _buffer.Length;
+        private int Capacity => PositionBuffer.Length;
 
         public KickPositionModel()
         {
             const int capacity = 8;
-            _buffer = new Vector2[capacity];
+            PositionBuffer = new Pose[capacity];
             _count = 0;
             _topIndex = 0;
         }
 
-        public void PushPosition(Vector2 position)
+        public void PushPosition(Pose pose)
         {
             // 上書きされる場合、古いデータは消える（リングバッファとしての特性）
             _topIndex = (_topIndex + 1) % Capacity;
-            _buffer[_topIndex] = position;
+            PositionBuffer[_topIndex] = pose;
 
             if (_count < Capacity)
+            {
                 _count++;
+            }
         }
 
-        public Option<Vector2> PopPosition()
+        public Option<Pose> PopPosition()
         {
             if (_count == 0)
             {
-                return Option<Vector2>.None();
+                return Option<Pose>.None();
             }
 
-            Vector2 value = _buffer[_topIndex];
+            var value = PositionBuffer[_topIndex];
             _topIndex = (_topIndex - 1 + Capacity) % Capacity;
             _count--;
-            return Option<Vector2>.Some(value);
+            return Option<Pose>.Some(value);
+        }
+
+        public void Reset()
+        {
+            _count = 0;
+            _topIndex = 0;
         }
     }
 }

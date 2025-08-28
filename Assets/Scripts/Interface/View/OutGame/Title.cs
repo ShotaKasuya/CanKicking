@@ -1,6 +1,6 @@
 using R3;
 
-namespace Interface.OutGame.Title
+namespace Interface.View.OutGame
 {
     /// <summary>
     /// ゲームスタートのイベントを発行する

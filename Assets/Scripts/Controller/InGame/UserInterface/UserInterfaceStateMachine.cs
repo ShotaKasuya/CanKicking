@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Interface.InGame.Primary;
+using Interface.Logic.InGame;
 using Module.StateMachine;
 using R3;
 using Structure.InGame.UserInterface;

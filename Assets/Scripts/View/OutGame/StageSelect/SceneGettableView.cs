@@ -1,4 +1,4 @@
-﻿using Interface.OutGame.StageSelect;
+﻿using Interface.View.OutGame;
 using Module.SceneReference.Runtime;
 using UnityEngine;
 

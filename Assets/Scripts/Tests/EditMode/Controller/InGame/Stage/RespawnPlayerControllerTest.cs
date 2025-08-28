@@ -1,11 +1,11 @@
 
 using Controller.InGame.Stage;
-using Interface.InGame.Player;
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;
+using Tests.EditMode.Mocks;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Stage
@@ -13,15 +13,6 @@ namespace Tests.EditMode.Controller.InGame.Stage
     public class RespawnPlayerControllerTest
     {
         // Mocks
-        private class MockPlayerView : IPlayerView
-        {
-            public Transform ModelTransform { get; } = new GameObject().transform;
-            public Vector2 LinearVelocity => Vector2.zero; public float AngularVelocity => 0f;
-            public Observable<Collision2D> CollisionEnterEvent => Observable.Empty<Collision2D>();
-            public Vector2? ResetPositionValue { get; private set; }
-            public void Activation(bool isActive) { }
-            public void ResetPosition(Vector2 position) { ResetPositionValue = position; }
-        }
 
         private class MockLazyPlayerView : ILazyPlayerView { public OnceCell<IPlayerView> PlayerView { get; } = new(); }
         private class MockSpawnPositionView : ISpawnPositionView { public Transform StartPosition { get; } = new GameObject().transform; }

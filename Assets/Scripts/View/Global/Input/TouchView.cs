@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Interface.Global;
+using Interface.View.Global;
 using Module.Option.Runtime;
 using R3;
 using UnityEngine;

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Module.Option;
 using Module.Option.Runtime;
 using R3;
 using UnityEngine;
 
-namespace Interface.OutGame.StageSelect;
+namespace Interface.View.OutGame;
 
 /// <summary>
 /// プレイヤーがステージを選択したイベントを発行する

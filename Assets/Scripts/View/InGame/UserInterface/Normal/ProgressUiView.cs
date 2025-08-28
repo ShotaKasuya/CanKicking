@@ -1,4 +1,4 @@
-using Interface.InGame.UserInterface;
+using Interface.View.InGame.UserInterface;
 using UnityEngine;
 using UnityEngine.UI;
 

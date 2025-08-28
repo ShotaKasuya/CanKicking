@@ -1,4 +1,4 @@
-using Interface.Global.Utility;
+using Interface.Model.Global;
 using Module.Option;
 using Module.Option.Runtime;
 using UnityEngine;

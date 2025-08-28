@@ -1,4 +1,4 @@
-﻿using Interface.Global.Scene;
+﻿using Interface.Model.Global;
 using Module.SceneReference.Runtime;
 
 namespace Model.Global.Scene

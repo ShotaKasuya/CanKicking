@@ -1,6 +1,6 @@
 using Controller.InGame.Stage;
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;

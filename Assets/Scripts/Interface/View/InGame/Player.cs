@@ -6,7 +6,7 @@ using Structure.InGame.Player;
 using Structure.Utility;
 using UnityEngine;
 
-namespace Interface.InGame.Player;
+namespace Interface.View.InGame;
 
 /// <summary>
 /// プレイヤーの情報を提供するインターフェース
@@ -20,7 +20,7 @@ public interface IPlayerView
     public Observable<Collision2D> CollisionEnterEvent { get; }
 
     public void Activation(bool isActive);
-    public void ResetPosition(Vector2 position);
+    public void ResetPosition(Pose pose);
 }
 
 /// <summary>

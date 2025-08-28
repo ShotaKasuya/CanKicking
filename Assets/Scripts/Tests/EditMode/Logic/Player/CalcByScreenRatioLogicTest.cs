@@ -1,5 +1,5 @@
-using Interface.Global.Utility;
-using Interface.InGame.Player;
+using Interface.Model.Global;
+using Interface.Model.InGame;
 using Logic.InGame.Player;
 using NUnit.Framework;
 using UnityEngine;

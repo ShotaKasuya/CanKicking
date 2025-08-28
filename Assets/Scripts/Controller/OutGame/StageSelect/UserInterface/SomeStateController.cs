@@ -1,8 +1,9 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.Global.Utility;
-using Interface.OutGame.StageSelect;
+using Interface.Logic.Global;
+using Interface.Model.Global;
+using Interface.Model.OutGame;
+using Interface.View.OutGame;
 using Module.Option.Runtime;
 using Module.StateMachine;
 using R3;

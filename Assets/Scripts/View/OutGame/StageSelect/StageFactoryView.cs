@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Interface.OutGame.StageSelect;
+using Interface.View.OutGame;
 using UnityEngine;
 using UnityEngine.Splines;
 

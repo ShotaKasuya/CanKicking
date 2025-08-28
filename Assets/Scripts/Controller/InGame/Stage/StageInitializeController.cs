@@ -1,5 +1,5 @@
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
+using Interface.Model.InGame;
+using Interface.View.InGame;
 using R3;
 using VContainer.Unity;
 

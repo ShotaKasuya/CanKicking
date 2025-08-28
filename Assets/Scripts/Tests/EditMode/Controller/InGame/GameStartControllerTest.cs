@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Controller.InGame;
-using Interface.InGame.Primary;
-using Interface.InGame.Stage;
-using Interface.Global.Utility;
-using Interface.Global.Scene;
 using NUnit.Framework;
 using R3;
 using UnityEngine;
 using Module.Option.Runtime;
 using Module.SceneReference.Runtime;
-using Interface.InGame.Player;
-using Cysharp.Threading.Tasks;
+using Interface.Logic.InGame;
+using Interface.Model.Global;
+using Interface.Model.InGame;
+using Interface.View.InGame;
+using Tests.EditMode.Mocks;
 
 namespace Tests.EditMode.Controller.InGame
 {
@@ -51,9 +50,10 @@ namespace Tests.EditMode.Controller.InGame
                 IsActive = isActive;
             }
 
-            public void ResetPosition(Vector2 position)
+            public void ResetPosition(Pose pose)
             {
-                ModelTransform.position = position;
+                ModelTransform.position = pose.position;
+                ModelTransform.rotation = pose.rotation;
             }
         }
 
@@ -65,22 +65,6 @@ namespace Tests.EditMode.Controller.InGame
         private class MockLazyPlayerView : ILazyPlayerView
         {
             public OnceCell<IPlayerView> PlayerView { get; } = new();
-        }
-
-        private class MockJumpCountModel : IJumpCountModel, IResetable
-        {
-            private readonly ReactiveProperty<int> _jumpCount = new(0);
-            public ReadOnlyReactiveProperty<int> JumpCount => _jumpCount;
-
-            public void Inc()
-            {
-                _jumpCount.Value++;
-            }
-
-            public void Reset()
-            {
-                _jumpCount.Value = 0;
-            }
         }
 
         private class MockClearRecordModel : IClearRecordModel
@@ -125,7 +109,7 @@ namespace Tests.EditMode.Controller.InGame
         private GameStartController _controller;
         private MockLazyStartPositionView _lazyStartPositionView;
         private MockLazyPlayerView _lazyPlayerView;
-        private MockJumpCountModel _jumpCountModel;
+        private MockKickCountModel _kickCountModel;
         private MockClearRecordModel _clearRecordModel;
         private MockGoalEventModel _goalEventModel;
         private MockPrimarySceneModel _primarySceneModel;
@@ -136,7 +120,7 @@ namespace Tests.EditMode.Controller.InGame
         {
             _lazyStartPositionView = new MockLazyStartPositionView();
             _lazyPlayerView = new MockLazyPlayerView();
-            _jumpCountModel = new MockJumpCountModel();
+            _kickCountModel = new MockKickCountModel();
             _clearRecordModel = new MockClearRecordModel();
             _goalEventModel = new MockGoalEventModel();
             _primarySceneModel = new MockPrimarySceneModel();
@@ -145,7 +129,7 @@ namespace Tests.EditMode.Controller.InGame
             _controller = new GameStartController(
                 _lazyStartPositionView,
                 _lazyPlayerView,
-                _jumpCountModel,
+                _kickCountModel,
                 _clearRecordModel,
                 _goalEventModel,
                 _primarySceneModel,
@@ -187,7 +171,7 @@ namespace Tests.EditMode.Controller.InGame
             const string sceneKey = "TestScenePath";
             const int jumps = 5;
             _primarySceneModel.SetCurrentScene(sceneKey);
-            for (int i = 0; i < jumps; i++) _jumpCountModel.Inc();
+            for (int i = 0; i < jumps; i++) _kickCountModel.Inc();
 
             _controller.Initialize();
 

@@ -4,21 +4,21 @@ using R3;
 
 namespace Tests.EditMode.Model.Primary
 {
-    public class JumpCountModelTest
+    public class KickCountModelTest
     {
-        private JumpCountModel _model;
+        private KickCountModel _model;
 
         [SetUp]
         public void SetUp()
         {
-            _model = new JumpCountModel();
+            _model = new KickCountModel();
         }
 
         // テストケース1: 初期値は0である
         [Test]
         public void InitialValue_IsZero()
         {
-            Assert.AreEqual(0, _model.JumpCount.CurrentValue);
+            Assert.AreEqual(0, _model.KickCount.CurrentValue);
         }
 
         // テストケース2: Incを呼ぶとカウントが1増える
@@ -29,7 +29,7 @@ namespace Tests.EditMode.Model.Primary
             _model.Inc();
 
             // Assert
-            Assert.AreEqual(1, _model.JumpCount.CurrentValue);
+            Assert.AreEqual(1, _model.KickCount.CurrentValue);
         }
 
         // テストケース3: 複数回Incを呼んでも正しくカウントされる
@@ -42,7 +42,7 @@ namespace Tests.EditMode.Model.Primary
             _model.Inc();
 
             // Assert
-            Assert.AreEqual(3, _model.JumpCount.CurrentValue);
+            Assert.AreEqual(3, _model.KickCount.CurrentValue);
         }
 
         // テストケース4: Resetを呼ぶとカウントが0に戻る
@@ -57,7 +57,7 @@ namespace Tests.EditMode.Model.Primary
             _model.Reset();
 
             // Assert
-            Assert.AreEqual(0, _model.JumpCount.CurrentValue);
+            Assert.AreEqual(0, _model.KickCount.CurrentValue);
         }
 
         // テストケース5: 値の変更が購読者に通知される
@@ -66,7 +66,7 @@ namespace Tests.EditMode.Model.Primary
         {
             // Arrange
             int receivedValue = -1;
-            using var subscription = _model.JumpCount.Subscribe(v => receivedValue = v);
+            using var subscription = _model.KickCount.Subscribe(v => receivedValue = v);
 
             // Act
             _model.Inc();

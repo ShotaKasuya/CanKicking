@@ -1,4 +1,4 @@
-using Interface.InGame.Stage;
+using Interface.View.InGame;
 using Unity.Cinemachine;
 using UnityEngine;
 

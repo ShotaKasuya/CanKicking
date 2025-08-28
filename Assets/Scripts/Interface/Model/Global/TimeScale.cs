@@ -1,6 +1,6 @@
 ﻿using Structure.Global.TimeScale;
 
-namespace Interface.Global.TimeScale;
+namespace Interface.Model.Global;
 
 /// <summary>
 /// 外部のクラスが個のインターフェースを通してtimeScaleを変更する

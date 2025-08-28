@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.Global.Utility;
+using Interface.Logic.Global;
+using Interface.Model.Global;
 using Interface.View.Global;
 using UnityEngine;
 

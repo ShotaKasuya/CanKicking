@@ -1,5 +1,5 @@
-﻿using Interface.Global;
-using Interface.OutGame.StageSelect;
+﻿using Interface.View.Global;
+using Interface.View.OutGame;
 using Module.Option.Runtime;
 using R3;
 using UnityEngine;

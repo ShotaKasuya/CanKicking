@@ -1,9 +1,8 @@
-using Module.Option;
 using Module.Option.Runtime;
 using Structure.Utility;
 using UnityEngine;
 
-namespace Interface.InGame.Player;
+namespace Interface.Model.InGame;
 
 //====================================================================
 // 設定データ
@@ -63,6 +62,6 @@ public interface IPlayerSoundModel
 /// </summary>
 public interface IKickPositionModel
 {
-    public Option<Vector2> PopPosition();
-    public void PushPosition(Vector2 position);
+    public Option<Pose> PopPosition();
+    public void PushPosition(Pose pose);
 }

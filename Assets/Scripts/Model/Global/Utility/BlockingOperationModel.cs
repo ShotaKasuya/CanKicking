@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Interface.Global.Utility;
+using Interface.Model.Global;
 using Module.Option.Runtime;
 using UnityEngine;
 

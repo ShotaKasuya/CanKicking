@@ -1,4 +1,4 @@
-using Interface.InGame.Player;
+using Interface.View.InGame;
 using Structure.InGame.Player;
 using UnityEngine;
 

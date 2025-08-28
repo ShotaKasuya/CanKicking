@@ -1,4 +1,4 @@
-using Interface.Global.Advertisement;
+using Interface.View.Global;
 using UnityEngine;
 
 namespace View.Global.Audio

@@ -1,4 +1,4 @@
-using Interface.Global.Scene;
+using Interface.Model.Global;
 using R3;
 
 namespace Model.Global.Scene

@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.InGame.UserInterface;
+using Interface.View.InGame.UserInterface;
 using Module.FadeContainer.Runtime;
 using Structure.Utility.Extension;
 using UnityEngine;
@@ -16,7 +16,7 @@ namespace View.InGame.UserInterface.Normal
         {
             var fadeTargets = fadeContainer.Targets;
             builder.RegisterInstance(this).AsImplementedInterfaces();
-            foreach (var (targetType, targetTransform)  in fadeTargets)
+            foreach (var targetTransform in fadeTargets)
             {
                 builder.RegisterInstance(targetTransform).AsImplementedInterfaces();
             }

@@ -1,4 +1,4 @@
-using Interface.InGame.Stage;
+using Interface.Model.InGame;
 using R3;
 
 namespace Model.InGame.Stage

@@ -1,15 +1,17 @@
 using System;
 using Controller.InGame.Player;
-using Interface.Global.Utility;
-using Interface.InGame.Player;
 using Cysharp.Threading.Tasks;
-using Interface.Global;
+using Interface.Model.Global;
+using Interface.Model.InGame;
+using Interface.View.Global;
+using Interface.View.InGame;
 using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.Player;
 using Structure.Utility;
+using Tests.EditMode.Mocks;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
@@ -17,36 +19,12 @@ namespace Tests.EditMode.Controller.InGame.Player
     public class IdleControllerTest
     {
         // Mocks
-        private class MockTouchView : ITouchView
-        {
-            public Observable<TouchStartEventArgument> TouchEvent => Observable.Empty<TouchStartEventArgument>();
-            public Option<FingerDraggingInfo> DraggingInfo { get; set; } = Option<FingerDraggingInfo>.None();
-            public Observable<TouchEndEventArgument> TouchEndEvent => Observable.Empty<TouchEndEventArgument>();
-        }
 
         private class MockDoubleTapView : IDoubleTapView
         {
             private readonly Subject<Unit> _doubleTapSubject = new();
             public Observable<Unit> DoubleTapEvent => _doubleTapSubject;
             public void SimulateDoubleTap() => _doubleTapSubject.OnNext(Unit.Default);
-        }
-
-        private class MockPlayerView : IPlayerView
-        {
-            public Transform ModelTransform { get; } = new GameObject().transform;
-            public Vector2 LinearVelocity => Vector2.zero;
-            public float AngularVelocity => 0f;
-            public Observable<Collision2D> CollisionEnterEvent => Observable.Empty<Collision2D>();
-            public Vector2? ResetPositionValue { get; private set; }
-
-            public void Activation(bool isActive)
-            {
-            }
-
-            public void ResetPosition(Vector2 position)
-            {
-                ResetPositionValue = position;
-            }
         }
 
         private class MockRayCasterView : IRayCasterView
@@ -74,44 +52,6 @@ namespace Tests.EditMode.Controller.InGame.Player
             public float Height => Scale.y;
         }
 
-        private class MockKickPositionModel : IKickPositionModel
-        {
-            private Vector2? _positionToPop;
-            public void SetPositionToPop(Vector2? pos) => _positionToPop = pos;
-
-            public Module.Option.Runtime.Option<Vector2> PopPosition() => _positionToPop.HasValue
-                ? Module.Option.Runtime.Option<Vector2>.Some(_positionToPop.Value)
-                : Module.Option.Runtime.Option<Vector2>.None();
-
-            public void PushPosition(Vector2 position)
-            {
-            }
-        }
-
-        private class MockStateEntity : IMutStateEntity<PlayerStateType>
-        {
-            public PlayerStateType CurrentState { get; private set; } = PlayerStateType.Idle;
-            public PlayerStateType EntryState => PlayerStateType.Idle;
-            public Observable<PlayerStateType> StateExitObservable => Observable.Empty<PlayerStateType>();
-            public Observable<PlayerStateType> StateEnterObservable => Observable.Empty<PlayerStateType>();
-
-            public bool IsInState(PlayerStateType state)
-            {
-                return CurrentState == state;
-            }
-
-            public UniTask ChangeState(PlayerStateType next)
-            {
-                CurrentState = next;
-                return UniTask.CompletedTask;
-            }
-
-            public OperationHandle GetStateLock(string context)
-            {
-                return new OperationHandle();
-            }
-        }
-
         private IdleController _controller;
         private MockTouchView _touchView;
         private MockDoubleTapView _doubleTapView;
@@ -121,7 +61,7 @@ namespace Tests.EditMode.Controller.InGame.Player
         private MockPullLimitModel _pullLimitModel;
         private MockScreenScaleModel _screenScaleModel;
         private MockKickPositionModel _kickPositionModel;
-        private MockStateEntity _stateEntity;
+        private MockStateEntity<PlayerStateType> _stateEntity;
         private CompositeDisposable _compositeDisposable;
 
         [SetUp]
@@ -135,7 +75,7 @@ namespace Tests.EditMode.Controller.InGame.Player
             _pullLimitModel = new MockPullLimitModel();
             _screenScaleModel = new MockScreenScaleModel();
             _kickPositionModel = new MockKickPositionModel();
-            _stateEntity = new MockStateEntity();
+            _stateEntity = new MockStateEntity<PlayerStateType>(PlayerStateType.Idle);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new IdleController(
@@ -194,7 +134,8 @@ namespace Tests.EditMode.Controller.InGame.Player
         {
             // Arrange
             var undoPosition = new Vector2(5, 5);
-            _kickPositionModel.SetPositionToPop(undoPosition);
+            var pose = new Pose(undoPosition, Quaternion.identity);
+            _kickPositionModel.SetPositionToPop(pose);
 
             // Act
             _doubleTapView.SimulateDoubleTap();

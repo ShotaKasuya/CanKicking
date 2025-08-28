@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Interface.OutGame.StageSelect;
+using Interface.Model.OutGame;
+using Interface.View.OutGame;
 using VContainer.Unity;
 
 namespace Controller.OutGame.StageSelect;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Interface.Global.Audio;
+namespace Interface.Model.Global;
 
 public interface IBgmModel
 {

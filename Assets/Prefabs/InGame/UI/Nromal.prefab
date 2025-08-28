@@ -896,7 +896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeContainer:
-    fadeDuration: 0.5
+    fadeDuration: 0.25
     fadeTargets:
     - targetType: View.InGame.UserInterface.Normal.StopButtonView, View, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null

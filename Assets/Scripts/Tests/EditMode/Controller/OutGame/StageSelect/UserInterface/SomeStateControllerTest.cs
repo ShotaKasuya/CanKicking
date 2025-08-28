@@ -2,14 +2,15 @@ using System;
 using System.Threading;
 using Controller.OutGame.StageSelect.UserInterface;
 using Cysharp.Threading.Tasks;
-using Interface.Global.Scene;
-using Interface.Global.Utility;
-using Interface.OutGame.StageSelect;
 using Module.Option.Runtime;
 using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using System.Threading.Tasks;
+using Interface.Logic.Global;
+using Interface.Model.Global;
+using Interface.Model.OutGame;
+using Interface.View.OutGame;
 using Structure.OutGame;
 
 namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface

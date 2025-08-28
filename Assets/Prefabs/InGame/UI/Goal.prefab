@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeContainer:
-    fadeDuration: 0.5
+    fadeDuration: 0.25
     fadeTargets:
     - targetType: 
       targetObject: {fileID: 0}

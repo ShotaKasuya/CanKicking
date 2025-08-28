@@ -1,5 +1,5 @@
 using System;
-using Interface.InGame.Player;
+using Interface.View.InGame;
 using R3;
 using R3.Triggers;
 using Structure.InGame.Player;
@@ -39,9 +39,10 @@ namespace View.InGame.Player
             _self.SetActive(isActive);
         }
 
-        public void ResetPosition(Vector2 position)
+        public void ResetPosition(Pose pose)
         {
-            ModelTransform.position = position;
+            ModelTransform.position = pose.position;
+            ModelTransform.rotation = pose.rotation;
             _rigidbody.linearVelocity = Vector2.zero;
         }
 

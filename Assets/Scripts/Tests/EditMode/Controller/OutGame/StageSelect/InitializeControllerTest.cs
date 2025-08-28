@@ -4,7 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Controller.OutGame.StageSelect;
 using Cysharp.Threading.Tasks;
-using Interface.OutGame.StageSelect;
+using Interface.Model.OutGame;
+using Interface.View.OutGame;
 using NUnit.Framework;
 
 namespace Tests.EditMode.Controller.OutGame.StageSelect

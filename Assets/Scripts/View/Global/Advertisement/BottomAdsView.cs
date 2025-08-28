@@ -1,6 +1,6 @@
 using System;
 using GoogleMobileAds.Api;
-using Interface.Global.Advertisement;
+using Interface.View.Global;
 using R3;
 using Structure.Utility.Ads;
 using UnityEngine;

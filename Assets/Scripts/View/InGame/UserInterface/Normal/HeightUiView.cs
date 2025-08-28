@@ -1,11 +1,11 @@
 ﻿using Cysharp.Text;
-using Interface.InGame.UserInterface;
+using Interface.View.InGame.UserInterface;
 using TMPro;
 using UnityEngine;
 
 namespace View.InGame.UserInterface.Normal
 {
-    public class HeightUiView : MonoBehaviour, IHeightUiView, IJumpCountUiView
+    public class HeightUiView : MonoBehaviour, IHeightUiView, IKickCountUiView
     {
         [SerializeField] private TextMeshProUGUI heightText;
 

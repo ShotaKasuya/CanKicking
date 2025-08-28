@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Interface.Global.Scene;
+using Interface.Model.Global;
 using Module.SceneReference;
 using Module.SceneReference.Runtime;
 using UnityEngine;
