@@ -68,7 +68,6 @@ namespace Tests.EditMode.Model.Global.Utility
         {
             // Assert initial state
             // IsEndがtrueのものを探すので、初期状態ではfalseのはず
-            Debug.Log(_model.GetAllOperations());
             Assert.IsFalse(_model.IsAnyBlocked());
 
             // Arrange

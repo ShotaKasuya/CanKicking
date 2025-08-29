@@ -37,6 +37,7 @@ namespace Module.StateMachine
 
         public async UniTask ChangeState(TState next)
         {
+            await UniTask.WaitWhile(StateLock, pool => pool.IsAnyBlocked());
             StateExitSubject.OnNext(CurrentState);
             await UniTask.WaitWhile(StateLock, pool => pool.IsAnyBlocked());
             CurrentState = next;

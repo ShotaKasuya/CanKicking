@@ -4,7 +4,7 @@ using Module.Option.Runtime;
 using Module.StateMachine;
 using R3;
 
-namespace Tests.EditMode.Mocks
+namespace Tests.Mock
 {
     public class MockStateEntity<T> : IMutStateEntity<T> where T : struct, Enum
     {

@@ -2,7 +2,7 @@ using Interface.Model.InGame;
 using Module.Option.Runtime;
 using UnityEngine;
 
-namespace Tests.EditMode.Mocks
+namespace Tests.Mock.InGame.Player
 {
     public class MockKickPositionModel : IKickPositionModel
     {

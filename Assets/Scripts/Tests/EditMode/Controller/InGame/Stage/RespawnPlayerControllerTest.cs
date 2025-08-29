@@ -1,11 +1,9 @@
-
 using Controller.InGame.Stage;
 using Interface.Model.InGame;
 using Interface.View.InGame;
 using Module.Option.Runtime;
 using NUnit.Framework;
-using R3;
-using Tests.EditMode.Mocks;
+using Tests.Mock.InGame.Player;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Stage
@@ -14,9 +12,20 @@ namespace Tests.EditMode.Controller.InGame.Stage
     {
         // Mocks
 
-        private class MockLazyPlayerView : ILazyPlayerView { public OnceCell<IPlayerView> PlayerView { get; } = new(); }
-        private class MockSpawnPositionView : ISpawnPositionView { public Transform StartPosition { get; } = new GameObject().transform; }
-        private class MockFallLineModel : IFallLineModel { public float FallLine { get; set; } = -10f; }
+        private class MockLazyPlayerView : ILazyPlayerView
+        {
+            public OnceCell<IPlayerView> PlayerView { get; } = new();
+        }
+
+        private class MockSpawnPositionView : ISpawnPositionView
+        {
+            public Transform StartPosition { get; } = new GameObject().transform;
+        }
+
+        private class MockFallLineModel : IFallLineModel
+        {
+            public float FallLine { get; set; } = -10f;
+        }
 
         private RespawnPlayerController _controller;
         private MockLazyPlayerView _lazyPlayerView;

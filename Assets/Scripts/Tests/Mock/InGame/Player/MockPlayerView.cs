@@ -3,7 +3,7 @@ using R3;
 using Structure.InGame.Player;
 using UnityEngine;
 
-namespace Tests.EditMode.Mocks
+namespace Tests.Mock.InGame.Player
 {
     public class MockPlayerView : IPlayerView, IPlayerCommandReceiver
     {

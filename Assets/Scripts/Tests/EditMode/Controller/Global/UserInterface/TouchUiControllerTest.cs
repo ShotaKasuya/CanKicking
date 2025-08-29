@@ -1,38 +1,14 @@
-
 using Controller.Global.UserInterface;
-using Cysharp.Threading.Tasks;
-using Interface.View.Global;
-using Module.Option.Runtime;
 using NUnit.Framework;
-using R3;
-using Tests.EditMode.Mocks;
+using Tests.Mock.Controller.Global.UserInterface;
+using Tests.Mock.Global;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.Global.UserInterface
 {
     public class TouchUiControllerTest
     {
-        // Mocks
-
-        private class MockTouchPositionUiView : ITouchPositionUiView
-        {
-            public bool IsFadeInCalled { get; private set; }
-            public bool IsFadeOutCalled { get; private set; }
-            public Vector2? FadeInPosition { get; private set; }
-
-            public UniTask FadeIn(Vector2 screenPosition)
-            {
-                IsFadeInCalled = true;
-                FadeInPosition = screenPosition;
-                return UniTask.CompletedTask;
-            }
-
-            public UniTask FadeOut()
-            {
-                IsFadeOutCalled = true;
-                return UniTask.CompletedTask;
-            }
-        }
+        
 
         private TouchUiController _controller;
         private MockTouchView _touchView;

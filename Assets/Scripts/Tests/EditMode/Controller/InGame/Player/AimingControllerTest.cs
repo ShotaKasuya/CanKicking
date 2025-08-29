@@ -1,25 +1,25 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.Player;
-using Cysharp.Threading.Tasks;
 using Interface.Logic.InGame;
 using Interface.Model.InGame;
 using Interface.View.Global;
 using Interface.View.InGame;
 using Module.Option.Runtime;
-using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.Player;
-using Tests.EditMode.Mocks;
+using Tests.Mock;
+using Tests.Mock.Global;
+using Tests.Mock.InGame.Player;
+using Tests.Mock.InGame.Primary;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
 {
     public class AimingControllerTest
     {
-        // Mocks
-
         private class MockAimView : IAimView
         {
             public Vector2 AimVector { get; private set; }
@@ -117,10 +117,13 @@ namespace Tests.EditMode.Controller.InGame.Player
         public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
-        public void StateUpdate_NoDragging_ChangesStateToIdle()
+        public async Task StateUpdate_NoDragging_ChangesStateToIdle()
         {
             _touchView.DraggingInfo = Option<FingerDraggingInfo>.None();
             _controller.StateUpdate(0.1f);
+
+            await Task.Delay(TimeSpan.FromSeconds(0.25));
+            
             Assert.AreEqual(PlayerStateType.Idle, _stateEntity.CurrentState);
         }
 
@@ -139,7 +142,7 @@ namespace Tests.EditMode.Controller.InGame.Player
         }
 
         [Test]
-        public void Jump_OnTouchEnd_PerformsKickAndChangesState()
+        public async Task Jump_OnTouchEnd_PerformsKickAndChangesState()
         {
             // Arrange
             var touchEndArg = new TouchEndEventArgument(Vector2.zero, new Vector2(100, 0));
@@ -148,6 +151,7 @@ namespace Tests.EditMode.Controller.InGame.Player
 
             // Act
             _touchView.SimulateTouchEnd(touchEndArg);
+            await Task.Delay(TimeSpan.FromSeconds(0.25));
 
             // Assert
             Assert.AreEqual(kickPower * _kickBasePowerModel.KickPower, _canKickView.Direction);

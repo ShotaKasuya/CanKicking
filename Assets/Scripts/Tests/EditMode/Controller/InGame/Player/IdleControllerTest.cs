@@ -1,17 +1,18 @@
 using System;
+using System.Threading.Tasks;
 using Controller.InGame.Player;
-using Cysharp.Threading.Tasks;
 using Interface.Model.Global;
 using Interface.Model.InGame;
 using Interface.View.Global;
 using Interface.View.InGame;
 using Module.Option.Runtime;
-using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.Player;
 using Structure.Utility;
-using Tests.EditMode.Mocks;
+using Tests.Mock;
+using Tests.Mock.Global;
+using Tests.Mock.InGame.Player;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
@@ -100,20 +101,21 @@ namespace Tests.EditMode.Controller.InGame.Player
         }
 
         [Test]
-        public void StateUpdate_NotGrounded_ChangesStateToFrying()
+        public async Task StateUpdate_NotGrounded_ChangesStateToFrying()
         {
             // Arrange
             _rayCasterView.HitsToReturn = Array.Empty<RaycastHit2D>(); // Not grounded
 
             // Act
             _controller.StateUpdate(0.1f);
+            await Task.Delay(TimeSpan.FromSeconds(0.25));
 
             // Assert
             Assert.AreEqual(PlayerStateType.Frying, _stateEntity.CurrentState);
         }
 
         [Test]
-        public void StateUpdate_IsAiming_ChangesStateToAiming()
+        public async Task StateUpdate_IsAiming_ChangesStateToAiming()
         {
             // Arrange
             var hit = new RaycastHit2D { normal = Vector2.up };
@@ -124,6 +126,7 @@ namespace Tests.EditMode.Controller.InGame.Player
 
             // Act
             _controller.StateUpdate(0.1f);
+            await Task.Delay(TimeSpan.FromSeconds(0.25));
 
             // Assert
             Assert.AreEqual(PlayerStateType.Aiming, _stateEntity.CurrentState);

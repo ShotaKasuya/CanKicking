@@ -1,11 +1,14 @@
 {
     "name": "Mocks",
-    "rootNamespace": "Tests.EditMode.Mocks",
+    "rootNamespace": "",
     "references": [
         "GUID:f1052dff81777ca1197906223025d0ca",
         "GUID:8f953d635790a5e529ca6f38acd32b8a",
         "GUID:057b6ea880ed3e133a39ba8babd31b91",
         "GUID:d9627c355e8131a43b3fdb2c5c363bc2",
+        "GUID:656ed7b99c8ff25e396310ddb7059ba7",
+        "GUID:98c5c99b23509dc809cf0d19d1662395",
+        "GUID:f964ea67f8f31d997b36ac39387d3d3b",
         "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [

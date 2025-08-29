@@ -9,7 +9,7 @@ using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.Player;
-using Tests.EditMode.Mocks;
+using Tests.Mock.InGame.Player;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player

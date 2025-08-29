@@ -2,7 +2,7 @@ using Interface.Logic.InGame;
 using Interface.Model.InGame;
 using R3;
 
-namespace Tests.EditMode.Mocks
+namespace Tests.Mock.InGame.Primary
 {
     public class MockKickCountModel : IKickCountModel, IResetable
     {

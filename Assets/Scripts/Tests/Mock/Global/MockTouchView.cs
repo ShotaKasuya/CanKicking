@@ -3,7 +3,7 @@ using Module.Option.Runtime;
 using R3;
 using UnityEngine;
 
-namespace Tests.EditMode.Mocks
+namespace Tests.Mock.Global
 {
     public class MockTouchView : ITouchView
     {

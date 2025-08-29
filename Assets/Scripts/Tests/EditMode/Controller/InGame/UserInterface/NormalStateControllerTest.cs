@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.UserInterface;
 using Cysharp.Threading.Tasks;
-using Interface.Logic.InGame;
 using Interface.Model.InGame;
 using Interface.View.InGame;
 using Interface.View.InGame.UserInterface;
@@ -11,7 +10,8 @@ using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.UserInterface;
-using Tests.EditMode.Mocks;
+using Tests.Mock.InGame.Player;
+using Tests.Mock.InGame.Primary;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.UserInterface

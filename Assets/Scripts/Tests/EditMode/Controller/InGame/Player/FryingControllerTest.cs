@@ -2,18 +2,16 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.Player;
-using Cysharp.Threading.Tasks;
 using Interface.Model.Global;
 using Interface.Model.InGame;
 using Interface.View.InGame;
-using Module.Option.Runtime;
-using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using Structure.Global.TimeScale;
 using Structure.InGame.Player;
 using Structure.Utility;
-using Tests.EditMode.Mocks;
+using Tests.Mock;
+using Tests.Mock.InGame.Player;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
@@ -91,12 +89,13 @@ namespace Tests.EditMode.Controller.InGame.Player
         }
 
         [Test]
-        public void StateUpdate_WhenGrounded_ChangesStateToIdle()
+        public async Task StateUpdate_WhenGrounded_ChangesStateToIdle()
         {
             var hit = new RaycastHit2D { normal = Vector2.up };
             _rayCasterView.HitsToReturn = new[] { hit };
 
             _controller.StateUpdate(0.1f);
+            await Task.Delay(TimeSpan.FromSeconds(0.25));
 
             Assert.AreEqual(PlayerStateType.Idle, _stateEntity.CurrentState);
         }

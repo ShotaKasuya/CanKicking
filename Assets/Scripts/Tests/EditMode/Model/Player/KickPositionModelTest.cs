@@ -40,7 +40,7 @@ namespace Tests.EditMode.Model.Player
 
             // Assert
             Assert.IsTrue(result.IsSome);
-            Assert.AreEqual(position, result.Unwrap());
+            Assert.AreEqual(pose, result.Unwrap());
         }
 
         // テストケース3: 複数回Push/PopしてもLIFO(後入れ先出し)が維持される
@@ -50,15 +50,17 @@ namespace Tests.EditMode.Model.Player
             // Arrange
             var pos1 = new Vector2(1, 1);
             var pos2 = new Vector2(2, 2);
-            _model.PushPosition(new Pose(pos1, Quaternion.identity));
-            _model.PushPosition(new Pose(pos2, Quaternion.identity));
+            var pose1 = new Pose(pos1, Quaternion.identity);
+            var pose2 = new Pose(pos2, Quaternion.identity);
+            _model.PushPosition(pose1);
+            _model.PushPosition(pose2);
 
             // Act & Assert
             var result1 = _model.PopPosition();
-            Assert.AreEqual(pos2, result1.Unwrap());
+            Assert.AreEqual(pose2, result1.Unwrap());
 
             var result2 = _model.PopPosition();
-            Assert.AreEqual(pos1, result2.Unwrap());
+            Assert.AreEqual(pose1, result2.Unwrap());
         }
 
         // テストケース4: Pushした回数以上にはPopできない
@@ -96,7 +98,7 @@ namespace Tests.EditMode.Model.Player
             {
                 var result = _model.PopPosition();
                 Assert.IsTrue(result.IsSome);
-                Assert.AreEqual(new Vector2(i, i), result.Unwrap(), $"Expected value {i}, but was {result.Unwrap()}");
+                Assert.AreEqual(new Pose(new Vector2(i, i), Quaternion.identity), result.Unwrap(), $"Expected value {i}, but was {result.Unwrap()}");
             }
 
             // これ以上PopするとNoneになるはず

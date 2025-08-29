@@ -7,11 +7,10 @@ using R3;
 using UnityEngine;
 using Module.Option.Runtime;
 using Module.SceneReference.Runtime;
-using Interface.Logic.InGame;
 using Interface.Model.Global;
 using Interface.Model.InGame;
 using Interface.View.InGame;
-using Tests.EditMode.Mocks;
+using Tests.Mock.InGame.Primary;
 
 namespace Tests.EditMode.Controller.InGame
 {

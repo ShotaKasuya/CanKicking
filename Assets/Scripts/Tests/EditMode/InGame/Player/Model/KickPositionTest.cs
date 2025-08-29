@@ -26,7 +26,6 @@ namespace Tests.EditMode.InGame.Player.Model
             {
                 var popPosition = kickPositionModel.PopPosition();
                 Assert.IsTrue(popPosition.TryGetValue(out var value));
-                Debug.Log($"position == value: {position} == {value}");
                 Assert.IsTrue(position == new Vector2(value.position.x, value.position.y));
             }
         }
