@@ -16,6 +16,9 @@ public interface IStopUiView
 public interface IPlayButtonView
 {
     public Observable<Unit> Performed { get; }
+
+    public void EnableInteraction();
+    public void DisableInteraction();
 }
 
 /// <summary>
@@ -24,6 +27,9 @@ public interface IPlayButtonView
 public interface IStop_RestartButtonView
 {
     public Observable<string> Performed { get; }
+
+    public void EnableInteraction();
+    public void DisableInteraction();
 }
 
 /// <summary>
@@ -32,4 +38,7 @@ public interface IStop_RestartButtonView
 public interface IStop_StageSelectButtonView
 {
     public Observable<string> Performed { get; }
+
+    public void EnableInteraction();
+    public void DisableInteraction();
 }

@@ -1,14 +1,12 @@
 ﻿using Interface.View.InGame.UserInterface;
 using R3;
-using UnityEngine;
-using UnityEngine.UI;
+using Structure.Utility.Abstraction;
 
 namespace View.InGame.UserInterface.Normal
 {
-    public class StopButtonView : MonoBehaviour, IStopButtonView
+    public class StopButtonView : AbstractButtonView<Unit>, IStopButtonView
     {
-        public Observable<Unit> Performed => stopButton.OnClickAsObservable();
-
-        [SerializeField] private Button stopButton;
+        public Observable<Unit> Performed => ButtonSubject;
+        protected override Unit EventValue => Unit.Default;
     }
 }

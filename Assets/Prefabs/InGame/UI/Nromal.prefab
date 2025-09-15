@@ -591,7 +591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4bfb58ea944046a07478f9efa88692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopButton: {fileID: 7047799647980618233}
 --- !u!1 &3506375624176438142
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,24 +897,35 @@ MonoBehaviour:
   fadeContainer:
     fadeDuration: 0.25
     fadeTargets:
-    - targetType: View.InGame.UserInterface.Normal.StopButtonView, View, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      targetObject: {fileID: 5661647710032279934}
-      fadeTarget: {fileID: 9220602923252570725}
+    - fadeTarget: {fileID: 9220602923252570725}
       fadeInPosition: {fileID: 3272236986934557577}
       fadeOutPosition: {fileID: 8745396265153988459}
-    - targetType: View.InGame.UserInterface.Normal.HeightUiView, View, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      targetObject: {fileID: 8613127744247501216}
-      fadeTarget: {fileID: 6416352926176674468}
+    - fadeTarget: {fileID: 6416352926176674468}
       fadeInPosition: {fileID: 8256779438463507864}
       fadeOutPosition: {fileID: 5680550546463845375}
-    - targetType: View.InGame.UserInterface.Normal.ProgressUiView, View, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      targetObject: {fileID: 6043021814189403335}
-      fadeTarget: {fileID: 637816866307560565}
+    - fadeTarget: {fileID: 637816866307560565}
       fadeInPosition: {fileID: 752935883548190907}
       fadeOutPosition: {fileID: 3195622036176554319}
+  stopButtonView:
+    mode: 0
+    unityReference: {fileID: 5661647710032279934}
+    rawReference:
+      rid: -2
+  kickCountUiView:
+    mode: 0
+    unityReference: {fileID: 8613127744247501216}
+    rawReference:
+      rid: -2
+  progressUiView:
+    mode: 0
+    unityReference: {fileID: 6043021814189403335}
+    rawReference:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &7055980337359769799
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using Interface.Model.InGame;
 using Interface.View.InGame;
 using Module.Option.Runtime;
 using NUnit.Framework;
-using Tests.Mock.InGame.Player;
+using Tests.Mock.InGame;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Stage

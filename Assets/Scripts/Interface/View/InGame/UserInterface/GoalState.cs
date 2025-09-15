@@ -2,21 +2,26 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 
-namespace Interface.View.InGame.UserInterface
+namespace Interface.View.InGame.UserInterface;
+
+public interface IGoalUiView
 {
-    public interface IGoalUiView
-    {
-        public UniTask Show(CancellationToken token);
-        public UniTask Hide(CancellationToken token);
-    }
+    public UniTask Show(CancellationToken token);
+    public UniTask Hide(CancellationToken token);
+}
 
-    public interface IGoal_RestartButtonView
-    {
-        public Observable<string> Performed { get; }
-    }
+public interface IGoal_RestartButtonView
+{
+    public Observable<string> Performed { get; }
 
-    public interface IGoal_StageSelectButtonView
-    {
-        public Observable<string> Performed { get; }
-    }
+    public void EnableInteraction();
+    public void DisableInteraction();
+}
+
+public interface IGoal_StageSelectButtonView
+{
+    public Observable<string> Performed { get; }
+
+    public void EnableInteraction();
+    public void DisableInteraction();
 }

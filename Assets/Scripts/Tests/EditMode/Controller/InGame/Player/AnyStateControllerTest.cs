@@ -1,60 +1,16 @@
-using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.Player;
-using Cysharp.Threading.Tasks;
-using Interface.Model.Global;
-using Interface.Model.InGame;
-using Interface.View.InGame;
-using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.Player;
-using Tests.Mock.InGame.Player;
+using Tests.Mock.Global;
+using Tests.Mock.InGame;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
 {
     public class AnyStateControllerTest
     {
-        // Mocks
-
-        private class MockLazyPlayerView : ILazyPlayerView
-        {
-            public OnceCell<IPlayerView> PlayerView { get; } = new();
-        }
-
-        private class MockSpawnEffectView : ISpawnEffectView
-        {
-            public bool IsInitialized { get; private set; }
-            public int SpawnEffectCallCount { get; private set; }
-
-            public UniTask Initialize(CancellationToken token)
-            {
-                IsInitialized = true;
-                return UniTask.CompletedTask;
-            }
-
-            public UniTask SpawnEffect(Vector2 spawnPoint, Vector2 angle, float duration,
-                CancellationToken cancellationToken)
-            {
-                SpawnEffectCallCount++;
-                return UniTask.CompletedTask;
-            }
-        }
-
-        private class MockEffectSpawnModel : IEffectSpawnModel
-        {
-            public float SpawnThreshold { get; set; } = 5f;
-            public float EffectLength { get; set; } = 1f;
-        }
-
-        private class MockBlockingOperationModel : IBlockingOperationModel
-        {
-            public OperationHandle SpawnOperation(string context) => new OperationHandle();
-            public bool IsAnyBlocked() => false;
-            public System.Collections.Generic.IReadOnlyList<OperationHandle> GetOperationHandles => null;
-        }
-
         private AnyStateController _controller;
         private MockPlayerView _playerView;
         private MockLazyPlayerView _lazyPlayerView;

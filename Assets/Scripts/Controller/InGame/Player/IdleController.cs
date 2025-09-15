@@ -23,8 +23,8 @@ public class IdleController : PlayerStateBehaviourBase, IStartable
         IScreenScaleModel screenScaleModel,
         IKickPositionModel kickPositionModel,
         CompositeDisposable compositeDisposable,
-        IMutStateEntity<PlayerStateType> stateEntity
-    ) : base(PlayerStateType.Idle, stateEntity)
+        IMutStateType<PlayerStateType> innerState
+    ) : base(PlayerStateType.Idle, innerState)
     {
         TouchView = touchView;
         DoubleTapView = doubleTapView;
@@ -59,13 +59,13 @@ public class IdleController : PlayerStateBehaviourBase, IStartable
 
         if (isGround)
         {
-            StateEntity.ChangeState(PlayerStateType.Frying);
+            InnerState.ChangeState(PlayerStateType.Frying);
             return;
         }
 
         if (isAiming)
         {
-            StateEntity.ChangeState(PlayerStateType.Aiming);
+            InnerState.ChangeState(PlayerStateType.Aiming);
         }
     }
 

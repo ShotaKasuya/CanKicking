@@ -2,7 +2,15 @@
 
 ここでは、各プログラムがどのような場所に置かれているかを解説する。
 
+## 前提知識(Assembly Definition)
+
+C#にはアセンブリ定義ファイルというものが存在する。
+
+
+
 ## プログラム関係図
+
+<img src="../images/ProjectMainModuleDependensy.png">
 
 
 
@@ -20,6 +28,7 @@ Assets/Scripts
 └─ Tests
 ```
 ゲーム用プログラム
+```
 ├─ Global
 ├─ InGame
 │   ├─ Player
@@ -28,22 +37,5 @@ Assets/Scripts
 └─ OutGame
 ├─ StageSelect
 └─ Title
+```
 
-
-.
-└── Edit me to generate/
-├── a/
-│   └── nice/
-│       └── tree/
-│           ├── diagram!
-│           └── :)
-└── Use indentation/
-├── to indicate/
-│   ├── file
-│   ├── and
-│   ├── folder
-│   └── nesting.
-└── You can even/
-└── use/
-├── markdown
-└── bullets!

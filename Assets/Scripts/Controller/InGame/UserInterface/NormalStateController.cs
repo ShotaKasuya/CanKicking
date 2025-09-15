@@ -28,8 +28,8 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
         IGoalEventModel goalEventModel,
         IKickCountModel jumpCountModel,
         CompositeDisposable compositeDisposable,
-        IMutStateEntity<UserInterfaceStateType> stateEntity
-    ) : base(UserInterfaceStateType.Normal, stateEntity)
+        IMutAsyncStateType<UserInterfaceStateType> innerState
+    ) : base(UserInterfaceStateType.Normal, innerState)
     {
         NormalUiView = normalUiView;
         PlayerView = playerView;
@@ -71,12 +71,12 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
 
     private void ChangeToGoal()
     {
-        StateEntity.ChangeState(UserInterfaceStateType.Goal);
+        InnerState.ChangeState(UserInterfaceStateType.Goal);
     }
 
     private void ChangeToStop()
     {
-        StateEntity.ChangeState(UserInterfaceStateType.Stop);
+        InnerState.ChangeState(UserInterfaceStateType.Stop);
     }
 
     private const string NormalStateSequence = "NormalState";
@@ -88,7 +88,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
 
     public override async UniTask OnExit(CancellationToken token)
     {
-        using var handle = StateEntity.GetStateLock(NormalStateSequence);
+        using var handle = InnerState.GetStateLock(NormalStateSequence);
         await NormalUiView.Hide(token);
     }
 

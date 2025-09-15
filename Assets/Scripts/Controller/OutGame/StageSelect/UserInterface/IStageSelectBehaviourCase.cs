@@ -11,26 +11,26 @@ namespace Controller.OutGame.StageSelect.UserInterface
     {
         public StageSelectStateMachine
         (
-            IState<StageSelectStateType> state,
-            IReadOnlyList<IStateBehaviour<StageSelectStateType>> behaviourEntities,
+            IStateType<StageSelectStateType> stateType,
+            IReadOnlyList<IAsyncStateBehaviour<StageSelectStateType>> behaviours,
             CompositeDisposable compositeDisposable
-        ) : base(state, behaviourEntities, compositeDisposable)
+        ) : base(stateType, behaviours, compositeDisposable)
         {
         }
     }
 
-    public abstract class StageSelectStateBehaviourBase : StateBehaviour<StageSelectStateType>
+    public abstract class StageSelectStateBehaviourBase : AbstractAsyncStateBehaviour<StageSelectStateType>
     {
         protected StageSelectStateBehaviourBase
         (
             StageSelectStateType stateMask,
-            IMutStateEntity<StageSelectStateType> stateEntity
-        ) : base(stateMask, stateEntity)
+            IMutAsyncStateType<StageSelectStateType> innerState
+        ) : base(stateMask, innerState)
         {
         }
     }
 
-    public class StageSelectState : AbstractStateType<StageSelectStateType>, IResetable
+    public class StageSelectState : AbstractAsyncStateType<StageSelectStateType>, IResetable
     {
         public StageSelectState() : base(StageSelectStateType.None)
         {

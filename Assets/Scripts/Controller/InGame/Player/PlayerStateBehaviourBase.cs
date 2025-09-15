@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using Interface.Logic.InGame;
 using Module.StateMachine;
 using R3;
@@ -10,25 +9,25 @@ namespace Controller.InGame.Player;
 /// <summary>
 /// ステートフルなロジックへの型エイリアス
 /// </summary>
-public class PlayerStateMachine : AbstractAsyncStateMachine<PlayerStateType>
+public class PlayerStateMachine : AbstractStateMachine<PlayerStateType>
 {
     public PlayerStateMachine
     (
-        IState<PlayerStateType> state,
-        IReadOnlyList<IStateBehaviour<PlayerStateType>> behaviourEntities,
+        IStateType<PlayerStateType> stateType,
+        IReadOnlyList<IStateBehaviour<PlayerStateType>> behaviours,
         CompositeDisposable compositeDisposable
-    ) : base(state, behaviourEntities, compositeDisposable)
+    ) : base(stateType, behaviours, compositeDisposable)
     {
     }
 }
 
-public abstract class PlayerStateBehaviourBase : StateBehaviour<PlayerStateType>
+public abstract class PlayerStateBehaviourBase : AbstractStateBehaviour<PlayerStateType>
 {
     protected PlayerStateBehaviourBase
     (
         PlayerStateType playerStateType,
-        IMutStateEntity<PlayerStateType> stateEntity
-    ) : base(playerStateType, stateEntity)
+        IMutStateType<PlayerStateType> innerState
+    ) : base(playerStateType, innerState)
     {
     }
 }
@@ -42,6 +41,6 @@ public class PlayerState : AbstractStateType<PlayerStateType>, IResetable
 
     public void Reset()
     {
-        ChangeState(EntryState).Forget();
+        ChangeState(EntryState);
     }
 }

@@ -1,7 +1,7 @@
 using Controller.Global.UserInterface;
 using NUnit.Framework;
 using R3;
-using Tests.Mock.Controller.Global.UserInterface;
+using Tests.Mock.Global;
 
 namespace Tests.EditMode.Controller.Global.UserInterface
 {

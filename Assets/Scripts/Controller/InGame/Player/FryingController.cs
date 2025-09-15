@@ -1,5 +1,3 @@
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using Interface.Model.Global;
 using Interface.Model.InGame;
 using Interface.View.InGame;
@@ -22,8 +20,8 @@ namespace Controller.InGame.Player
             IGroundDetectionModel groundDetectionModel,
             ITimeScaleModel timeScaleModel,
             CompositeDisposable compositeDisposable,
-            IMutStateEntity<PlayerStateType> stateEntity
-        ) : base(PlayerStateType.Frying, stateEntity)
+            IMutStateType<PlayerStateType> innerState
+        ) : base(PlayerStateType.Frying, innerState)
         {
             PlayerView = playerView;
             RayCasterView = rayCasterView;
@@ -55,7 +53,7 @@ namespace Controller.InGame.Player
 
                 if (isGround)
                 {
-                    StateEntity.ChangeState(PlayerStateType.Idle);
+                    InnerState.ChangeState(PlayerStateType.Idle);
                     return;
                 }
             }
@@ -76,22 +74,20 @@ namespace Controller.InGame.Player
 
                 if (isGround)
                 {
-                    StateEntity.ChangeState(PlayerStateType.Idle);
+                    InnerState.ChangeState(PlayerStateType.Idle);
                     return;
                 }
             }
         }
 
-        public override UniTask OnEnter(CancellationToken token)
+        public override void OnEnter()
         {
             TimeScaleModel.Execute(TimeCommandType.Frying);
-            return UniTask.CompletedTask;
         }
 
-        public override UniTask OnExit(CancellationToken token)
+        public override void OnExit()
         {
             TimeScaleModel.Undo();
-            return UniTask.CompletedTask;
         }
 
         private CompositeDisposable CompositeDisposable { get; }

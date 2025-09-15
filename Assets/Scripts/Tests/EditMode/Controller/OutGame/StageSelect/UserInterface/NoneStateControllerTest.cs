@@ -39,7 +39,7 @@ namespace Tests.EditMode.Controller.OutGame.StageSelect.UserInterface
             public void SetSelectedStage(string scene) => SelectedStage = scene;
         }
 
-        private class MockStateEntity : IMutStateEntity<StageSelectStateType>
+        private class MockStateEntity : IMutAsyncStateType<StageSelectStateType>
         {
             public StageSelectStateType CurrentState { get; private set; }
             public StageSelectStateType EntryState { get; }

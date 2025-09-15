@@ -25,8 +25,8 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
         IGameRestartLogic gameRestartLogic,
         CompositeDisposable compositeDisposable,
         PlayerState playerState,
-        UserInterfaceState stateEntity
-    ) : base(UserInterfaceStateType.Goal, stateEntity)
+        UserInterfaceState innerState
+    ) : base(UserInterfaceStateType.Goal, innerState)
     {
         GoalUiView = goalUiView;
         RestartButtonView = restartButtonView;
@@ -51,7 +51,7 @@ public class GoalStateController : UserInterfaceBehaviourBase, IStartable
 
     public override async UniTask OnEnter(CancellationToken token)
     {
-        await PlayerState.ChangeState(PlayerStateType.Stopping);
+        PlayerState.ChangeState(PlayerStateType.Stopping);
         await GoalUiView.Show(token);
     }
 

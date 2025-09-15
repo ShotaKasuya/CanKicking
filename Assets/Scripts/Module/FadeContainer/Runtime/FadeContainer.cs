@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -13,12 +11,6 @@ namespace Module.FadeContainer.Runtime
     {
         [SerializeField] private float fadeDuration;
         [SerializeField] private FadeEntity[] fadeTargets;
-
-        public IReadOnlyList<FadeEntity> FadeTargets => fadeTargets;
-
-        public IEnumerable<MonoBehaviour> Targets => fadeTargets
-            .Select(x => x.targetObject)
-            .Where(x => x is not null);
 
         public UniTask FadeIn(CancellationToken token)
         {

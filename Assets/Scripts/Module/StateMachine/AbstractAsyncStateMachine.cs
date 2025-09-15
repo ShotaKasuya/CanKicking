@@ -12,12 +12,12 @@ namespace Module.StateMachine
     {
         protected AbstractAsyncStateMachine
         (
-            IState<TState> state,
-            IReadOnlyList<IStateBehaviour<TState>> behaviours,
+            IStateType<TState> stateType,
+            IReadOnlyList<IAsyncStateBehaviour<TState>> behaviours,
             CompositeDisposable compositeDisposable
         )
         {
-            State = state;
+            StateType = stateType;
             Behaviours = behaviours;
             StateSequenceTasks = new List<UniTask>(behaviours.Count);
             Disposable = compositeDisposable;
@@ -25,20 +25,20 @@ namespace Module.StateMachine
 
         public async UniTask StartAsync(CancellationToken cancellation = new CancellationToken())
         {
-            State.StateExitObservable
+            StateType.StateExitObservable
                 .SubscribeAwait(
                     this,
                     (@enum, machine, arg3) => machine.CallOnExit(@enum, arg3),
                     AwaitOperation.Parallel)
                 .AddTo(Disposable);
-            State.StateEnterObservable
+            StateType.StateEnterObservable
                 .SubscribeAwait(
                     this,
                     (@enum, machine, arg3) => machine.CallOnEnter(@enum, arg3),
                     AwaitOperation.Parallel)
                 .AddTo(Disposable);
 
-            var currentState = State.CurrentState;
+            var currentState = StateType.CurrentState;
             await CallOnEnter(currentState, cancellation);
 
             for (int i = 0; i < Behaviours.Count; i++)
@@ -54,7 +54,7 @@ namespace Module.StateMachine
         public void Tick()
         {
             var deltaTime = Time.deltaTime;
-            var currentState = State.CurrentState;
+            var currentState = StateType.CurrentState;
             for (int i = 0; i < Behaviours.Count; i++)
             {
                 var behaviour = Behaviours[i];
@@ -84,7 +84,7 @@ namespace Module.StateMachine
         private async UniTask CallOnExit(TState next, CancellationToken token = new CancellationToken())
         {
             const string stateExit = "State Exit";
-            using var handle = State.GetStateLock(stateExit);
+            using var handle = StateType.GetStateLock(stateExit);
             for (int i = 0; i < Behaviours.Count; i++)
             {
                 var behaviour = Behaviours[i];
@@ -99,8 +99,8 @@ namespace Module.StateMachine
         }
 
         private CompositeDisposable Disposable { get; }
-        private IState<TState> State { get; }
-        private IReadOnlyList<IStateBehaviour<TState>> Behaviours { get; }
+        private IStateType<TState> StateType { get; }
+        private IReadOnlyList<IAsyncStateBehaviour<TState>> Behaviours { get; }
         private List<UniTask> StateSequenceTasks { get; }
     }
 }

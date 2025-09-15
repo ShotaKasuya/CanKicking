@@ -1,7 +1,7 @@
 using Controller.Global.Scene;
 using NUnit.Framework;
 using R3;
-using Tests.Mock.Controller.Global.Scene;
+using Tests.Mock.Global;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -9,8 +9,6 @@ namespace Tests.EditMode.Controller.Global.Scene
 {
     public class ResourceSceneControllerTest
     {
-        
-
         private ResourceSceneController _controller;
         private MockLoadSceneResourcesLogic _loadLogic;
         private MockSceneLoadEventModel _eventModel;

@@ -5,47 +5,17 @@ using Controller.InGame.UserInterface;
 using Cysharp.Threading.Tasks;
 using Interface.Logic.Global;
 using Interface.Logic.InGame;
-using Interface.View.InGame.UserInterface;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.Player;
 using Structure.InGame.UserInterface;
+using Tests.Mock.InGame;
 
 namespace Tests.EditMode.Controller.InGame.UserInterface
 {
     public class GoalStateControllerTest
     {
         // Mocks
-        private class MockGoalUiView : IGoalUiView
-        {
-            public bool IsShown { get; private set; }
-
-            public UniTask Show(CancellationToken token)
-            {
-                IsShown = true;
-                return UniTask.CompletedTask;
-            }
-
-            public UniTask Hide(CancellationToken token)
-            {
-                IsShown = false;
-                return UniTask.CompletedTask;
-            }
-        }
-
-        private class MockRestartButtonView : IGoal_RestartButtonView
-        {
-            private readonly Subject<string> _subject = new();
-            public Observable<string> Performed => _subject;
-            public void SimulateClick(string scene) => _subject.OnNext(scene);
-        }
-
-        private class MockStageSelectButtonView : IGoal_StageSelectButtonView
-        {
-            private readonly Subject<string> _subject = new();
-            public Observable<string> Performed => _subject;
-            public void SimulateClick(string scene) => _subject.OnNext(scene);
-        }
 
         private class MockLoadPrimarySceneLogic : ILoadPrimarySceneLogic
         {

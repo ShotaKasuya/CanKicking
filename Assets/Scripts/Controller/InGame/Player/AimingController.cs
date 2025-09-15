@@ -1,5 +1,3 @@
-using System.Threading;
-using Cysharp.Threading.Tasks;
 using Interface.Logic.InGame;
 using Interface.Model.InGame;
 using Interface.View.Global;
@@ -27,8 +25,8 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         IPlayerSoundModel playerSoundModel,
         ICalcKickPowerLogic calcKickPowerLogic,
         CompositeDisposable compositeDisposable,
-        IMutStateEntity<PlayerStateType> stateEntity
-    ) : base(PlayerStateType.Aiming, stateEntity)
+        IMutStateType<PlayerStateType> innerState
+    ) : base(PlayerStateType.Aiming, innerState)
     {
         TouchView = touchView;
         PlayerView = playerView;
@@ -55,7 +53,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
     {
         if (!TouchView.DraggingInfo.TryGetValue(out var info))
         {
-            StateEntity.ChangeState(PlayerStateType.Idle);
+            InnerState.ChangeState(PlayerStateType.Idle);
             return;
         }
 
@@ -63,23 +61,21 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
 
         if (aimVector == Vector2.zero)
         {
-            StateEntity.ChangeState(PlayerStateType.Idle);
+            InnerState.ChangeState(PlayerStateType.Idle);
             return;
         }
 
         AimView.SetAim(aimVector);
     }
 
-    public override UniTask OnEnter(CancellationToken token)
+    public override void OnEnter()
     {
         AimView.Show();
-        return UniTask.CompletedTask;
     }
 
-    public override UniTask OnExit(CancellationToken token)
+    public override void OnExit()
     {
         AimView.Hide();
-        return UniTask.CompletedTask;
     }
 
     private void Kick(TouchEndEventArgument fingerReleaseInfo)
@@ -94,7 +90,7 @@ public class AimingController : PlayerStateBehaviourBase, IStartable
         CanKickView.Kick(context);
         OnKick();
 
-        StateEntity.ChangeState(PlayerStateType.Frying);
+        InnerState.ChangeState(PlayerStateType.Frying);
     }
 
     private void OnKick()

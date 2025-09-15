@@ -1,6 +1,5 @@
 using Controller.Global.UserInterface;
 using NUnit.Framework;
-using Tests.Mock.Controller.Global.UserInterface;
 using Tests.Mock.Global;
 using UnityEngine;
 
@@ -8,8 +7,6 @@ namespace Tests.EditMode.Controller.Global.UserInterface
 {
     public class TouchUiControllerTest
     {
-        
-
         private TouchUiController _controller;
         private MockTouchView _touchView;
         private MockTouchPositionUiView _touchPositionUiView;

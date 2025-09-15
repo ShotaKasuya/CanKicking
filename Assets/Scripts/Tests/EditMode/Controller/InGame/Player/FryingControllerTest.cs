@@ -1,53 +1,23 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Controller.InGame.Player;
-using Interface.Model.Global;
-using Interface.Model.InGame;
-using Interface.View.InGame;
 using NUnit.Framework;
 using R3;
 using Structure.Global.TimeScale;
 using Structure.InGame.Player;
-using Structure.Utility;
 using Tests.Mock;
-using Tests.Mock.InGame.Player;
+using Tests.Mock.Global;
+using Tests.Mock.InGame;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
 {
     public class FryingControllerTest
     {
-        // Mocks
-
-        private class MockRayCasterView : IRayCasterView
-        {
-            public RaycastHit2D[] HitsToReturn = Array.Empty<RaycastHit2D>();
-            public ReadOnlySpan<RaycastHit2D> PoolRay(RayCastInfo rayCastInfo) => new(HitsToReturn);
-        }
-
-        private class MockGroundDetectionModel : IGroundDetectionModel
-        {
-            public RayCastInfo GroundDetectionInfo => new(Vector2.down, 1f, 1);
-            public float MaxSlope { get; set; } = 45f;
-        }
-
-        private class MockTimeScaleModel : ITimeScaleModel
-        {
-            public TimeCommandType? ExecutedCommand { get; private set; }
-            public bool IsUndoCalled { get; private set; }
-            public bool IsResetCalled { get; private set; }
-            public void Execute(TimeCommandType timeCommand) => ExecutedCommand = timeCommand;
-            public void Undo() => IsUndoCalled = true;
-            public void Reset() => IsResetCalled = true;
-        }
-
         private FryingController _controller;
         private MockPlayerView _playerView;
         private MockRayCasterView _rayCasterView;
         private MockGroundDetectionModel _groundDetectionModel;
         private MockTimeScaleModel _timeScaleModel;
-        private MockStateEntity<PlayerStateType> _stateEntity;
+        private MockPlayerStateEntity _stateEntity;
         private CompositeDisposable _compositeDisposable;
 
         [SetUp]
@@ -57,7 +27,7 @@ namespace Tests.EditMode.Controller.InGame.Player
             _rayCasterView = new MockRayCasterView();
             _groundDetectionModel = new MockGroundDetectionModel();
             _timeScaleModel = new MockTimeScaleModel();
-            _stateEntity = new MockStateEntity<PlayerStateType>(PlayerStateType.Frying);
+            _stateEntity = new MockPlayerStateEntity(PlayerStateType.Frying);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new FryingController(
@@ -75,27 +45,26 @@ namespace Tests.EditMode.Controller.InGame.Player
         public void TearDown() => _compositeDisposable.Dispose();
 
         [Test]
-        public async Task OnEnter_SetsFryingTimeScale()
+        public void OnEnter_SetsFryingTimeScale()
         {
-            await _controller.OnEnter(CancellationToken.None);
+            _controller.OnEnter();
             Assert.AreEqual(TimeCommandType.Frying, _timeScaleModel.ExecutedCommand);
         }
 
         [Test]
-        public async Task OnExit_UndoesTimeScale()
+        public void OnExit_UndoesTimeScale()
         {
-            await _controller.OnExit(CancellationToken.None);
+            _controller.OnExit();
             Assert.IsTrue(_timeScaleModel.IsUndoCalled);
         }
 
         [Test]
-        public async Task StateUpdate_WhenGrounded_ChangesStateToIdle()
+        public void StateUpdate_WhenGrounded_ChangesStateToIdle()
         {
             var hit = new RaycastHit2D { normal = Vector2.up };
             _rayCasterView.HitsToReturn = new[] { hit };
 
             _controller.StateUpdate(0.1f);
-            await Task.Delay(TimeSpan.FromSeconds(0.25));
 
             Assert.AreEqual(PlayerStateType.Idle, _stateEntity.CurrentState);
         }

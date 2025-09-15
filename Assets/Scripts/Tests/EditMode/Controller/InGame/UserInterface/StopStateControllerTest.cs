@@ -2,161 +2,22 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.UserInterface;
-using Cysharp.Threading.Tasks;
-using Interface.Logic.Global;
-using Interface.Logic.InGame;
-using Interface.Model.Global;
-using Interface.View.InGame.UserInterface;
-using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using Structure.Global.TimeScale;
 using Structure.InGame.Player;
-using Module.Option.Runtime;
 using Structure.InGame.UserInterface;
+using Tests.EditMode.Logic.Global;
+using Tests.EditMode.Logic.InGame;
+using Tests.Mock;
+using Tests.Mock.Global;
+using Tests.Mock.InGame;
+using MockUiStateEntity = Tests.Mock.MockUiStateEntity;
 
 namespace Tests.EditMode.Controller.InGame.UserInterface
 {
     public class StopStateControllerTest
     {
-        // Mocks
-        private class MockStopUiView : IStopUiView
-        {
-            public bool IsShown { get; private set; }
-
-            public UniTask Show(CancellationToken token)
-            {
-                IsShown = true;
-                return UniTask.CompletedTask;
-            }
-
-            public UniTask Hide(CancellationToken token)
-            {
-                IsShown = false;
-                return UniTask.CompletedTask;
-            }
-        }
-
-        private class MockPlayButtonView : IPlayButtonView
-        {
-            private readonly Subject<Unit> _subject = new();
-            public Observable<Unit> Performed => _subject;
-            public void SimulateClick() => _subject.OnNext(Unit.Default);
-        }
-
-        private class MockStageSelectButtonView : IStop_StageSelectButtonView
-        {
-            private readonly Subject<string> _subject = new();
-            public Observable<string> Performed => _subject;
-            public void SimulateClick(string scene) => _subject.OnNext(scene);
-        }
-
-        private class MockRestartButtonView : IStop_RestartButtonView
-        {
-            private readonly Subject<string> _subject = new();
-            public Observable<string> Performed => _subject;
-            public void SimulateClick(string scene) => _subject.OnNext(scene);
-        }
-
-        private class MockLoadPrimarySceneLogic : ILoadPrimarySceneLogic
-        {
-            public string CalledScenePath { get; private set; }
-
-            public UniTask ChangeScene(string scenePath)
-            {
-                CalledScenePath = scenePath;
-                return UniTask.CompletedTask;
-            }
-        }
-
-        private class MockTimeScaleModel : ITimeScaleModel
-        {
-            public TimeCommandType? ExecutedCommand { get; private set; }
-            public bool IsUndoCalled { get; private set; }
-            public void Execute(TimeCommandType timeCommand) => ExecutedCommand = timeCommand;
-            public void Undo() => IsUndoCalled = true;
-
-            public void Reset()
-            {
-            }
-        }
-
-        private class MockGameRestartLogic : IGameRestartLogic
-        {
-            public bool IsRestarted { get; private set; }
-            public void RestartGame() => IsRestarted = true;
-        }
-
-        private class MockPlayerStateEntity : IMutStateEntity<PlayerStateType>
-        {
-            public PlayerStateType CurrentState { get; private set; }
-            public PlayerStateType EntryState { get; }
-            public Observable<PlayerStateType> StateExitObservable => _stateExitSubject;
-            public Observable<PlayerStateType> StateEnterObservable => _stateEnterSubject;
-
-            private readonly Subject<PlayerStateType> _stateExitSubject = new();
-            private readonly Subject<PlayerStateType> _stateEnterSubject = new();
-
-            public MockPlayerStateEntity(PlayerStateType initialState)
-            {
-                CurrentState = initialState;
-                EntryState = initialState;
-            }
-
-            public bool IsInState(PlayerStateType state)
-            {
-                return CurrentState == state;
-            }
-
-            public UniTask ChangeState(PlayerStateType next)
-            {
-                _stateExitSubject.OnNext(CurrentState);
-                CurrentState = next;
-                _stateEnterSubject.OnNext(next);
-                return UniTask.CompletedTask;
-            }
-
-            public OperationHandle GetStateLock(string context)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        private class MockUiStateEntity : IMutStateEntity<UserInterfaceStateType>
-        {
-            public UserInterfaceStateType CurrentState { get; private set; }
-            public UserInterfaceStateType EntryState { get; }
-            public Observable<UserInterfaceStateType> StateExitObservable => _stateExitSubject;
-            public Observable<UserInterfaceStateType> StateEnterObservable => _stateEnterSubject;
-
-            private readonly Subject<UserInterfaceStateType> _stateExitSubject = new();
-            private readonly Subject<UserInterfaceStateType> _stateEnterSubject = new();
-
-            public MockUiStateEntity(UserInterfaceStateType initialState)
-            {
-                CurrentState = initialState;
-                EntryState = initialState;
-            }
-
-            public bool IsInState(UserInterfaceStateType state)
-            {
-                return CurrentState == state;
-            }
-
-            public UniTask ChangeState(UserInterfaceStateType next)
-            {
-                _stateExitSubject.OnNext(CurrentState);
-                CurrentState = next;
-                _stateEnterSubject.OnNext(next);
-                return UniTask.CompletedTask;
-            }
-
-            public OperationHandle GetStateLock(string context)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         private StopStateController _controller;
         private MockStopUiView _stopUiView;
         private MockPlayButtonView _playButtonView;
@@ -213,9 +74,10 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         }
 
         [Test]
-        public void OnPlayButtonClick_ChangesStateToNormal()
+        public async Task OnPlayButtonClick_ChangesStateToNormal()
         {
-            _playButtonView.SimulateClick();
+            _playButtonView.SimulateClick(Unit.Default);
+            await Task.Delay(TimeSpan.FromSeconds(0.25));
             Assert.AreEqual(UserInterfaceStateType.Normal, _uiStateEntity.CurrentState);
         }
 

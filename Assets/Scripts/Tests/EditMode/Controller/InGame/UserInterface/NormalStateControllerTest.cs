@@ -1,16 +1,11 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Controller.InGame.UserInterface;
-using Cysharp.Threading.Tasks;
-using Interface.Model.InGame;
-using Interface.View.InGame;
-using Interface.View.InGame.UserInterface;
-using Module.Option.Runtime;
-using Module.StateMachine;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.UserInterface;
-using Tests.Mock.InGame.Player;
+using Tests.Mock.InGame;
 using Tests.Mock.InGame.Primary;
 using UnityEngine;
 
@@ -18,101 +13,6 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
 {
     public class NormalStateControllerTest
     {
-        // Mocks
-        private class MockNormalUiView : INormalUiView
-        {
-            public bool IsShown { get; private set; }
-
-            public UniTask Show(CancellationToken token)
-            {
-                IsShown = true;
-                return UniTask.CompletedTask;
-            }
-
-            public UniTask Hide(CancellationToken token)
-            {
-                IsShown = false;
-                return UniTask.CompletedTask;
-            }
-        }
-
-        private class MockLazyPlayerView : ILazyPlayerView
-        {
-            public OnceCell<IPlayerView> PlayerView { get; } = new();
-        }
-
-        private class MockLazyBaseHeightView : ILazyBaseHeightView
-        {
-            public OnceCell<float> BaseHeight { get; } = new();
-        }
-
-        private class MockLazyGoalHeightView : ILazyGoalHeightView
-        {
-            public OnceCell<float> GoalHeight { get; } = new();
-        }
-
-        private class MockStopButtonView : IStopButtonView
-        {
-            private readonly Subject<Unit> _subject = new();
-            public Observable<Unit> Performed => _subject;
-            public void SimulateClick() => _subject.OnNext(Unit.Default);
-        }
-
-        private class MockProgressUiView : IProgressUiView
-        {
-            public float? Progress { get; private set; }
-            public void SetProgress(float progress) => Progress = progress;
-        }
-
-        private class MockKickCountUiView : IKickCountUiView
-        {
-            public int? Count { get; private set; }
-            public void SetCount(int count) => Count = count;
-        }
-
-        private class MockGoalEventModel : IGoalEventModel
-        {
-            private readonly Subject<Unit> _subject = new();
-            public Observable<Unit> GoalEvent => _subject;
-            public void SimulateGoal() => _subject.OnNext(Unit.Default);
-        }
-
-        private class MockUiStateEntity : IMutStateEntity<UserInterfaceStateType>
-        {
-            public UserInterfaceStateType CurrentState { get; private set; }
-            public UserInterfaceStateType EntryState { get; }
-            public Observable<UserInterfaceStateType> StateExitObservable => _stateExitSubject;
-            public Observable<UserInterfaceStateType> StateEnterObservable => _stateEnterSubject;
-
-            private readonly Subject<UserInterfaceStateType> _stateExitSubject = new();
-            private readonly Subject<UserInterfaceStateType> _stateEnterSubject = new();
-            private readonly OperationPool _operationPool = new OperationPool();
-
-            public MockUiStateEntity(UserInterfaceStateType initialState)
-            {
-                CurrentState = initialState;
-                EntryState = initialState;
-            }
-
-            public bool IsInState(UserInterfaceStateType state)
-            {
-                return CurrentState == state;
-            }
-
-            public UniTask ChangeState(UserInterfaceStateType next)
-            {
-                _stateExitSubject.OnNext(CurrentState);
-                CurrentState = next;
-                _stateEnterSubject.OnNext(next);
-                return UniTask.CompletedTask;
-            }
-
-            public OperationHandle GetStateLock(string context)
-            {
-                return _operationPool.SpawnOperation(context);
-            }
-        }
-
         private NormalStateController _controller;
         private MockNormalUiView _normalUiView;
         private MockLazyPlayerView _lazyPlayerView;
@@ -167,16 +67,18 @@ namespace Tests.EditMode.Controller.InGame.UserInterface
         }
 
         [Test]
-        public void OnStopButtonClick_ChangesStateToStop()
+        public async Task OnStopButtonClick_ChangesStateToStop()
         {
-            _stopButtonView.SimulateClick();
+            _stopButtonView.SimulateClick(Unit.Default);
+            await Task.Delay(TimeSpan.FromSeconds(0.25));
             Assert.AreEqual(UserInterfaceStateType.Stop, _stateEntity.CurrentState);
         }
 
         [Test]
-        public void OnGoalEvent_ChangesStateToGoal()
+        public async Task OnGoalEvent_ChangesStateToGoal()
         {
             _goalEventModel.SimulateGoal();
+            await Task.Delay(TimeSpan.FromSeconds(0.25));
             Assert.AreEqual(UserInterfaceStateType.Goal, _stateEntity.CurrentState);
         }
 

@@ -28,9 +28,9 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
         ITimeScaleModel timeScaleModel,
         IGameRestartLogic gameRestartLogic,
         CompositeDisposable compositeDisposable,
-        IMutStateEntity<PlayerStateType> playerState,
-        IMutStateEntity<UserInterfaceStateType> stateEntity
-    ) : base(UserInterfaceStateType.Stop, stateEntity)
+        IMutStateType<PlayerStateType> playerState,
+        IMutAsyncStateType<UserInterfaceStateType> innerState
+    ) : base(UserInterfaceStateType.Stop, innerState)
     {
         PlayButtonView = playButtonView;
         StageSelectButtonView = stageSelectButtonView;
@@ -61,7 +61,7 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
 
     public override async UniTask OnEnter(CancellationToken token)
     {
-        await PlayerState.ChangeState(PlayerStateType.Stopping);
+        PlayerState.ChangeState(PlayerStateType.Stopping);
         TimeScaleModel.Execute(TimeCommandType.Stop);
         await StopUiView.Show(token);
     }
@@ -69,13 +69,13 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
     public override async UniTask OnExit(CancellationToken token)
     {
         TimeScaleModel.Undo();
-        await PlayerState.ChangeState(PlayerStateType.Idle);
+        PlayerState.ChangeState(PlayerStateType.Idle);
         await StopUiView.Hide(token);
     }
 
     private void Play()
     {
-        StateEntity.ChangeState(UserInterfaceStateType.Normal);
+        InnerState.ChangeState(UserInterfaceStateType.Normal);
     }
 
     private void Load(string sceneName)
@@ -89,7 +89,7 @@ public class StopStateController : UserInterfaceBehaviourBase, IStartable
     }
 
     private CompositeDisposable CompositeDisposable { get; }
-    private IMutStateEntity<PlayerStateType> PlayerState { get; }
+    private IMutStateType<PlayerStateType> PlayerState { get; }
     private IPlayButtonView PlayButtonView { get; }
     private IStopUiView StopUiView { get; }
     private IStop_StageSelectButtonView StageSelectButtonView { get; }

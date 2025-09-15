@@ -1,58 +1,20 @@
 using System;
 using System.Threading.Tasks;
 using Controller.InGame.Player;
-using Interface.Model.Global;
-using Interface.Model.InGame;
 using Interface.View.Global;
-using Interface.View.InGame;
 using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;
 using Structure.InGame.Player;
-using Structure.Utility;
 using Tests.Mock;
 using Tests.Mock.Global;
-using Tests.Mock.InGame.Player;
+using Tests.Mock.InGame;
 using UnityEngine;
 
 namespace Tests.EditMode.Controller.InGame.Player
 {
     public class IdleControllerTest
     {
-        // Mocks
-
-        private class MockDoubleTapView : IDoubleTapView
-        {
-            private readonly Subject<Unit> _doubleTapSubject = new();
-            public Observable<Unit> DoubleTapEvent => _doubleTapSubject;
-            public void SimulateDoubleTap() => _doubleTapSubject.OnNext(Unit.Default);
-        }
-
-        private class MockRayCasterView : IRayCasterView
-        {
-            public RaycastHit2D[] HitsToReturn = Array.Empty<RaycastHit2D>();
-            public ReadOnlySpan<RaycastHit2D> PoolRay(RayCastInfo rayCastInfo) => new(HitsToReturn);
-        }
-
-        private class MockGroundDetectionModel : IGroundDetectionModel
-        {
-            public RayCastInfo GroundDetectionInfo => new(Vector2.down, 1f, 1);
-            public float MaxSlope { get; set; } = 45f;
-        }
-
-        private class MockPullLimitModel : IPullLimitModel
-        {
-            public float CancelRatio { get; set; } = 0.1f;
-            public float MaxRatio { get; set; } = 1.0f;
-        }
-
-        private class MockScreenScaleModel : IScreenScaleModel
-        {
-            public Vector2 Scale { get; set; } = new(1080, 1920);
-            public float Width => Scale.x;
-            public float Height => Scale.y;
-        }
-
         private IdleController _controller;
         private MockTouchView _touchView;
         private MockDoubleTapView _doubleTapView;
@@ -62,7 +24,7 @@ namespace Tests.EditMode.Controller.InGame.Player
         private MockPullLimitModel _pullLimitModel;
         private MockScreenScaleModel _screenScaleModel;
         private MockKickPositionModel _kickPositionModel;
-        private MockStateEntity<PlayerStateType> _stateEntity;
+        private MockPlayerStateEntity _stateEntity;
         private CompositeDisposable _compositeDisposable;
 
         [SetUp]
@@ -76,7 +38,7 @@ namespace Tests.EditMode.Controller.InGame.Player
             _pullLimitModel = new MockPullLimitModel();
             _screenScaleModel = new MockScreenScaleModel();
             _kickPositionModel = new MockKickPositionModel();
-            _stateEntity = new MockStateEntity<PlayerStateType>(PlayerStateType.Idle);
+            _stateEntity = new MockPlayerStateEntity(PlayerStateType.Idle);
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new IdleController(

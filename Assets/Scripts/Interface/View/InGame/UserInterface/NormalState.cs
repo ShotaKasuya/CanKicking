@@ -1,7 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
-using UnityEngine;
 
 namespace Interface.View.InGame.UserInterface;
 
@@ -20,6 +19,9 @@ public interface INormalUiView
 public interface IStopButtonView
 {
     public Observable<Unit> Performed { get; }
+
+    public void EnableInteraction();
+    public void DisableInteraction();
 }
 
 /// <summary>
@@ -44,38 +46,4 @@ public interface IKickCountUiView
 public interface IProgressUiView
 {
     public void SetProgress(float progress);
-}
-
-public interface IPullRangeView
-{
-    public void ShowRange(AimContext aimContext);
-    public void HideRange();
-}
-
-public readonly ref struct AimContext
-{
-    public AimContext
-    (
-        Vector2 startPoint,
-        float cancelRadius,
-        float maxRadius
-    )
-    {
-        StartPoint = startPoint;
-        CancelRadius = cancelRadius;
-        MaxRadius = maxRadius;
-    }
-
-    public Vector2 StartPoint { get; }
-    public float CancelRadius { get; }
-    public float MaxRadius { get; }
-}
-
-/// <summary>
-/// 引っ張りの範囲を表示する
-/// </summary>
-public interface IRangeView
-{
-    public void Set(Vector2 point, float radius);
-    public void Hide();
 }

@@ -267,29 +267,38 @@ MonoBehaviour:
   fadeContainer:
     fadeDuration: 0.25
     fadeTargets:
-    - targetType: 
-      targetObject: {fileID: 0}
-      fadeTarget: {fileID: 1909595237646149202}
+    - fadeTarget: {fileID: 1909595237646149202}
       fadeInPosition: {fileID: 8203880215918620944}
       fadeOutPosition: {fileID: 5149773923761533460}
-    - targetType: View.InGame.UserInterface.Stop.PlayButtonUiView, View, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      targetObject: {fileID: 7011199675195767759}
-      fadeTarget: {fileID: 8859414434771744655}
-      fadeInPosition: {fileID: 2965959374362720098}
-      fadeOutPosition: {fileID: 1334505947447013635}
-    - targetType: View.InGame.UserInterface.Stop.StageSelectButtonView, View, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      targetObject: {fileID: 1579769991074368246}
-      fadeTarget: {fileID: 8591375558717742380}
+    - fadeTarget: {fileID: 8591375558717742380}
       fadeInPosition: {fileID: 2624235105257075759}
       fadeOutPosition: {fileID: 8274121313045025607}
-    - targetType: View.InGame.UserInterface.Stop.RestartButtonView, View, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      targetObject: {fileID: 6864394554646285470}
-      fadeTarget: {fileID: 1743490991318168925}
+    - fadeTarget: {fileID: 8859414434771744655}
+      fadeInPosition: {fileID: 2965959374362720098}
+      fadeOutPosition: {fileID: 1334505947447013635}
+    - fadeTarget: {fileID: 1743490991318168925}
       fadeInPosition: {fileID: 5089556771197948556}
       fadeOutPosition: {fileID: 5208447269667307717}
+  playButtonView:
+    mode: 0
+    unityReference: {fileID: 7011199675195767759}
+    rawReference:
+      rid: -2
+  restartButtonView:
+    mode: 0
+    unityReference: {fileID: 6864394554646285470}
+    rawReference:
+      rid: -2
+  stageSelectButtonView:
+    mode: 0
+    unityReference: {fileID: 1579769991074368246}
+    rawReference:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &1019558573971224416
 GameObject:
   m_ObjectHideFlags: 0

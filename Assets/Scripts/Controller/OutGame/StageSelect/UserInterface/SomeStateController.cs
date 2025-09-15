@@ -22,8 +22,8 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
         ISelectedStageModel selectedStageModel,
         IClearRecordModel clearRecordModel,
         CompositeDisposable compositeDisposable,
-        IMutStateEntity<StageSelectStateType> stateEntity
-    ) : base(StageSelectStateType.Some, stateEntity)
+        IMutAsyncStateType<StageSelectStateType> innerState
+    ) : base(StageSelectStateType.Some, innerState)
     {
         LoadPrimarySceneLogic = loadPrimarySceneLogic;
         StageSelectionView = stageSelectionView;
@@ -55,7 +55,7 @@ public class SomeStateController : StageSelectStateBehaviourBase, IStartable
         var prevSelect = SelectedStageModel.SelectedStage;
         if (!selectedStage.TryGetValue(out var stage))
         {
-            StateEntity.ChangeState(StageSelectStateType.None);
+            InnerState.ChangeState(StageSelectStateType.None);
             return;
         }
 

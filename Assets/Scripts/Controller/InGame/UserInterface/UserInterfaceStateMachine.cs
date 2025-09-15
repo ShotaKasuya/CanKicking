@@ -11,26 +11,26 @@ namespace Controller.InGame.UserInterface
     {
         public UserInterfaceStateMachine
         (
-            IState<UserInterfaceStateType> state,
-            IReadOnlyList<IStateBehaviour<UserInterfaceStateType>> behaviourEntities,
+            IStateType<UserInterfaceStateType> stateType,
+            IReadOnlyList<IAsyncStateBehaviour<UserInterfaceStateType>> behaviourEntities,
             CompositeDisposable compositeDisposable
-        ) : base(state, behaviourEntities, compositeDisposable)
+        ) : base(stateType, behaviourEntities, compositeDisposable)
         {
         }
     }
 
-    public abstract class UserInterfaceBehaviourBase : StateBehaviour<UserInterfaceStateType>
+    public abstract class UserInterfaceBehaviourBase : AbstractAsyncStateBehaviour<UserInterfaceStateType>
     {
         protected UserInterfaceBehaviourBase
         (
             UserInterfaceStateType userInterfaceStateType,
-            IMutStateEntity<UserInterfaceStateType> stateEntity
-        ) : base(userInterfaceStateType, stateEntity)
+            IMutAsyncStateType<UserInterfaceStateType> innerState
+        ) : base(userInterfaceStateType, innerState)
         {
         }
     }
 
-    public class UserInterfaceState : AbstractStateType<UserInterfaceStateType>, IResetable
+    public class UserInterfaceState : AbstractAsyncStateType<UserInterfaceStateType>, IResetable
     {
         public UserInterfaceState() : base(UserInterfaceStateType.Normal)
         {

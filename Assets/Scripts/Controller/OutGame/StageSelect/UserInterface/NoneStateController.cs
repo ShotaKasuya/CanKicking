@@ -18,8 +18,8 @@ public class NoneStateController : StageSelectStateBehaviourBase, IStartable
         ISelectedStageView selectedStageView,
         ISelectedStageModel selectedStageModel,
         CompositeDisposable compositeDisposable,
-        IMutStateEntity<StageSelectStateType> stateEntity
-    ) : base(StageSelectStateType.None, stateEntity)
+        IMutAsyncStateType<StageSelectStateType> innerState
+    ) : base(StageSelectStateType.None, innerState)
     {
         StageSelectionView = stageSelectionView;
         SelectedStageView = selectedStageView;
@@ -52,7 +52,7 @@ public class NoneStateController : StageSelectStateBehaviourBase, IStartable
 
         // FIXME: 待機せずに状態遷移すると、次の状態で同じイベントが起動する
         await UniTask.DelayFrame(1);
-        StateEntity.ChangeState(StageSelectStateType.Some).Forget();
+        InnerState.ChangeState(StageSelectStateType.Some).Forget();
     }
 
     private CompositeDisposable CompositeDisposable { get; }
