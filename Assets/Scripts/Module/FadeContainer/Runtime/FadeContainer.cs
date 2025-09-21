@@ -1,7 +1,8 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 
 namespace Module.FadeContainer.Runtime
@@ -18,8 +19,10 @@ namespace Module.FadeContainer.Runtime
             for (int i = 0; i < fadeTargets.Length; i++)
             {
                 var target = fadeTargets[i];
-                task = target.Target.DOMove(target.FadeInPosition, fadeDuration)
-                    .SetUpdate(true)
+                var targetPosition = target.Target.position;
+                task = LMotion.Create(targetPosition, target.FadeInPosition, fadeDuration)
+                    .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                    .BindToPosition(target.Target)
                     .ToUniTask(cancellationToken: token);
             }
 
@@ -32,8 +35,10 @@ namespace Module.FadeContainer.Runtime
             for (int i = 0; i < fadeTargets.Length; i++)
             {
                 var target = fadeTargets[i];
-                task = target.Target.DOMove(target.FadeOutPosition, fadeDuration)
-                    .SetUpdate(true)
+                var targetPosition = target.Target.position;
+                task = LMotion.Create(target.FadeInPosition, targetPosition, fadeDuration)
+                    .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                    .BindToPosition(target.Target)
                     .ToUniTask(cancellationToken: token);
             }
 

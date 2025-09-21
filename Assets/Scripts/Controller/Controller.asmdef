@@ -9,7 +9,6 @@
         "Option",
         "StateMachine",
         "SceneReference",
-        "ModuleExtension",
         "UniTask",
         "VContainer"
     ],

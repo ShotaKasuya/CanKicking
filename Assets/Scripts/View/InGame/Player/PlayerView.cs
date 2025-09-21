@@ -15,13 +15,14 @@ namespace View.InGame.Player
         public Vector2 LinearVelocity => _rigidbody.linearVelocity;
         public float AngularVelocity => _rigidbody.angularVelocity;
         public Observable<Collision2D> CollisionEnterEvent => this.OnCollisionEnter2DAsObservable();
-        public Observable<PlayerInteractCommand> Stream => CommandSubject;
+
+        public Observable<IPlayerInteractCommand> Stream => CommandSubject;
 
         private GameObject _self;
         private Transform _modelTransform;
         private Rigidbody2D _rigidbody;
         private RaycastHit2D[] _raycastPool;
-        private Subject<PlayerInteractCommand> CommandSubject { get; } = new();
+        private Subject<IPlayerInteractCommand> CommandSubject { get; } = new();
 
         [SerializeField] private int raycastPoolSize;
 
@@ -66,7 +67,7 @@ namespace View.InGame.Player
             return _raycastPool.AsSpan(0, hitCount);
         }
 
-        public void SendCommand(PlayerInteractCommand playerInteractCommand)
+        public void SendCommand(IPlayerInteractCommand playerInteractCommand)
         {
             CommandSubject.OnNext(playerInteractCommand);
         }

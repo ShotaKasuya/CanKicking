@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Interface.View.Global;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -55,18 +56,18 @@ namespace View.Global.UserInterface
 
 
             _selfTransform.anchoredPosition = localPos;
-            await _selfTransform.DOSizeDelta(_defaultSizeDelta, fadeDuration)
-                .SetUpdate(true)
-                .AsyncWaitForCompletion()
-                .AsUniTask();
+            await LMotion.Create(Vector2.zero, _defaultSizeDelta, fadeDuration)
+                .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                .BindToSizeDelta(_selfTransform)
+                .ToUniTask();
         }
 
         public async UniTask FadeOut()
         {
-            await _selfTransform.DOSizeDelta(Vector2.zero, fadeDuration)
-                .SetUpdate(true)
-                .AsyncWaitForCompletion()
-                .AsUniTask();
+            await LMotion.Create(_defaultSizeDelta, Vector2.zero, fadeDuration)
+                .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                .BindToSizeDelta(_selfTransform)
+                .ToUniTask();
             _self.SetActive(false);
         }
     }

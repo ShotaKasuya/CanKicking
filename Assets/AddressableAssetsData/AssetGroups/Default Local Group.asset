@@ -15,8 +15,23 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 7e456cdfb34a27c448fd298fdd9c792f
   m_SerializeEntries:
+  - m_GUID: 07b1c8a60d5388b038c4b7b753bcbf88
+    m_Address: Assets/Scenes/Environment/InGame/Env_Tutorial.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0b84db8e864961d879e9f6f1e66e4ca2
+    m_Address: Assets/Scenes/Primary/InGame/Tutorial.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d25e4c23acd2ddb4907d76bb174b201
     m_Address: Assets/Scenes/UI/OutGame/Ui_StageSelect.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41a550df6652bd255b03a93f134fcb80
+    m_Address: Assets/Scenes/UI/InGame/TutorialUI.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

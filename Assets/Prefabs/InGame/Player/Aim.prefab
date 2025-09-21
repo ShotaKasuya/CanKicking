@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7234490555999142315}
   - component: {fileID: 2717279330998932041}
   - component: {fileID: 6916273397995304620}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,9 +77,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -4346244404228752641, guid: 088d0113804f0034fadf8d0a6f320f03, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -100,4 +100,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d98ba2b9f4584ac96333665a0023c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseScale: {x: 10, y: 0.5}
+  baseScale: {x: 10, y: 1}

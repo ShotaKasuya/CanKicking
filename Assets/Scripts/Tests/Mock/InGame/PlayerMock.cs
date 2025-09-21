@@ -29,7 +29,7 @@ namespace Tests.Mock.InGame
     public class MockPlayerView : IPlayerView, IPlayerCommandReceiver
     {
         private readonly Subject<Collision2D> _collisionSubject = new();
-        private readonly Subject<PlayerInteractCommand> _commandSubject = new();
+        private readonly Subject<IPlayerInteractCommand> _commandSubject = new();
 
         public Transform ModelTransform { get; } = new GameObject("MockPlayer").transform;
         public Vector2 LinearVelocity { get; set; }
@@ -53,8 +53,8 @@ namespace Tests.Mock.InGame
         public void SimulateCollision(Collision2D collision) => _collisionSubject.OnNext(collision);
 
         // IPlayerCommandReceiver
-        public void SendCommand(PlayerInteractCommand command) => _commandSubject.OnNext(command);
-        public Observable<PlayerInteractCommand> Stream => _commandSubject;
+        public void SendCommand(IPlayerInteractCommand command) => _commandSubject.OnNext(command);
+        public Observable<IPlayerInteractCommand> Stream => _commandSubject;
     }
 
     public class MockAimView : IAimView

@@ -72,7 +72,7 @@ namespace Tests.EditMode.Controller.InGame.Player
             var pose = new Pose(undoPosition, Quaternion.identity);
             _kickPositionModel.SetPositionToPop(pose);
 
-            _playerView.SendCommand(new PlayerInteractCommand(CommandType.Undo));
+            _playerView.SendCommand(new PlayerUndoCommand());
 
             Assert.AreEqual(undoPosition, _playerView.ResetPositionValue);
         }

@@ -18,8 +18,8 @@ namespace View.InGame.UserInterface.Goal
         public void Register(IContainerBuilder builder)
         {
             builder.RegisterInstance(this).AsImplementedInterfaces();
-            builder.RegisterInstance(restartButtonView).AsImplementedInterfaces();
-            builder.RegisterInstance(stageSelectButtonView).AsImplementedInterfaces();
+            builder.RegisterInstance(restartButtonView.Value);
+            builder.RegisterInstance(stageSelectButtonView.Value);
         }
 
         public async UniTask Show(CancellationToken token)

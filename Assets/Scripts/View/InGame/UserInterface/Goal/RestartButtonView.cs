@@ -1,8 +1,7 @@
 ﻿using Interface.View.InGame.UserInterface;
 using R3;
-using Structure.Utility.Abstraction;
 using UnityEngine.SceneManagement;
-using View.InGame.UserInterface.Stop;
+using View.Utility;
 
 namespace View.InGame.UserInterface.Goal
 {

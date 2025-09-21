@@ -4,7 +4,7 @@ using Logic.InGame.Player;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Tests.EditMode.Logic.Player
+namespace Tests.EditMode.Logic.InGame.Player
 {
     // テスト用のモッククラスを定義
     public class ScreenScaleModelMock : IScreenScaleModel

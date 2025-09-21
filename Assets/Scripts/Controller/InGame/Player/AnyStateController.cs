@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interface.Model.Global;
@@ -33,11 +32,6 @@ public class AnyStateController : IAsyncStartable
         KickPositionModel = kickPositionModel;
         BlockingOperationModel = blockingOperationModel;
         CompositeDisposable = compositeDisposable;
-
-        CommandResolver = new[]
-        {
-            UndoResolver
-        };
     }
 
     public async UniTask StartAsync(CancellationToken cancellation = new CancellationToken())
@@ -89,21 +83,23 @@ public class AnyStateController : IAsyncStartable
         return lastTask;
     }
 
-    private void CommandTrampoline(PlayerInteractCommand command)
+    private void CommandTrampoline(IPlayerInteractCommand command)
     {
-        CommandResolver[(int)command.Type](this, command);
+        switch (command)
+        {
+            case PlayerUndoCommand:
+                ResolveUndo();
+                break;
+        }
     }
 
-    private static Unit UndoResolver(AnyStateController self, PlayerInteractCommand command)
+    private void ResolveUndo()
     {
-        var prevPosition = self.KickPositionModel.PopPosition().Unwrap();
-        self.PlayerView.ResetPosition(prevPosition);
-
-        return Unit.Default;
+        var prevPosition = KickPositionModel.PopPosition().Unwrap();
+        PlayerView.ResetPosition(prevPosition);
     }
 
     private CompositeDisposable CompositeDisposable { get; }
-    private Func<AnyStateController, PlayerInteractCommand, Unit>[] CommandResolver { get; }
     private IPlayerCommandReceiver CommandReceiver { get; }
     private IPlayerView PlayerView { get; }
     private ILazyPlayerView LazyPlayerView { get; }

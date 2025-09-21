@@ -1,6 +1,8 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Interface.View.Global;
+using LitMotion;
+using LitMotion.Extensions;
 using Structure.Utility.Extension;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,19 +23,23 @@ namespace View.Global.UserInterface
             _panel = GetComponent<Image>();
         }
 
-        public async UniTask ShowPanel()
+        public async UniTask ShowPanel(CancellationToken cancellationToken = new CancellationToken())
         {
+            var current = _panel.fillAmount;
             _panel.enabled = true;
             _panel.SetHorizontal(Extension.HorizontalOrigin.Left);
-            await _panel.DOFillAmount(Filled, fadeDuration)
-                .AsyncWaitForCompletion().AsUniTask();
+            await LMotion.Create(current, Filled, fadeDuration)
+                .BindToFillAmount(_panel)
+                .ToUniTask(cancellationToken);
         }
 
-        public async UniTask HidePanel()
+        public async UniTask HidePanel(CancellationToken cancellationToken = new CancellationToken())
         {
+            var current = _panel.fillAmount;
             _panel.SetHorizontal(Extension.HorizontalOrigin.Right);
-            await _panel.DOFillAmount(Empty, fadeDuration)
-                .AsyncWaitForCompletion().AsUniTask();
+            await LMotion.Create(current, Empty, fadeDuration)
+                .BindToFillAmount(_panel)
+                .ToUniTask(cancellationToken);
             _panel.enabled = false;
         }
     }

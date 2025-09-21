@@ -2,7 +2,7 @@ using Model.InGame.Player;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Tests.EditMode.Model.Player
+namespace Tests.EditMode.Model.InGame.Player
 {
     public class KickPositionModelTest
     {

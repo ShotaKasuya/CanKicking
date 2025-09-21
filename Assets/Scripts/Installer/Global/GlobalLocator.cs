@@ -1,7 +1,6 @@
 using System;
 using Controller.Global;
 using Controller.Global.UserInterface;
-using GoogleMobileAds.Api;
 using Logic.Global.Scene;
 using Model.Global;
 using Model.Global.SaveData;
@@ -14,6 +13,7 @@ using VContainer.Unity;
 using View.Global.Advertisement;
 using View.Global.Audio;
 using View.Global.Input;
+using View.Global.SaveData;
 using View.Global.Scene;
 using View.Global.UserInterface;
 
@@ -40,6 +40,8 @@ namespace Installer.Global
                 .As<CompositeDisposable, IDisposable>();
 
             // View
+            builder.Register<SaveLoadUserDataView>(Lifetime.Singleton).AsImplementedInterfaces();
+            // builder.Register<SaveLoadStageDataView>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneLoaderView>(Lifetime.Transient).AsImplementedInterfaces();
             builder.Register<BottomAdsView>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(timeScaleModel).AsImplementedInterfaces();

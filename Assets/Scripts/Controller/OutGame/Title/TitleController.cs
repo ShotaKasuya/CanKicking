@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interface.Logic.Global;
 using Interface.Model.OutGame;
@@ -26,14 +27,14 @@ public class TitleController : IStartable
     public void Start()
     {
         TouchView.TouchEvent
-            .Subscribe(this, (_, controller) => controller.StartGame())
+            .SubscribeAwait(this, (_, controller, _) => controller.StartGame())
             .AddTo(CompositeDisposable);
     }
 
-    private void StartGame()
+    private UniTask StartGame()
     {
         var scene = StartSceneModel.GetStartSceneName();
-        LoadPrimarySceneLogic.ChangeScene(scene).Forget();
+        return LoadPrimarySceneLogic.ChangeScene(scene);
     }
 
     private CompositeDisposable CompositeDisposable { get; }

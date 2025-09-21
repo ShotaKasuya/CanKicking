@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2948cac704d0489c8236b8c1cd8cb3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  innerButton: {fileID: 3065849399180156266}
 --- !u!1 &1847560103411571969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,6 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ab822c820840f6a7931f57bf588cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  innerButton: {fileID: 7455739087249876090}
   sceneField:
     sceneAsset: {fileID: 102900000, guid: 8d02e600a5ca914f8a3d4687ff26ee17, type: 3}
     scenePath: Assets/Scenes/Primary/OutGame/StageSelect.unity

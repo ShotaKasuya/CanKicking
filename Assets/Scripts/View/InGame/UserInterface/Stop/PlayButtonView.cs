@@ -1,6 +1,6 @@
 ﻿using Interface.View.InGame.UserInterface;
 using R3;
-using Structure.Utility.Abstraction;
+using View.Utility;
 
 namespace View.InGame.UserInterface.Stop
 {

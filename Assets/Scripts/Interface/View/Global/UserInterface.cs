@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -17,6 +18,6 @@ public interface ITouchPositionUiView
 /// </summary>
 public interface ILoadingPanelView
 {
-    public UniTask ShowPanel();
-    public UniTask HidePanel();
+    public UniTask ShowPanel(CancellationToken cancellationToken = new CancellationToken());
+    public UniTask HidePanel(CancellationToken cancellationToken = new CancellationToken());
 }

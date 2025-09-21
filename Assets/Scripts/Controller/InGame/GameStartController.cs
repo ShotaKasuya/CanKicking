@@ -4,6 +4,7 @@ using Interface.Model.Global;
 using Interface.Model.InGame;
 using Interface.View.InGame;
 using R3;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace Controller.InGame;
@@ -63,6 +64,7 @@ public class GameStartController : IInitializable, IResetable
         playerView.Activation(false);
 
         playerView.ModelTransform.position = startPosition.StartPosition.position;
+        playerView.ModelTransform.rotation = Quaternion.identity;
 
         playerView.Activation(true);
     }

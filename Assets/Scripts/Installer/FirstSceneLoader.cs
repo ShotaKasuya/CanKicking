@@ -13,22 +13,5 @@ namespace Installer
     {
         [SerializeField] private SceneField sceneField;
 
-        private void Start()
-        {
-            Load().Forget();
-        }
-
-        private async UniTask Load()
-        {
-            var loadLogic = Container.Resolve<ILoadPrimarySceneLogic>();
-            var primarySceneModel = Container.Resolve<IPrimarySceneModel>();
-
-            primarySceneModel.ToggleCurrentScene(SceneContext.SceneManagerContext(
-                null,
-                SceneManager.GetActiveScene().path
-            ));
-
-            await loadLogic.ChangeScene(sceneField);
-        }
     }
 }

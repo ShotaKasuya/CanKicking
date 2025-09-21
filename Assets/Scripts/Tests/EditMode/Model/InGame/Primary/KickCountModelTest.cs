@@ -2,7 +2,7 @@ using Model.InGame.Primary;
 using NUnit.Framework;
 using R3;
 
-namespace Tests.EditMode.Model.Primary
+namespace Tests.EditMode.Model.InGame.Primary
 {
     public class KickCountModelTest
     {

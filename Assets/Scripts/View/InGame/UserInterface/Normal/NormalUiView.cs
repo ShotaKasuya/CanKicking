@@ -19,9 +19,9 @@ namespace View.InGame.UserInterface.Normal
         public void Register(IContainerBuilder builder)
         {
             builder.RegisterInstance(this).AsImplementedInterfaces();
-            builder.RegisterInstance(stopButtonView).AsImplementedInterfaces();
-            builder.RegisterInstance(kickCountUiView).AsImplementedInterfaces();
-            builder.RegisterInstance(progressUiView).AsImplementedInterfaces();
+            builder.RegisterInstance(stopButtonView.Value);
+            builder.RegisterInstance(kickCountUiView.Value);
+            builder.RegisterInstance(progressUiView.Value);
         }
 
         public async UniTask Show(CancellationToken token)

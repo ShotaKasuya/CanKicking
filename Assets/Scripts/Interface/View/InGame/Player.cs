@@ -38,9 +38,9 @@ public interface IAimView
 /// </summary>
 public interface IPlayerCommandReceiver
 {
-    public void SendCommand(PlayerInteractCommand playerInteractCommand);
+    public void SendCommand(IPlayerInteractCommand playerInteractCommand);
     
-    public Observable<PlayerInteractCommand> Stream { get; } 
+    public Observable<IPlayerInteractCommand> Stream { get; } 
 }
 
 /// <summary>

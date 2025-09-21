@@ -18,11 +18,10 @@ namespace View.InGame.UserInterface.Stop
 
         public void Register(IContainerBuilder builder)
         {
-            Debug.Log("VAR");
             builder.RegisterInstance(this).AsImplementedInterfaces();
-            builder.RegisterInstance(playButtonView.Value).AsImplementedInterfaces();
-            builder.RegisterInstance(restartButtonView.Value).AsImplementedInterfaces();
-            builder.RegisterInstance(stageSelectButtonView.Value).AsImplementedInterfaces();
+            builder.RegisterInstance(playButtonView.Value);
+            builder.RegisterInstance(restartButtonView.Value);
+            builder.RegisterInstance(stageSelectButtonView.Value);
         }
 
         public async UniTask Show(CancellationToken token)

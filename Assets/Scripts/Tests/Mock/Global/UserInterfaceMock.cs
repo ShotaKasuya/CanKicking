@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interface.Model.Global;
 using Interface.View.Global;
@@ -31,13 +32,13 @@ namespace Tests.Mock.Global
         public bool IsShowPanelCalled { get; private set; }
         public bool IsHidePanelCalled { get; private set; }
 
-        public UniTask ShowPanel()
+        public UniTask ShowPanel(CancellationToken cancellationToken = new CancellationToken())
         {
             IsShowPanelCalled = true;
             return UniTask.CompletedTask;
         }
 
-        public UniTask HidePanel()
+        public UniTask HidePanel(CancellationToken cancellationToken = new CancellationToken())
         {
             IsHidePanelCalled = true;
             return UniTask.CompletedTask;
