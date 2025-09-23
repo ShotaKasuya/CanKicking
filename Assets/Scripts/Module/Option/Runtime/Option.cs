@@ -34,6 +34,12 @@ namespace Module.Option.Runtime
             return value!;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Option<TMap> Map<TMap>(Func<T, TMap> convert)
+        {
+            return Option<TMap>.Some(convert(Unwrap()));
+        }
+
         public bool IsSome => isSome;
         public bool IsNone => !isSome;
 

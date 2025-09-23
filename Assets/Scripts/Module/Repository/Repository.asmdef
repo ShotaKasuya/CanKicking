@@ -1,12 +1,11 @@
 {
-    "name": "FadeContainer.Editor",
+    "name": "Repository",
     "rootNamespace": "",
     "references": [
-        "GUID:246865f11b496832fb41228e07b96667"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:057b6ea880ed3e133a39ba8babd31b91"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

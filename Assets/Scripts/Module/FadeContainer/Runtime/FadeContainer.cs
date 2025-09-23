@@ -19,8 +19,7 @@ namespace Module.FadeContainer.Runtime
             for (int i = 0; i < fadeTargets.Length; i++)
             {
                 var target = fadeTargets[i];
-                var targetPosition = target.Target.position;
-                task = LMotion.Create(targetPosition, target.FadeInPosition, fadeDuration)
+                task = LMotion.Create(target.FadeOutPosition, target.FadeInPosition, fadeDuration)
                     .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
                     .BindToPosition(target.Target)
                     .ToUniTask(cancellationToken: token);
@@ -35,8 +34,7 @@ namespace Module.FadeContainer.Runtime
             for (int i = 0; i < fadeTargets.Length; i++)
             {
                 var target = fadeTargets[i];
-                var targetPosition = target.Target.position;
-                task = LMotion.Create(target.FadeInPosition, targetPosition, fadeDuration)
+                task = LMotion.Create(target.FadeInPosition, target.FadeOutPosition, fadeDuration)
                     .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
                     .BindToPosition(target.Target)
                     .ToUniTask(cancellationToken: token);

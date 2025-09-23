@@ -79,7 +79,7 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
         InnerState.ChangeState(UserInterfaceStateType.Stop);
     }
 
-    private const string NormalStateSequence = "NormalState";
+    // private const string NormalStateSequence = "NormalState";
 
     public override async UniTask OnEnter(CancellationToken token)
     {
@@ -88,7 +88,6 @@ public class NormalStateController : UserInterfaceBehaviourBase, IStartable
 
     public override async UniTask OnExit(CancellationToken token)
     {
-        using var handle = InnerState.GetStateLock(NormalStateSequence);
         await NormalUiView.Hide(token);
     }
 

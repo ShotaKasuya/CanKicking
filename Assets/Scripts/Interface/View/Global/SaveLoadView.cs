@@ -2,12 +2,12 @@ using Cysharp.Threading.Tasks;
 
 namespace Interface.View.Global;
 
-public interface ISaveView<in T>
+public interface IRepositoryReader<in T>
 {
     public UniTask Save(T data);
 }
 
-public interface ILoadView<T>
+public interface IRepositoryWriter<T>
 {
     public UniTask<T> Load();
 }

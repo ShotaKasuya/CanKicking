@@ -1,12 +1,69 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Cysharp.Threading.Tasks;
+using Interface.Model.Global;
 using MessagePack;
+using Module.Option.Runtime;
+using Module.SaveLoader;
 using Structure.Global;
 using Structure.InGame.Stage;
 using UnityEngine;
 
-namespace View.Utility
+namespace Model.Global.SaveData
 {
+    public class GameStateModel : IGameStateModel, IRepositoryFlushModel
+    {
+        public GameStateModel
+        (
+            IRepositoryWriter<UserStateDto> userStateWriter,
+            IRepositoryReader<UserStateDto> userStateReader
+        )
+        {
+            UserStateWriter = userStateWriter;
+            UserStateReader = userStateReader;
+            _userState = Option<UserState>.None();
+        }
+
+        private const string UserStateFile = "UserState.sav";
+
+        public async UniTask Initialize()
+        {
+            var result = await UserStateReader.Read(UserStateFile);
+
+            if (result.IsNone)
+            {
+                _userState = result.Map(Extension.Convert);
+            }
+            else
+            {
+                _userState = Option<UserState>.Some(new UserState(
+                    GameState.Tutorial,
+                    string.Empty,
+                    new Dictionary<string, StageProgressData>()
+                ));
+            }
+        }
+
+        public UniTask Flush()
+        {
+            return UserStateWriter.Write(UserStateFile, _userState.Unwrap().Convert());
+        }
+
+        // 初期化前にアクセスしたらエラー
+        public GameState GameState => _userState.Unwrap().GameState;
+        public string ClearedStageName => _userState.Unwrap().ClearedStageName;
+        public Dictionary<string, StageProgressData> ProgressData => _userState.Unwrap().ProgressData;
+
+        private Option<UserState> _userState;
+
+        private IRepositoryWriter<UserStateDto> UserStateWriter { get; }
+        private IRepositoryReader<UserStateDto> UserStateReader { get; }
+    }
+
+    public class UserStateRepository : MessagePackRepository<UserStateDto>
+    {
+    }
+
     /// <summary>
     /// ゲーム開始時、最初に読み込まれる。
     /// このデータを参照して

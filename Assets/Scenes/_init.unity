@@ -304,9 +304,13 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  sceneField:
-    sceneAsset: {fileID: 102900000, guid: 89b1521508f0ffc01a8903806ad0ee97, type: 3}
-    scenePath: Assets/Scenes/Primary/OutGame/Title.unity
+  entrySceneModel:
+    titleScene:
+      sceneAsset: {fileID: 102900000, guid: 89b1521508f0ffc01a8903806ad0ee97, type: 3}
+      scenePath: Assets/Scenes/Primary/OutGame/Title.unity
+    tutorialScene:
+      sceneAsset: {fileID: 102900000, guid: 0b84db8e864961d879e9f6f1e66e4ca2, type: 3}
+      scenePath: Assets/Scenes/Primary/InGame/Tutorial.unity
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

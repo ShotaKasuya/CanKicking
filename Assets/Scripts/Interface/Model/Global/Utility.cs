@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Module.Option.Runtime;
+using Structure.Global;
 using UnityEngine;
 
 namespace Interface.Model.Global;
@@ -32,4 +34,26 @@ public interface IClearRecordModel
 {
     public void Save(string key, int jumpCount);
     public Option<int> Load(string key);
+}
+
+public interface IRepositoryFlushModel
+{
+    public UniTask Flush();
+}
+
+//====================================================================
+// Primary Data
+//====================================================================
+
+public interface IGameStateModel
+{
+    public UniTask Initialize();
+    public GameState GameState { get; }
+
+    /// <summary>
+    /// `PlayerState`が`StageCleared`の場合にクリアしたステージが保存される
+    /// </summary>
+    public string ClearedStageName { get; }
+
+    public Dictionary<string, StageProgressData> ProgressData { get; }
 }

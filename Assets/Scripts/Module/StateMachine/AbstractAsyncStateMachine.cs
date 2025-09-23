@@ -68,6 +68,8 @@ namespace Module.StateMachine
 
         private async UniTask CallOnEnter(TState prev, CancellationToken token = new CancellationToken())
         {
+            const string stateEnter = "State Enter";
+            using var handle = StateType.GetStateLock(stateEnter);
             for (int i = 0; i < Behaviours.Count; i++)
             {
                 var behaviour = Behaviours[i];

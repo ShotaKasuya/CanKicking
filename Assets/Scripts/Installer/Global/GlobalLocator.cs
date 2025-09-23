@@ -13,7 +13,6 @@ using VContainer.Unity;
 using View.Global.Advertisement;
 using View.Global.Audio;
 using View.Global.Input;
-using View.Global.SaveData;
 using View.Global.Scene;
 using View.Global.UserInterface;
 
@@ -36,12 +35,11 @@ namespace Installer.Global
             // Utility
             builder.Register<InputSystem_Actions>(Lifetime.Singleton);
             builder.Register<GlobalInputView>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<UserStateRepository>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register(_ => new CompositeDisposable(), Lifetime.Scoped)
                 .As<CompositeDisposable, IDisposable>();
 
             // View
-            builder.Register<SaveLoadUserDataView>(Lifetime.Singleton).AsImplementedInterfaces();
-            // builder.Register<SaveLoadStageDataView>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<SceneLoaderView>(Lifetime.Transient).AsImplementedInterfaces();
             builder.Register<BottomAdsView>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterInstance(timeScaleModel).AsImplementedInterfaces();
@@ -56,6 +54,7 @@ namespace Installer.Global
             builder.Register<SceneLoadEventModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<BlockingOperationModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PrimarySceneModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<GameStateModel>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<ClearRecordModel>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Logic

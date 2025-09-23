@@ -468,6 +468,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.yujiap.unity-toolbar-extension": {
+      "version": "https://github.com/Yusuke57/UnityToolbarExtension.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4a8cec6d056e7673ce19d892d2bee1129ad33044"
+    },
     "jp.hadashikick.vcontainer": {
       "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.16.8",
       "depth": 0,

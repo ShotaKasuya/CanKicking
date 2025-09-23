@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using Interface.Logic.Global;
 using Interface.Model.Global;
 using Interface.Model.OutGame;
-using Interface.View.Global;
 using Module.SceneReference.Runtime;
 using Structure.Global;
 using UnityEngine.SceneManagement;
@@ -16,15 +15,15 @@ public class FirstSceneController : IAsyncStartable
     public FirstSceneController
     (
         ILoadPrimarySceneLogic loadPrimarySceneLogic,
-        ILoadView<UserState> loadView,
         IPrimarySceneModel primarySceneModel,
-        IEntrySceneModel entrySceneModel
+        IEntrySceneModel entrySceneModel,
+        IGameStateModel gameStateModel
     )
     {
         LoadPrimarySceneLogic = loadPrimarySceneLogic;
-        LoadView = loadView;
         PrimarySceneModel = primarySceneModel;
         EntrySceneModel = entrySceneModel;
+        GameStateModel = gameStateModel;
     }
 
     public async UniTask StartAsync(CancellationToken cancellation = new CancellationToken())
@@ -34,9 +33,10 @@ public class FirstSceneController : IAsyncStartable
             SceneManager.GetActiveScene().path
         ));
 
-        var userState = await LoadView.Load();
+        await GameStateModel.Initialize();
+        var gameState = GameStateModel.GameState;
 
-        if (userState.GameState == GameState.Tutorial)
+        if (gameState == GameState.Tutorial)
         {
             await LoadPrimarySceneLogic.ChangeScene(EntrySceneModel.TutorialScene);
             return;
@@ -46,7 +46,7 @@ public class FirstSceneController : IAsyncStartable
     }
 
     private ILoadPrimarySceneLogic LoadPrimarySceneLogic { get; }
-    private ILoadView<UserState> LoadView { get; }
     private IPrimarySceneModel PrimarySceneModel { get; }
     private IEntrySceneModel EntrySceneModel { get; }
+    private IGameStateModel GameStateModel { get; }
 }
