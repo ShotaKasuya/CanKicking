@@ -48,6 +48,7 @@ public interface IRepositoryFlushModel
 public interface IGameStateModel
 {
     public UniTask Initialize();
+    public void UpdateGameState(GameState gameState);
     public GameState GameState { get; }
 
     /// <summary>

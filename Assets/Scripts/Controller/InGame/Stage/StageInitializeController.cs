@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using Interface.Logic.InGame;
 using Interface.Model.InGame;
 using Interface.View.InGame;
 using R3;
@@ -17,6 +19,7 @@ public class StageInitializeController : IStartable
         IGoalHeightView goalHeightView,
         IGoalEventView goalEventView,
         IGoalEventSubjectModel goalEventSubjectModel,
+        IStoreClearDataLogic storeClearDataLogic,
         CompositeDisposable compositeDisposable
     )
     {
@@ -28,6 +31,7 @@ public class StageInitializeController : IStartable
         GoalHeightView = goalHeightView;
         GoalEventView = goalEventView;
         GoalEventSubjectModel = goalEventSubjectModel;
+        StoreClearDataLogic = storeClearDataLogic;
         CompositeDisposable = compositeDisposable;
     }
 
@@ -37,8 +41,14 @@ public class StageInitializeController : IStartable
         LazyBaseHeightView.BaseHeight.Init(BaseHeightView.PositionY);
         StartPositionView.StartPosition.Init(SpawnPositionView);
         GoalEventView.Performed
-            .Subscribe(this, (unit, controller) => controller.GoalEventSubjectModel.GoalEventSubject.OnNext(unit))
+            .Subscribe(this, (_, controller) => controller.OnGoal())
             .AddTo(CompositeDisposable);
+    }
+
+    private void OnGoal()
+    {
+        GoalEventSubjectModel.GoalEventSubject.OnNext(Unit.Default);
+        StoreClearDataLogic.StoreClearData().Forget();
     }
 
     private CompositeDisposable CompositeDisposable { get; }
@@ -50,4 +60,5 @@ public class StageInitializeController : IStartable
     private IGoalHeightView GoalHeightView { get; }
     private IGoalEventView GoalEventView { get; }
     private IGoalEventSubjectModel GoalEventSubjectModel { get; }
+    private IStoreClearDataLogic StoreClearDataLogic { get; }
 }

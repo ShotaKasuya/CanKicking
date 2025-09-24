@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using Interface.Model.Global;
 using MessagePack;
 using Module.Option.Runtime;
-using Module.SaveLoader;
+using Module.Repository;
 using Structure.Global;
 using Structure.InGame.Stage;
 using UnityEngine;
@@ -30,9 +30,9 @@ namespace Model.Global.SaveData
         {
             var result = await UserStateReader.Read(UserStateFile);
 
-            if (result.IsNone)
+            if (result.TryGetValue(out var dto))
             {
-                _userState = result.Map(Extension.Convert);
+                _userState = Option<UserState>.Some(dto.Convert());
             }
             else
             {
@@ -44,8 +44,20 @@ namespace Model.Global.SaveData
             }
         }
 
+        public void UpdateGameState(GameState gameState)
+        {
+            Debug.Assert(_userState.IsNone);
+
+            _userState = Option<UserState>.Some(new UserState(
+                gameState,
+                ClearedStageName,
+                ProgressData
+            ));
+        }
+
         public UniTask Flush()
         {
+            Debug.Log("Flushed");
             return UserStateWriter.Write(UserStateFile, _userState.Unwrap().Convert());
         }
 
@@ -62,6 +74,15 @@ namespace Model.Global.SaveData
 
     public class UserStateRepository : MessagePackRepository<UserStateDto>
     {
+        public override UniTask Write(string fileName, UserStateDto dataTransferObject)
+        {
+            return InnerWrite(fileName, dataTransferObject);
+        }
+
+        public override UniTask<Option<UserStateDto>> Read(string fileName)
+        {
+            return InnerRead(fileName);
+        }
     }
 
     /// <summary>

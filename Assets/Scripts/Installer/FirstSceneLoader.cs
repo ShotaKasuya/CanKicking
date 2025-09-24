@@ -1,4 +1,4 @@
-using Controller.Global;
+using Controller.OutGame;
 using Model.OutGame;
 using UnityEngine;
 using VContainer;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MessagePack;
 using Structure.InGame.Stage;
 using UnityEngine;
 
@@ -55,10 +56,11 @@ public enum GameState
 /// <summary>
 /// ステージセレクトシーンで見るクリア状況のデータ
 /// </summary>
+[MessagePackObject]
 public class StageProgressData
 {
-    public StageState StageState;
-    public int BestKickCount;
+    [Key(0)] public StageState StageState;
+    [Key(1)] public int BestKickCount;
 
     public StageProgressData(StageState state, int bestKickCount)
     {

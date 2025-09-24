@@ -2,6 +2,7 @@ using System;
 using Controller.Global;
 using Controller.Global.UserInterface;
 using Logic.Global.Scene;
+using Logic.InGame.Primary;
 using Model.Global;
 using Model.Global.SaveData;
 using Model.Global.Scene;
@@ -60,6 +61,7 @@ namespace Installer.Global
             // Logic
             builder.Register<LoadPrimarySceneLogic>(Lifetime.Transient).AsImplementedInterfaces();
             builder.Register<LoadResourceScenesLogic>(Lifetime.Transient).AsImplementedInterfaces();
+            builder.Register<SaveLogic>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Controller
             builder.UseEntryPoints(pointsBuilder =>

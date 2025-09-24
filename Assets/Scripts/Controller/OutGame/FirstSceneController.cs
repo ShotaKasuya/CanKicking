@@ -5,10 +5,11 @@ using Interface.Model.Global;
 using Interface.Model.OutGame;
 using Module.SceneReference.Runtime;
 using Structure.Global;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer.Unity;
 
-namespace Controller.Global;
+namespace Controller.OutGame;
 
 public class FirstSceneController : IAsyncStartable
 {
@@ -35,6 +36,7 @@ public class FirstSceneController : IAsyncStartable
 
         await GameStateModel.Initialize();
         var gameState = GameStateModel.GameState;
+        Debug.Log(gameState);
 
         if (gameState == GameState.Tutorial)
         {

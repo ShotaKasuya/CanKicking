@@ -1,58 +1,12 @@
 using Controller.InGame.Stage;
-using Interface.Model.InGame;
-using Interface.View.InGame;
-using Module.Option.Runtime;
 using NUnit.Framework;
 using R3;
-using UnityEngine;
+using Tests.Mock.InGame;
 
 namespace Tests.EditMode.Controller.InGame.Stage
 {
     public class StageInitializeControllerTest
     {
-        // Mocks
-        private class MockLazyBaseHeightView : ILazyBaseHeightView
-        {
-            public OnceCell<float> BaseHeight { get; } = new();
-        }
-
-        private class MockBaseHeightView : IBaseHeightView
-        {
-            public float PositionY => 10f;
-        }
-
-        private class MockLazyStartPositionView : ILazyStartPositionView
-        {
-            public OnceCell<ISpawnPositionView> StartPosition { get; } = new();
-        }
-
-        private class MockSpawnPositionView : ISpawnPositionView
-        {
-            public Transform StartPosition => new GameObject().transform;
-        }
-
-        private class MockLazyGoalHeightView : ILazyGoalHeightView
-        {
-            public OnceCell<float> GoalHeight { get; } = new();
-        }
-
-        private class MockGoalHeightView : IGoalHeightView
-        {
-            public float PositionY => 100f;
-        }
-
-        private class MockGoalEventView : IGoalEventView
-        {
-            private readonly Subject<Unit> _subject = new();
-            public Observable<Unit> Performed => _subject;
-            public void SimulateGoal() => _subject.OnNext(Unit.Default);
-        }
-
-        private class MockGoalEventSubjectModel : IGoalEventSubjectModel
-        {
-            public Subject<Unit> GoalEventSubject { get; } = new();
-        }
-
         private StageInitializeController _controller;
         private MockLazyBaseHeightView _lazyBaseHeightView;
         private MockBaseHeightView _baseHeightView;
@@ -62,6 +16,7 @@ namespace Tests.EditMode.Controller.InGame.Stage
         private MockGoalHeightView _goalHeightView;
         private MockGoalEventView _goalEventView;
         private MockGoalEventSubjectModel _goalEventSubjectModel;
+        private MockStoreClearDataLogic _storeClearDataLogic;
         private CompositeDisposable _compositeDisposable;
 
         [SetUp]
@@ -75,11 +30,20 @@ namespace Tests.EditMode.Controller.InGame.Stage
             _goalHeightView = new MockGoalHeightView();
             _goalEventView = new MockGoalEventView();
             _goalEventSubjectModel = new MockGoalEventSubjectModel();
+            _storeClearDataLogic = new MockStoreClearDataLogic();
             _compositeDisposable = new CompositeDisposable();
 
             _controller = new StageInitializeController(
-                _lazyBaseHeightView, _baseHeightView, _lazyStartPositionView, _spawnPositionView,
-                _lazyGoalHeightView, _goalHeightView, _goalEventView, _goalEventSubjectModel, _compositeDisposable
+                _lazyBaseHeightView,
+                _baseHeightView,
+                _lazyStartPositionView,
+                _spawnPositionView,
+                _lazyGoalHeightView,
+                _goalHeightView,
+                _goalEventView,
+                _goalEventSubjectModel,
+                _storeClearDataLogic,
+                _compositeDisposable
             );
         }
 
@@ -116,6 +80,17 @@ namespace Tests.EditMode.Controller.InGame.Stage
 
             // Assert
             Assert.IsTrue(wasGoalEventFired);
+        }
+
+        [Test]
+        public void OnGoal_CallsSetClearData()
+        {
+            // Act
+            _controller.Start();
+            _goalEventView.SimulateGoal();
+
+            // Assert
+            Assert.IsTrue(_storeClearDataLogic.IsSetClearDataCalled);
         }
     }
 }

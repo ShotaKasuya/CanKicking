@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Module.Option.Runtime;
 
-namespace Module.SaveLoader
+namespace Module.Repository
 {
     public interface IRepositoryReader<T>
     {
