@@ -2,6 +2,7 @@
     "name": "Repository",
     "rootNamespace": "",
     "references": [
+        "GUID:f1052dff81777ca1197906223025d0ca",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "GUID:057b6ea880ed3e133a39ba8babd31b91"
     ],

@@ -12,7 +12,7 @@ namespace Structure.Global;
 /// * ステージセレクトでのクリア演出
 /// が行われる
 /// </summary>
-public readonly struct UserState
+public readonly record struct UserState
 {
     public GameState GameState { get; }
 
